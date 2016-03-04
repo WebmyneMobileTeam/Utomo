@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Utomo</string>
+
+
+
+
+    //facebook
+    <string name="facebook_app_id">186807128361684</string>
+    //google
+    <string name="server_client_id">950342667766-ff89n5skrn5lkn3k2372sh6iq8hrpn0h.apps.googleusercontent.com</string>
 </resources>
