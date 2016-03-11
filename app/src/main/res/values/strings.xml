@@ -2,10 +2,18 @@
     <string name="app_name">Utomo</string>
 
 
-
-
     //facebook
     <string name="facebook_app_id">186807128361684</string>
     //google
     <string name="server_client_id">950342667766-ff89n5skrn5lkn3k2372sh6iq8hrpn0h.apps.googleusercontent.com</string>
+
+    <integer name="duration_animation">350</integer>
+
+    // dummy texts
+    <string name="dummy1">Lorem Ipsum is simply dummy text</string>
+    <string name="dummy2">It is a long established fact that a reader will be distracted</string>
+    <string name="dummy3">Contrary to popular belief, Lorem Ipsum is not simply random text.</string>
+    <string name="dummy4">There are many variations of passages of Lorem Ipsum available</string>
+    <string name="dummy5">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</string>
+
 </resources>

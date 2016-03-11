@@ -3,4 +3,28 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="silver">#c0c0c0</color>
+    <color name="off_white">#e4e4e4</color>
+    <color name="black">#000000</color>
+    <color name="odometer_background">#2C2C2C</color>
+    <color name="half_black">#9d9d9d</color>
+
+    <!--<color name="purple">#512DA8</color>-->
+    <color name="purple">#673268</color>
+    <color name="gplus">#DD4B39</color>
+    <color name="fb">#3B5998</color>
+    <color name="brown">#d2691e</color>
+
+    <!--health meter progress colors-->
+    <color name="color_default">#0171A3</color>
+    <color name="color60">#00b200</color>
+    <color name="color30">#eeae18</color>
+    <color name="color80">#ffa500</color>
+    <color name="color_high">#ff0000</color>
+
+
+    <color name="blue">#064579</color>
 </resources>

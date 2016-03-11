@@ -1,4 +1,4 @@
-package com.rovertech.utomo.Launch;
+package com.rovertech.utomo.app.refer;
 
 /**
  * Created by raghavthakkar on 04-03-2016.

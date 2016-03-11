@@ -1,4 +1,4 @@
-package com.rovertech.utomo.Launch;
+package com.rovertech.utomo.app;
 
 import android.app.Application;
 

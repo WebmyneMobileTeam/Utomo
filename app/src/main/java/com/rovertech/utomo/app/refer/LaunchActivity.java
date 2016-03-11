@@ -1,4 +1,4 @@
-package com.rovertech.utomo.Launch;
+package com.rovertech.utomo.app.refer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +32,9 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.rovertech.utomo.R;
+
+import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
 
 import org.json.JSONObject;
 
