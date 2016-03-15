@@ -13,13 +13,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 
-public class ServiceCenterListActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class ServiceCenterListActivity extends AppCompatActivity implements ServiceCentreView {
 
     private Toolbar toolbar;
     private TextView txtCustomTitle, txtNoData;
@@ -28,6 +31,10 @@ public class ServiceCenterListActivity extends AppCompatActivity {
     private Button btnSearch;
     private ImageView imgFilter;
     private RecyclerView recyclerView;
+    private LinearLayout searchLayout;
+    private ServiceCentrePresenter presenter;
+    private ArrayList<ServiceCenterPojo> centerArrayList;
+    private ServiceCentreListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,14 @@ public class ServiceCenterListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_service_center_list);
 
         init();
+
+        presenter = new ServiceCentrePresenterImpl(this);
+
+        centerArrayList = new ArrayList<>();
+        centerArrayList = presenter.fetchCentreList();
+
+        adapter = new ServiceCentreListAdapter(ServiceCenterListActivity.this, centerArrayList);
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -48,6 +63,7 @@ public class ServiceCenterListActivity extends AppCompatActivity {
         btnSearch = (Button) findViewById(R.id.btnSearch);
         txtNoData = (TextView) findViewById(R.id.txtNoData);
         imgFilter = (ImageView) findViewById(R.id.imgFilter);
+        searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

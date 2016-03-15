@@ -22,6 +22,7 @@
             android:id="@+id/tab_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textSize="@dimen/N_TEXT"
             android:gravity="center"
             android:text="Hello" />
 

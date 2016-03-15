@@ -56,6 +56,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="8dp"
+            android:textSize="@dimen/N_TEXT"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -140,6 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
+        android:textSize="@dimen/N_TEXT"
         android:text="Skip Login"
         android:textColor="@color/white"
         android:textStyle="bold" />

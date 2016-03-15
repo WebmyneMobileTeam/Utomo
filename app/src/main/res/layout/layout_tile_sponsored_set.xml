@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:clickable="false"
+                android:textSize="@dimen/N_TEXT"
                 android:padding="8dp"
                 android:text="Recommended Service Center" />
 

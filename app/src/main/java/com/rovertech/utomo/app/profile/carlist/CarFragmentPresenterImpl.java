@@ -14,7 +14,6 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
 
     }
 
-
     @Override
     public ArrayList<CarPojo> fetchMyCars() {
 

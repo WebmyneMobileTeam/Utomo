@@ -18,6 +18,7 @@
         <LinearLayout
             android:id="@+id/searchLayout"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -52,19 +53,18 @@
             android:id="@+id/imgFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_filter"
             android:tint="@color/colorPrimary"
             android:tintMode="src_atop"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_filter" />
+             />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
-            android:visibility="gone">
+            android:padding="8dp">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -73,7 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/txtNoData"

@@ -42,7 +42,7 @@
                         android:id="@+id/txtTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:textSize="@dimen/M_TEXT"
                         android:padding="4dp"
                         android:text="Booking Id: BK1F55"
                         android:textColor="@color/white" />
@@ -52,6 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
+                        android:textSize="@dimen/N_TEXT"
                         android:text="11th March, 2016"
                         android:textColor="@color/white" />
 
@@ -59,6 +60,7 @@
                         android:id="@+id/txtCenterName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/N_TEXT"
                         android:padding="2dp"
                         android:text="Dummy Service Center"
                         android:textColor="@color/white" />
@@ -87,6 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:textSize="@dimen/N_TEXT"
                         android:gravity="center_vertical"
                         android:layout_marginLeft="4dp"
                         android:padding="6dp"
@@ -99,6 +102,7 @@
                         android:id="@+id/txtReviews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/N_TEXT"
                         android:layout_centerInParent="true"
                         android:padding="8dp"
                         android:text="1 Reviews"

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,7 +18,8 @@ import com.rovertech.utomo.app.widget.Odometer;
 public class AddCarActivity extends AppCompatActivity implements AddcarView, View.OnClickListener {
 
     private Toolbar toolbar;
-    private TextView txtCustomTitle, txtAdd;
+    private TextView txtCustomTitle;
+    private Button btnAdd;
     private View parentView;
     private RelativeLayout imageSelectLayout;
     private ImageView imageCar;
@@ -41,7 +43,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         initToolbar();
 
         parentView = findViewById(android.R.id.content);
-        txtAdd = (TextView) findViewById(R.id.txtAdd);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
         imageSelectLayout = (RelativeLayout) findViewById(R.id.imageSelectLayout);
         imageCar = (ImageView) findViewById(R.id.imageCar);
         edtVehicleNo = (EditText) findViewById(R.id.edtVehicleNo);
@@ -58,11 +60,11 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         edtPUC.setOnClickListener(this);
         edtInsuranceDate.setOnClickListener(this);
-        txtAdd.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     private void setTypeface() {
-        txtAdd.setTypeface(Functions.getNormalFont(this));
+        btnAdd.setTypeface(Functions.getBoldFont(this));
         edtVehicleNo.setTypeface(Functions.getNormalFont(this));
         edtMakeId.setTypeface(Functions.getNormalFont(this));
         edtModelId.setTypeface(Functions.getNormalFont(this));
@@ -104,7 +106,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 presenter.selectInsuranceDate(AddCarActivity.this);
                 break;
 
-            case R.id.txtAdd:
+            case R.id.btnAdd:
                 Toast.makeText(AddCarActivity.this, odometer.getValue(), Toast.LENGTH_SHORT).show();
                 //odometer.getValue();
                 break;

@@ -8,4 +8,12 @@
     <dimen name="tab_max_width">200dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="VVS_TEXT">8sp</dimen>
+    <dimen name="VS_TEXT">10sp</dimen>
+    <dimen name="S_TEXT">12sp</dimen>
+    <dimen name="N_TEXT">14sp</dimen>
+    <dimen name="M_TEXT">16sp</dimen>
+    <dimen name="L_TEXT">18sp</dimen>
+    <dimen name="XL_TEXT">20sp</dimen>
 </resources>

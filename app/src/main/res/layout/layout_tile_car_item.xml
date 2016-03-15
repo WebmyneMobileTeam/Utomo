@@ -50,7 +50,7 @@
                             android:padding="4dp"
                             android:text="Audi A3"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="@dimen/M_TEXT" />
 
                     </RelativeLayout>
 
@@ -60,7 +60,8 @@
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:text="Acceleration (0-100 kmph): 3.2 sec"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
 
                     <TextView
                         android:id="@+id/txtGear"
@@ -68,7 +69,8 @@
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:text="Gear box: 7 Speed"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
 
                     <TextView
                         android:id="@+id/txtFuel"
@@ -76,7 +78,8 @@
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:text="Fuel Tank Capacity (Liters): 73"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
 
                 </LinearLayout>
 
@@ -98,7 +101,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_gravity="bottom"
                         android:gravity="right"
-                        android:text="Pickup Done" />
+                        android:text="Pickup Done"
+                        android:textSize="@dimen/N_TEXT" />
 
                 </RelativeLayout>
 

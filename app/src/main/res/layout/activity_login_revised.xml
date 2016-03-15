@@ -113,7 +113,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:gravity="center"
-                    android:text="New User? Sign Up" />
+                    android:text="New User? Sign Up"
+                    android:textSize="@dimen/N_TEXT" />
 
                 <TextView
                     android:id="@+id/txtLogin"
@@ -121,7 +122,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:gravity="center"
-                    android:text="Already User? Login" />
+                    android:text="Already User? Login"
+                    android:textSize="@dimen/N_TEXT" />
 
             </LinearLayout>
         </ScrollView>
@@ -134,6 +136,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:text="Terms &amp; Condition" />
+        android:text="Terms &amp; Condition"
+        android:textSize="@dimen/N_TEXT" />
 
 </RelativeLayout>
