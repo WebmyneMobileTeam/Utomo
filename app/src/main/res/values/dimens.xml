@@ -6,4 +6,6 @@
     <dimen name="toolbar_textsize">16sp</dimen>
     <dimen name="social_icon_padding">14dp</dimen>
     <dimen name="tab_max_width">200dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

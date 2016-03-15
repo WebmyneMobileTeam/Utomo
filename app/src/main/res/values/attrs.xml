@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <!--PagerTabStrip-->
     <declare-styleable name="PagerSlidingTabStrip">
         <attr name="pstsIndicatorColor" format="color" />
         <attr name="pstsUnderlineColor" format="color" />
@@ -30,15 +30,38 @@
         <attr name="pstsTextSelectedAlpha" format="float" />
     </declare-styleable>
 
+    <!--Odometer-->
     <declare-styleable name="Options">
         <attr name="slots" format="integer" />
     </declare-styleable>
 
+    <!--Progress Layout-->
     <declare-styleable name="progressLayout">
         <attr name="emptyColor" format="color" />
         <attr name="loadedColor" format="color" />
         <attr name="maxProgress" format="integer" />
-        <attr name="autoProgress" format="boolean"/>
+        <attr name="autoProgress" format="boolean" />
+        <attr name="currentProgress" format="integer" />
     </declare-styleable>
+
+    <!-- Label View-->
+    <declare-styleable name="LabelView">
+        <attr name="label_distance" format="dimension" />
+        <attr name="label_height" format="dimension" />
+        <attr name="label_backgroundColor" format="color" />
+        <attr name="label_text" format="string" />
+        <attr name="label_textSize" format="dimension" />
+        <attr name="label_textColor" format="color" />
+        <attr name="label_typeface" format="string" />
+
+        <attr name="label_visual" format="boolean" />
+        <attr name="label_orientation" format="enum">
+            <enum name="LEFT_TOP" value="1" />
+            <enum name="RIGHT_TOP" value="2" />
+            <enum name="LEFT_BOTTOM" value="3" />
+            <enum name="RIGHT_BOTTOM" value="4" />
+        </attr>
+    </declare-styleable>
+
 
 </resources>

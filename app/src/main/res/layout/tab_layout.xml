@@ -2,12 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <!-- Tab title -->
-    <TextView
-        android:id="@+id/tab_title"
-        android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/tab_image"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:tint="@color/trans_blue"
+            android:padding="6dp"
+            android:src="@drawable/wrench" />
+
+        <TextView
+            android:id="@+id/tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Hello" />
+
+    </LinearLayout>
+
+
+    <!-- Tab divider -->
+    <View
+        android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:gravity="center" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#bdd1d1d1" />
 
 </RelativeLayout>

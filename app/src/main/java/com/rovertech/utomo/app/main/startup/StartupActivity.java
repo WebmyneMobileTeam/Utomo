@@ -98,8 +98,8 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
     private void setTypeface() {
         txtSkip.setTypeface(Functions.getNormalFont(this));
-        btnLogin.setTypeface(Functions.getNormalFont(this));
-        btnSignUp.setTypeface(Functions.getNormalFont(this));
+        btnLogin.setTypeface(Functions.getBoldFont(this));
+        btnSignUp.setTypeface(Functions.getBoldFont(this));
     }
 
     private void initPager() {

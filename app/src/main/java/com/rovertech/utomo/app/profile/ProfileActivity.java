@@ -1,25 +1,29 @@
 package com.rovertech.utomo.app.profile;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.Functions;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView txtCustomTitle;
     private View parentView;
-    private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ViewPager viewPager;
     private CustomAdapter adapter;
+    private String tabTitles[] = new String[]{"Personal", "My Car"};
+    private int tabIcons[] = new int[]{R.drawable.ic_account, R.drawable.ic_car};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,44 +37,25 @@ public class ProfileActivity extends AppCompatActivity {
         initToolbar();
 
         parentView = findViewById(android.R.id.content);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.pager);
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        viewPager = (ViewPager) parentView.findViewById(R.id.pager);
+        tabLayout = (TabLayout) parentView.findViewById(R.id.tab_layout);
+        setupViewPager(viewPager);
 
-        adapter = new CustomAdapter(getSupportFragmentManager(), ProfileActivity.this);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+
+        adapter = new CustomAdapter(getSupportFragmentManager(), this, tabTitles);
         viewPager.setAdapter(adapter);
+
         tabLayout.setupWithViewPager(viewPager);
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                viewPager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        for (int i = 1; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            RelativeLayout relativeLayout = (RelativeLayout)
-                    LayoutInflater.from(this).inflate(R.layout.tab_layout, tabLayout, false);
-
-            TextView tabTextView = (TextView) relativeLayout.findViewById(R.id.tab_title);
-            tabTextView.setText(tab.getText());
-            tab.setCustomView(relativeLayout);
-            tab.select();
-        }
-
         viewPager.setCurrentItem(0);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));
+        }
 
     }
 
@@ -83,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("My Profile");
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

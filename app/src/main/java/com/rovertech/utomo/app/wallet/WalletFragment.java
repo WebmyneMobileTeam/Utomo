@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.main.dashboard.DashboardActivity;
-import com.rovertech.utomo.app.main.dashboard.DashboardPresenter;
+import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 
 public class WalletFragment extends Fragment {
 
     private View parentView;
-    private DashboardActivity activity;
+    private DrawerActivity activity;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -42,6 +41,6 @@ public class WalletFragment extends Fragment {
     }
 
     private void init() {
-        activity = (DashboardActivity) getActivity();
+        activity = (DrawerActivity) getActivity();
     }
 }

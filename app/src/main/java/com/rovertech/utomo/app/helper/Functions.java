@@ -30,21 +30,6 @@ import java.util.Date;
 
 public class Functions {
 
-    public static float convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return px;
-    }
-
-
-    public static float convertPixelsToDp(float px, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / (metrics.densityDpi / 160f);
-        return dp;
-    }
-
     public static void fireIntent(Context context, Class cls) {
         Intent i = new Intent(context, cls);
         context.startActivity(i);
@@ -179,29 +164,6 @@ public class Functions {
             }
         });
         alert.show();
-    }
-
-    public static boolean checkSdCardSpace() {
-
-        boolean isValid = false;
-
-        StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-        long bytesAvailable = (long) stat.getBlockSize() * (long) stat.getBlockCount();
-        Log.d("bytesAvailable  :", String.valueOf(bytesAvailable));
-
-        long megAvailable = bytesAvailable / 1048576;
-        if (megAvailable >= 50) {
-            isValid = true;
-        }
-
-        return isValid;
-    }
-
-    public static boolean isBlank(EditText editText) {
-        if (editText.getText().toString().trim().length() == 0)
-            return true;
-        else
-            return false;
     }
 
     public static void openInMap(Context context, double latitude, double longitude, String labelName) {

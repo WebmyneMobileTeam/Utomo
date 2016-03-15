@@ -103,7 +103,9 @@ public class ProgressLayout extends View implements Animatable {
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.progressLayout);
     isAutoProgress = a.getBoolean(R.styleable.progressLayout_autoProgress, true);
     maxProgress = a.getInt(R.styleable.progressLayout_maxProgress, 0);
+    currentProgress = a.getInt(R.styleable.progressLayout_currentProgress, 0);
     maxProgress = maxProgress * 10;
+    currentProgress = currentProgress *10;
     int loadedColor = a.getColor(R.styleable.progressLayout_loadedColor, COLOR_LOADED_DEFAULT);
     int emptyColor = a.getColor(R.styleable.progressLayout_emptyColor, COLOR_EMPTY_DEFAULT);
     a.recycle();

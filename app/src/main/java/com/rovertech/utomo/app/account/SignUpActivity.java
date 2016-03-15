@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.main.dashboard.DashboardActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 public class SignUpActivity extends AppCompatActivity implements AccountView, View.OnClickListener {
 
@@ -67,11 +66,11 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     private void setTypeface() {
         txtOr.setTypeface(Functions.getBoldFont(this));
-        btnLogin.setTypeface(Functions.getNormalFont(this));
+        btnLogin.setTypeface(Functions.getBoldFont(this));
         txtSignUp.setTypeface(Functions.getNormalFont(this));
         txtLogin.setTypeface(Functions.getNormalFont(this));
         txtTc.setTypeface(Functions.getNormalFont(this));
-        txtCustomTitle.setTypeface(Functions.getNormalFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
     }
 
     private void initToolbar() {
@@ -139,7 +138,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void navigateDashboard() {
-        Functions.fireIntent(SignUpActivity.this, DashboardActivity.class);
+        Functions.fireIntent(SignUpActivity.this, DrawerActivity.class);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
 
