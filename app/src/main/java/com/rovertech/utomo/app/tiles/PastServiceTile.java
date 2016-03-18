@@ -36,6 +36,10 @@ public class PastServiceTile extends LinearLayout {
         init();
     }
 
+    public View getParentView() {
+        return parentView;
+    }
+
     private void init() {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         parentView = inflater.inflate(R.layout.layout_tile_past_service, this, true);

@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,5 +59,9 @@ public class CurrentServiceTile extends LinearLayout {
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
         txtCenterAddress = (TextView) parentView.findViewById(R.id.txtCenterAddress);
         txtServiceStatus = (TextView) parentView.findViewById(R.id.txtServiceStatus);
+    }
+
+    public View getParentView() {
+        return parentView;
     }
 }

@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/currentBookingRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".bookings.CurrentBooking.CurrentBookingFragment">
+    </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
+
+</RelativeLayout>
+
+

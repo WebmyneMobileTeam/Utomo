@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.main.drawer;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -200,10 +201,14 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
     @Override
     public void actionBookings() {
-        setHeaderTitle("My Bookings");
+        initFragment(MyBookingFragment.newInstance(), "My Bookings");
+    }
+
+    private void initFragment(Fragment fragment, String title) {
+        setHeaderTitle(title);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, new MyBookingFragment());
+        fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
     }
 

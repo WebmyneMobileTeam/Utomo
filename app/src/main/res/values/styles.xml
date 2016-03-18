@@ -44,7 +44,7 @@
         <item name="tabPaddingEnd">0dp</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/gplus</item>
+        <!--<item name="tabSelectedTextColor">@color/gplus</item>-->
     </style>
 
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
