@@ -249,6 +249,25 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         }
     }
 
+    @Override
+    public void addCar(Context context, File file, String vehicleNo, String selectedMake, String selectedYear, String selectedModel,
+                       String serviceDate, String pucDate, String insuranceDate, String odometerValue) {
+
+        if (vehicleNo.equals("")) {
+            Functions.showToast(context, "Vehicle number cannot be empty");
+
+        } else if (!Functions.vehicleValidation(vehicleNo)) {
+            Functions.showToast(context, "Invalid Vehicle number");
+
+        } else if (selectedMake.equals("")) {
+            Functions.showToast(context, "Select Dealership");
+        } else if (selectedYear.equals("")) {
+            Functions.showToast(context, "Select Year");
+        } else if (selectedModel.equals("")) {
+            Functions.showToast(context, "Select Year");
+        }
+    }
+
     private void doFileUploadAnother(File f, final Context context) throws Exception {
 
         HttpClient httpclient = new DefaultHttpClient();

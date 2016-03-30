@@ -48,13 +48,13 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     private AppCompatSpinner makeSpinner, yearSpinner, modelSpinner;
     private ProgressBar makeProgressBar, yearProgressBar, modelProgressBar;
-    private String selectedMake, selectedYear, selectedModel;
+    private String selectedMake = "", selectedYear = "", selectedModel = "";
 
     private CardView yearCardView, modelCardView;
     private ProgressDialog progressDialog;
 
     private boolean isSkip;
-    private File file;
+    private File file = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,9 +209,8 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 break;
 
             case R.id.btnAdd:
-                Toast.makeText(AddCarActivity.this, odometer.getValue() + "_" +
-                        Functions.vehicleValidation(Functions.toStr(edtVehicleNo)), Toast.LENGTH_SHORT).show();
-                //odometer.getValue();
+                presenter.addCar(AddCarActivity.this, file, Functions.toStr(edtVehicleNo), selectedMake, selectedYear, selectedModel, Functions.toStr(edtServiceDate),
+                        Functions.toStr(edtPUC), Functions.toStr(edtInsuranceDate), odometer.getValue());
                 break;
 
             case R.id.edtServiceDate:
