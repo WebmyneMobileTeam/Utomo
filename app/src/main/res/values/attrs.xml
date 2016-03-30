@@ -62,6 +62,7 @@
             <enum name="RIGHT_BOTTOM" value="4" />
         </attr>
     </declare-styleable>
+
     <declare-styleable name="FamiliarRecyclerView">
         <attr name="frv_divider" format="reference|color" />
         <attr name="frv_dividerVertical" format="reference|color" />
@@ -85,6 +86,33 @@
         <attr name="frv_isReverseLayout" format="boolean" />
         <attr name="frv_headerDividersEnabled" format="boolean" />
         <attr name="frv_footerDividersEnabled" format="boolean" />
+    </declare-styleable>
+
+    <!--Flow Layout attr-->
+    <declare-styleable name="FlowLayout">
+        <attr name="android:gravity" />
+    </declare-styleable>
+    <declare-styleable name="FlowLayout_Layout">
+        <attr name="android:layout_gravity" />
+    </declare-styleable>
+
+
+    <!--rating bar-->
+    <declare-styleable name="ColoredRatingBar">
+        <attr name="indicator" format="boolean" />
+        <attr name="rating" format="float" />
+        <attr name="type" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="small" value="1" />
+        </attr>
+
+        <attr name="coloredRatingBarStyle" format="reference" />
+        <!-- Indicator RatingBar style. -->
+        <attr name="coloredRatingBarStyleIndicator" format="reference" />
+        <!-- Small RatingBar style. -->
+        <attr name="coloredRatingBarStyleSmall" format="reference" />
+        <!-- Small indicator RatingBar style. -->
+        <attr name="coloredRatingBarStyleSmallIndicator" format="reference" />
     </declare-styleable>
 
 </resources>

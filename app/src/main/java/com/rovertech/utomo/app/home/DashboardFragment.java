@@ -55,6 +55,7 @@ public class DashboardFragment extends Fragment {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
+        activity.hideFab(false);
 
         viewPager = (ViewPager) parentView.findViewById(R.id.pager);
         tabLayout = (TabLayout) parentView.findViewById(R.id.tab_layout);
@@ -104,6 +105,15 @@ public class DashboardFragment extends Fragment {
             tab.setCustomView(adapter.getTabView(i));
         }
 
+    }
+
+    public static DashboardFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        DashboardFragment fragment = new DashboardFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private class CarFragmentPagerAdapter extends FragmentStatePagerAdapter {

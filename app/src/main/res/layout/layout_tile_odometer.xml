@@ -15,6 +15,8 @@
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="4dp"
             android:textSize="@dimen/N_TEXT"
             android:padding="4dp"
             android:text="Odometer Reading" />

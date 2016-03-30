@@ -22,10 +22,12 @@ public class CentreServiceTypeTile extends LinearLayout {
 
     private ImageView imgServiceIcon;
     private TextView txtServiceName;
+    private String serviceString;
 
-    public CentreServiceTypeTile(Context context) {
+    public CentreServiceTypeTile(Context context, String serviceString) {
         super(context);
         this.context = context;
+        this.serviceString = serviceString;
         init();
     }
 
@@ -43,6 +45,8 @@ public class CentreServiceTypeTile extends LinearLayout {
         txtServiceName = (TextView) parentView.findViewById(R.id.txtServiceName);
 
         txtServiceName.setTypeface(Functions.getNormalFont(context));
+
+        txtServiceName.setText(serviceString);
 
     }
 

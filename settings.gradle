@@ -1,1 +1,1 @@
-include ':app', ':fabtransitionactivity'
+include ':app'

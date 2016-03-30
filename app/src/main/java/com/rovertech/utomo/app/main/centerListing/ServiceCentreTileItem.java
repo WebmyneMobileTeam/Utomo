@@ -1,6 +1,7 @@
-package com.rovertech.utomo.app.tiles.serviceCentre;
+package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,12 +10,12 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.main.centerListing.ServiceCenterPojo;
+import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 
 /**
  * Created by sagartahelyani on 10-03-2016.
  */
-public class ServiceCentreTile extends LinearLayout {
+public class ServiceCentreTileItem extends LinearLayout {
 
     Context context;
     private View parentView;
@@ -22,8 +23,9 @@ public class ServiceCentreTile extends LinearLayout {
 
     private TextView txtCentreName, txtCentreAddress, txtRating, txtReviews, txtOffers, txtDistance;
     private ImageView imgCenter;
+    private CardView cardLayout;
 
-    public ServiceCentreTile(Context context, View view) {
+    public ServiceCentreTileItem(Context context, View view) {
         super(context);
         this.context = context;
         this.parentView = view;
@@ -32,10 +34,19 @@ public class ServiceCentreTile extends LinearLayout {
 
     private void init() {
 
+       /* inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        parentView = inflater.inflate(R.layout.layout_tile_centre_item, this, false);*/
+
         findViewById();
 
         setTypeface();
 
+        cardLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.fireIntent(context, CentreDetailsActivity.class);
+            }
+        });
     }
 
     private void setTypeface() {
@@ -56,16 +67,17 @@ public class ServiceCentreTile extends LinearLayout {
         txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
         txtOffers = (TextView) parentView.findViewById(R.id.txtOffers);
         txtDistance = (TextView) parentView.findViewById(R.id.txtDistance);
+        cardLayout = (CardView) parentView.findViewById(R.id.cardLayout);
 
     }
 
     public void setDetails(ServiceCenterPojo centerPojo) {
-        txtCentreName.setText(centerPojo.centreName);
-        txtCentreAddress.setText(centerPojo.centreInfo);
-        txtRating.setText(centerPojo.centreRating + "");
-        txtReviews.setText(centerPojo.centreReviewCount + " Reviews");
+        txtCentreName.setText(centerPojo.ServiceCentreName);
+        //txtCentreAddress.setText(centerPojo.centreInfo);
+        txtRating.setText(centerPojo.ServiceCentreID + "");
+        //txtReviews.setText(centerPojo.centreReviewCount + " Reviews");
 
-        if (centerPojo.isOffer) {
+        if (centerPojo.IsOfferAvaill) {
             txtOffers.setVisibility(VISIBLE);
         } else {
             txtOffers.setVisibility(GONE);

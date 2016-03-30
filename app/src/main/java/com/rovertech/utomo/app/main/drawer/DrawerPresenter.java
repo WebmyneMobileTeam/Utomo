@@ -1,6 +1,9 @@
 package com.rovertech.utomo.app.main.drawer;
 
 import android.content.Context;
+import android.view.MenuItem;
+
+import com.rovertech.utomo.app.helper.BadgeHelper;
 
 /**
  * Created by sagartahelyani on 07-03-2016.
@@ -17,7 +20,7 @@ public interface DrawerPresenter {
 
     void openAboutUs();
 
-    void logOut();
+    void logOut(Context context);
 
     void openDashboard();
 
@@ -26,4 +29,10 @@ public interface DrawerPresenter {
     void openCenterListing();
 
     void rateUs(Context context);
+
+    void setNotificationBadge(BadgeHelper badgeHelper);
+
+    void openNotification(Context context);
+
+    void share(Context context);
 }

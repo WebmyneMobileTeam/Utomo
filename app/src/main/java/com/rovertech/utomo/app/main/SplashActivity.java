@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -7,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.Prefs;
+import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.startup.StartupActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private boolean isFirstTime;
     private boolean isLoggedIn;
 
     @Override
@@ -20,33 +21,28 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        isFirstTime = Prefs.with(this).getBoolean(AppConstant.FIRST_TIME, false);
-        isLoggedIn = Prefs.with(this).getBoolean(AppConstant.LOGGED_IN, false);
+        isLoggedIn = PrefUtils.isUserLoggedIn(this);
 
-        if (isFirstTime) {
-            new CountDownTimer(3000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
+        new CountDownTimer(1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
 
-                }
-
-                @Override
-                public void onFinish() {
-                    Prefs.with(SplashActivity.this).save(AppConstant.FIRST_TIME, true);
-                    Functions.fireIntent(SplashActivity.this, StartupActivity.class);
-                    finish();
-                }
-            }.start();
-
-        } else {
-
-            if (isLoggedIn) {
-
-            } else {
-                Functions.fireIntent(SplashActivity.this, StartupActivity.class);
-                finish();
             }
 
-        }
+            @Override
+            public void onFinish() {
+                if (isLoggedIn) {
+                    Intent intent = new Intent(SplashActivity.this, DrawerActivity.class);
+                    intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+
+                } else {
+                    Functions.fireIntent(SplashActivity.this, StartupActivity.class);
+                }
+
+                finish();
+            }
+        }.start();
     }
 }

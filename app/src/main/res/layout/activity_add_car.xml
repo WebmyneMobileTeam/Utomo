@@ -42,14 +42,126 @@
 
                 <EditText
                     android:id="@+id/edtVehicleNo"
+                    style="@style/MyEditTextStyle"
+                    android:digits="@string/digits"
+                    android:drawableLeft="@drawable/ic_account"
+                    android:hint="Vehicle No"
+                    android:inputType="textCapCharacters|textNoSuggestions|"
+                    android:singleLine="true"
+                    android:textAllCaps="true" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/makeCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
-                    android:hint="No"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edittext_padding"
+                        android:src="@drawable/ic_account" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/makeSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edittext_padding"
+                        android:layout_marginRight="@dimen/edittext_padding"
+                        android:layout_weight="1"
+                        android:entries="@array/spinner_loading_array"
+                        android:overlapAnchor="false" />
+
+                    <ProgressBar
+                        android:id="@+id/makeProgressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="8dp" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/yearCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edittext_padding"
+                        android:src="@drawable/ic_account" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/yearSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edittext_padding"
+                        android:layout_marginRight="@dimen/edittext_padding"
+                        android:layout_weight="1"
+                        android:entries="@array/spinner_loading_array"
+                        android:overlapAnchor="false" />
+
+                    <ProgressBar
+                        android:id="@+id/yearProgressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="8dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/modelCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edittext_padding"
+                        android:src="@drawable/ic_account" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/modelSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/edittext_padding"
+                        android:layout_marginRight="@dimen/edittext_padding"
+                        android:layout_weight="1"
+                        android:entries="@array/spinner_loading_array"
+                        android:overlapAnchor="false" />
+
+                    <ProgressBar
+                        android:id="@+id/modelProgressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="8dp" />
+                </LinearLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -58,66 +170,13 @@
                 android:layout_marginTop="8dp">
 
                 <EditText
-                    android:id="@+id/edtMakeId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
+                    android:id="@+id/edtServiceDate"
+                    style="@style/MyEditTextStyle"
+                    android:clickable="true"
                     android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
-                    android:hint="Make"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtModelId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
-                    android:hint="Model"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtYear"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
-                    android:hint="Year"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtRegNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
-                    android:hint="Registration No"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
+                    android:focusable="false"
+                    android:hint="Add service Date"
+                    android:longClickable="false" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -127,16 +186,12 @@
 
                 <EditText
                     android:id="@+id/edtPUC"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
+                    style="@style/MyEditTextStyle"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
                     android:focusable="false"
                     android:hint="PUC Date"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
+                    android:longClickable="false" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -146,16 +201,12 @@
 
                 <EditText
                     android:id="@+id/edtInsuranceDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
+                    style="@style/MyEditTextStyle"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_account"
-                    android:drawablePadding="16dp"
                     android:focusable="false"
                     android:hint="Insurance Date"
-                    android:padding="16dp"
-                    android:textSize="@dimen/L_TEXT" />
+                    android:longClickable="false" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView

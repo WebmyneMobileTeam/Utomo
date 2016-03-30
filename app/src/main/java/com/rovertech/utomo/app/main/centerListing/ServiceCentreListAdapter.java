@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.tiles.serviceCentre.ServiceCentreTile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sagartahelyani on 15-03-2016.
@@ -17,14 +17,14 @@ import java.util.ArrayList;
 public class ServiceCentreListAdapter extends RecyclerView.Adapter<ServiceCentreListAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<ServiceCenterPojo> centerArrayList;
+    List<ServiceCenterPojo> centerArrayList;
 
-    public ServiceCentreListAdapter(Context context, ArrayList<ServiceCenterPojo> centerArrayList) {
+    public ServiceCentreListAdapter(Context context, List<ServiceCenterPojo> centerArrayList) {
         this.context = context;
         this.centerArrayList = centerArrayList;
     }
 
-    public void setCentreList(ArrayList<ServiceCenterPojo> centerArrayList) {
+    public void setCentreList(List<ServiceCenterPojo> centerArrayList) {
         this.centerArrayList = new ArrayList<>();
         this.centerArrayList = centerArrayList;
         notifyDataSetChanged();
@@ -32,7 +32,7 @@ public class ServiceCentreListAdapter extends RecyclerView.Adapter<ServiceCentre
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tile_centre_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tile_centre, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         viewHolder.serviceCentreTile = new ServiceCentreTile(context, v);
         return viewHolder;

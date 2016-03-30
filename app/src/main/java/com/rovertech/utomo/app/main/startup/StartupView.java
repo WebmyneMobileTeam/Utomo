@@ -5,8 +5,6 @@ package com.rovertech.utomo.app.main.startup;
  */
 public interface StartupView {
 
-    void onSkip();
-
     void normalLogin();
 
     void signUp();

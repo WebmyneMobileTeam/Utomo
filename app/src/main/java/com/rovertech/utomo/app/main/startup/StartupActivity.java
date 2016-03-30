@@ -16,6 +16,7 @@ import android.widget.ViewSwitcher;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.LoginActivity;
 import com.rovertech.utomo.app.account.SignUpActivity;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.widget.linkedViewPager.MyPagerAdapter;
 import com.rovertech.utomo.app.widget.linkedViewPager.ViewPager;
@@ -26,7 +27,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
     private TextView txtSkip;
     private TextSwitcher textView;
-    private ImageView imgFb, imgGoogle;
     private TextView btnLogin, btnSignUp;
 
     private StartupPresenter presenter;
@@ -39,10 +39,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     private ViewPager mFramePager;
     private ArrayList<View> mFramePageViews;
     private MyPagerAdapter mFramePageAdapter;
-
-    String[] texts = {"Lorem Ipsum is simply dummy text", "It is a long established fact that a reader will be distracted",
-            "Contrary to popular belief, Lorem Ipsum is not simply random text.", "There are many variations of passages of Lorem Ipsum available",
-            "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +61,11 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
             public View makeView() {
                 TextView myText = new TextView(StartupActivity.this);
                 myText.setGravity(Gravity.CENTER);
-                myText.setTextSize(16);
+                myText.setTextSize(getResources().getDimension(R.dimen.VVS_TEXT));
                 myText.setPadding(2, 2, 2, 2);
                 myText.setEllipsize(TextUtils.TruncateAt.END);
                 myText.setLines(2);
-                myText.setText(texts[0]);
+                myText.setText(AppConstant.startupTexts[0]);
                 myText.setTypeface(Functions.getNormalFont(StartupActivity.this));
                 myText.setTextColor(Color.BLACK);
                 return myText;
@@ -78,8 +74,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
         parentView = findViewById(android.R.id.content);
         txtSkip = (TextView) findViewById(R.id.txtSkip);
-        imgFb = (ImageView) findViewById(R.id.imgFb);
-        imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
         btnLogin = (TextView) findViewById(R.id.btnLogin);
         btnSignUp = (TextView) findViewById(R.id.btnSignUp);
         mPager = (ViewPager) findViewById(R.id.viewPager);
@@ -88,8 +82,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
         initPager();
 
         txtSkip.setOnClickListener(this);
-        imgFb.setOnClickListener(this);
-        imgGoogle.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
 
@@ -97,7 +89,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     }
 
     private void setTypeface() {
-        txtSkip.setTypeface(Functions.getNormalFont(this));
+        txtSkip.setTypeface(Functions.getBoldFont(this));
         btnLogin.setTypeface(Functions.getBoldFont(this));
         btnSignUp.setTypeface(Functions.getBoldFont(this));
     }
@@ -164,7 +156,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                     textView.setOutAnimation(StartupActivity.this, R.anim.slide_out_left);
 
                 }
-                textView.setText(texts[position]);
+                textView.setText(AppConstant.startupTexts[position]);
             }
 
             @Override
@@ -189,7 +181,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtSkip:
-                presenter.skip();
+                presenter.skip(this);
                 break;
 
             case R.id.imgFb:
@@ -208,11 +200,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                 presenter.signUp();
                 break;
         }
-    }
-
-    @Override
-    public void onSkip() {
-        Functions.showSnack(parentView, "Skip");
     }
 
     @Override

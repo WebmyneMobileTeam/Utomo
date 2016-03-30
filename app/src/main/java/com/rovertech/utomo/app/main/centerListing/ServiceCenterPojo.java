@@ -7,24 +7,45 @@ import java.io.Serializable;
  */
 public class ServiceCenterPojo implements Serializable {
 
-    public String centreImage;
+    public String ContactName;
 
-    public String centreName;
+    public String ContactPhoneNo1;
 
-    public String centreInfo;
+    public String ContactPhoneNo2;
 
-    public double centreRating;
+    public float DistanceKM;
 
-    public int centreReviewCount;
+    public boolean IsBodyWash;
 
-    public boolean isOffer;
+    public boolean IsOfferAvaill;
+
+    public boolean IsPickupDrop;
+
+    public float Lattitude;
+
+    public float Longitude;
+
+    public double Rating;
+
+    public int ReviewCounter;
+
+    public int ServiceCentreID;
+
+    public String ServiceCentreImage;
+
+    public String ServiceCentreName;
 
     public ServiceCenterPojo() {
-        this.centreImage = "";
-        this.centreName = "";
-        this.centreInfo = "";
-        this.centreRating = 0;
-        this.centreReviewCount = 0;
-        this.isOffer = false;
+        this.ContactName = "";
+        this.ContactPhoneNo1 = "";
+        this.ContactPhoneNo2 = "";
+        this.IsBodyWash = false;
+        this.IsOfferAvaill = false;
+        this.IsPickupDrop = false;
+        this.Rating = 0.0;
+        this.ReviewCounter = 0;
+        this.ServiceCentreID = 0;
+        this.ServiceCentreImage = "";
+        this.ServiceCentreName = "";
     }
 }

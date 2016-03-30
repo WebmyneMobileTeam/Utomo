@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.refer;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -81,6 +82,16 @@ public class LaunchActivity extends AppCompatActivity implements GoogleApiClient
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
                 final Profile profile = Profile.getCurrentProfile();
+                Uri profileUri = null;
+
+                if (profile != null) {
+                    profileUri = profile.getProfilePictureUri(640, 640);
+
+                    Log.e("### Profile pic url",""+profileUri);
+                }else{
+                    Log.e("### Profile pic url","notfound NULL");
+                }
+
 
                 if (profile != null) {
 

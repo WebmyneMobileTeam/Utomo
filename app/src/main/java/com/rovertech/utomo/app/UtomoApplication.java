@@ -3,6 +3,10 @@ package com.rovertech.utomo.app;
 import android.app.Application;
 
 import com.google.gson.Gson;
+import com.rovertech.utomo.app.helper.AppConstant;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -13,6 +17,7 @@ public class UtomoApplication extends Application {
 
     private static UtomoApplication utomoApplication;
     private Gson gson;
+    public static Retrofit retrofit;
 
 
     @Override
@@ -21,6 +26,11 @@ public class UtomoApplication extends Application {
 
         utomoApplication = this;
         setGson();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(AppConstant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
 
     }

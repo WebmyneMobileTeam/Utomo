@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles.sponsoredCenter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 
 /**
  * Created by sagartahelyani on 10-03-2016.
@@ -22,6 +24,7 @@ public class SponsoredCenterTile extends LinearLayout {
 
     private TextView txtTitle, txtInfo, txtDetails;
     private ImageView imgCenter;
+    private CardView sponsoredCardView;
 
     public SponsoredCenterTile(Context context) {
         super(context);
@@ -43,6 +46,13 @@ public class SponsoredCenterTile extends LinearLayout {
 
         setTypeface();
 
+        sponsoredCardView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.fireIntent(context, CentreDetailsActivity.class);
+            }
+        });
+
     }
 
     private void setTypeface() {
@@ -57,6 +67,7 @@ public class SponsoredCenterTile extends LinearLayout {
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtInfo = (TextView) parentView.findViewById(R.id.txtInfo);
         txtDetails = (TextView) parentView.findViewById(R.id.txtDetails);
+        sponsoredCardView = (CardView) parentView.findViewById(R.id.sponsoredCardView);
 
     }
 }
