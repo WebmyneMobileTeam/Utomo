@@ -3,6 +3,8 @@ package com.rovertech.utomo.app.addCar;
 import android.content.Context;
 import android.content.Intent;
 
+import java.io.File;
+
 /**
  * Created by sagartahelyani on 09-03-2016.
  */
@@ -23,4 +25,7 @@ public interface AddCarPresenter {
     void navigateDashboard(Context context);
 
     void getImage(Intent data, Context context, int requestCode);
+
+    void addCar(Context context, File file, String vehicleNo, String selectedMake, String selectedYear, String selectedModel,
+                String serviceDate, String pucDate, String insuranceDate, String odometerValue);
 }
