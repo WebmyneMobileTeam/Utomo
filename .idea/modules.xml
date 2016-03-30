@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Utomo.iml" filepath="$PROJECT_DIR$/Utomo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fabtransitionactivity/fabtransitionactivity.iml" filepath="$PROJECT_DIR$/fabtransitionactivity/fabtransitionactivity.iml" />
     </modules>
   </component>
 </project>

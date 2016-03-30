@@ -9,26 +9,40 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.StatFs;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.gson.GsonBuilder;
+
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Functions {
+
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private static final String VEHICLE_NO_PATTERN = "[A-Z]{2}\\s\\d{1,2}\\s[A-Z]{1,2}\\s\\d{3,4}";
+
+    private static Pattern pattern;
+    private static Matcher matcher;
 
     public static void fireIntent(Context context, Class cls) {
         Intent i = new Intent(context, cls);
@@ -46,34 +60,32 @@ public class Functions {
         return tf;
     }
 
-    public static boolean emailValidation(String email) {
-        boolean validEmailAddress = true;
-        if (email.length() == 0) {
-            validEmailAddress = false;
+    public static String jsonString(Object obj) {
+        return "" + new GsonBuilder().create().toJson(obj).toString();
+    }
+
+
+    public static boolean isGooglePlayServiceAvailable(Context mContext) {
+        boolean flag = false;
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(mContext.getApplicationContext());
+        if (status == ConnectionResult.SUCCESS) {
+            flag = true;
         } else {
-            if (!email.contains(".") || !email.contains("@")) {
-                validEmailAddress = false;
-            } else {
-                int index1 = email.indexOf("@");
-                String subStringType = email.substring(index1);
-                int index2 = index1 + subStringType.indexOf(".");
-                if (index1 == 0 || index2 == 0) {
-                    validEmailAddress = false;
-                } else {
-                    String typeOf = email.substring(index1, index2);
-                    if (typeOf.length() < 1) {
-                        validEmailAddress = false;
-                    }
-                    String typeOf2 = email.substring(index2);
-                    if (typeOf2.length() < 2) {
-                        validEmailAddress = false;
-                    }
-                }
-
-            }
+            flag = false;
         }
+        return flag;
+    }
 
-        return validEmailAddress;
+    public static boolean emailValidation(String email) {
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean vehicleValidation(String vehicleNo) {
+        pattern = Pattern.compile(VEHICLE_NO_PATTERN);
+        matcher = pattern.matcher(vehicleNo);
+        return matcher.matches();
     }
 
     public static String parseDate(String inputDate, String inputPattern, String outputPattern) {
@@ -94,6 +106,10 @@ public class Functions {
 
     public static void showSnack(View v, String msg) {
         Snackbar.make(v, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    public static void showToast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void rotateViewClockwise(ImageView imageview) {
@@ -173,4 +189,20 @@ public class Functions {
         context.startActivity(intent);
     }
 
+    public static Uri getImageUri(Context context, Bitmap thumbnail) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), thumbnail, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public static String getRealPathFromURI(Context context, Uri tempUri) {
+        Cursor cursor = context.getContentResolver().query(tempUri, null, null, null, null);
+        int idx = 0;
+        if (cursor != null) {
+            cursor.moveToFirst();
+            idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        }
+        return cursor.getString(idx);
+    }
 }

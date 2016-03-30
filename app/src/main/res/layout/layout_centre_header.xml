@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:overScrollMode="never"
+            android:layout_height="240dp" />
+
+        <ImageView
+            android:id="@+id/imgLeft"
+            android:layout_width="24dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/left_arrow" />
+
+        <ImageView
+            android:id="@+id/imgRight"
+            android:layout_width="24dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/right_arrow" />
+
+        <TextView
+            android:id="@+id/txtCentreName"
+            style="@style/MyTextStyleLabel"
+            android:layout_centerInParent="true"
+            android:text="Maruti Service Centre"
+            android:textSize="@dimen/M_TEXT"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtReviews"
+            style="@style/MyTextStyleLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Reviews" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_car_location"
+                android:tint="@color/yellow" />
+
+            <TextView
+                android:id="@+id/txtDistance"
+                style="@style/MyTextStyleLabel"
+                android:text="1.3Km"
+                android:textColor="@color/yellow" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/trans_blue"
+            android:padding="4dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:src="@drawable/ic_offer"
+                android:tint="@color/white" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:src="@drawable/ic_call"
+                android:tint="@color/white" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:src="@drawable/ic_star_rate"
+                android:tint="@color/white" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:src="@drawable/ic_car_location"
+                android:tint="@color/white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

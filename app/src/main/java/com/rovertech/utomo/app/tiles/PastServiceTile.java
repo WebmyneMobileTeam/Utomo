@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 
 /**
  * Created by sagartahelyani on 10-03-2016.
@@ -23,6 +25,7 @@ public class PastServiceTile extends LinearLayout {
 
     private TextView txtTitle, txtBookingDate, txtCenterName, txtCenterAddress, txtRating, txtReviews;
     private ImageView imgCenter, imgRepeat;
+    private CardView pastCardView;
 
     public PastServiceTile(Context context) {
         super(context);
@@ -48,6 +51,13 @@ public class PastServiceTile extends LinearLayout {
 
         setTypeface();
 
+        pastCardView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.fireIntent(context, ServiceDetailsActivity.class);
+            }
+        });
+
     }
 
     private void setTypeface() {
@@ -60,6 +70,7 @@ public class PastServiceTile extends LinearLayout {
     }
 
     private void findViewById() {
+        pastCardView = (CardView) parentView.findViewById(R.id.pastCardView);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);

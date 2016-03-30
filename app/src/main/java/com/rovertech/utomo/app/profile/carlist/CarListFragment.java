@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.profile.carlist;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,27 +9,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.addCar.AddCarActivity;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.profile.ProfileActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CarListFragment extends Fragment implements CarFragmentView {
+public class CarListFragment extends Fragment implements CarFragmentView, View.OnClickListener {
 
     private View parentView;
     private ProfileActivity activity;
-    private TextView txtUpdate;
     private CarFragmentPresenter presenter;
     private ArrayList<CarPojo> carList;
     private CarListAdapter adapter;
     private RecyclerView recyclerView;
+    private Button btnAddCar;
 
     public CarListFragment() {
         // Required empty public constructor
@@ -54,8 +56,10 @@ public class CarListFragment extends Fragment implements CarFragmentView {
         carList = new ArrayList<>();
         carList = presenter.fetchMyCars();
 
-        adapter = new CarListAdapter(getActivity(),carList);
+        adapter = new CarListAdapter(getActivity(), carList);
         recyclerView.setAdapter(adapter);
+
+        btnAddCar.setOnClickListener(this);
 
         return parentView;
     }
@@ -63,11 +67,21 @@ public class CarListFragment extends Fragment implements CarFragmentView {
     private void init() {
         activity = (ProfileActivity) getActivity();
 
+        btnAddCar = (Button) parentView.findViewById(R.id.btnAddCar);
         recyclerView = (RecyclerView) parentView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        txtUpdate = (TextView) parentView.findViewById(R.id.txtUpdate);
-        txtUpdate.setTypeface(Functions.getBoldFont(getActivity()));
+        btnAddCar.setTypeface(Functions.getBoldFont(getActivity()));
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnAddCar:
+                Intent addCarIntent = new Intent(getActivity(), AddCarActivity.class);
+                addCarIntent.putExtra(AppConstant.SKIP, false);
+                startActivity(addCarIntent);
+                break;
+        }
+    }
 }

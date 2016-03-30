@@ -1,22 +1,44 @@
 <resources>
     <string name="app_name">Utomo</string>
 
-
-    //facebook
+    <!--facebook-->
     <string name="facebook_app_id">186807128361684</string>
-    //google
+
+    <!--google-->
+    <string name="project_id">950342667766</string>
     <string name="server_client_id">950342667766-ff89n5skrn5lkn3k2372sh6iq8hrpn0h.apps.googleusercontent.com</string>
 
     <integer name="duration_animation">350</integer>
+    <string name="digits">ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890</string>
 
-    // dummy texts
+    <!--dummy texts-->
     <string name="dummy1">Lorem Ipsum is simply dummy text</string>
     <string name="dummy2">It is a long established fact that a reader will be distracted</string>
     <string name="dummy3">Contrary to popular belief, Lorem Ipsum is not simply random text.</string>
     <string name="dummy4">There are many variations of passages of Lorem Ipsum available</string>
     <string name="dummy5">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Rs">\u20B9</string>
+
+    <string name="success">Your request received successfully. Please check status for this service under My Bookings.</string>
+    <string name="review_success">Your review sent successfully. Thank you!</string>
+    <string name="invite">Invite your friends \n and \n earn points when they use this Referral Code.</string>
+
+    <string name="share">Use this amazing app for your car service and share in your circle.</string>
+
+    <string name="facebook_connection_cancelled">Facebook Connection Cancelled</string>
+    <string name="facebook_connection_failed">Facebook Connection Failed</string>
+    <string name="facebook_connection_error">Error Encountered While Login via Facebook</string>
+    <string name="google_connection_failed">Google Connection Failed</string>
+    <string name="google_login">Google Login</string>
+    <string name="facebook_login">Facebook Login</string>
+    <string name="facebook_success">Success</string>
+    <string name="gcm_error">Google Services Not Found. Please Install/Update It</string>
+    <string name="login_failed">Error Was Encountered While Login. Please Try Again.</string>
+    <string name="login_successful">Login Successful</string>
+
+    <string-array name="spinner_loading_array">
+        <item>Loading..</item>
+    </string-array>
 
 </resources>

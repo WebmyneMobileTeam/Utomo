@@ -47,7 +47,8 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
 
     @Override
     public void initView(View view) {
-
+        activity = (DrawerActivity) getActivity();
+        activity.hideFab(true);
         //other view to init
 
     }

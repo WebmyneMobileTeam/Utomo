@@ -19,8 +19,6 @@ public interface DrawerView {
 
     void actionAbout();
 
-    void actionLogout();
-
     void getLocation(LocationFinder finder);
 
     void navigateCenterListActivity();
