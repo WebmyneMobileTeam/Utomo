@@ -21,6 +21,8 @@ public class AppConstant {
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
     final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
 
+    final public static String ADD_CAR = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
+
     public static String NO_INTERNET_CONNECTION = "No Internet Connection";
     public static String INTERNAL_ERROR = "INTERNAL ERROR.Please try again later.";
     public static String TIMEOUTERRROR = "Server not Responding";
@@ -33,7 +35,7 @@ public class AppConstant {
             "Contrary to popular belief, Lorem Ipsum is not simply random text.", "There are many variations of passages of Lorem Ipsum available",
             "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."};
 
-    public static String[] FB_READ_PERMISSIONS = new String[]{"email", "public_profile", "user_friends"};
+    public static String[] FB_READ_PERMISSIONS = new String[]{"public_profile, email, user_birthday, user_friends"};
     public static String FB_PARAM_FIELDS = "id, first_name,last_name, email, gender, birthday, link";
 
     public static String LOGIN_BY_FB = "FB";

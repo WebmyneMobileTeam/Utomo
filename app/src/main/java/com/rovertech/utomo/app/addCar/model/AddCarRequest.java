@@ -13,7 +13,7 @@ public class AddCarRequest implements Serializable {
 
     public String PUCExpiryDate;
 
-    public int TravelledKM;
+    public String TravelledKM;
 
     public int UserID;
 
@@ -21,16 +21,19 @@ public class AddCarRequest implements Serializable {
 
     public String VehicleNo;
 
-    public String Year;
+    public int Year;
+
+    public String ServiceDate;
 
     public AddCarRequest() {
         this.InsuranceDate = "";
         this.Make = "";
         this.PUCExpiryDate = "";
-        this.TravelledKM = 0;
+        this.TravelledKM = "";
         this.UserID = 0;
         this.VehicleModelYearID = 0;
         this.VehicleNo = "";
-        this.Year = "";
+        this.Year = 0;
+        this.ServiceDate = "";
     }
 }

@@ -121,24 +121,25 @@ public class AccountPresenterImpl implements AccountPresenter {
                                             // handle error
                                         } else {
                                             try {
-                                                JSONObject profile = response.getJSONObject();
-                                                socialRequest.FName = profile.getString("first_name");
-                                                socialRequest.LName = profile.getString("last_name");
-                                                socialRequest.Gender = profile.getString("gender");
-                                                socialRequest.Email = profile.getString("email");
-                                                socialRequest.DOB = profile.getString("birthday");
-                                                socialRequest.SocialID = profile.get("id").toString();
+                                                JSONObject fbProfile = response.getJSONObject();
+                                                socialRequest.FName = fbProfile.getString("first_name");
+                                                socialRequest.LName = fbProfile.getString("last_name");
+                                                socialRequest.Gender = fbProfile.getString("gender");
+                                                socialRequest.Email = fbProfile.getString("email");
+                                                socialRequest.SocialID = fbProfile.get("id").toString();
                                                 socialRequest.LoginBy = AppConstant.LOGIN_BY_FB;
 
-                                                Log.e("social_profile", Functions.jsonString(profile));
+                                                Log.e("social_request", Functions.jsonString(socialRequest));
 
                                                 onFacebookLogin(socialRequest, true, activity.getString(R.string.facebook_success), "");
                                             } catch (Exception e) {
-                                                onFacebookLogin(socialRequest, false, "", activity.getString(R.string.facebook_connection_error));
+                                                onFacebookLogin(socialRequest, false, "", activity.getString(R.string.facebook_connection_error) + " " +
+                                                        e.getMessage());
                                             }
                                         }
                                     }
                                 });
+
                         Bundle parameters = new Bundle();
                         parameters.putString("fields", AppConstant.FB_PARAM_FIELDS);
                         request.setParameters(parameters);

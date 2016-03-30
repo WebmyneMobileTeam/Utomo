@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
@@ -48,7 +47,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     private AppCompatSpinner makeSpinner, yearSpinner, modelSpinner;
     private ProgressBar makeProgressBar, yearProgressBar, modelProgressBar;
-    private String selectedMake = "", selectedYear = "", selectedModel = "";
+    private String selectedMake = "", selectedYear = "", selectedModel = "", selectModelYear = "";
 
     private CardView yearCardView, modelCardView;
     private ProgressDialog progressDialog;
@@ -111,8 +110,9 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     Vehicle model = (Vehicle) parent.getAdapter().getItem(position);
-                    selectedModel = model.Model + " - " + model.VehicleModelYearID;
-                    Log.e("selectedModel", selectedModel);
+                    selectedModel = model.Model;
+                    selectModelYear = model.VehicleModelYearID;
+                    Log.e("selectedModel", selectedModel + " " + selectModelYear);
                 }
             }
 
@@ -209,7 +209,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 break;
 
             case R.id.btnAdd:
-                presenter.addCar(AddCarActivity.this, file, Functions.toStr(edtVehicleNo), selectedMake, selectedYear, selectedModel, Functions.toStr(edtServiceDate),
+                presenter.addCar(AddCarActivity.this, file, Functions.toStr(edtVehicleNo), selectedMake, selectedYear, selectModelYear, Functions.toStr(edtServiceDate),
                         Functions.toStr(edtPUC), Functions.toStr(edtInsuranceDate), odometer.getValue());
                 break;
 

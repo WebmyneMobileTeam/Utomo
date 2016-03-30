@@ -3,10 +3,12 @@ package com.rovertech.utomo.app.addCar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
+import com.rovertech.utomo.app.addCar.model.AddCarRequest;
 import com.rovertech.utomo.app.addCar.model.MakeModel;
 import com.rovertech.utomo.app.addCar.model.Vehicle;
 import com.rovertech.utomo.app.addCar.model.VehicleModel;
@@ -25,6 +28,7 @@ import com.rovertech.utomo.app.addCar.service.FetchModelService;
 import com.rovertech.utomo.app.addCar.service.FetchYearService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -72,6 +76,12 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 addcarView.setPUCDate(convertedDate);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                addcarView.setPUCDate("");
+            }
+        });
         dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
         dialog.show();
     }
@@ -88,6 +98,12 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 addcarView.setInsuranceDate(convertedDate);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                addcarView.setInsuranceDate("");
+            }
+        });
         dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
         dialog.show();
     }
@@ -205,7 +221,6 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     @Override
     public void selectServiceDate(Context context) {
         Calendar cal = Calendar.getInstance();
-
         DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -214,7 +229,13 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 addcarView.setServiceDate(convertedDate);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                addcarView.setServiceDate("");
+            }
+        });
+        dialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
         dialog.show();
     }
 
@@ -250,7 +271,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     }
 
     @Override
-    public void addCar(Context context, File file, String vehicleNo, String selectedMake, String selectedYear, String selectedModel,
+    public void addCar(final Context context, final File file, String vehicleNo, String selectedMake, String selectedYear, String selectModelYear,
                        String serviceDate, String pucDate, String insuranceDate, String odometerValue) {
 
         if (vehicleNo.equals("")) {
@@ -261,14 +282,53 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
         } else if (selectedMake.equals("")) {
             Functions.showToast(context, "Select Dealership");
+
         } else if (selectedYear.equals("")) {
             Functions.showToast(context, "Select Year");
-        } else if (selectedModel.equals("")) {
+
+        } else if (selectModelYear.equals("")) {
             Functions.showToast(context, "Select Year");
+
+        } else {
+            final AddCarRequest request = new AddCarRequest();
+            request.InsuranceDate = insuranceDate;
+            request.Make = selectedMake;
+            request.PUCExpiryDate = pucDate;
+            request.TravelledKM = odometerValue;
+            request.UserID = PrefUtils.getUserFullProfileDetails(context).UserID;
+            request.VehicleModelYearID = Integer.parseInt(selectModelYear);
+            request.VehicleNo = vehicleNo;
+            request.Year = Integer.parseInt(selectedYear);
+            request.ServiceDate = serviceDate;
+
+            new AsyncTask<Void, Void, Void>() {
+
+                private String responseFromMultipart = null;
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        responseFromMultipart = doFileUploadAnother(file, context, request);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    Toast.makeText(context, responseFromMultipart, Toast.LENGTH_SHORT).show();
+
+                }
+            }.execute();
+
         }
     }
 
-    private void doFileUploadAnother(File f, final Context context) throws Exception {
+    private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {
+
+        String doResponse = null;
 
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -285,39 +345,31 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         HttpEntity entity = MultipartEntityBuilder.create()
                 .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
                 .setBoundary(boundary)
-                .addPart("ClientID", new StringBody("2"))
-                .addPart("Image", bab)
-                .addPart("Make", new StringBody("Ford"))
-                .addPart("VehicleNo", new StringBody("GJ 6 XX 4343"))
-                .addPart("TravelledKM", new StringBody("3456.67"))
-                .addPart("Year", new StringBody("2015"))
-                .addPart("VehicleModelYearID", new StringBody("1"))
-
+                .addPart("ClientID", new StringBody(request.UserID + ""))
+                .addPart("Image", new StringBody(""))
+                .addPart("Make", new StringBody(request.Make))
+                .addPart("VehicleNo", new StringBody(request.VehicleNo))
+                .addPart("TravelledKM", new StringBody(request.TravelledKM))
+                .addPart("Year", new StringBody(request.Year + ""))
+                .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                .addPart("InsuranceDate", new StringBody(""))
+                .addPart("PUCExpiryDate", new StringBody(""))
+                .addPart("ServiceDate", new StringBody(""))
                 .build();
+
+        Log.e("req", Functions.jsonString(request));
 
         httppost.setEntity(entity);
         try {
             HttpResponse response = httpclient.execute(httppost);
-
             entity = response.getEntity();
-            final String response_str = EntityUtils.toString(entity);
-            if (entity != null) {
-                Log.e("RESPONSE", response_str);
-                ((Activity) context).runOnUiThread(new Runnable() {
-                    public void run() {
-                        try {
-                            /*res.setTextColor(Color.GREEN);
-                            res.setText("n Response from server : n " + response_str);*/
-                            Toast.makeText(context, "Upload Complete. Check the server uploads directory.", Toast.LENGTH_LONG).show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
+            doResponse = EntityUtils.toString(entity);
+            Log.e("doResponse",doResponse+"       m");
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+
+        return doResponse;
 
     }
 }
