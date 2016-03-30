@@ -19,6 +19,7 @@ public class AppConstant {
     final public static String FETCH_MODEL = "UserActivities.svc/json/FetchModel/{DEALERSHIP}/{YEAR}";
     final public static String FETCH_SERVICE_CENTRELIST = "UserActivities.svc/json/FetchServiceCentreList";
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
+    final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
 
     public static String NO_INTERNET_CONNECTION = "No Internet Connection";
     public static String INTERNAL_ERROR = "INTERNAL ERROR.Please try again later.";
