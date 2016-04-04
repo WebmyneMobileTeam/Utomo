@@ -7,15 +7,34 @@ import java.io.Serializable;
  */
 public class CarPojo implements Serializable {
 
-    public String carName;
+    public String CarImage;
 
-    public int carSpeed;
+    public int ClientID;
 
-    public String carImage;
+    public boolean CurrentBooking;
 
-    public CarPojo() {
-        this.carName = "";
-        this.carSpeed = 0;
-        this.carImage = "";
-    }
+    public String InsuranceDate;
+
+    public String LastServiceDate;
+
+    public String Make;
+
+    public String Model;
+
+    public String PUCExpiryDate;
+
+    public String RegistrationNo;
+
+    public String TravelledKM;
+
+    public int UserID;
+
+    public int VehicleID;
+
+    public int VehicleModelYearID;
+
+    public String VehicleNo;
+
+    public String Year;
+
 }

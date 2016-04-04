@@ -8,23 +8,24 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
 
         <ImageView
             android:id="@+id/tab_image"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:tint="@color/trans_blue"
-            android:padding="6dp"
-            android:src="@drawable/wrench" />
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/wrench"
+            android:tint="@color/trans_blue" />
 
         <TextView
             android:id="@+id/tab_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="@dimen/N_TEXT"
             android:gravity="center"
-            android:text="Hello" />
+            android:text="Hello"
+            android:textSize="@dimen/N_TEXT" />
 
     </LinearLayout>
 
@@ -36,6 +37,6 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="#bdd1d1d1" />
+        android:background="#bdbcbcbc" />
 
 </RelativeLayout>

@@ -1,6 +1,17 @@
 package com.rovertech.utomo.app.profile.carlist;
 
-import java.util.ArrayList;
+import android.content.Context;
+import android.util.Log;
+
+import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
+import com.rovertech.utomo.app.profile.carlist.model.VehicleListResponse;
+import com.rovertech.utomo.app.profile.carlist.service.FetchVehicleListService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by sagartahelyani on 14-03-2016.
@@ -15,22 +26,42 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
     }
 
     @Override
-    public ArrayList<CarPojo> fetchMyCars() {
+    public void fetchMyCars(final Context context) {
 
-        // Call WS for fetching car list
+        if (carFragmentView != null)
+            carFragmentView.showProgress();
 
-        // Static
+        FetchVehicleRequest request = new FetchVehicleRequest(context);
+        Log.e("req", Functions.jsonString(request));
 
-        ArrayList<CarPojo> carPojoList = new ArrayList<>();
+        FetchVehicleListService service = UtomoApplication.retrofit.create(FetchVehicleListService.class);
+        Call<VehicleListResponse> responseCall = service.doFetchVehicleList(request);
+        responseCall.enqueue(new Callback<VehicleListResponse>() {
+            @Override
+            public void onResponse(Call<VehicleListResponse> call, Response<VehicleListResponse> response) {
+                if (carFragmentView != null)
+                    carFragmentView.hideProgress();
 
-        for (int i = 0; i < 4; i++) {
+                if (response.body() == null) {
+                    Functions.showToast(context, "Error occurred.");
+                } else {
+                    Log.e("res", Functions.jsonString(response.body()));
 
-            CarPojo car = new CarPojo();
-            car.carName = "Car " + i;
-            car.carSpeed = 37;
-            carPojoList.add(car);
+                    VehicleListResponse vehicleListResponse = response.body();
+                    if (vehicleListResponse.FetchVehicleList.ResponseCode == 1) {
+                        carFragmentView.setCarList(vehicleListResponse.FetchVehicleList.Data);
 
-        }
-        return carPojoList;
+                    } else {
+                        carFragmentView.setEmptyView();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VehicleListResponse> call, Throwable t) {
+                if (carFragmentView != null)
+                    carFragmentView.hideProgress();
+            }
+        });
     }
 }

@@ -45,4 +45,10 @@ public interface AddcarView {
     void navigateToDashboard();
 
     void setImage(Bitmap thumbnail, File finalFile);
+
+    void success();
+
+    void fail(String responseMessage);
+
+    void setVehicleError();
 }

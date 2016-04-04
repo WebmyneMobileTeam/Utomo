@@ -47,7 +47,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
 
         CarPojo carPojo = carArrayList.get(position);
         if (carPojo != null)
-            holder.carItemTile.setDetails();
+            holder.carItemTile.setDetails(carPojo);
     }
 
     @Override

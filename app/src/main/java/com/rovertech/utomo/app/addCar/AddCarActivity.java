@@ -53,6 +53,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     private ProgressDialog progressDialog;
 
     private boolean isSkip;
+    private int vehicleId = 0;
     private File file = null;
 
     @Override
@@ -61,6 +62,10 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         setContentView(R.layout.activity_add_car);
 
         isSkip = getIntent().getBooleanExtra(AppConstant.SKIP, false);
+
+        if (!isSkip)
+            vehicleId = getIntent().getIntExtra(AppConstant.VEHICLE_ID, 0);
+
         init();
 
         presenter = new AddCarPresenterImpl(this);
@@ -73,6 +78,14 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     }
 
     private void clickListeners() {
+        imageSelectLayout.setOnClickListener(this);
+
+        edtPUC.setOnClickListener(this);
+        edtInsuranceDate.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
+        edtServiceDate.setOnClickListener(this);
+        txtSkip.setOnClickListener(this);
+
         makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -148,15 +161,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         edtKms = (TextView) findViewById(R.id.edtKms);
         odometer = (Odometer) findViewById(R.id.odometer);
 
-        imageSelectLayout.setOnClickListener(this);
-
-        // setTypeface();
-
-        edtPUC.setOnClickListener(this);
-        edtInsuranceDate.setOnClickListener(this);
-        btnAdd.setOnClickListener(this);
-        edtServiceDate.setOnClickListener(this);
-        txtSkip.setOnClickListener(this);
+        setTypeface();
     }
 
     private void setTypeface() {
@@ -255,7 +260,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             presenter.getImage(data, AddCarActivity.this, requestCode);
-
         }
     }
 
@@ -345,6 +349,25 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     public void setImage(Bitmap thumbnail, File finalFile) {
         imageCar.setImageBitmap(thumbnail);
         file = finalFile;
+    }
+
+    @Override
+    public void success() {
+        Functions.showToast(this, "Your car has been added successfully.");
+        if (isSkip)
+            navigateToDashboard();
+        else
+            finish();
+    }
+
+    @Override
+    public void fail(String responseMessage) {
+        Functions.showToast(this, responseMessage);
+    }
+
+    @Override
+    public void setVehicleError() {
+        edtVehicleNo.setError("Like GJ 11 AA 1111");
     }
 
     @Override

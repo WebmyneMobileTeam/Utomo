@@ -36,6 +36,7 @@
     <string name="gcm_error">Google Services Not Found. Please Install/Update It</string>
     <string name="login_failed">Error Was Encountered While Login. Please Try Again.</string>
     <string name="login_successful">Login Successful</string>
+    <string name="no_car">You haven\'t add any Car.</string>
 
     <string-array name="spinner_loading_array">
         <item>Loading..</item>

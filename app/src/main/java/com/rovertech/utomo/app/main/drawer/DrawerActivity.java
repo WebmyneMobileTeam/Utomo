@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +42,7 @@ import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
+import com.rovertech.utomo.app.widget.TextDrawable;
 
 public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
@@ -81,6 +83,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
     private void init() {
         parentView = findViewById(android.R.id.content);
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         initToolbar();

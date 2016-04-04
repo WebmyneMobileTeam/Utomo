@@ -25,7 +25,6 @@ public class PrefUtils {
         Prefs.with(ctx).save(USER_ID, value);
     }
 
-
     public static int getUserID(Context ctx) {
         return Prefs.with(ctx).getInt(USER_ID, 0);
     }
@@ -33,6 +32,7 @@ public class PrefUtils {
     public static void setUserFullProfileDetails(Context context, UserProfileOutput userProfile) {
 
         String toJson = new Gson().toJson(userProfile);
+        setUserID(context, userProfile.UserID);
         Prefs.with(context).save(USER_PROFILE_KEY, toJson);
     }
 

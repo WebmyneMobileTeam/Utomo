@@ -13,6 +13,8 @@ public class UserProfileOutput implements Serializable {
 
     public String Email;
 
+    public String MobileNo;
+
     public String ProfileImg;
 
     public String DOB;
@@ -27,12 +29,15 @@ public class UserProfileOutput implements Serializable {
 
     public int CityID;
 
+    public String CityName;
+
     @Override
     public String toString() {
         return "UserProfileOutput{" +
                 "UserID=" + UserID +
                 ", Name='" + Name + '\'' +
                 ", Email='" + Email + '\'' +
+                ", MobileNo='" + MobileNo + '\'' +
                 ", ProfileImg='" + ProfileImg + '\'' +
                 ", DOB='" + DOB + '\'' +
                 ", Address='" + Address + '\'' +
@@ -40,6 +45,7 @@ public class UserProfileOutput implements Serializable {
                 ", MyReferCode='" + MyReferCode + '\'' +
                 ", OTP='" + OTP + '\'' +
                 ", CityID=" + CityID +
+                ", CityName='" + CityName + '\'' +
                 '}';
     }
 }

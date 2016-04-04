@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.google.gson.Gson;
 import com.rovertech.utomo.app.helper.AppConstant;
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by raghavthakkar on 06-11-2015.
  */
-public class UtomoApplication extends Application {
+public class UtomoApplication extends MultiDexApplication {
 
 
     private static UtomoApplication utomoApplication;

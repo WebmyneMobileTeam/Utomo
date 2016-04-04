@@ -20,10 +20,12 @@ public class ServiceChip extends LinearLayout {
     private TextView txtServiceType;
     private Context context;
     private LayoutInflater inflater;
+    private String service;
 
-    public ServiceChip(Context context) {
+    public ServiceChip(Context context, String service) {
         super(context);
         this.context = context;
+        this.service = service;
         init();
     }
 
@@ -35,6 +37,8 @@ public class ServiceChip extends LinearLayout {
         txtServiceType = (TextView) parentView.findViewById(R.id.txtServiceType);
 
         txtServiceType.setTypeface(Functions.getNormalFont(context));
+
+        txtServiceType.setText(service);
 
     }
 }

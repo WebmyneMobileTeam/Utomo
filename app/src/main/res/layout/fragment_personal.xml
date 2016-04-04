@@ -21,7 +21,7 @@
                 android:background="@color/off_white">
 
                 <ImageView
-                    android:id="@+id/imageCar"
+                    android:id="@+id/imagePerson"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerInside"
@@ -34,12 +34,12 @@
                 android:layout_margin="8dp">
 
                 <EditText
-                    android:id="@+id/edtEmail"
+                    android:id="@+id/edtMobile"
                     style="@style/MyEditTextStyle"
-                    android:drawableLeft="@drawable/ic_email"
-                    android:hint="Email (Optional)"
-                    android:inputType="textEmailAddress"
-                    android:text="sagar@webmyne.com" />
+                    android:drawableLeft="@drawable/ic_phone"
+                    android:focusable="false"
+                    android:hint="Number"
+                    android:inputType="none" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -48,13 +48,11 @@
                 android:layout_margin="8dp">
 
                 <EditText
-                    android:id="@+id/edtMobile"
+                    android:id="@+id/edtEmail"
                     style="@style/MyEditTextStyle"
-                    android:drawableLeft="@drawable/ic_phone"
-                    android:hint="Mobile"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:text="9966533226" />
+                    android:drawableLeft="@drawable/ic_email"
+                    android:hint="Email (Optional)"
+                    android:inputType="textEmailAddress" />
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -66,16 +64,51 @@
                     android:id="@+id/edtName"
                     style="@style/MyEditTextStyle"
                     android:drawableLeft="@drawable/ic_account"
-                    android:hint="Name"
-                    android:text="Sagar" />
+                    android:hint="Name" />
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/txtChangePassword"
-                style="@style/MyTextStyle"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Change Password" />
+                android:layout_margin="8dp">
+
+                <EditText
+                    android:id="@+id/edtDOB"
+                    style="@style/MyEditTextStyle"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_account"
+                    android:focusable="false"
+                    android:hint="Birthdate" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <EditText
+                    android:id="@+id/edtAddress"
+                    style="@style/MyEditTextStyle"
+                    android:drawableLeft="@drawable/ic_pin_drop"
+                    android:gravity="start|top"
+                    android:hint="Address"
+                    android:inputType="textMultiLine" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/edtCity"
+                    style="@style/MyEditTextStyle"
+                    android:drawableLeft="@drawable/ic_map"
+                    android:hint="City"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true" />
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
@@ -86,15 +119,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
+        <Button
+            android:id="@+id/txtChangePassword"
+            style="@style/MyButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Change Password" />
+
+
+        <Button
             android:id="@+id/txtUpdate"
             style="@style/MyButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
+            android:layout_weight="1"
             android:text="Update" />
     </LinearLayout>
 

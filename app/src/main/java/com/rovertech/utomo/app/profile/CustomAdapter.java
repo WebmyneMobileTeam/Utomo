@@ -1,14 +1,9 @@
 package com.rovertech.utomo.app.profile;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -76,5 +71,9 @@ public class CustomAdapter extends FragmentStatePagerAdapter {
         img.setVisibility(View.GONE);
 
         return v;
+    }
+
+    public Fragment getFragment(int index) {
+        return pagerFragments.get(index);
     }
 }

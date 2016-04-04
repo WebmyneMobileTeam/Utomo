@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Title"
-        android:textColor="@color/white"
+        android:textColor="@color/purple"
         android:textSize="@dimen/toolbar_textsize"
         android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
         android:text="Skip"
-        android:textColor="@color/white"
+        android:textColor="@color/purple"
         android:textSize="@dimen/toolbar_textsize"
         android:textStyle="bold"
         android:visibility="gone" />

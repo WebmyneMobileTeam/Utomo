@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ public class ServiceCentreTile extends LinearLayout {
 
     }
 
-    public void setDetails(ServiceCenterPojo centerPojo) {
+    public void setDetails(final ServiceCenterPojo centerPojo) {
 
         serviceTypeLayout.removeAllViews();
         serviceTypeLayout.invalidate();
@@ -109,7 +110,11 @@ public class ServiceCentreTile extends LinearLayout {
         cardLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntent(context, CentreDetailsActivity.class);
+                Intent intent = new Intent(context, CentreDetailsActivity.class);
+                intent.putExtra("centreId", centerPojo.ServiceCentreID);
+                context.startActivity(intent);
+
+
             }
         });
     }

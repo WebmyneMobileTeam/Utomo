@@ -40,7 +40,7 @@ public class CurrentServiceTile extends LinearLayout {
 
     private void init() {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        parentView = inflater.inflate(R.layout.layout_tile_current_service, this, true);
+        parentView = inflater.inflate(R.layout.layout_tile_current_service_revised, this, true);
 
         findViewById();
 
@@ -57,7 +57,7 @@ public class CurrentServiceTile extends LinearLayout {
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
         txtBookingDate.setTypeface(Functions.getNormalFont(context));
-        txtCenterName.setTypeface(Functions.getNormalFont(context));
+        txtCenterName.setTypeface(Functions.getBoldFont(context));
         txtCenterAddress.setTypeface(Functions.getNormalFont(context));
         txtServiceStatus.setTypeface(Functions.getBoldFont(context));
     }

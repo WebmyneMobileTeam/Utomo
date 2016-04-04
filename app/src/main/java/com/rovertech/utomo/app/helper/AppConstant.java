@@ -21,6 +21,7 @@ public class AppConstant {
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
     final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
 
+    final public static String FETCH_VEHICLE_LIST = "UserActivities.svc/json/FetchVehicleList";
     final public static String ADD_CAR = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
 
     public static String NO_INTERNET_CONNECTION = "No Internet Connection";
@@ -43,6 +44,8 @@ public class AppConstant {
 
     // Add car intent constants
     public static String SKIP = "isSkip";
+
+    public static String VEHICLE_ID = "vehicleId";
 
     // Fetch Service centre listing types
     public static int BY_LAT_LNG = 1;

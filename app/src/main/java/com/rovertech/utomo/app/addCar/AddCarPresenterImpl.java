@@ -1,6 +1,5 @@
 package com.rovertech.utomo.app.addCar;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,7 +12,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
@@ -42,6 +40,8 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -279,6 +279,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
         } else if (!Functions.vehicleValidation(vehicleNo)) {
             Functions.showToast(context, "Invalid Vehicle number");
+            addcarView.setVehicleError();
 
         } else if (selectedMake.equals("")) {
             Functions.showToast(context, "Select Dealership");
@@ -291,15 +292,25 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
         } else {
             final AddCarRequest request = new AddCarRequest();
-            request.InsuranceDate = insuranceDate;
             request.Make = selectedMake;
-            request.PUCExpiryDate = pucDate;
+            if (request.PUCExpiryDate.equals(""))
+                request.PUCExpiryDate = "2015-03-25";
+            else
+                request.PUCExpiryDate = pucDate;
+            if (request.InsuranceDate.equals(""))
+                request.InsuranceDate = "2015-03-25";
+            else
+                request.InsuranceDate = pucDate;
+            if (request.ServiceDate.equals(""))
+                request.ServiceDate = "2015-03-25";
+            else
+                request.ServiceDate = pucDate;
+
             request.TravelledKM = odometerValue;
             request.UserID = PrefUtils.getUserFullProfileDetails(context).UserID;
             request.VehicleModelYearID = Integer.parseInt(selectModelYear);
             request.VehicleNo = vehicleNo;
             request.Year = Integer.parseInt(selectedYear);
-            request.ServiceDate = serviceDate;
 
             new AsyncTask<Void, Void, Void>() {
 
@@ -318,8 +329,18 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    Toast.makeText(context, responseFromMultipart, Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject res = new JSONObject(responseFromMultipart);
+                        Log.e("res", Functions.jsonString(res));
+                        if (res.getJSONObject("InsertVehicleDetails").getInt("ResponseCode") == 1) {
+                            addcarView.success();
+                        } else {
+                            addcarView.fail(res.getString("ResponseMessage"));
+                        }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }.execute();
 
@@ -346,15 +367,15 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
                 .setBoundary(boundary)
                 .addPart("ClientID", new StringBody(request.UserID + ""))
-                .addPart("Image", new StringBody(""))
+                .addPart("Image", bab)
                 .addPart("Make", new StringBody(request.Make))
                 .addPart("VehicleNo", new StringBody(request.VehicleNo))
                 .addPart("TravelledKM", new StringBody(request.TravelledKM))
                 .addPart("Year", new StringBody(request.Year + ""))
                 .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
-                .addPart("InsuranceDate", new StringBody(""))
-                .addPart("PUCExpiryDate", new StringBody(""))
-                .addPart("ServiceDate", new StringBody(""))
+                .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
+                .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
+                .addPart("ServiceDate", new StringBody(request.ServiceDate))
                 .build();
 
         Log.e("req", Functions.jsonString(request));
@@ -364,7 +385,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             HttpResponse response = httpclient.execute(httppost);
             entity = response.getEntity();
             doResponse = EntityUtils.toString(entity);
-            Log.e("doResponse",doResponse+"       m");
+            Log.e("doResponse", doResponse + " ### ##");
         } catch (Exception e) {
             e.printStackTrace();
         }

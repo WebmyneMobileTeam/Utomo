@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.home;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,11 +18,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.home.presenter.DashboardPresenter;
+import com.rovertech.utomo.app.home.presenter.DashboardPresenterImpl;
+import com.rovertech.utomo.app.home.presenter.DashboardView;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.temp.CarFragment;
 
 import java.util.ArrayList;
@@ -29,15 +36,17 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements DashboardView {
 
     private View parentView;
     private DrawerActivity activity;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CarFragmentPagerAdapter adapter;
-    private String tabTitles[] = new String[]{"Car 1", "Car 2", "Car 3"};
-    private int tabIcons[] = new int[]{R.drawable.wrench, 0, 0};
+    private DashboardPresenter presenter;
+    private ProgressDialog progressDialog;
+    private TextView txtNoCar;
+    private LinearLayout pagerLayout;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -49,90 +58,99 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
         init();
+
+        presenter = new DashboardPresenterImpl(this);
+
         return parentView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.fetchMyCars(getActivity());
     }
 
     private void init() {
         activity = (DrawerActivity) getActivity();
         activity.hideFab(false);
 
+        pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
+        txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);
+        txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
         viewPager = (ViewPager) parentView.findViewById(R.id.pager);
         tabLayout = (TabLayout) parentView.findViewById(R.id.tab_layout);
-        setupViewPager(viewPager);
-
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-
-        adapter = new CarFragmentPagerAdapter(getActivity().getSupportFragmentManager(), getActivity());
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(0);
-
-        /*tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getIcon() != null)
-                    tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                if (tab.getIcon() != null)
-                    tab.getIcon().setColorFilter(ContextCompat.getColor(getActivity(), R.color.half_black), PorterDuff.Mode.SRC_ATOP);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });*/
-
-        /*for (int i = 0; i < tabLayout.getTabCount(); i++) {
-
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            if (tabIcons[i] != 0) {
-                tab.setIcon(tabIcons[i]);
-                tab.getIcon().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-            }
-            // tab.select();
-
-        }*/
-
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(adapter.getTabView(i));
-        }
 
     }
 
     public static DashboardFragment newInstance() {
 
         Bundle args = new Bundle();
-
         DashboardFragment fragment = new DashboardFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
+    }
+
+    @Override
+    public void setCarList(ArrayList<CarPojo> data) {
+        txtNoCar.setVisibility(View.GONE);
+        pagerLayout.setVisibility(View.VISIBLE);
+        setCarPager(viewPager, data);
+    }
+
+    private void setCarPager(ViewPager viewPager, ArrayList<CarPojo> data) {
+
+        adapter = new CarFragmentPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(), data);
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(0);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null)
+                tab.setCustomView(adapter.getTabView(i));
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    @Override
+    public void setErrorMsg(String msg) {
+        pagerLayout.setVisibility(View.GONE);
+        txtNoCar.setVisibility(View.VISIBLE);
+        txtNoCar.setText(msg);
     }
 
     private class CarFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
         private Context context;
         public ArrayList<Fragment> pagerFragments;
+        ArrayList<CarPojo> data;
 
-        public CarFragmentPagerAdapter(FragmentManager fm, Context context) {
+        public CarFragmentPagerAdapter(FragmentManager fm, Context context, ArrayList<CarPojo> data) {
             super(fm);
             this.context = context;
+            this.data = data;
             pagerFragments = new ArrayList<>();
-            pagerFragments.add(CarFragment.newInstance());
-            pagerFragments.add(CarFragment.newInstance());
-            pagerFragments.add(CarFragment.newInstance());
+
+            for (int i = 0; i < data.size(); i++) {
+                pagerFragments.add(CarFragment.newInstance());
+            }
         }
 
         @Override
         public int getCount() {
-            return tabTitles.length;
+            return data.size();
         }
 
         @Override
@@ -143,18 +161,13 @@ public class DashboardFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            if (tabIcons[position] == 0) {
-                return tabTitles[position];
+            Drawable image = ContextCompat.getDrawable(context, R.drawable.wrench);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
 
-            } else {
-                Drawable image = ContextCompat.getDrawable(context, tabIcons[position]);
-                image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-                // Replace blank spaces with image icon
-                SpannableString sb = new SpannableString("   " + tabTitles[position]);
-                ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-                sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                return sb;
-            }
+            SpannableString sb = new SpannableString(" " + data.get(position).Make + " " + data.get(position).Model);
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
         }
 
         public View getTabView(int position) {
@@ -162,14 +175,14 @@ public class DashboardFragment extends Fragment {
             View v = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
 
             TextView tv = (TextView) v.findViewById(R.id.tab_title);
-            tv.setText(tabTitles[position]);
+            tv.setText(String.format(" %s %s ", data.get(position).Make, data.get(position).Model));
             tv.setTypeface(Functions.getBoldFont(context));
             ImageView img = (ImageView) v.findViewById(R.id.tab_image);
 
-            if (tabIcons[position] == 0) {
-                img.setVisibility(View.GONE);
+            if (data.get(position).CurrentBooking) {
+                img.setVisibility(View.VISIBLE);
             } else {
-                img.setImageResource(tabIcons[position]);
+                img.setVisibility(View.GONE);
             }
 
             return v;

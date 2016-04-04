@@ -21,7 +21,6 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
 import com.rovertech.utomo.app.account.model.SocialRequest;
-import com.rovertech.utomo.app.account.model.UserProfile;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;

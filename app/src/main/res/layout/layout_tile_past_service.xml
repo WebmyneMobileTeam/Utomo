@@ -3,7 +3,7 @@
     android:id="@+id/pastCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     android:background="@color/white">
 
     <LinearLayout
@@ -34,8 +34,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_above="@+id/bottomBar"
+                    android:layout_alignParentTop="true"
                     android:orientation="vertical"
                     android:padding="4dp">
 
@@ -43,37 +43,37 @@
                         android:id="@+id/txtTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/M_TEXT"
                         android:padding="4dp"
                         android:text="Booking Id: BK1F55"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/M_TEXT" />
 
                     <TextView
                         android:id="@+id/txtBookingDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
-                        android:textSize="@dimen/N_TEXT"
                         android:text="11th March, 2016"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
 
                     <TextView
                         android:id="@+id/txtCenterName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/N_TEXT"
                         android:padding="2dp"
                         android:text="Dummy Service Center"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
 
                     <TextView
                         android:id="@+id/txtCenterAddress"
                         android:layout_width="match_parent"
-                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:text="Address: 18, Shayamal Complex, R.C.Dutt Road, Alkapuri, Vadodara"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -90,32 +90,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:textSize="@dimen/N_TEXT"
-                        android:gravity="center_vertical"
                         android:layout_marginLeft="4dp"
                         android:drawablePadding="4dp"
-                        android:padding="6dp"
                         android:drawableRight="@drawable/ic_star_rate"
+                        android:gravity="center_vertical"
+                        android:padding="6dp"
                         android:text="4.5"
                         android:textAllCaps="true"
-                        android:textColor="@color/yellow" />
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/N_TEXT" />
 
                     <TextView
                         android:id="@+id/txtReviews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/N_TEXT"
                         android:layout_centerInParent="true"
                         android:padding="8dp"
                         android:text="1 Reviews"
-                        android:textColor="@color/yellow" />
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/N_TEXT" />
 
                     <ImageView
                         android:id="@+id/imgRepeat"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="4dp"
                         android:src="@drawable/ic_reset"
                         android:tint="@color/yellow" />

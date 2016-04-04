@@ -23,8 +23,8 @@ public class PastServiceTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtTitle, txtBookingDate, txtCenterName, txtCenterAddress, txtRating, txtReviews;
-    private ImageView imgCenter, imgRepeat;
+    private TextView txtTitle, txtBookingDate, txtCenterName, txtRating, txtReviews, txtRepeat;
+    private ImageView imgCenter;
     private CardView pastCardView;
 
     public PastServiceTile(Context context) {
@@ -45,7 +45,7 @@ public class PastServiceTile extends LinearLayout {
 
     private void init() {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        parentView = inflater.inflate(R.layout.layout_tile_past_service, this, true);
+        parentView = inflater.inflate(R.layout.layout_tile_past_service_revised, this, true);
 
         findViewById();
 
@@ -63,9 +63,9 @@ public class PastServiceTile extends LinearLayout {
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
         txtBookingDate.setTypeface(Functions.getNormalFont(context));
-        txtCenterName.setTypeface(Functions.getNormalFont(context));
-        txtCenterAddress.setTypeface(Functions.getNormalFont(context));
+        txtCenterName.setTypeface(Functions.getBoldFont(context));
         txtRating.setTypeface(Functions.getNormalFont(context));
+        txtRepeat.setTypeface(Functions.getBoldFont(context));
         txtReviews.setTypeface(Functions.getNormalFont(context));
     }
 
@@ -75,11 +75,10 @@ public class PastServiceTile extends LinearLayout {
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
-        txtCenterAddress = (TextView) parentView.findViewById(R.id.txtCenterAddress);
         txtRating = (TextView) parentView.findViewById(R.id.txtRating);
         txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
+        txtRepeat = (TextView) parentView.findViewById(R.id.txtRepeat);
 
         txtReviews.setText(Html.fromHtml("<u>1 Review</u>"));
-        imgRepeat = (ImageView) parentView.findViewById(R.id.imgRepeat);
     }
 }

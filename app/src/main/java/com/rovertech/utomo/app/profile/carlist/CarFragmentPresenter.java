@@ -1,5 +1,7 @@
 package com.rovertech.utomo.app.profile.carlist;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 /**
@@ -7,5 +9,5 @@ import java.util.ArrayList;
  */
 public interface CarFragmentPresenter {
 
-    ArrayList<CarPojo> fetchMyCars();
+    void fetchMyCars(Context context);
 }

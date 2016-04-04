@@ -6,7 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="material_drawer_primary_text">@color/half_black</item>
+        <item name="material_drawer_selected_text">@color/purple</item>
+        <item name="material_drawer_primary_icon">@color/half_black</item>
     </style>
 
     <style name="MyTextStyle" parent="android:Widget.TextView">
@@ -50,15 +52,15 @@
         <item name="android:background">@drawable/selectable_button</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/N_TEXT</item>
+        <item name="android:textSize">@dimen/S_TEXT</item>
         <item name="android:textColor">@drawable/selectable_button_text</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:padding">12dp</item>
 
     </style>
 
     <style name="myToolbarTheme" parent="Widget.AppCompat.ActionBar">
-        <item name="colorControlNormal">#ffffff</item>
+        <item name="colorControlNormal">@color/purple</item>
     </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">

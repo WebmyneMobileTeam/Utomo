@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
+import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.widget.FlowLayout;
 import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
 
@@ -30,6 +31,7 @@ public class CentreMainDetails extends LinearLayout {
     private Button btnBook;
     private RatingBar ratingBar;
     private FlowLayout serviceFlowLayout;
+    LinearLayout.LayoutParams params;
 
     public CentreMainDetails(Context context) {
         super(context);
@@ -63,13 +65,12 @@ public class CentreMainDetails extends LinearLayout {
         serviceFlowLayout.removeAllViews();
         serviceFlowLayout.invalidate();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
-        for (int i = 0; i < 4; i++) {
+       /* for (int i = 0; i < 4; i++) {
             ServiceChip serviceChip = new ServiceChip(context);
             serviceFlowLayout.addView(serviceChip, params);
-        }
+        }*/
 
         btnBook.setOnClickListener(new OnClickListener() {
             @Override
@@ -89,6 +90,23 @@ public class CentreMainDetails extends LinearLayout {
 
         LayerDrawable ratingDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
         ratingDrawable.getDrawable(2).setColorFilter(ContextCompat.getColor(context, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+    }
+
+    public void setDetails(FetchServiceCentreDetailPojo centreDetailPojo) {
+
+        txtCentreName.setText(centreDetailPojo.ServiceCentreName);
+        ratingBar.setRating(centreDetailPojo.Rating);
+
+        if (centreDetailPojo.IsBodyWash) {
+            ServiceChip serviceChip = new ServiceChip(context, "Body Wash");
+            serviceFlowLayout.addView(serviceChip, params);
+        }
+
+        if (centreDetailPojo.IsPickupDrop) {
+            ServiceChip serviceChip = new ServiceChip(context, "Pickup-Drop off");
+            serviceFlowLayout.addView(serviceChip, params);
+        }
+
     }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#7B1FA2</color>
+    <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#6A1B9A</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -13,12 +13,14 @@
     <color name="half_black">#4c4c4c</color>
 
     <!--<color name="purple">#512DA8</color>-->
-    <color name="purple">#673268</color>
+    <color name="purple">#8E24AA</color>
+    <color name="dark_purple">#4A148C</color>
     <color name="gplus">#DD4B39</color>
     <color name="fb">#3B5998</color>
     <color name="brown">#d2691e</color>
     <color name="yellow">#FFFF00</color>
     <color name="trans_blue">#A69C27B0</color>
+    <color name="orange">#e59400</color>
 
     <!--health meter progress colors-->
     <color name="color_default">#0171A3</color>
@@ -27,6 +29,8 @@
     <color name="color80">#ffa500</color>
     <color name="color_high">#ff0000</color>
 
-    <color name="button_bg">#CE93D8</color>
+    <color name="button_bg">#1A8E24AA</color>
 
+    <color name="material_drawer_primary_text">#DE000000</color>
+    <color name="material_drawer_selected_text">#2196F3</color>
 </resources>

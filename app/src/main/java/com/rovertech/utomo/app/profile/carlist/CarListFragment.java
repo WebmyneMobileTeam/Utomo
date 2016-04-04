@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.profile.carlist;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
@@ -31,6 +33,8 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
     private CarListAdapter adapter;
     private RecyclerView recyclerView;
     private Button btnAddCar;
+    private TextView txtEmpty;
+    private ProgressDialog progressDialog;
 
     public CarListFragment() {
         // Required empty public constructor
@@ -42,6 +46,14 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
         return fragment;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            //presenter.fetchMyCars(getActivity());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,13 +61,11 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_car_list, container, false);
 
-        presenter = new CarFragmentPresenterImpl(this);
-
         init();
 
-        carList = new ArrayList<>();
-        carList = presenter.fetchMyCars();
+        presenter = new CarFragmentPresenterImpl(this);
 
+        carList = new ArrayList<>();
         adapter = new CarListAdapter(getActivity(), carList);
         recyclerView.setAdapter(adapter);
 
@@ -64,13 +74,24 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
         return parentView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.fetchMyCars(getActivity());
+
+    }
+
     private void init() {
         activity = (ProfileActivity) getActivity();
 
+        txtEmpty = (TextView) parentView.findViewById(R.id.txtEmpty);
         btnAddCar = (Button) parentView.findViewById(R.id.btnAddCar);
         recyclerView = (RecyclerView) parentView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         btnAddCar.setTypeface(Functions.getBoldFont(getActivity()));
+        txtEmpty.setTypeface(Functions.getBoldFont(getActivity()));
 
     }
 
@@ -83,5 +104,27 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
                 startActivity(addCarIntent);
                 break;
         }
+    }
+
+    @Override
+    public void setCarList(ArrayList<CarPojo> carList) {
+        adapter.setCarList(carList);
+    }
+
+    @Override
+    public void setEmptyView() {
+        txtEmpty.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog = ProgressDialog.show(getActivity(), "Loading your vehicles", "Please wait..", false);
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 }

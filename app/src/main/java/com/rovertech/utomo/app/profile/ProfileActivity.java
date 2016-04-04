@@ -1,7 +1,10 @@
 package com.rovertech.utomo.app.profile;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.profile.personal.PersonalProfileFragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -25,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        setContentView(R.layout.activity_my_profile_revised);
 
         init();
     }
@@ -51,7 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(adapter.getTabView(i));
+            if (tab != null)
+                tab.setCustomView(adapter.getTabView(i));
         }
 
     }
@@ -80,5 +85,21 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+
+            int index = viewPager.getCurrentItem();
+            CustomAdapter adapter = (CustomAdapter) viewPager.getAdapter();
+            Fragment fragment = adapter.getFragment(index);
+
+            if (viewPager.getCurrentItem() == 0 || fragment != null) {
+                ((PersonalProfileFragment) fragment).setSrc(data, this, requestCode);
+            }
+        }
     }
 }

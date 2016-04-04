@@ -47,6 +47,7 @@ import com.rovertech.utomo.app.widget.dialog.OTPDialog;
 
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import retrofit2.Call;
@@ -87,63 +88,79 @@ public class AccountPresenterImpl implements AccountPresenter {
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Profile profile = Profile.getCurrentProfile();
-                        Uri profileUri = null;
+                    public void onSuccess(final LoginResult loginResult) {
+                        final Profile profile = Profile.getCurrentProfile();
+
                         socialRequest = new SocialRequest();
 
-                        if (Profile.getCurrentProfile() == null) {
-                            mProfileTracker = new ProfileTracker() {
-                                @Override
-                                protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                                    // profile2 is the new profile
+                        new AsyncTask<Void, Void, Void>() {
 
-                                    Uri profileUri = null;
-                                    profileUri = profile2.getProfilePictureUri(640, 640);
-                                    socialRequest.ProfileImg = profileUri.toString();
-                                    Log.e("Profile pic url if", "" + profileUri);
-                                    mProfileTracker.stopTracking();
-                                }
-                            };
-                            mProfileTracker.startTracking();
+                            Uri profileUri = null;
 
-                        } else {
-                            profileUri = profile.getProfilePictureUri(640, 640);
-                            socialRequest.ProfileImg = profileUri.toString();
-                            Log.e("Profile pic url else", "" + profileUri);
-                        }
+                            @Override
+                            protected Void doInBackground(Void... params) {
+                                if (Profile.getCurrentProfile() == null) {
+                                    mProfileTracker = new ProfileTracker() {
+                                        @Override
+                                        protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                                            // profile2 is the new profile
 
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject user, GraphResponse response) {
-                                        if (response.getError() != null) {
-                                            // handle error
-                                        } else {
-                                            try {
-                                                JSONObject fbProfile = response.getJSONObject();
-                                                socialRequest.FName = fbProfile.getString("first_name");
-                                                socialRequest.LName = fbProfile.getString("last_name");
-                                                socialRequest.Gender = fbProfile.getString("gender");
-                                                socialRequest.Email = fbProfile.getString("email");
-                                                socialRequest.SocialID = fbProfile.get("id").toString();
-                                                socialRequest.LoginBy = AppConstant.LOGIN_BY_FB;
-
-                                                Log.e("social_request", Functions.jsonString(socialRequest));
-
-                                                onFacebookLogin(socialRequest, true, activity.getString(R.string.facebook_success), "");
-                                            } catch (Exception e) {
-                                                onFacebookLogin(socialRequest, false, "", activity.getString(R.string.facebook_connection_error) + " " +
-                                                        e.getMessage());
-                                            }
+                                            Uri profileUri = null;
+                                            profileUri = profile2.getProfilePictureUri(640, 640);
+                                            socialRequest.ProfileImg = profileUri.toString();
+                                            Log.e("Profile pic #1 if", "" + profileUri);
+                                            Log.e("Profile pic #2 if", "" + socialRequest.ProfileImg);
+                                            //Log.e("Profile pic #3 if", "" + );
+                                            mProfileTracker.stopTracking();
                                         }
-                                    }
-                                });
+                                    };
+                                    mProfileTracker.startTracking();
 
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", AppConstant.FB_PARAM_FIELDS);
-                        request.setParameters(parameters);
-                        request.executeAsync();
+                                } else {
+                                    profileUri = profile.getProfilePictureUri(640, 640);
+                                    socialRequest.ProfileImg = profileUri.toString();
+                                    Log.e("Profile pic url else", "" + profileUri);
+                                }
+                                return null;
+                            }
+
+                            @Override
+                            protected void onPostExecute(Void aVoid) {
+                                GraphRequest request = GraphRequest.newMeRequest(
+                                        loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                                            @Override
+                                            public void onCompleted(JSONObject user, GraphResponse response) {
+                                                if (response.getError() != null) {
+                                                    // handle error
+                                                } else {
+                                                    try {
+                                                        JSONObject fbProfile = response.getJSONObject();
+                                                        socialRequest.FName = fbProfile.getString("first_name");
+                                                        socialRequest.LName = fbProfile.getString("last_name");
+                                                        socialRequest.Gender = fbProfile.getString("gender");
+                                                        socialRequest.Email = fbProfile.getString("email");
+                                                        socialRequest.SocialID = fbProfile.get("id").toString();
+                                                        socialRequest.LoginBy = AppConstant.LOGIN_BY_FB;
+
+                                                        Log.e("social_request", Functions.jsonString(socialRequest));
+
+                                                        onFacebookLogin(socialRequest, true, activity.getString(R.string.facebook_success), "");
+                                                    } catch (Exception e) {
+                                                        onFacebookLogin(socialRequest, false, "", activity.getString(R.string.facebook_connection_error) + " " +
+                                                                e.getMessage());
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                Bundle parameters = new Bundle();
+                                parameters.putString("fields", AppConstant.FB_PARAM_FIELDS);
+                                request.setParameters(parameters);
+                                request.executeAsync();
+                                super.onPostExecute(aVoid);
+                            }
+                        }.execute();
+
                     }
 
                     @Override

@@ -13,6 +13,6 @@
         android:drawableTop="@drawable/ic_launcher"
         android:textSize="@dimen/XL_TEXT"
         android:text="Splash"
-        android:textColor="@color/white" />
+        android:textColor="@color/purple" />
 
 </RelativeLayout>
