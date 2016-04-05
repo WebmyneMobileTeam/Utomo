@@ -676,6 +676,9 @@ public class AccountPresenterImpl implements AccountPresenter {
             public void onResponse(Call<ResendOutput> call, Response<ResendOutput> response) {
                 if (response.body() != null) {
                     ResendOutput output = response.body();
+
+                    Log.e("res", Functions.jsonString(output));
+
                     if (output.ResendOTP.ResponseCode == 1) {
                         OTPDialog dialog = new OTPDialog(activity, number);
                         dialog.setOnSubmitListener(new OTPDialog.onSubmitListener() {

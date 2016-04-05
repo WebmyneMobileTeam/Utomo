@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -20,6 +21,7 @@ import com.rovertech.utomo.app.account.model.CityRequest;
 import com.rovertech.utomo.app.account.service.FetchCityService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.widget.dialog.ChangePasswordDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,8 +43,9 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
     }
 
     @Override
-    public void doUpdate() {
-
+    public void doUpdate(Context context) {
+        ChangePasswordDialog dialog = new ChangePasswordDialog(context);
+        dialog.show();
     }
 
     @Override
@@ -139,5 +142,11 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
             personalProfileView.setImage(bitmap, finalFile);
 
         }
+    }
+
+    @Override
+    public void changePwd(Context context) {
+        ChangePasswordDialog dialog = new ChangePasswordDialog(context);
+        dialog.show();
     }
 }

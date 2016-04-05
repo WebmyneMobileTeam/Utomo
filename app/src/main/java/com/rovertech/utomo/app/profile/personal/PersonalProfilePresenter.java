@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentActivity;
  */
 public interface PersonalProfilePresenter {
 
-    void doUpdate();
+    void doUpdate(Context context);
 
     void selectPUCDate(Context context);
 
@@ -18,4 +18,6 @@ public interface PersonalProfilePresenter {
     void selectImage(Context context);
 
     void setImage(Intent data, Context context, int requestCode);
+
+    void changePwd(Context context);
 }

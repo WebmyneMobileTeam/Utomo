@@ -116,6 +116,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     }
 
     private void listenerActions() {
+        txtChangePassword.setOnClickListener(this);
         txtUpdate.setOnClickListener(this);
         edtDOB.setOnClickListener(this);
         imageSelectLayout.setOnClickListener(this);
@@ -173,7 +174,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtUpdate:
-                personalProfilePresenter.doUpdate();
+                personalProfilePresenter.doUpdate(getActivity());
                 break;
 
             case R.id.edtDOB:
@@ -182,6 +183,10 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
             case R.id.imageSelectLayout:
                 personalProfilePresenter.selectImage(getActivity());
+                break;
+
+            case R.id.txtChangePassword:
+                personalProfilePresenter.changePwd(getActivity());
                 break;
         }
     }
