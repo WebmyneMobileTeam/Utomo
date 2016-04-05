@@ -142,7 +142,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                                                         socialRequest.SocialID = fbProfile.get("id").toString();
                                                         socialRequest.LoginBy = AppConstant.LOGIN_BY_FB;
 
-                                                        Log.e("social_request", Functions.jsonString(socialRequest));
+                                                        Log.e("social_request_impl", Functions.jsonString(socialRequest));
 
                                                         onFacebookLogin(socialRequest, true, activity.getString(R.string.facebook_success), "");
                                                     } catch (Exception e) {
