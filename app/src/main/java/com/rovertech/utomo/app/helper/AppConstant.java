@@ -11,18 +11,24 @@ public class AppConstant {
     public static String SIGN_UP = "sign_up";
 
     final public static String BASE_URL = "http://ws-srv-net.in.webmyne.com/Applications/CarBell/Development/UTOMOService_V01/Service/";
+
+    // Account login/sign-up/change-forget password
+    final public static String RESEND_OTP = "UserLoginSignup.svc/json/ResendOTP/{MOBILENUMBER}";
     final public static String BASIC_LOGIN_SIGNUP = "UserLoginSignup.svc/json/BasicLoginSignUp";
     final public static String OTP_VERIFY = "UserLoginSignup.svc/json/OTPVerification/{MOBILENUMBER}/{OTP}";
+    final public static String SOCIAL_LOGIN_SIGNUP = "UserLoginSignup.svc/json/SocialLoginSignUp";
+
+    // Add car WS list
     final public static String FETCH_CITY = "UserActivities.svc/json/FetchCity";
     final public static String FETCH_MAKE = "UserActivities.svc/json/FetchMake";
     final public static String FETCH_YEAR = "UserActivities.svc/json/FetchYear/{DEALERSHIP}";
     final public static String FETCH_MODEL = "UserActivities.svc/json/FetchModel/{DEALERSHIP}/{YEAR}";
+    final public static String ADD_CAR = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
+
     final public static String FETCH_SERVICE_CENTRELIST = "UserActivities.svc/json/FetchServiceCentreList";
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
     final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
-
     final public static String FETCH_VEHICLE_LIST = "UserActivities.svc/json/FetchVehicleList";
-    final public static String ADD_CAR = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
 
     public static String NO_INTERNET_CONNECTION = "No Internet Connection";
     public static String INTERNAL_ERROR = "INTERNAL ERROR.Please try again later.";

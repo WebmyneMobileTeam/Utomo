@@ -24,7 +24,7 @@ public interface AccountPresenter {
 
     void openLogin();
 
-    void openForget(Context context);
+    void openForget(Context context, String s);
 
     void socialMediaActivityResultHandler(int requestCode, int resultCode, Intent data, GoogleApiClient mGoogleApiClient);
 

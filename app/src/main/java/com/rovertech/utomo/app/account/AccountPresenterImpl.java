@@ -35,10 +35,12 @@ import com.rovertech.utomo.app.account.model.BasicLoginRequest;
 import com.rovertech.utomo.app.account.model.CityOutput;
 import com.rovertech.utomo.app.account.model.CityRequest;
 import com.rovertech.utomo.app.account.model.ManiBasicLoginSignUp;
+import com.rovertech.utomo.app.account.model.ResendOutput;
 import com.rovertech.utomo.app.account.model.SocialRequest;
 import com.rovertech.utomo.app.account.model.UserProfile;
 import com.rovertech.utomo.app.account.service.FetchCityService;
 import com.rovertech.utomo.app.account.service.OtpVerifyService;
+import com.rovertech.utomo.app.account.service.ResendOtpService;
 import com.rovertech.utomo.app.account.service.SignUpService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
@@ -47,7 +49,6 @@ import com.rovertech.utomo.app.widget.dialog.OTPDialog;
 
 import org.json.JSONObject;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import retrofit2.Call;
@@ -657,8 +658,47 @@ public class AccountPresenterImpl implements AccountPresenter {
     }
 
     @Override
-    public void openForget(Context context) {
-        Functions.showToast(context, "Forget password");
+    public void openForget(Context context, String number) {
+        if (number.equals("")) {
+            accountView.numberError();
+        } else {
+            // call ws
+            callWS(context, number);
+
+        }
+    }
+
+    private void callWS(final Context context, final String number) {
+        ResendOtpService service = UtomoApplication.retrofit.create(ResendOtpService.class);
+        Call<ResendOutput> call = service.resendOTP(number);
+        call.enqueue(new Callback<ResendOutput>() {
+            @Override
+            public void onResponse(Call<ResendOutput> call, Response<ResendOutput> response) {
+                if (response.body() != null) {
+                    ResendOutput output = response.body();
+                    if (output.ResendOTP.ResponseCode == 1) {
+                        OTPDialog dialog = new OTPDialog(activity, number);
+                        dialog.setOnSubmitListener(new OTPDialog.onSubmitListener() {
+                            @Override
+                            public void onSubmit(String otp) {
+
+                            }
+                        });
+                        dialog.show();
+                    } else {
+                        Functions.showToast(context, output.ResendOTP.ResponseMessage);
+                    }
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResendOutput> call, Throwable t) {
+
+            }
+        });
     }
 
     private void setNameError() {

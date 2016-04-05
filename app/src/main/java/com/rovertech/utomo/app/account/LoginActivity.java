@@ -216,7 +216,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
                 break;
 
             case R.id.txtForget:
-                presenter.openForget(this);
+                presenter.openForget(this, Functions.toStr(edtMobileNumber));
                 break;
         }
     }
