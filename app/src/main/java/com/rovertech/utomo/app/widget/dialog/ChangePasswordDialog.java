@@ -42,6 +42,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
         parentView = View.inflate(context, R.layout.layout_change_pwd, null);
         edtPassword = (EditText) parentView.findViewById(R.id.edtPassword);
         edtRePassword = (EditText) parentView.findViewById(R.id.edtRePassword);
+        btnSubmit = (Button) parentView.findViewById(R.id.btnSubmit);
 
         setTypeface();
 
@@ -72,13 +73,24 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSubmit:
-               // if(Functions.toStr(edtPassword).equals(Functions.toStr(edtRePassword)))
-
+                checkValidation();
                 break;
         }
     }
 
+    private void checkValidation() {
+        if (Functions.toStr(edtPassword).length() == 0 || Functions.toStr(edtRePassword).length() == 0) {
+            Functions.showToast(context, "Password can't be empty");
+        } else {
+            if (Functions.toStr(edtPassword).equals(Functions.toStr(edtRePassword)) && onSubmitListener != null) {
+                onSubmitListener.onSubmit(Functions.toStr(edtPassword));
+            } else {
+                Functions.showToast(context, "Password mismatch");
+            }
+        }
+    }
+
     public interface onSubmitListener {
-        void onSubmit(String otp);
+        void onSubmit(String password);
     }
 }

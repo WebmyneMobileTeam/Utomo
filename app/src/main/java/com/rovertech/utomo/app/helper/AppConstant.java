@@ -17,6 +17,7 @@ public class AppConstant {
     final public static String BASIC_LOGIN_SIGNUP = "UserLoginSignup.svc/json/BasicLoginSignUp";
     final public static String OTP_VERIFY = "UserLoginSignup.svc/json/OTPVerification/{MOBILENUMBER}/{OTP}";
     final public static String SOCIAL_LOGIN_SIGNUP = "UserLoginSignup.svc/json/SocialLoginSignUp";
+    final public static String RESET_PASSWORD = "UserLoginSignup.svc/json/ResetPassword/{MOBILENO}/{NEWPASSWORD}";
 
     // Add car WS list
     final public static String FETCH_CITY = "UserActivities.svc/json/FetchCity";

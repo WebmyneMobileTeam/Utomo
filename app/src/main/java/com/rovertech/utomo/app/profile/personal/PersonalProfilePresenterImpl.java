@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -18,9 +17,12 @@ import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.CityOutput;
 import com.rovertech.utomo.app.account.model.CityRequest;
+import com.rovertech.utomo.app.account.model.ResetPasswordOutput;
 import com.rovertech.utomo.app.account.service.FetchCityService;
+import com.rovertech.utomo.app.account.service.ResetPwdService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.widget.dialog.ChangePasswordDialog;
 
 import java.io.File;
@@ -145,8 +147,38 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
     }
 
     @Override
-    public void changePwd(Context context) {
-        ChangePasswordDialog dialog = new ChangePasswordDialog(context);
+    public void changePwd(final Context context) {
+        final ChangePasswordDialog dialog = new ChangePasswordDialog(context);
+        dialog.setOnSubmitListener(new ChangePasswordDialog.onSubmitListener() {
+            @Override
+            public void onSubmit(String password) {
+                doResetPwd(context, password);
+                dialog.dismiss();
+            }
+        });
         dialog.show();
+    }
+
+    private void doResetPwd(final Context context, String password) {
+        ResetPwdService service = UtomoApplication.retrofit.create(ResetPwdService.class);
+        Call<ResetPasswordOutput> call = service.resetPassword(PrefUtils.getUserFullProfileDetails(context).MobileNo, password);
+        call.enqueue(new Callback<ResetPasswordOutput>() {
+            @Override
+            public void onResponse(Call<ResetPasswordOutput> call, Response<ResetPasswordOutput> response) {
+                if (response.body() != null) {
+                    ResetPasswordOutput output = response.body();
+                    if (output.ResetPassword.ResponseCode == 1) {
+                        Functions.showToast(context, "Password changed successfully.");
+                    } else {
+                        Functions.showToast(context, output.ResetPassword.ResponseMessage);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResetPasswordOutput> call, Throwable t) {
+                Functions.showToast(context, t.toString());
+            }
+        });
     }
 }

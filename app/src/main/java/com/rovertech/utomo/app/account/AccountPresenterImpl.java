@@ -680,7 +680,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                     Log.e("res", Functions.jsonString(output));
 
                     if (output.ResendOTP.ResponseCode == 1) {
-                        OTPDialog dialog = new OTPDialog(activity, number);
+                        OTPDialog dialog = new OTPDialog(activity, output.ResendOTP.Data.get(0).OTP);
                         dialog.setOnSubmitListener(new OTPDialog.onSubmitListener() {
                             @Override
                             public void onSubmit(String otp) {
