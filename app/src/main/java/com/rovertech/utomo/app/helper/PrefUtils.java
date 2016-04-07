@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.helper;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.google.gson.Gson;
@@ -12,6 +13,8 @@ public class PrefUtils {
 
     public static String USER_ID = "UserId";
     public static String USER_PROFILE_KEY = "USER_PROFILE_KEY";
+    public static String GCM_ID = "GCM_ID";
+    public static String DEVICE_ID = "Device_ID";
 
     public static void setLoggedIn(Context ctx, boolean value) {
         Prefs.with(ctx).save(AppConstant.LOGGED_IN, value);
@@ -52,4 +55,19 @@ public class PrefUtils {
         return userProfileDetails;
     }
 
+    public static void setGCMID(Activity activity, String gcm_id) {
+        Prefs.with(activity).save(GCM_ID, gcm_id);
+    }
+
+    public static String getGcmId(Context context) {
+        return Prefs.with(context).getString(GCM_ID, "");
+    }
+
+    public static String getDeviceId(Context context) {
+        return Prefs.with(context).getString(DEVICE_ID, "");
+    }
+
+    public static void setDeviceId(Activity activity, String deviceId) {
+        Prefs.with(activity).save(DEVICE_ID, deviceId);
+    }
 }

@@ -118,4 +118,8 @@
         <item name="type">small</item>
     </style>
 
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/toolbar_textsize</item>
+        <item name="android:textColor">@color/purple</item>
+    </style>
 </resources>

@@ -36,15 +36,18 @@ import com.rovertech.utomo.app.account.model.CityOutput;
 import com.rovertech.utomo.app.account.model.CityRequest;
 import com.rovertech.utomo.app.account.model.ManiBasicLoginSignUp;
 import com.rovertech.utomo.app.account.model.ResendOutput;
+import com.rovertech.utomo.app.account.model.ResetPasswordOutput;
 import com.rovertech.utomo.app.account.model.SocialRequest;
-import com.rovertech.utomo.app.account.model.UserProfile;
 import com.rovertech.utomo.app.account.service.FetchCityService;
 import com.rovertech.utomo.app.account.service.OtpVerifyService;
 import com.rovertech.utomo.app.account.service.ResendOtpService;
+import com.rovertech.utomo.app.account.service.ResetPwdService;
 import com.rovertech.utomo.app.account.service.SignUpService;
+import com.rovertech.utomo.app.account.service.SocialLoginService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.widget.dialog.ChangePasswordDialog;
 import com.rovertech.utomo.app.widget.dialog.OTPDialog;
 
 import org.json.JSONObject;
@@ -139,7 +142,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                                                         socialRequest.FName = fbProfile.getString("first_name");
                                                         socialRequest.LName = fbProfile.getString("last_name");
                                                         socialRequest.Gender = fbProfile.getString("gender");
-                                                        socialRequest.Email = fbProfile.getString("email");
+                                                        socialRequest.EmailID = fbProfile.getString("email");
                                                         socialRequest.SocialID = fbProfile.get("id").toString();
                                                         socialRequest.LoginBy = AppConstant.LOGIN_BY_FB;
 
@@ -185,7 +188,29 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     private void onFacebookLogin(SocialRequest socialRequest, boolean isSuccess, String success, String error) {
         if (isSuccess) {
-            accountView.onFacebookLoginSuccess(socialRequest, success);
+            SocialLoginService service = UtomoApplication.retrofit.create(SocialLoginService.class);
+            Call<ManiBasicLoginSignUp> call = service.doSocialLogin(socialRequest);
+            call.enqueue(new Callback<ManiBasicLoginSignUp>() {
+                @Override
+                public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
+                    if (response.body() != null) {
+
+                        ManiBasicLoginSignUp output = response.body();
+
+                        if (output.SocialLoginSignUp.ResponseCode == 1) {
+                            PrefUtils.setUserFullProfileDetails(activity, output.SocialLoginSignUp.Data.get(0));
+                            PrefUtils.setLoggedIn(activity, true);
+                            LoginManager.getInstance().logOut();
+                            loginSuccess();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
+
+                }
+            });
         } else {
             accountView.onFacebookLoginError(error);
         }
@@ -200,11 +225,6 @@ public class AccountPresenterImpl implements AccountPresenter {
         } else { //handles Facebook Result
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    @Override
-    public void doLogin(LoginActivity loginActivity, final UserProfile userProfile) {
-        accountView.showProgress();
     }
 
     @Override
@@ -282,7 +302,6 @@ public class AccountPresenterImpl implements AccountPresenter {
                     Log.e("onFailure", t.toString());
                 }
             });
-
         }
     }
 
@@ -356,7 +375,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                     try {
                         Person person = loadPeopleResult.getPersonBuffer().get(0);
 
-                        socialRequest.Email = acct.getEmail();
+                        socialRequest.EmailID = acct.getEmail();
                         if (acct.getPhotoUrl() != null) {
                             socialRequest.ProfileImg = acct.getPhotoUrl().toString();
                         }
@@ -368,8 +387,12 @@ public class AccountPresenterImpl implements AccountPresenter {
                         socialRequest.SocialID = acct.getId();
                         socialRequest.LoginBy = AppConstant.LOGIN_BY_GPLUS;
 
+                        Log.e("socialRequest_gplus", socialRequest.toString());
+
                         onGoogleLogin(socialRequest, true, activity.getString(R.string.success), "");
+
                     } catch (Exception e) {
+                        Log.e("g_error", e.getMessage());
                         onGoogleLogin(socialRequest, false, "", activity.getString(R.string.google_connection_failed));
                     }
                 }
@@ -416,6 +439,7 @@ public class AccountPresenterImpl implements AccountPresenter {
         loginRequest.Mobile = number;
         loginRequest.Password = pwd;
         loginRequest.DeviceId = deviceId;
+        PrefUtils.setDeviceId(activity, deviceId);
         loginRequest.isSignUp = false;
 
         try {
@@ -442,6 +466,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                             if (!regId.equals("")) {
                                 GCM_ID = regId;
                                 loginRequest.GCMId = GCM_ID;
+                                PrefUtils.setGCMID(activity, GCM_ID);
                                 processLogin(activity, loginRequest);
                             } else {
                                 Functions.showToast(activity, activity.getString(R.string.gcm_error));
@@ -662,13 +687,12 @@ public class AccountPresenterImpl implements AccountPresenter {
         if (number.equals("")) {
             accountView.numberError();
         } else {
-            // call ws
             callWS(context, number);
-
         }
     }
 
     private void callWS(final Context context, final String number) {
+
         ResendOtpService service = UtomoApplication.retrofit.create(ResendOtpService.class);
         Call<ResendOutput> call = service.resendOTP(number);
         call.enqueue(new Callback<ResendOutput>() {
@@ -677,14 +701,16 @@ public class AccountPresenterImpl implements AccountPresenter {
                 if (response.body() != null) {
                     ResendOutput output = response.body();
 
-                    Log.e("res", Functions.jsonString(output));
+                    Log.e("res", Functions.jsonString(response.body()));
 
                     if (output.ResendOTP.ResponseCode == 1) {
-                        OTPDialog dialog = new OTPDialog(activity, output.ResendOTP.Data.get(0).OTP);
+
+                        final OTPDialog dialog = new OTPDialog(activity, output.ResendOTP.Data.get(0).OTP);
                         dialog.setOnSubmitListener(new OTPDialog.onSubmitListener() {
                             @Override
                             public void onSubmit(String otp) {
-
+                                dialog.dismiss();
+                                doVerifyOTP(context, otp, number);
                             }
                         });
                         dialog.show();
@@ -693,13 +719,77 @@ public class AccountPresenterImpl implements AccountPresenter {
                     }
 
                 } else {
-
+                    Functions.showToast(context, "Error occurred.");
                 }
             }
 
             @Override
             public void onFailure(Call<ResendOutput> call, Throwable t) {
+                Functions.showToast(context, t.toString());
+            }
+        });
+    }
 
+    private void doVerifyOTP(final Context context, String otp, final String number) {
+        OtpVerifyService service = UtomoApplication.retrofit.create(OtpVerifyService.class);
+        Call<ManiBasicLoginSignUp> call = service.verifyOTP(number, otp);
+        call.enqueue(new Callback<ManiBasicLoginSignUp>() {
+            @Override
+            public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
+
+                if (response.body() == null) {
+                    Functions.showToast(activity, "Error occurred.");
+
+                } else {
+
+                    ManiBasicLoginSignUp otpOutput = response.body();
+
+                    if (otpOutput.OTPVerification.ResponseCode == 1) {
+
+                        Functions.showToast(activity, "OTP Verification successful.");
+
+                        final ChangePasswordDialog dialog = new ChangePasswordDialog(context);
+                        dialog.setOnSubmitListener(new ChangePasswordDialog.onSubmitListener() {
+                            @Override
+                            public void onSubmit(String password) {
+                                doResetPwd(context, number, password);
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                    } else {
+                        Functions.showToast(activity, otpOutput.OTPVerification.ResponseMessage);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
+                Functions.showToast(activity, t.toString());
+            }
+        });
+
+    }
+
+    private void doResetPwd(final Context context, String number, String password) {
+        ResetPwdService service = UtomoApplication.retrofit.create(ResetPwdService.class);
+        Call<ResetPasswordOutput> call = service.resetPassword(number, password);
+        call.enqueue(new Callback<ResetPasswordOutput>() {
+            @Override
+            public void onResponse(Call<ResetPasswordOutput> call, Response<ResetPasswordOutput> response) {
+                if (response.body() != null) {
+                    ResetPasswordOutput output = response.body();
+                    if (output.ResetPassword.ResponseCode == 1) {
+                        Functions.showToast(context, "Password changed successfully.");
+                    } else {
+                        Functions.showToast(context, output.ResetPassword.ResponseMessage);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResetPasswordOutput> call, Throwable t) {
+                Functions.showToast(context, t.toString());
             }
         });
     }

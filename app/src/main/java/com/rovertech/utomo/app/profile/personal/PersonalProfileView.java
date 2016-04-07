@@ -20,4 +20,12 @@ public interface PersonalProfileView {
     void setCityAdapter(CityAdapter adapter, ArrayList<City> data);
 
     void setImage(Bitmap thumbnail, File finalFile);
+
+    void success();
+
+    void fail(String responseMessage);
+
+    void showProgress();
+
+    void hideProgress();
 }

@@ -56,6 +56,7 @@
                         android:id="@+id/edtEmail"
                         style="@style/MyEditTextStyle"
                         android:drawableLeft="@drawable/ic_email"
+                        android:focusable="false"
                         android:hint="Email (Optional)"
                         android:inputType="textEmailAddress" />
                 </android.support.v7.widget.CardView>

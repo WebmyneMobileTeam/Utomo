@@ -17,10 +17,47 @@
       },
       "oauth_client": [
         {
+          "client_id": "950342667766-ff89n5skrn5lkn3k2372sh6iq8hrpn0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950342667766:android:16a4a54fb74e40db",
+        "client_id": "android:com.rovertech.utomo.app",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.rovertech.utomo.app",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "950342667766-m7j0aiap6g7sro5e176k5574qsqvbjld.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.rovertech.utomo",
+            "package_name": "com.rovertech.utomo.app",
             "certificate_hash": "D62A394DBB019D05DB3D71816EEA2C1AF3DC60B6"
           }
         },

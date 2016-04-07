@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initSocial();
+
         setContentView(R.layout.activity_login_revised);
 
         init();
@@ -231,7 +232,6 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         Functions.showSnack(parentView, "Please enter name");
     }
 
-
     @Override
     public void showProgress() {
         progressDialog = ProgressDialog.show(this, "Loading", "Please wait..", false);
@@ -277,25 +277,18 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     }
 
     @Override
-    public void onFacebookLoginSuccess(SocialRequest socialRequest, String success) {
-        //presenter.doLogin(LoginActivity.this, userProfile);
-        Log.e("req", Functions.jsonString(socialRequest));
-    }
-
-    @Override
     public void onFacebookLoginError(String error) {
         Functions.showToast(this, error);
     }
 
     @Override
     public void onGoogleLoginSuccess(SocialRequest socialRequest, String success) {
-        //presenter.doLogin(LoginActivity.this, socialRequest);
         Functions.jsonString(socialRequest);
     }
 
     @Override
     public void onGoogleLoginError(String error) {
-
+        Functions.showToast(this, error);
     }
 
     @Override
@@ -321,6 +314,6 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Functions.showToast(this, getString(R.string.google_connection_failed));
     }
 }

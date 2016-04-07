@@ -63,10 +63,16 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
 
         init();
 
-        presenter = new CarFragmentPresenterImpl(this);
+        presenter = new CarFragmentPresenterImpl(this, getActivity());
 
         carList = new ArrayList<>();
         adapter = new CarListAdapter(getActivity(), carList);
+        adapter.setOnDeleteListener(new CarListAdapter.onDeleteListener() {
+            @Override
+            public void onDelete(int vehicleId) {
+                presenter.deleteVehicle(vehicleId);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         btnAddCar.setOnClickListener(this);

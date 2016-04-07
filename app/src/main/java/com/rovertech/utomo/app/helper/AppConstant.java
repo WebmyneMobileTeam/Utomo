@@ -18,6 +18,7 @@ public class AppConstant {
     final public static String OTP_VERIFY = "UserLoginSignup.svc/json/OTPVerification/{MOBILENUMBER}/{OTP}";
     final public static String SOCIAL_LOGIN_SIGNUP = "UserLoginSignup.svc/json/SocialLoginSignUp";
     final public static String RESET_PASSWORD = "UserLoginSignup.svc/json/ResetPassword/{MOBILENO}/{NEWPASSWORD}";
+    final public static String UPDATE_PROFILE = BASE_URL + "UserLoginSignup.svc/json/UpdateUserProfile";
 
     // Add car WS list
     final public static String FETCH_CITY = "UserActivities.svc/json/FetchCity";
@@ -25,6 +26,7 @@ public class AppConstant {
     final public static String FETCH_YEAR = "UserActivities.svc/json/FetchYear/{DEALERSHIP}";
     final public static String FETCH_MODEL = "UserActivities.svc/json/FetchModel/{DEALERSHIP}/{YEAR}";
     final public static String ADD_CAR = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
+    final public static String DELETE_CAR = "UserActivities.svc/json/DeleteVehicleDetails/{USERID}/{VEHICLELID}";
 
     final public static String FETCH_SERVICE_CENTRELIST = "UserActivities.svc/json/FetchServiceCentreList";
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";

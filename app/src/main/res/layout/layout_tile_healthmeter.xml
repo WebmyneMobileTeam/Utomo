@@ -3,44 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:background="@color/white">
+    android:layout_margin="6dp"
+    app:background="@color/white">
 
     <com.rovertech.utomo.app.widget.progress.ProgressLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="42dp"
         app:autoProgress="true"
         app:emptyColor="@color/white"
         app:loadedColor="@color/color30"
         app:maxProgress="100" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
             android:id="@+id/txtTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/N_TEXT"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
             android:padding="4dp"
-            android:text="Car Health" />
+            android:text="Car Health"
+            android:textSize="@dimen/N_TEXT" />
 
         <TextView
             android:id="@+id/txtPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="40%"
-            android:textSize="22sp" />
+            android:textSize="@dimen/XL_TEXT" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

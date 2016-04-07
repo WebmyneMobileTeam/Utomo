@@ -28,7 +28,5 @@ public interface AccountPresenter {
 
     void socialMediaActivityResultHandler(int requestCode, int resultCode, Intent data, GoogleApiClient mGoogleApiClient);
 
-    void doLogin(LoginActivity loginActivity, UserProfile userProfile);
-
     void fetchCity(Context context, String string);
 }

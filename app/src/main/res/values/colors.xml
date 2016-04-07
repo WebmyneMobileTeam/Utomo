@@ -21,6 +21,7 @@
     <color name="yellow">#FFFF00</color>
     <color name="trans_blue">#A69C27B0</color>
     <color name="orange">#e59400</color>
+    <color name="shadow">#33000000</color>
 
     <!--health meter progress colors-->
     <color name="color_default">#0171A3</color>
@@ -29,7 +30,7 @@
     <color name="color80">#ffa500</color>
     <color name="color_high">#ff0000</color>
 
-    <color name="button_bg">#1A8E24AA</color>
+    <color name="button_bg">#268E24AA</color>
 
     <color name="material_drawer_primary_text">#DE000000</color>
     <color name="material_drawer_selected_text">#2196F3</color>

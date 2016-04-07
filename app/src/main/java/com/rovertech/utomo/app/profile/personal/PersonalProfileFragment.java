@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.profile.personal;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
@@ -47,6 +47,9 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     private PersonalProfilePresenter personalProfilePresenter;
     private int cityId = 0;
     private File file = null;
+    ProgressDialog progressDialog;
+
+    private String birthDate = "";
 
     public PersonalProfileFragment() {
         // Required empty public constructor
@@ -80,7 +83,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
         cityId = profile.CityID;
         edtMobile.setText(profile.MobileNo);
-        edtEmail.setText(profile.Email);
+        edtEmail.setText(profile.EmailID);
         edtCity.setText(profile.CityName);
         edtName.setText(profile.Name);
         edtDOB.setText(profile.DOB);
@@ -171,14 +174,35 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     }
 
     @Override
+    public void success() {
+        Functions.showToast(getActivity(), "Profile updated successfully.");
+    }
+
+    @Override
+    public void fail(String responseMessage) {
+        Functions.showToast(getActivity(), responseMessage);
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtUpdate:
-                personalProfilePresenter.doUpdate(getActivity());
+                personalProfilePresenter.doUpdate(getActivity(), Functions.toStr(edtName), Functions.toStr(edtDOB), Functions.toStr(edtAddress), cityId, file, Functions.toStr(edtEmail));
                 break;
 
             case R.id.edtDOB:
-                personalProfilePresenter.selectPUCDate(getActivity());
+                personalProfilePresenter.selectDOB(getActivity());
                 break;
 
             case R.id.imageSelectLayout:

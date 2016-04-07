@@ -1,14 +1,16 @@
 package com.rovertech.utomo.app.profile.carlist;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.tiles.carItem.CarItemTile;
 
 import java.util.ArrayList;
@@ -20,6 +22,13 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
 
     Context context;
     ArrayList<CarPojo> carArrayList;
+
+    public void setOnDeleteListener(onDeleteListener onDeleteListener) {
+        this.onDeleteListener = onDeleteListener;
+    }
+
+    private onDeleteListener onDeleteListener;
+
 
     public CarListAdapter(Context context, ArrayList<CarPojo> carArrayList) {
         this.context = context;
@@ -45,9 +54,24 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        CarPojo carPojo = carArrayList.get(position);
-        if (carPojo != null)
+        final CarPojo carPojo = carArrayList.get(position);
+        if (carPojo != null) {
             holder.carItemTile.setDetails(carPojo);
+            holder.txtDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("VehicleID", carPojo.VehicleID + "");
+                    if (onDeleteListener != null)
+                        onDeleteListener.onDelete(carPojo.VehicleID);
+                }
+            });
+            holder.carCardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Functions.showToast(context, "To be continued..");
+                }
+            });
+        }
     }
 
     @Override
@@ -58,11 +82,18 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public CarItemTile carItemTile;
+        public TextView txtDelete;
+        public CardView carCardView;
 
         public ViewHolder(View view) {
             super(view);
-
+            txtDelete = (TextView) view.findViewById(R.id.txtDelete);
+            carCardView = (CardView) view.findViewById(R.id.carCardView);
         }
+    }
+
+    public interface onDeleteListener {
+        void onDelete(int vehicleId);
     }
 
 }

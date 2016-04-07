@@ -7,7 +7,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +26,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
     private TextView txtTitle;
     private Odometer odometer;
-    private ImageView imgReset, imgDone;
+    private TextView txtReset, txtDone;
     private boolean isChange = false;
 
     Animator fadeIn, fadeOut, reverseFadeIn, reverseFadeOut;
@@ -65,23 +64,23 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
     private void initAnimation() {
 
         // Regular Animation
-        fadeIn = ObjectAnimator.ofFloat(imgReset, "translationY", 0, 150);
-        fadeOut = ObjectAnimator.ofFloat(imgDone, "translationY", -70, 0);
+        fadeIn = ObjectAnimator.ofFloat(txtReset, "translationY", 0, 150);
+        fadeOut = ObjectAnimator.ofFloat(txtDone, "translationY", -80, 0);
 
-        fadeIn.setDuration(700);
-        fadeOut.setDuration(500);
+        fadeIn.setDuration(900);
+        fadeOut.setDuration(600);
 
         loginSet.playTogether(fadeIn, fadeOut);
 
         loginSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                imgDone.setVisibility(VISIBLE);
+                txtDone.setVisibility(VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                imgReset.setVisibility(GONE);
+                txtReset.setVisibility(GONE);
 
             }
 
@@ -97,22 +96,23 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
         });
 
         // Reverse Animation
-        reverseFadeIn = ObjectAnimator.ofFloat(imgReset, "translationY", 100, 0);
-        reverseFadeOut = ObjectAnimator.ofFloat(imgDone, "translationY", 0, -150);
+        reverseFadeIn = ObjectAnimator.ofFloat(txtReset, "translationY", 100, 0);
+        reverseFadeOut = ObjectAnimator.ofFloat(txtDone, "translationY", 0, -150);
 
         reverseFadeIn.setDuration(600);
-        reverseFadeOut.setDuration(700);
+        reverseFadeOut.setDuration(800);
 
         reverseLoginSet.playTogether(reverseFadeIn, reverseFadeOut);
+
         reverseLoginSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                imgReset.setVisibility(VISIBLE);
+                txtReset.setVisibility(VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                imgDone.setVisibility(GONE);
+                txtDone.setVisibility(GONE);
             }
 
             @Override
@@ -133,12 +133,15 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
     private void findViewById() {
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
-        imgReset = (ImageView) parentView.findViewById(R.id.imgReset);
-        imgDone = (ImageView) parentView.findViewById(R.id.imgDone);
+        txtReset = (TextView) parentView.findViewById(R.id.txtReset);
+        txtDone = (TextView) parentView.findViewById(R.id.txtDone);
         odometer = (Odometer) parentView.findViewById(R.id.odometer);
 
-        imgReset.setOnClickListener(this);
-        imgDone.setOnClickListener(this);
+        txtReset.setTypeface(Functions.getBoldFont(context));
+        txtDone.setTypeface(Functions.getBoldFont(context));
+
+        txtReset.setOnClickListener(this);
+        txtDone.setOnClickListener(this);
 
         odometer.setOnOdometerChangeListener(new Odometer.onOdometerChangeListener() {
             @Override
@@ -154,11 +157,11 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.imgReset:
+            case R.id.txtReset:
                 presenter.reset(context);
                 break;
 
-            case R.id.imgDone:
+            case R.id.txtDone:
                 presenter.done(context);
                 break;
         }
@@ -172,7 +175,6 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
     @Override
     public void setReading() {
-
         Toast.makeText(context, "Change Reading", Toast.LENGTH_SHORT).show();
         isChange = false;
         reverseLoginSet.start();

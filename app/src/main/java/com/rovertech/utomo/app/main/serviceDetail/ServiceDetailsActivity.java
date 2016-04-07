@@ -1,8 +1,11 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,6 +24,9 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private FloatingActionButton fab;
     private LinearLayout bottomCall, bottomDirection, bottomReview;
     private ServicePresenter presenter;
+
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,30 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
     private void init() {
         initToolbar();
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Functions.getBoldFont(this));
+
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle("Maruti Service Centre");
+                    isShow = true;
+                } else if (isShow) {
+                    collapsingToolbarLayout.setTitle("");
+                    isShow = false;
+                }
+            }
+        });
 
         parentView = findViewById(android.R.id.content);
         bottomSheet = findViewById(R.id.bottom_sheet);

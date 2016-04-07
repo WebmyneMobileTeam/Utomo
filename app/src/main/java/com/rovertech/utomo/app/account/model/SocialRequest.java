@@ -11,7 +11,7 @@ public class SocialRequest implements Serializable {
 
     public String DeviceID;
 
-    public String Email;
+    public String EmailID;
 
     public String FName;
 
@@ -36,7 +36,7 @@ public class SocialRequest implements Serializable {
     public SocialRequest() {
         this.DOB = "";
         DeviceID = "";
-        this.Email = "";
+        this.EmailID = "";
         this.FName = "";
         this.GCMToken = "";
         Gender = "";

@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.tiles.carItem;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.addCar.AddCarActivity;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
@@ -23,11 +20,17 @@ public class CarItemTile extends LinearLayout {
 
     Context context;
     private View parentView;
-    private LayoutInflater inflater;
     private CardView carCardView;
 
-    private TextView txtCarName, txtVehicleNo, txtOdometerValue;
+    private TextView txtCarName, txtVehicleNo, txtOdometerValue, txtDelete;
     private ImageView imgCar;
+
+    private CarPojo carPojo;
+
+
+    public CarItemTile(Context context) {
+        super(context);
+    }
 
     public CarItemTile(Context context, View view) {
         super(context);
@@ -48,10 +51,11 @@ public class CarItemTile extends LinearLayout {
         txtCarName.setTypeface(Functions.getBoldFont(context));
         txtVehicleNo.setTypeface(Functions.getNormalFont(context));
         txtOdometerValue.setTypeface(Functions.getNormalFont(context));
-
+        txtDelete.setTypeface(Functions.getBoldFont(context));
     }
 
     private void findViewById() {
+        txtDelete = (TextView) parentView.findViewById(R.id.txtDelete);
         carCardView = (CardView) parentView.findViewById(R.id.carCardView);
         txtCarName = (TextView) parentView.findViewById(R.id.txtCarName);
         imgCar = (ImageView) parentView.findViewById(R.id.imgCar);
@@ -60,6 +64,7 @@ public class CarItemTile extends LinearLayout {
     }
 
     public void setDetails(final CarPojo carPojo) {
+        this.carPojo = carPojo;
         txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
         txtVehicleNo.setText(carPojo.VehicleNo);
         txtOdometerValue.setText(String.format("%s", carPojo.TravelledKM));
@@ -70,16 +75,6 @@ public class CarItemTile extends LinearLayout {
             Glide.with(context).load(carPojo.CarImage).placeholder(R.drawable.car).centerCrop().into(imgCar);
         }
 
-        carCardView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Functions.showToast(context, "To be continued..");
-                /*Intent addCarIntent = new Intent(context, AddCarActivity.class);
-                addCarIntent.putExtra(AppConstant.SKIP, false);
-                addCarIntent.putExtra(AppConstant.VEHICLE_ID, carPojo.VehicleID);
-                context.startActivity(addCarIntent);*/
-
-            }
-        });
     }
+
 }

@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.DatePicker;
 
+import com.google.gson.Gson;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
@@ -23,8 +26,24 @@ import com.rovertech.utomo.app.account.service.ResetPwdService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.profile.personal.model.UpdateProfileRequest;
+import com.rovertech.utomo.app.profile.personal.model.UpdateProfileResponse;
 import com.rovertech.utomo.app.widget.dialog.ChangePasswordDialog;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.util.EntityUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -45,26 +64,166 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
     }
 
     @Override
-    public void doUpdate(Context context) {
-        ChangePasswordDialog dialog = new ChangePasswordDialog(context);
-        dialog.show();
+    public void doUpdate(final Context context, final String name, final String birthDate, final String address, final int cityId, final File file, final String email) {
+
+        if (personalProfileView != null)
+            personalProfileView.showProgress();
+
+        if (name.length() == 0) {
+            Functions.showToast(context, "Name cannot be empty");
+
+        } else if (cityId == 0) {
+            Functions.showToast(context, "City cannot be empty");
+
+        } else {
+
+            new AsyncTask<Void, Void, Void>() {
+
+                private String responseFromMultipart = null;
+                UpdateProfileRequest request = new UpdateProfileRequest();
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+
+                    request.FName = name;
+
+                    if (birthDate.length() != 0)
+                        request.DOB = birthDate;
+                    else
+                        request.DOB = "";
+                    if (address.length() != 0)
+                        request.Address = address;
+                    else
+                        request.Address = "";
+                    if (email.length() != 0)
+                        request.EmailID = email;
+                    else
+                        request.EmailID = "";
+
+                    request.CityID = cityId;
+                    request.GCMToken = PrefUtils.getGcmId(context);
+                    request.DeviceID = PrefUtils.getDeviceId(context);
+                    request.UserID = PrefUtils.getUserID(context);
+                    request.MobileNo = PrefUtils.getUserFullProfileDetails(context).MobileNo;
+
+                    Log.e("request", Functions.jsonString(request));
+                }
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        responseFromMultipart = doFileUploadAnother(file, context, request);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e("Error_bg", e.getMessage());
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    if (personalProfileView != null)
+                        personalProfileView.hideProgress();
+
+                    UpdateProfileResponse response = new Gson().fromJson(responseFromMultipart, UpdateProfileResponse.class);
+
+                    if (response.UpdateProfileDetails.ResponseCode == 1) {
+                        PrefUtils.setUserFullProfileDetails(context, response.UpdateProfileDetails.Data.get(0));
+                        personalProfileView.success();
+
+                    } else {
+                        personalProfileView.fail(response.UpdateProfileDetails.ResponseMessage);
+                    }
+                }
+            }.execute();
+
+        }
+    }
+
+    private String doFileUploadAnother(File file, Context context, UpdateProfileRequest request) throws Exception {
+
+        String doResponse = null;
+        ByteArrayBody bab = null;
+        HttpEntity entity;
+
+        HttpClient httpclient = new DefaultHttpClient();
+        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+        HttpPost httppost = new HttpPost(AppConstant.UPDATE_PROFILE);
+        String boundary = "--";
+        httppost.setHeader("Content-type", "multipart/form-data; boundary=" + boundary);
+
+        if (file != null) {
+
+            Bitmap b = BitmapFactory.decodeFile(file.getAbsolutePath());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            b.compress(Bitmap.CompressFormat.JPEG, 85, baos);
+            byte[] imageBytes = baos.toByteArray();
+            bab = new ByteArrayBody(imageBytes, new File(file.getAbsolutePath()).getName() + ".jpg");
+
+            entity = MultipartEntityBuilder.create()
+                    .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .setBoundary(boundary)
+                    .addPart("UserID", new StringBody(request.UserID + ""))
+                    .addPart("ProfileImg", bab)
+                    .addPart("FName", new StringBody(request.FName))
+                    .addPart("MobileNo", new StringBody(request.MobileNo))
+                    .addPart("EmailID", new StringBody(request.EmailID))
+                    .addPart("Address", new StringBody(request.Address))
+                    .addPart("CityID", new StringBody(request.CityID + ""))
+                    .addPart("DOB", new StringBody(request.DOB))
+                    .addPart("GCMToken", new StringBody(request.GCMToken))
+                    .addPart("DeviceID", new StringBody(request.DeviceID))
+                    .build();
+
+        } else {
+
+            entity = MultipartEntityBuilder.create()
+                    .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .setBoundary(boundary)
+                    .addPart("UserID", new StringBody(request.UserID + ""))
+                    .addPart("FName", new StringBody(request.FName))
+                    .addPart("MobileNo", new StringBody(request.MobileNo))
+                    .addPart("EmailID", new StringBody(request.EmailID))
+                    .addPart("Address", new StringBody(request.Address))
+                    .addPart("CityID", new StringBody(request.CityID + ""))
+                    .addPart("DOB", new StringBody(request.DOB))
+                    .addPart("GCMToken", new StringBody(request.GCMToken))
+                    .addPart("DeviceID", new StringBody(request.DeviceID))
+                    .build();
+        }
+
+        Log.e("req", Functions.jsonString(request));
+
+        httppost.setEntity(entity);
+        try {
+            HttpResponse response = httpclient.execute(httppost);
+            entity = response.getEntity();
+            doResponse = EntityUtils.toString(entity);
+            Log.e("doResponse", doResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return doResponse;
+
     }
 
     @Override
-    public void selectPUCDate(Context context) {
+    public void selectDOB(Context context) {
         Calendar cal = Calendar.getInstance();
         DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
-                personalProfileView.setDOB(convertedDate);
+                personalProfileView.setDOB(date);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                personalProfileView.setDOB("");
+
             }
         });
         dialog.getDatePicker().setMaxDate(cal.getTimeInMillis());

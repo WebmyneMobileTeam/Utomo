@@ -10,4 +10,6 @@ import java.util.ArrayList;
 public interface CarFragmentPresenter {
 
     void fetchMyCars(Context context);
+
+    void deleteVehicle(int vehicleId);
 }

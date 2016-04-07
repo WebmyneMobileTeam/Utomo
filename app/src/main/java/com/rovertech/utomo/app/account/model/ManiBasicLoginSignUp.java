@@ -9,6 +9,8 @@ public class ManiBasicLoginSignUp {
 
     public BasicLoginSignUp OTPVerification;
 
+    public BasicLoginSignUp SocialLoginSignUp;
+
     @Override
     public String toString() {
         return "ManiBasicLoginSignUp{" +

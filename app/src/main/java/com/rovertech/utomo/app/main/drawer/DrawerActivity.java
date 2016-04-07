@@ -138,7 +138,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(DrawerActivity.this)
                 .withHeaderBackground(R.drawable.header)
-                .addProfiles(new ProfileDrawerItem().withName(PrefUtils.getUserFullProfileDetails(DrawerActivity.this).Name).withIcon(R.drawable.ic_account))
+                .addProfiles(new ProfileDrawerItem().withName(PrefUtils.getUserFullProfileDetails(DrawerActivity.this).Name).withIcon(R.drawable.ic_person))
                 .withAlternativeProfileHeaderSwitching(false)
                 .withSelectionListEnabled(false)
                 .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {

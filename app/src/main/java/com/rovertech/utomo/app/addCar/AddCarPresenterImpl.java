@@ -72,8 +72,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
-                addcarView.setPUCDate(convertedDate);
+                addcarView.setPUCDate(date);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -94,8 +93,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
-                addcarView.setInsuranceDate(convertedDate);
+                addcarView.setInsuranceDate(date);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -225,8 +223,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
-                addcarView.setServiceDate(convertedDate);
+                addcarView.setServiceDate(date);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -350,6 +347,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {
 
         String doResponse = null;
+        HttpEntity entity;
 
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -357,26 +355,43 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         String boundary = "--";
         httppost.setHeader("Content-type", "multipart/form-data; boundary=" + boundary);
 
-        Bitmap b = BitmapFactory.decodeFile(f.getAbsolutePath());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.JPEG, 85, baos);
-        byte[] imageBytes = baos.toByteArray();
-        ByteArrayBody bab = new ByteArrayBody(imageBytes, new File(f.getAbsolutePath()).getName() + ".jpg");
+        if (f != null) {
 
-        HttpEntity entity = MultipartEntityBuilder.create()
-                .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-                .setBoundary(boundary)
-                .addPart("ClientID", new StringBody(request.UserID + ""))
-                .addPart("Image", bab)
-                .addPart("Make", new StringBody(request.Make))
-                .addPart("VehicleNo", new StringBody(request.VehicleNo))
-                .addPart("TravelledKM", new StringBody(request.TravelledKM))
-                .addPart("Year", new StringBody(request.Year + ""))
-                .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
-                .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
-                .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
-                .addPart("ServiceDate", new StringBody(request.ServiceDate))
-                .build();
+            Bitmap b = BitmapFactory.decodeFile(f.getAbsolutePath());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            b.compress(Bitmap.CompressFormat.JPEG, 85, baos);
+            byte[] imageBytes = baos.toByteArray();
+            ByteArrayBody bab = new ByteArrayBody(imageBytes, new File(f.getAbsolutePath()).getName() + ".jpg");
+
+            entity = MultipartEntityBuilder.create()
+                    .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .setBoundary(boundary)
+                    .addPart("ClientID", new StringBody(request.UserID + ""))
+                    .addPart("Image", bab)
+                    .addPart("Make", new StringBody(request.Make))
+                    .addPart("VehicleNo", new StringBody(request.VehicleNo))
+                    .addPart("TravelledKM", new StringBody(request.TravelledKM))
+                    .addPart("Year", new StringBody(request.Year + ""))
+                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                    .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
+                    .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
+                    .addPart("ServiceDate", new StringBody(request.ServiceDate))
+                    .build();
+        } else {
+            entity = MultipartEntityBuilder.create()
+                    .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .setBoundary(boundary)
+                    .addPart("ClientID", new StringBody(request.UserID + ""))
+                    .addPart("Make", new StringBody(request.Make))
+                    .addPart("VehicleNo", new StringBody(request.VehicleNo))
+                    .addPart("TravelledKM", new StringBody(request.TravelledKM))
+                    .addPart("Year", new StringBody(request.Year + ""))
+                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                    .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
+                    .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
+                    .addPart("ServiceDate", new StringBody(request.ServiceDate))
+                    .build();
+        }
 
         Log.e("req", Functions.jsonString(request));
 

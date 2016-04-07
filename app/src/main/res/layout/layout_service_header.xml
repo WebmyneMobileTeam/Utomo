@@ -14,37 +14,35 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/slider1"
-            android:tint="#A6000000" />
+            android:tint="#40000000" />
 
         <TextView
             android:id="@+id/txtCentreName"
             style="@style/MyTextStyleLabel"
             android:layout_centerInParent="true"
-            android:textSize="@dimen/XL_TEXT"
-            android:text="Maruti Service Centre" />
+            android:text="Maruti Service Centre"
+            android:textSize="@dimen/XL_TEXT" />
 
         <TextView
             android:id="@+id/txtRating"
             style="@style/MyTextStyleLabel"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="8dp"
-            android:drawablePadding="4dp"
-            android:drawableRight="@drawable/ic_star_rate"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/review_border"
             android:gravity="center_vertical"
-            android:padding="6dp"
-            android:text="4.5"
-            android:textColor="@color/yellow" />
+            android:padding="4dp"
+            android:text="4.5 / 5"
+            android:textColor="@color/purple"
+            android:textSize="@dimen/VS_TEXT" />
 
         <TextView
             android:id="@+id/txtReviews"
             style="@style/MyTextStyleLabel"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="8dp"
-            android:padding="8dp"
-            android:text="1 Reviews"
-            android:textColor="@color/yellow" />
+            android:layout_above="@+id/txtRating"
+            android:layout_marginLeft="8dp"
+            android:text="1 Reviews" />
 
     </RelativeLayout>
 </LinearLayout>

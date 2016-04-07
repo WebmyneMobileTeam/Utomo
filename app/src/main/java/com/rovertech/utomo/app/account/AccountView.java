@@ -30,8 +30,6 @@ public interface AccountView {
 
     void navigateAddCar();
 
-    void onFacebookLoginSuccess(SocialRequest socialRequest, String success);
-
     void onFacebookLoginError(String error);
 
     void onGoogleLoginSuccess(SocialRequest socialRequest, String success);

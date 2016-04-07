@@ -11,7 +11,7 @@ public class UserProfileOutput implements Serializable {
 
     public String Name;
 
-    public String Email;
+    public String EmailID;
 
     public String MobileNo;
 
@@ -31,12 +31,16 @@ public class UserProfileOutput implements Serializable {
 
     public String CityName;
 
+    public String DeviceId;
+
+    public String GCMToken;
+
     @Override
     public String toString() {
         return "UserProfileOutput{" +
                 "UserID=" + UserID +
                 ", Name='" + Name + '\'' +
-                ", Email='" + Email + '\'' +
+                ", EmailID='" + EmailID + '\'' +
                 ", MobileNo='" + MobileNo + '\'' +
                 ", ProfileImg='" + ProfileImg + '\'' +
                 ", DOB='" + DOB + '\'' +
@@ -46,6 +50,8 @@ public class UserProfileOutput implements Serializable {
                 ", OTP='" + OTP + '\'' +
                 ", CityID=" + CityID +
                 ", CityName='" + CityName + '\'' +
+                ", DeviceId='" + DeviceId + '\'' +
+                ", GCMToken='" + GCMToken + '\'' +
                 '}';
     }
 }

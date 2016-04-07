@@ -76,7 +76,7 @@ public class Odometer extends LinearLayout {
 
     public void setSlots(int num) {
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(72, 128);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(74, 136);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
 
         for (int i = 0; i < num; i++) {

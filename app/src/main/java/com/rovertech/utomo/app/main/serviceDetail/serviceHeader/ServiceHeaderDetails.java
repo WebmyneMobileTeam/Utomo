@@ -49,7 +49,7 @@ public class ServiceHeaderDetails extends LinearLayout {
 
     private void setTypeface() {
         txtCentreName.setTypeface(Functions.getBoldFont(context));
-        txtRating.setTypeface(Functions.getNormalFont(context));
-        txtReviews.setTypeface(Functions.getNormalFont(context));
+        txtRating.setTypeface(Functions.getBoldFont(context));
+        txtReviews.setTypeface(Functions.getBoldFont(context));
     }
 }

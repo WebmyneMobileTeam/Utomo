@@ -212,11 +212,6 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     }
 
     @Override
-    public void onFacebookLoginSuccess(SocialRequest socialRequest, String success) {
-
-    }
-
-    @Override
     public void onFacebookLoginError(String error) {
 
     }
