@@ -110,6 +110,7 @@ public class ServiceCentreTile extends LinearLayout {
         cardLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(context, CentreDetailsActivity.class);
                 intent.putExtra("centreId", centerPojo.ServiceCentreID);
                 context.startActivity(intent);

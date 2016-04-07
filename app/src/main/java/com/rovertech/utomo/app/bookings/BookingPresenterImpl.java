@@ -76,6 +76,8 @@ public class BookingPresenterImpl implements BookingPresenter {
     public void selectDate(Context context) {
         Calendar cal = Calendar.getInstance();
 
+
+
         DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

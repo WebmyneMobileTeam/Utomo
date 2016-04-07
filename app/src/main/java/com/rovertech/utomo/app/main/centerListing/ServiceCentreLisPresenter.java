@@ -2,7 +2,8 @@ package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
 
-import java.util.ArrayList;
+import com.google.android.gms.maps.GoogleMap;
+
 import java.util.List;
 
 /**
@@ -15,4 +16,10 @@ public interface ServiceCentreLisPresenter {
     void fetchCity(Context context, String string);
 
     void setLocation(Double userLatitude, Double userLongitude, int cityID);
+
+    void showListView();
+
+    void showMapView(GoogleMap googleMap, List<ServiceCenterPojo> centerList,Context context);
+
+    void destory();
 }

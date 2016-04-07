@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,6 +14,7 @@ import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.bookings.CurrentBooking.BookingRequest;
 import com.rovertech.utomo.app.helper.Functions;
 
 /**
@@ -22,14 +24,14 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
     View parentView;
     Context context;
-
     private TextView txtTitle;
     private ImageView imgClose;
-    private EditText edtAddress;
+    private EditText edtAddress, edtArea, edtCity, edtZipCode;
     private CheckBox checkSame;
     private Button btnOk;
     private int addressType = 0;
     private boolean isSame;
+    private BookingRequest bookingRequest;
 
     onSubmitListener onSubmitListener;
 
@@ -58,6 +60,9 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
         edtAddress = (EditText) parentView.findViewById(R.id.edtAddress);
+        edtArea = (EditText) parentView.findViewById(R.id.edtArea);
+        edtCity = (EditText) parentView.findViewById(R.id.edtCity);
+        edtZipCode = (EditText) parentView.findViewById(R.id.edtZipCode);
         btnOk = (Button) parentView.findViewById(R.id.btnOk);
         checkSame = (CheckBox) parentView.findViewById(R.id.checkSame);
 
@@ -67,6 +72,12 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isSame = isChecked;
+                if (isSame) {
+                    setAddressDetails(bookingRequest, true);
+                } else {
+                    setAddressDetails(bookingRequest, false);
+                }
+
             }
         });
 
@@ -127,35 +138,71 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
     private void selectDropOffAddress() {
         if (!isSame) {
-            if (Functions.toStr(edtAddress).length() == 0) {
-                Functions.showToast(context, "Enter Address");
-            } else {
-                if (onSubmitListener != null) {
-                    onSubmitListener.onSubmit(Functions.toStr(edtAddress), isSame);
-                }
-                dismiss();
-            }
+            validCheckAddress();
         } else {
             if (onSubmitListener != null) {
-                onSubmitListener.onSubmit(Functions.toStr(edtAddress), isSame);
+                onSubmitListener.onSubmit(
+                        Functions.toStr(edtAddress)
+                        , Functions.toStr(edtArea)
+                        , Functions.toStr(edtCity)
+                        , Functions.toStr(edtZipCode), false);
+            }
+            dismiss();
+        }
+    }
+
+    private void validCheckAddress() {
+        if (TextUtils.isEmpty(Functions.toStr(edtAddress))) {
+            edtAddress.setError("Enter Address");
+        } else if (TextUtils.isEmpty(Functions.toStr(edtArea))) {
+            edtArea.setError("Enter Area");
+        } else if (TextUtils.isEmpty(Functions.toStr(edtCity))) {
+            edtCity.setError("Enter City");
+        } else if (TextUtils.isEmpty(Functions.toStr(edtZipCode)) || Functions.toStr(edtZipCode).length() < 6) {
+            edtZipCode.setError("Enter ZipCode");
+        } else {
+            if (onSubmitListener != null) {
+                onSubmitListener.onSubmit(
+                        Functions.toStr(edtAddress)
+                        , Functions.toStr(edtArea)
+                        , Functions.toStr(edtCity)
+                        , Functions.toStr(edtZipCode), false);
             }
             dismiss();
         }
     }
 
     private void selectPickAddress() {
-        if (Functions.toStr(edtAddress).length() == 0) {
-            Functions.showToast(context, "Enter Address");
-        } else {
-            if (onSubmitListener != null) {
-                onSubmitListener.onSubmit(Functions.toStr(edtAddress), false);
-            }
-            dismiss();
-        }
+        validCheckAddress();
 
     }
 
     public interface onSubmitListener {
-        void onSubmit(String address, boolean isSame);
+        void onSubmit(String address, String area, String city, String zipCode, boolean isSame);
+
+
     }
+
+    public void setAddressDetails(BookingRequest bookingRequest, boolean isPickUpAddress) {
+        this.bookingRequest = bookingRequest;
+        if (isPickUpAddress) {
+
+            if (!TextUtils.isEmpty(bookingRequest.PickZipCode)) {
+                edtAddress.setText(bookingRequest.PickAddress);
+                edtArea.setText(bookingRequest.PickArea);
+                edtCity.setText(bookingRequest.PickCity);
+                edtZipCode.setText(bookingRequest.PickZipCode);
+            }
+        } else {
+            if (!TextUtils.isEmpty(bookingRequest.DropZipCode)) {
+                edtAddress.setText(bookingRequest.DropAddress);
+                edtArea.setText(bookingRequest.DropArea);
+                edtCity.setText(bookingRequest.DropCity);
+                edtZipCode.setText(bookingRequest.DropZipCode);
+            }
+        }
+
+
+    }
+
 }

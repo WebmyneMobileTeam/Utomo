@@ -70,4 +70,9 @@ public class DashboardPresenterImpl implements DashboardPresenter {
             }
         });
     }
+
+    @Override
+    public void openCenterListing() {
+        view.navigateCenterListActivity();
+    }
 }

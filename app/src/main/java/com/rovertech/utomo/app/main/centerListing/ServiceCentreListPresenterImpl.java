@@ -1,21 +1,38 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.CityOutput;
 import com.rovertech.utomo.app.account.model.CityRequest;
 import com.rovertech.utomo.app.account.service.FetchCityService;
+import com.rovertech.utomo.app.helper.AdvancedSpannableString;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.centerListing.model.CentreListRequest;
 import com.rovertech.utomo.app.main.centerListing.model.CentreListResponse;
 import com.rovertech.utomo.app.main.centerListing.service.FetchServiceCentreListService;
+import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -132,7 +149,127 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
         });
     }
 
+
+    @Override
+    public void showListView() {
+
+        centreView.showListLayout();
+        centreView.hideMapContainer();
+    }
+
+    @Override
+    public void showMapView(final GoogleMap googleMap, List<ServiceCenterPojo> centerList, final Context context) {
+
+        try {
+
+
+            centreView.hideListLayout();
+            centreView.showMapContainer();
+
+            if (googleMap == null || centerList == null) {
+                return;
+            }
+
+            final HashMap<String, ServiceCenterPojo> integerServiceCenterPojoHashMap = new HashMap<>();
+
+            int lastItem = centerList.size();
+            for (ServiceCenterPojo serviceCenterPojo : centerList) {
+
+
+                LatLng latLng = new LatLng(serviceCenterPojo.Lattitude, serviceCenterPojo.Longitude);
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng).title(serviceCenterPojo.ServiceCentreName);
+
+                Marker marker = googleMap.addMarker(markerOptions);
+                integerServiceCenterPojoHashMap.put(marker.getId(), serviceCenterPojo);
+                if (--lastItem == 0) {
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5));
+                }
+            }
+
+            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                @Override
+                public View getInfoWindow(Marker marker) {
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+
+                    View v = LayoutInflater.from(context).inflate(R.layout.marker_window_layout, null);
+                    try {
+
+
+                        final ServiceCenterPojo serviceCenterPojo = integerServiceCenterPojoHashMap.get(marker.getId());
+                        TextView markerTextView = (TextView) v.findViewById(R.id.markerTextView);
+                        //TextView txtViewDetails = (TextView) v.findViewById(R.id.txtViewDetails);
+                        TextView txtRating = (TextView) v.findViewById(R.id.txtRating);
+                        ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
+                        markerTextView.setText(serviceCenterPojo.ServiceCentreName);
+
+                        if (serviceCenterPojo != null) {
+                            Glide.clear(imageView);
+                            Glide.with(context).load(serviceCenterPojo.ServiceCentreImage).thumbnail(0.01f).into(imageView);
+
+
+                        }
+                        txtRating.setText(String.format("Rating : %.1f", serviceCenterPojo.Rating));
+
+
+                    } catch (Exception e) {
+
+                    }
+                    return v;
+                }
+            });
+
+
+            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    final ServiceCenterPojo serviceCenterPojo = integerServiceCenterPojoHashMap.get(marker.getId());
+                    Intent intent = new Intent(context, CentreDetailsActivity.class);
+                    intent.putExtra("centreId", serviceCenterPojo.ServiceCentreID);
+                    context.startActivity(intent);
+                }
+            });
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
+    @Override
+    public void destory() {
+        if (centreView != null) {
+            centreView = null;
+
+        }
+    }
+
     public void onSubmit(List<ServiceCenterPojo> list, int lastCentreId) {
         centreView.setListing(list, lastCentreId);
     }
+
+
+    public static AdvancedSpannableString getSpannableString(String text, final Context context, TextView tv) {
+
+        String fullName = String.format("%s", text);
+        AdvancedSpannableString advFullName = new AdvancedSpannableString(fullName);
+        advFullName.setClickableSpanTo(fullName);
+        advFullName.setBold(fullName);
+        advFullName.setColor(Color.BLACK, fullName);
+        advFullName.setSpanClickListener(new AdvancedSpannableString.OnClickableSpanListner() {
+            @Override
+            public void onSpanClick() {
+
+                Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        tv.setMovementMethod(LinkMovementMethod.getInstance());
+        return advFullName;
+    }
+
 }

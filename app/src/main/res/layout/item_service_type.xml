@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/booking_card_margin"
+    android:layout_marginRight="@dimen/booking_card_margin"
+    android:layout_marginTop="@dimen/booking_card_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/txtTypeService"
+            style="@style/TitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service Type" />
+
+        <include layout="@layout/item_line"></include>
+
+        <CheckBox
+            android:id="@+id/checkService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Full Service"
+            android:textColor="@color/TextBody" />
+
+        <CheckBox
+            android:id="@+id/checkBodyWash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Body Wash"
+            android:textColor="@color/TextBody" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

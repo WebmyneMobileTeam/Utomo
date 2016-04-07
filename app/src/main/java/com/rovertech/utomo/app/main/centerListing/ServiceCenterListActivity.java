@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
@@ -39,21 +44,23 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private AutoCompleteTextView edtCity;
     private Button btnSearch;
     private ImageView imgFilter;
-    private LinearLayout searchLayout;
+    private LinearLayout searchLayout, listLayout;
     private ServiceCentreLisPresenter presenter;
     private List<ServiceCenterPojo> centerList;
     private ServiceCentreListAdapter adapter;
     private DrawerLayout drawerLayout;
-
     private TextView txtFilterTitle;
     private Button btnApply, btnReset;
-
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private FamiliarRecyclerView recyclerView;
     private View mFooterLoadMoreView;
     private int lastCentreId = 0;
     private int cityId = 0;
     private int type;
+    private FloatingActionButton fab;
+    private RelativeLayout mapContainer;
+    private boolean isMapShow = false;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +104,11 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         btnApply = (Button) findViewById(R.id.btnApply);
         btnReset = (Button) findViewById(R.id.btnReset);
         searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
+        listLayout = (LinearLayout) findViewById(R.id.listLayout);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        mapContainer = (RelativeLayout) findViewById(R.id.mapContainer);
         searchLayout.setVisibility(View.GONE);
-
+        fab.setOnClickListener(this);
         setTypeface();
 
         initRecycler();
@@ -121,7 +131,22 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             }
         });
 
+
         btnSearch.setOnClickListener(this);
+
+        initMap();
+    }
+
+    private void initMap() {
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap = googleMap;
+            }
+        });
     }
 
     private void initRecycler() {
@@ -208,6 +233,17 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                 presenter.setLocation(0.0, 0.0, cityId);
                 presenter.fetchCentreList(lastCentreId, this, type);
                 break;
+
+            case R.id.fab:
+                if (!isMapShow) {
+                    isMapShow = true;
+                    presenter.showMapView(mMap, centerList, this);
+
+                } else {
+                    presenter.showListView();
+                    isMapShow = false;
+                }
+                break;
         }
     }
 
@@ -256,4 +292,41 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             }
         });
     }
+
+    @Override
+    public void showMapContainer() {
+
+        mapContainer.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_list_black_24dp);
+    }
+
+    @Override
+    public void hideMapContainer() {
+
+        mapContainer.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showFab() {
+        fab.show();
+    }
+
+    @Override
+    public void hideFab() {
+        fab.hide();
+    }
+
+    @Override
+    public void showListLayout() {
+
+        fab.setImageResource(R.drawable.ic_map_black_24dp);
+        listLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideListLayout() {
+        listLayout.setVisibility(View.GONE);
+    }
+
+
 }

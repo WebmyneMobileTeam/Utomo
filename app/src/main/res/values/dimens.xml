@@ -24,4 +24,9 @@
     <dimen name="EDIT_TEXT_SIZE">18sp</dimen>
 
     <dimen name="edittext_padding">12dp</dimen>
+    <dimen name="spacing_double">16dp</dimen>
+    <dimen name="elevation_header">4dp</dimen>
+    <dimen name="default_elevation">2dp</dimen>
+    <dimen name="margin_horizontal_line">8dp</dimen>
+    <dimen name="booking_card_margin">16dp</dimen>
 </resources>

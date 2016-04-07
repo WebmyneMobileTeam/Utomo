@@ -16,4 +16,23 @@ public interface ServiceCentreView {
     void hideScroll();
 
     void setCityAdapter(CityAdapter adapter, ArrayList<City> data);
+
+    void showMapContainer();
+
+    void hideMapContainer();
+
+    void showFab();
+
+    void hideFab();
+
+    void showListLayout();
+
+    void hideListLayout();
+
+
+
+
+
+
+
 }

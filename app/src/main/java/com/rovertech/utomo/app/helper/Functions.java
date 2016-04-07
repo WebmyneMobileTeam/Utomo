@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
@@ -47,6 +48,23 @@ public class Functions {
     public static void fireIntent(Context context, Class cls) {
         Intent i = new Intent(context, cls);
         context.startActivity(i);
+
+    }
+
+    public static void fireIntent(Context context, Intent intent) {
+        context.startActivity(intent);
+
+    }
+
+    public static void LoadImage(ImageView imageView, String url, Context context) {
+
+        try {
+            Glide.clear(imageView);
+            Glide.with(context).load(url).into(imageView);
+        }catch (Exception e){
+
+        }
+
 
     }
 
@@ -125,6 +143,8 @@ public class Functions {
     }
 
     public static String toStr(EditText editText) {
+
+
         return editText.getText().toString().trim();
     }
 

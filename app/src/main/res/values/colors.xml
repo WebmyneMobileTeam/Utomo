@@ -34,4 +34,10 @@
 
     <color name="material_drawer_primary_text">#DE000000</color>
     <color name="material_drawer_selected_text">#2196F3</color>
+
+
+    <color name="TextTitle">#616161</color>
+    <color name="TextBody">#7F7F7F</color>
+    <color name="addColor">#404040</color>
+
 </resources>

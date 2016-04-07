@@ -41,6 +41,11 @@
     <string-array name="spinner_loading_array">
         <item>Loading..</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="address">Address</string>
+    <string name="area">Area</string>
+    <string name="city">City</string>
+    <string name="ZipCode">ZipCode</string>
 
 
     <string name="large_text">

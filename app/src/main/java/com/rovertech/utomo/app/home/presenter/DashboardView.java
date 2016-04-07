@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.home.presenter;
 
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
+import com.rovertech.utomo.app.widget.LocationFinder;
 
 import java.util.ArrayList;
 
@@ -16,4 +17,8 @@ public interface DashboardView {
     void hideProgress();
 
     void setErrorMsg(String string);
+
+    void navigateCenterListActivity();
+
+    void getLocation(LocationFinder finder);
 }

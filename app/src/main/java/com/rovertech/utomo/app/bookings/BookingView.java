@@ -5,9 +5,14 @@ package com.rovertech.utomo.app.bookings;
  */
 public interface BookingView {
 
+
+
+
     void setDetails();
 
     void setDate(String convertedDate);
 
     void setTime(String strTime);
+
+
 }

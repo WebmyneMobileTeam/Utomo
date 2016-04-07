@@ -3,33 +3,41 @@ package com.rovertech.utomo.app.home;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.presenter.DashboardPresenter;
 import com.rovertech.utomo.app.home.presenter.DashboardPresenterImpl;
 import com.rovertech.utomo.app.home.presenter.DashboardView;
+import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.temp.CarFragment;
+import com.rovertech.utomo.app.widget.LocationFinder;
 
 import java.util.ArrayList;
 
@@ -47,6 +55,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
     private ProgressDialog progressDialog;
     private TextView txtNoCar;
     private LinearLayout pagerLayout;
+    private FloatingActionButton fab;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -74,14 +83,20 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(false);
+        activity.hideFab(true);
 
         pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
         txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);
         txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
         viewPager = (ViewPager) parentView.findViewById(R.id.pager);
         tabLayout = (TabLayout) parentView.findViewById(R.id.tab_layout);
-
+        fab = (FloatingActionButton) parentView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.openCenterListing();
+            }
+        });
     }
 
     public static DashboardFragment newInstance() {
@@ -104,7 +119,9 @@ public class DashboardFragment extends Fragment implements DashboardView {
         setCarPager(viewPager, data);
     }
 
-    private void setCarPager(ViewPager viewPager, ArrayList<CarPojo> data) {
+    private void setCarPager(ViewPager viewPager, final ArrayList<CarPojo> data) {
+
+
 
         adapter = new CarFragmentPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(), data);
         viewPager.setAdapter(adapter);
@@ -112,11 +129,34 @@ public class DashboardFragment extends Fragment implements DashboardView {
         viewPager.setCurrentItem(0);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            if (i == 0) {
+                PrefUtils.setCurrentCarSelected(getActivity(), data.get(0));
+            }
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             if (tab != null)
                 tab.setCustomView(adapter.getTabView(i));
         }
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
 
     @Override
     public void hideProgress() {
@@ -129,6 +169,22 @@ public class DashboardFragment extends Fragment implements DashboardView {
         pagerLayout.setVisibility(View.GONE);
         txtNoCar.setVisibility(View.VISIBLE);
         txtNoCar.setText(msg);
+    }
+
+    @Override
+    public void navigateCenterListActivity() {
+        LocationFinder finder = new LocationFinder(getActivity());
+
+        if (!finder.canGetLocation()) {
+            accurateAlert();
+
+        } else {
+            getLocation(finder);
+            Intent centreIntent = new Intent(getActivity(), ServiceCenterListActivity.class);
+            centreIntent.putExtra("lat", finder.getLatitude());
+            centreIntent.putExtra("lng", finder.getLongitude());
+            startActivity(centreIntent);
+        }
     }
 
     private class CarFragmentPagerAdapter extends FragmentStatePagerAdapter {
@@ -187,5 +243,35 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
             return v;
         }
+    }
+
+    private void accurateAlert() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        alert.setTitle("Note");
+        alert.setMessage("Do you want to getting service centres nearby your location? Turn on your GPS from Settings.");
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton("No, Thanks", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent centreIntent = new Intent(getActivity(), ServiceCenterListActivity.class);
+                centreIntent.putExtra("lat", 0.0);
+                centreIntent.putExtra("lng", 0.0);
+                startActivity(centreIntent);
+            }
+        });
+        alert.show();
+    }
+
+    @Override
+    public void getLocation(LocationFinder finder) {
+        Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
+
     }
 }

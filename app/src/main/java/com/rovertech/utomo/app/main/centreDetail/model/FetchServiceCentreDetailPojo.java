@@ -1,11 +1,12 @@
 package com.rovertech.utomo.app.main.centreDetail.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by raghavthakkar on 30-03-2016.
  */
-public class FetchServiceCentreDetailPojo {
+public class FetchServiceCentreDetailPojo implements Serializable {
 
     public String Address1;
     public String CityName;

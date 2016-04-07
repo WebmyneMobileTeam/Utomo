@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centreDetail.centreMain;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.widget.FlowLayout;
@@ -72,12 +74,6 @@ public class CentreMainDetails extends LinearLayout {
             serviceFlowLayout.addView(serviceChip, params);
         }*/
 
-        btnBook.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Functions.fireIntent(context, BookingActivity.class);
-            }
-        });
 
     }
 
@@ -92,7 +88,7 @@ public class CentreMainDetails extends LinearLayout {
         ratingDrawable.getDrawable(2).setColorFilter(ContextCompat.getColor(context, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
     }
 
-    public void setDetails(FetchServiceCentreDetailPojo centreDetailPojo) {
+    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
 
         txtCentreName.setText(centreDetailPojo.ServiceCentreName);
         ratingBar.setRating(centreDetailPojo.Rating);
@@ -107,6 +103,14 @@ public class CentreMainDetails extends LinearLayout {
             serviceFlowLayout.addView(serviceChip, params);
         }
 
+        btnBook.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BookingActivity.class);
+                intent.putExtra(IntentConstant.FetchServiceCentreDetailPojo, centreDetailPojo);
+                Functions.fireIntent(context, intent);
+            }
+        });
     }
 
 }
