@@ -53,18 +53,9 @@
             <com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <include layout="@layout/app_bar" />
-
-    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/bottom_sheet"
