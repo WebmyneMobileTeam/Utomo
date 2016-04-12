@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ServiceCentreLisPresenter {
 
-    void fetchCentreList(int lastCentreId, Context context, int type);
+    void fetchCentreList(int lastCentreId, Context context, int type, boolean isBodyShop, boolean isPickup);
 
     void fetchCity(Context context, String string);
 

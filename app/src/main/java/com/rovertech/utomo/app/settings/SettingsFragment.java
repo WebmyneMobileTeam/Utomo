@@ -3,10 +3,10 @@ package com.rovertech.utomo.app.settings;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -22,16 +22,16 @@ public class SettingsFragment extends Fragment {
     private DrawerActivity activity;
 
     private TextView txtNotification;
-    private CheckBox chbOffer, chbBooking;
+    private SwitchCompat switchOffer, switchBooking;
 
     public SettingsFragment() {
         // Required empty public constructor
     }
 
     public static SettingsFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         SettingsFragment fragment = new SettingsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -50,16 +50,16 @@ public class SettingsFragment extends Fragment {
         activity = (DrawerActivity) getActivity();
         activity.hideFab(true);
 
-        chbOffer = (CheckBox) parentView.findViewById(R.id.chbOffer);
-        chbBooking = (CheckBox) parentView.findViewById(R.id.chbBooking);
+        switchOffer = (SwitchCompat) parentView.findViewById(R.id.switchOffer);
+        switchBooking = (SwitchCompat) parentView.findViewById(R.id.switchBooking);
         txtNotification = (TextView) parentView.findViewById(R.id.txtNotification);
 
         setTypeface();
     }
 
     private void setTypeface() {
-        chbBooking.setTypeface(Functions.getNormalFont(getActivity()));
-        chbOffer.setTypeface(Functions.getNormalFont(getActivity()));
+        switchBooking.setTypeface(Functions.getNormalFont(getActivity()));
+        switchOffer.setTypeface(Functions.getNormalFont(getActivity()));
         txtNotification.setTypeface(Functions.getBoldFont(getActivity()));
     }
 

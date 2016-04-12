@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
@@ -88,6 +89,8 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         edtName.setText(profile.Name);
         edtDOB.setText(profile.DOB);
         edtAddress.setText(profile.Address);
+        if (profile.ProfileImg != null && profile.ProfileImg.length() > 0)
+            Glide.with(getActivity()).load(profile.ProfileImg).into(imagePerson);
     }
 
     private void setTypeface() {

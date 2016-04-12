@@ -5,12 +5,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
@@ -18,7 +16,6 @@ import com.rovertech.utomo.app.helper.Functions;
 public class ServiceDetailsActivity extends AppCompatActivity implements ServiceView, View.OnClickListener {
 
     private Toolbar toolbar;
-    private TextView txtCustomTitle;
     private View parentView, bottomSheet;
     private BottomSheetBehavior behavior;
     private FloatingActionButton fab;
@@ -55,6 +52,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     }
 
     private void init() {
+
         initToolbar();
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -74,6 +72,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle("Maruti Service Centre");
                     isShow = true;
+
                 } else if (isShow) {
                     collapsingToolbarLayout.setTitle("");
                     isShow = false;
@@ -101,14 +100,10 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     }
 
     private void initToolbar() {
-        txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
-
-        txtCustomTitle.setText("Service Details");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

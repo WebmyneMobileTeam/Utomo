@@ -15,7 +15,7 @@ public class AddCarRequest implements Serializable {
 
     public String TravelledKM;
 
-    public int UserID;
+    public int ClientID;
 
     public int VehicleModelYearID;
 
@@ -30,7 +30,7 @@ public class AddCarRequest implements Serializable {
         this.Make = "";
         this.PUCExpiryDate = "";
         this.TravelledKM = "";
-        this.UserID = 0;
+        this.ClientID = 0;
         this.VehicleModelYearID = 0;
         this.VehicleNo = "";
         this.Year = 0;

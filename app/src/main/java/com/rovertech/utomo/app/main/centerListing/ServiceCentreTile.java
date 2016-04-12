@@ -92,7 +92,7 @@ public class ServiceCentreTile extends LinearLayout {
         }
 
         if (centerPojo.IsBodyWash) {
-            CentreServiceTypeTile tile = new CentreServiceTypeTile(context, "Body Wash");
+            CentreServiceTypeTile tile = new CentreServiceTypeTile(context, "Body Shop");
             serviceTypeLayout.addView(tile);
         }
 

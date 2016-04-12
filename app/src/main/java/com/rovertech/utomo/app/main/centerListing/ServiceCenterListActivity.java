@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -50,7 +53,6 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private ServiceCentreListAdapter adapter;
     private DrawerLayout drawerLayout;
     private TextView txtFilterTitle;
-    private Button btnApply, btnReset;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private FamiliarRecyclerView recyclerView;
     private View mFooterLoadMoreView;
@@ -61,6 +63,12 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private RelativeLayout mapContainer;
     private boolean isMapShow = false;
     private GoogleMap mMap;
+    private ActionBarDrawerToggle drawerToggle;
+
+    // right drawer
+    private Button btnReset, btnApply;
+    private SwitchCompat switchBodyShop, switchPickup;
+    private boolean isBodyShop = false, isPickup = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +94,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         adapter = new ServiceCentreListAdapter(ServiceCenterListActivity.this, centerList);
         recyclerView.setAdapter(adapter);
 
-        presenter.fetchCentreList(lastCentreId, this, type);
+        presenter.fetchCentreList(lastCentreId, this, type, isBodyShop, isPickup);
 
     }
 
@@ -103,12 +111,16 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         txtFilterTitle = (TextView) findViewById(R.id.txtFilterTitle);
         btnApply = (Button) findViewById(R.id.btnApply);
         btnReset = (Button) findViewById(R.id.btnReset);
+        switchBodyShop = (SwitchCompat) findViewById(R.id.switchBodyShop);
+        switchPickup = (SwitchCompat) findViewById(R.id.switchPickup);
         searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
         listLayout = (LinearLayout) findViewById(R.id.listLayout);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         mapContainer = (RelativeLayout) findViewById(R.id.mapContainer);
         searchLayout.setVisibility(View.GONE);
-        fab.setOnClickListener(this);
+
+        actionListeners();
+
         setTypeface();
 
         initRecycler();
@@ -135,6 +147,45 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         btnSearch.setOnClickListener(this);
 
         initMap();
+
+        drawerToggle = new ActionBarDrawerToggle(ServiceCenterListActivity.this, drawerLayout, null, 0, 0) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                fab.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                fab.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
+    }
+
+    private void actionListeners() {
+        fab.setOnClickListener(this);
+        btnApply.setOnClickListener(this);
+
+        switchBodyShop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isBodyShop = isChecked;
+            }
+        });
+
+        switchPickup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isPickup = isChecked;
+            }
+        });
     }
 
     private void initMap() {
@@ -168,7 +219,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                     public void run() {
                         lastCentreId = 0;
                         centerList = new ArrayList<ServiceCenterPojo>();
-                        presenter.fetchCentreList(lastCentreId, ServiceCenterListActivity.this, type);
+                        presenter.fetchCentreList(lastCentreId, ServiceCenterListActivity.this, type, isBodyShop, isPickup);
                     }
                 }, 1000);
             }
@@ -182,13 +233,16 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
             @Override
             public void onScrolledToBottom() {
-                presenter.fetchCentreList(lastCentreId, ServiceCenterListActivity.this, type);
+                presenter.fetchCentreList(lastCentreId, ServiceCenterListActivity.this, type, isBodyShop, isPickup);
             }
         });
     }
 
     private void setTypeface() {
+
         edtCity.setTypeface(Functions.getNormalFont(this));
+        switchBodyShop.setTypeface(Functions.getNormalFont(this));
+        switchPickup.setTypeface(Functions.getNormalFont(this));
         txtNoData.setTypeface(Functions.getBoldFont(this));
         btnSearch.setTypeface(Functions.getBoldFont(this));
         txtFilterTitle.setTypeface(Functions.getBoldFont(this));
@@ -231,7 +285,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                 lastCentreId = 0;
                 type = AppConstant.BY_CITY;
                 presenter.setLocation(0.0, 0.0, cityId);
-                presenter.fetchCentreList(lastCentreId, this, type);
+                presenter.fetchCentreList(lastCentreId, this, type, isBodyShop, isPickup);
                 break;
 
             case R.id.fab:
@@ -243,6 +297,20 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                     presenter.showListView();
                     isMapShow = false;
                 }
+                break;
+
+            case R.id.btnApply:
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+                lastCentreId = 0;
+                centerList = new ArrayList<>();
+                presenter.fetchCentreList(lastCentreId, this, type, isBodyShop, isPickup);
+                break;
+
+            case R.id.btnReset:
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+                lastCentreId = 0;
+                centerList = new ArrayList<>();
+                presenter.fetchCentreList(lastCentreId, this, type, false, false);
                 break;
         }
     }

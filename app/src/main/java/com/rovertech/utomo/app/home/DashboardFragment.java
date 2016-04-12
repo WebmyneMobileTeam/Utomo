@@ -71,6 +71,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
         init();
 
         presenter = new DashboardPresenterImpl(this);
+        presenter.fetchMyCars(getActivity());
 
         return parentView;
     }
@@ -78,7 +79,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.fetchMyCars(getActivity());
+
     }
 
     private void init() {
@@ -114,14 +115,13 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     @Override
     public void setCarList(ArrayList<CarPojo> data) {
+        fab.setVisibility(View.VISIBLE);
         txtNoCar.setVisibility(View.GONE);
         pagerLayout.setVisibility(View.VISIBLE);
         setCarPager(viewPager, data);
     }
 
     private void setCarPager(ViewPager viewPager, final ArrayList<CarPojo> data) {
-
-
 
         adapter = new CarFragmentPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(), data);
         viewPager.setAdapter(adapter);
@@ -140,9 +140,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
                 PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
-
             }
 
             @Override
@@ -169,6 +167,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
         pagerLayout.setVisibility(View.GONE);
         txtNoCar.setVisibility(View.VISIBLE);
         txtNoCar.setText(msg);
+        fab.setVisibility(View.GONE);
     }
 
     @Override

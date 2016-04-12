@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -33,8 +35,9 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
     private CarListAdapter adapter;
     private RecyclerView recyclerView;
     private Button btnAddCar;
-    private TextView txtEmpty;
+    private TextView txtEmpty, txtNoCar;
     private ProgressDialog progressDialog;
+    private LinearLayout emptyLayout;
 
     public CarListFragment() {
         // Required empty public constructor
@@ -76,6 +79,7 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
         recyclerView.setAdapter(adapter);
 
         btnAddCar.setOnClickListener(this);
+        emptyLayout.setOnClickListener(this);
 
         return parentView;
     }
@@ -91,13 +95,18 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
     private void init() {
         activity = (ProfileActivity) getActivity();
 
+        txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);
+        emptyLayout = (LinearLayout) parentView.findViewById(R.id.emptyLayout);
         txtEmpty = (TextView) parentView.findViewById(R.id.txtEmpty);
         btnAddCar = (Button) parentView.findViewById(R.id.btnAddCar);
         recyclerView = (RecyclerView) parentView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         btnAddCar.setTypeface(Functions.getBoldFont(getActivity()));
+
+        txtEmpty.setText(Html.fromHtml("<u>Add Car</u>"));
         txtEmpty.setTypeface(Functions.getBoldFont(getActivity()));
+        txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
 
     }
 
@@ -109,18 +118,27 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
                 addCarIntent.putExtra(AppConstant.SKIP, false);
                 startActivity(addCarIntent);
                 break;
+
+            case R.id.emptyLayout:
+                Intent addCarIntent1 = new Intent(getActivity(), AddCarActivity.class);
+                addCarIntent1.putExtra(AppConstant.SKIP, false);
+                startActivity(addCarIntent1);
+                break;
         }
     }
 
     @Override
     public void setCarList(ArrayList<CarPojo> carList) {
+        emptyLayout.setVisibility(View.GONE);
         adapter.setCarList(carList);
+        btnAddCar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setEmptyView() {
-        txtEmpty.setVisibility(View.VISIBLE);
+        emptyLayout.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+        btnAddCar.setVisibility(View.GONE);
     }
 
     @Override

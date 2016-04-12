@@ -247,7 +247,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 } else if (items[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setAction(Intent.ACTION_PICK);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), AppConstant.PICK_IMAGE);
                 }
             }

@@ -271,6 +271,9 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     public void addCar(final Context context, final File file, String vehicleNo, String selectedMake, String selectedYear, String selectModelYear,
                        String serviceDate, String pucDate, String insuranceDate, String odometerValue) {
 
+        if (addcarView != null)
+            addcarView.showProgress();
+
         if (vehicleNo.equals("")) {
             Functions.showToast(context, "Vehicle number cannot be empty");
 
@@ -290,21 +293,24 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         } else {
             final AddCarRequest request = new AddCarRequest();
             request.Make = selectedMake;
-            if (request.PUCExpiryDate.equals(""))
+
+            if (pucDate.equals(""))
                 request.PUCExpiryDate = "2015-03-25";
             else
                 request.PUCExpiryDate = pucDate;
-            if (request.InsuranceDate.equals(""))
+
+            if (insuranceDate.equals(""))
                 request.InsuranceDate = "2015-03-25";
             else
-                request.InsuranceDate = pucDate;
-            if (request.ServiceDate.equals(""))
+                request.InsuranceDate = insuranceDate;
+
+            if (serviceDate.equals(""))
                 request.ServiceDate = "2015-03-25";
             else
-                request.ServiceDate = pucDate;
+                request.ServiceDate = serviceDate;
 
             request.TravelledKM = odometerValue;
-            request.UserID = PrefUtils.getUserFullProfileDetails(context).UserID;
+            request.ClientID = PrefUtils.getUserFullProfileDetails(context).UserID;
             request.VehicleModelYearID = Integer.parseInt(selectModelYear);
             request.VehicleNo = vehicleNo;
             request.Year = Integer.parseInt(selectedYear);
@@ -326,6 +332,10 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
+
+                    if (addcarView != null)
+                        addcarView.hideProgress();
+
                     try {
                         JSONObject res = new JSONObject(responseFromMultipart);
                         Log.e("res", Functions.jsonString(res));
@@ -366,29 +376,29 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             entity = MultipartEntityBuilder.create()
                     .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
                     .setBoundary(boundary)
-                    .addPart("ClientID", new StringBody(request.UserID + ""))
-                    .addPart("Image", bab)
+                    .addPart("ClientID", new StringBody(request.ClientID + ""))
                     .addPart("Make", new StringBody(request.Make))
+                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                    .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
                     .addPart("VehicleNo", new StringBody(request.VehicleNo))
                     .addPart("TravelledKM", new StringBody(request.TravelledKM))
-                    .addPart("Year", new StringBody(request.Year + ""))
-                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
                     .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
-                    .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
+                    .addPart("Year", new StringBody(request.Year + ""))
                     .addPart("ServiceDate", new StringBody(request.ServiceDate))
+                    .addPart("Image", bab)
                     .build();
         } else {
             entity = MultipartEntityBuilder.create()
                     .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
                     .setBoundary(boundary)
-                    .addPart("ClientID", new StringBody(request.UserID + ""))
+                    .addPart("ClientID", new StringBody(request.ClientID + ""))
                     .addPart("Make", new StringBody(request.Make))
+                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                    .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
                     .addPart("VehicleNo", new StringBody(request.VehicleNo))
                     .addPart("TravelledKM", new StringBody(request.TravelledKM))
-                    .addPart("Year", new StringBody(request.Year + ""))
-                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
                     .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
-                    .addPart("PUCExpiryDate", new StringBody(request.PUCExpiryDate))
+                    .addPart("Year", new StringBody(request.Year + ""))
                     .addPart("ServiceDate", new StringBody(request.ServiceDate))
                     .build();
         }

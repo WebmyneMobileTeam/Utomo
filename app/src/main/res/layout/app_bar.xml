@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="@dimen/toolbar_height"
+    android:gravity="center_vertical"
     android:background="@color/primary"
     app:layout_collapseMode="pin"
     app:layout_scrollFlags="scroll|enterAlways">

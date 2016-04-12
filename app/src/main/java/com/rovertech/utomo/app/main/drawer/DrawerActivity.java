@@ -2,6 +2,8 @@ package com.rovertech.utomo.app.main.drawer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -16,8 +18,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -27,6 +31,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.about.AboutFragment;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
@@ -42,7 +48,6 @@ import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
-import com.rovertech.utomo.app.widget.TextDrawable;
 
 public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
@@ -88,14 +93,9 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
         initToolbar();
 
-        initDrawer();
+        //initDrawer();
 
-        if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
-            presenter.openDashboard();
 
-        } else if (fragmentValue.equals(AppConstant.MY_BOOKING_FRAGMENT)) {
-            presenter.openMyBookings();
-        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +117,14 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     @Override
     protected void onResume() {
         super.onResume();
+        initDrawer();
+
+        if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
+            presenter.openDashboard();
+
+        } else if (fragmentValue.equals(AppConstant.MY_BOOKING_FRAGMENT)) {
+            presenter.openMyBookings();
+        }
         //presenter.checkGPS(DrawerActivity.this);
     }
 
@@ -135,10 +143,19 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
     private void initDrawer() {
 
+        ProfileDrawerItem profile = new ProfileDrawerItem().
+                withName(PrefUtils.getUserFullProfileDetails(DrawerActivity.this).Name);
+
+        if (PrefUtils.getUserFullProfileDetails(this).ProfileImg != null || PrefUtils.getUserFullProfileDetails(this).ProfileImg.length() > 0) {
+            profile.withIcon(PrefUtils.getUserFullProfileDetails(this).ProfileImg);
+        } else {
+            profile.withIcon(ContextCompat.getDrawable(this, R.drawable.ic_person));
+        }
+
         AccountHeader accountHeader = new AccountHeaderBuilder()
                 .withActivity(DrawerActivity.this)
                 .withHeaderBackground(R.drawable.header)
-                .addProfiles(new ProfileDrawerItem().withName(PrefUtils.getUserFullProfileDetails(DrawerActivity.this).Name).withIcon(R.drawable.ic_person))
+                .addProfiles(profile)
                 .withAlternativeProfileHeaderSwitching(false)
                 .withSelectionListEnabled(false)
                 .withOnAccountHeaderSelectionViewClickListener(new AccountHeader.OnAccountHeaderSelectionViewClickListener() {

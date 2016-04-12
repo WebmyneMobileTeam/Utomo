@@ -94,7 +94,7 @@ public class CentreMainDetails extends LinearLayout {
         ratingBar.setRating(centreDetailPojo.Rating);
 
         if (centreDetailPojo.IsBodyWash) {
-            ServiceChip serviceChip = new ServiceChip(context, "Body Wash");
+            ServiceChip serviceChip = new ServiceChip(context, "Body Shop");
             serviceFlowLayout.addView(serviceChip, params);
         }
 

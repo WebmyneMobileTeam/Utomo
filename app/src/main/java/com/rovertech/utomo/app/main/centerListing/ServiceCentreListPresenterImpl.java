@@ -26,6 +26,7 @@ import com.rovertech.utomo.app.account.service.FetchCityService;
 import com.rovertech.utomo.app.helper.AdvancedSpannableString;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.centerListing.model.CentreListRequest;
 import com.rovertech.utomo.app.main.centerListing.model.CentreListResponse;
 import com.rovertech.utomo.app.main.centerListing.service.FetchServiceCentreListService;
@@ -62,7 +63,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
     }
 
     @Override
-    public void fetchCentreList(int centreId, Context context, int type) {
+    public void fetchCentreList(int centreId, Context context, int type, boolean isBodyShop, boolean isPickup) {
 
         // Call WS
         CentreListRequest request = new CentreListRequest();
@@ -76,9 +77,10 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
             request.Longitude = userLongitude;
         }
 
+        request.DealerShipName = PrefUtils.getCurrentCarSelected(context).Make;
         request.LastServiceCentreID = centreId;
-        request.IsBodyWash = true;
-        request.IsPickupDrop = true;
+        request.IsBodyWash = isBodyShop;
+        request.IsPickupDrop = isPickup;
 
         Log.e("CentreListRequest", Functions.jsonString(request));
 
