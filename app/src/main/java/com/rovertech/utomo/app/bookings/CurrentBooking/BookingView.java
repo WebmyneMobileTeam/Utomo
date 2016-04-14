@@ -5,8 +5,13 @@ import android.view.View;
 /**
  * Created by raghavthakkar on 15-03-2016.
  */
-public interface CurrentBookingView {
+public interface BookingView {
 
     void initView(View view);
+
     void setUpRecyclerVIew(CurrentBookingAdapter currentBookingAdapter);
+
+    void showProgressBar();
+
+    void hideProgressBar();
 }

@@ -17,7 +17,7 @@ public class DashboardRequest implements Serializable {
 
     public int UserID;
 
-    public String VehicleID;
+    public int VehicleID;
 
     public double Lattitude;
 

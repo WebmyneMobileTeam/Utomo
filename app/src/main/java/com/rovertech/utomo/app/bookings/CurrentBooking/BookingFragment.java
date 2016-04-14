@@ -8,22 +8,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.bookings.MyBookingFragment;
 
 
-public class CurrentBookingFragment extends Fragment implements CurrentBookingView {
+public class BookingFragment extends Fragment implements BookingView {
 
     private View parentView;
-    private CurrentBookingPresenter currentBookingPresenter;
+    private BookingPresenter bookingPresenter;
+    private ProgressBar progressBar;
 
-    public CurrentBookingFragment() {
+    public BookingFragment() {
 
     }
 
 
-    public static CurrentBookingFragment newInstance() {
-        CurrentBookingFragment fragment = new CurrentBookingFragment();
+    public static BookingFragment newInstance() {
+        BookingFragment fragment = new BookingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -40,13 +43,15 @@ public class CurrentBookingFragment extends Fragment implements CurrentBookingVi
 
         parentView = inflater.inflate(R.layout.fragment_current_booking, container, false);
         initView(parentView);
-        currentBookingPresenter = new CurrentBookingPresenterImpl(this);
-        currentBookingPresenter.setUpRecyclerView();
+        bookingPresenter = new BookingPresenterImpl(this);
+        bookingPresenter.setUpRecyclerView(getActivity(), MyBookingFragment.CURRENTBOOKING);
         return parentView;
     }
 
     @Override
     public void initView(View view) {
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
 
     }
 
@@ -64,8 +69,20 @@ public class CurrentBookingFragment extends Fragment implements CurrentBookingVi
     }
 
     @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        currentBookingPresenter.destory();
+        bookingPresenter.destory();
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.rovertech.utomo.app.bookings.CurrentBooking;
+package com.rovertech.utomo.app.bookings.model;
 
 /**
  * Created by raghavthakkar on 06-04-2016.
@@ -17,9 +17,13 @@ public class BookingRequest {
 
     public boolean IsBodyShop;
 
-    public boolean IsPickupDrop;
+
 
     public boolean IsService;
+
+    public boolean IsDrop;
+
+    public boolean IsPickup;
 
     public String PickAddress;
 
@@ -44,8 +48,9 @@ public class BookingRequest {
         DropCity = "";
         DropZipCode = "";
         IsBodyShop = false;
-        IsPickupDrop = false;
         IsService = false;
+        IsPickup = false;
+        IsDrop = false;
         PickAddress = "";
         PickArea = "";
         PickCity = "";

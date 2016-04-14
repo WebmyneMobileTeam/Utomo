@@ -8,7 +8,7 @@
         android:id="@+id/currentBookingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".bookings.CurrentBooking.CurrentBookingFragment">
+        tools:context=".bookings.CurrentBooking.BookingFragment">
     </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
 
 </RelativeLayout>

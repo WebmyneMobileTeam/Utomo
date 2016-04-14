@@ -1,9 +1,18 @@
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/currentBookingRecyclerView"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".bookings.CurrentBooking.CurrentBookingFragment">
+    android:layout_height="match_parent">
 
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/currentBookingRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".bookings.CurrentBooking.BookingFragment"></android.support.v7.widget.RecyclerView>
 
-</android.support.v7.widget.RecyclerView>
+    <ProgressBar
+       android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

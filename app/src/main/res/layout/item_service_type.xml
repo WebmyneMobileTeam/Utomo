@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/booking_card_margin"
@@ -37,6 +36,23 @@
             android:layout_weight="1"
             android:text="Body Wash"
             android:textColor="@color/TextBody" />
+
+      <!--  <CheckBox
+            android:id="@+id/checkIsPickUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pick"
+            android:textColor="@color/TextBody" />
+
+        <CheckBox
+            android:id="@+id/checkIsDrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Drop "
+            android:textColor="@color/TextBody" />-->
+
 
     </LinearLayout>
 

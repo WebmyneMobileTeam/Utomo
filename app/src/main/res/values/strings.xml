@@ -137,5 +137,9 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="item_booking_add">Add</string>
+    <string name="item_booking_edit">Edit</string>
+    <string name="item_booking_delete">Delete</string>
+    <string name="failed">Failed, Please Try again.</string>
 
 </resources>

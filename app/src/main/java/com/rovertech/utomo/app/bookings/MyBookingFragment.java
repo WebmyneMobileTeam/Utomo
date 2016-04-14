@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.bookings;
 
 
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -17,6 +18,12 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivity;
  */
 public class MyBookingFragment extends Fragment implements MyBookingView {
 
+
+    @IntDef({CURRENTBOOKING, PASTBOOKING})
+    public @interface BookingViewMode {
+    }
+    public static final int CURRENTBOOKING = 1;
+    public static final int PASTBOOKING = 2;
 
     private DrawerActivity activity;
     private MyBookingPresenter myBookingPresenter;
@@ -39,7 +46,7 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_booking, container, false);
         initView(parentView);
-        myBookingPresenter = new MyBookingPresenterImpl(getActivity().getSupportFragmentManager(),this);
+        myBookingPresenter = new MyBookingPresenterImpl(getActivity().getSupportFragmentManager(), this);
         myBookingPresenter.setUpViewPagerAndTabs();
         return parentView;
     }

@@ -14,5 +14,5 @@ import retrofit2.http.Path;
 public interface DeleteCarService {
 
     @GET(AppConstant.DELETE_CAR)
-    Call<DeleteVehicleResponse> deletCar(@Path("USERID") int userId, @Path("VEHICLELID") String vehicleId);
+    Call<DeleteVehicleResponse> deletCar(@Path("USERID") int userId, @Path("VEHICLELID") int vehicleId);
 }

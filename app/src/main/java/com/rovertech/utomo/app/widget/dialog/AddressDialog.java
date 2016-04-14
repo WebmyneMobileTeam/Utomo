@@ -14,7 +14,7 @@ import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.bookings.CurrentBooking.BookingRequest;
+import com.rovertech.utomo.app.bookings.model.BookingRequest;
 import com.rovertech.utomo.app.helper.Functions;
 
 /**

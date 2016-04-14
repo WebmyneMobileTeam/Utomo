@@ -29,7 +29,7 @@ public class CarPojo implements Serializable {
 
     public int UserID;
 
-    public String VehicleID;
+    public int VehicleID;
 
     public int VehicleModelYearID;
 

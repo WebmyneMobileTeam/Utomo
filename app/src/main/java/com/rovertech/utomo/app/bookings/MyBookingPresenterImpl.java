@@ -2,7 +2,7 @@ package com.rovertech.utomo.app.bookings;
 
 import android.support.v4.app.FragmentManager;
 
-import com.rovertech.utomo.app.bookings.CurrentBooking.CurrentBookingFragment;
+import com.rovertech.utomo.app.bookings.CurrentBooking.BookingFragment;
 import com.rovertech.utomo.app.bookings.PastBooking.PastBookingFragment;
 
 /**
@@ -22,7 +22,7 @@ public class MyBookingPresenterImpl implements MyBookingPresenter {
     @Override
     public void setUpViewPagerAndTabs() {
         MyBookingAdapter myBookingAdapter = new MyBookingAdapter(context);
-        myBookingAdapter.add(CurrentBookingFragment.newInstance(), "Current Booking");
+        myBookingAdapter.add(BookingFragment.newInstance(), "Current Booking");
         myBookingAdapter.add(PastBookingFragment.newInstance(), "Past Booking");
         myBookingFragment.setUpViewPagerAndTabs(myBookingAdapter);
     }

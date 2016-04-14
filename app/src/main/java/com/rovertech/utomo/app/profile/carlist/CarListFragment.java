@@ -72,7 +72,7 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
         adapter = new CarListAdapter(getActivity(), carList);
         adapter.setOnDeleteListener(new CarListAdapter.onDeleteListener() {
             @Override
-            public void onDelete(String vehicleId) {
+            public void onDelete(int vehicleId) {
                 presenter.deleteVehicle(vehicleId);
             }
         });

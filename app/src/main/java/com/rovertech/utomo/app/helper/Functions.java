@@ -29,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.widget.dialog.SuccessDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
@@ -38,6 +39,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Functions {
+
+
+    public static final String ServerDateTimeFormat = "dd-MM-yyyy HH:mm:ss";
+    public static final String ServerDateFormat = "dd-MM-yyyy";
+    public static final String DisplayDateFormate = "dd MMMM ,yyyy";
+
 
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -226,6 +233,39 @@ public class Functions {
             idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         }
         return cursor.getString(idx);
+    }
+
+    public static String displayOnlyDate(String dateGenerated) {
+        String serverDate = null;
+        try {
+            serverDate = Functions.parseDate(dateGenerated, ServerDateFormat, DisplayDateFormate);
+        } catch (Exception e) {
+        }
+        if (serverDate == null) {
+            throw new NullPointerException("Invalid Date Formate");
+        }
+
+        return serverDate;
+    }
+
+
+    public static void showDialog(final Context context, final String msg, final Intent intent) {
+        final SuccessDialog dialog = new SuccessDialog(context, msg);
+        dialog.setOnSubmitListener(new SuccessDialog.onSubmitListener() {
+            @Override
+            public void onSubmit() {
+
+                if (intent != null) {
+                    intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+
+                }
+            }
+        });
+        dialog.show();
+
+
     }
 
     public static int getColor(Context context, float f) {

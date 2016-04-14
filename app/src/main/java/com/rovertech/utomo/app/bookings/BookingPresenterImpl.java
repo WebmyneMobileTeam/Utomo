@@ -8,12 +8,19 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.bookings.model.BookingRequest;
+import com.rovertech.utomo.app.bookings.model.RequestForBooking;
+import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.widget.dialog.SuccessDialog;
 
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by sagartahelyani on 17-03-2016.
@@ -77,7 +84,6 @@ public class BookingPresenterImpl implements BookingPresenter {
         Calendar cal = Calendar.getInstance();
 
 
-
         DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -91,18 +97,41 @@ public class BookingPresenterImpl implements BookingPresenter {
     }
 
     @Override
-    public void book(final Context context) {
-        // call ws for booking and alert for success
-        final SuccessDialog dialog = new SuccessDialog(context, context.getResources().getString(R.string.success));
-        dialog.setOnSubmitListener(new SuccessDialog.onSubmitListener() {
+    public void book(final Context context, BookingRequest bookingRequest) {
+
+        if (bookingRequest == null) {
+            return;
+        }
+
+        BookingRequestAPI bookingRequestAPI = UtomoApplication.retrofit.create(BookingRequestAPI.class);
+        Call<RequestForBooking> requestForBookingCall = bookingRequestAPI.bookingService(bookingRequest);
+        requestForBookingCall.enqueue(new Callback<RequestForBooking>() {
             @Override
-            public void onSubmit() {
-                Intent intent = new Intent(context, DrawerActivity.class);
-                intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+            public void onResponse(Call<RequestForBooking> call, Response<RequestForBooking> response) {
+
+
+                if (response.isSuccess()) {
+
+                    RequestForBookingResponse requestForBooking = response.body().RequestForBooking;
+                    if (requestForBooking.ResponseCode == 1) {
+                        Intent intent = new Intent(context, DrawerActivity.class);
+                        intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
+                        Functions.showDialog(context, requestForBooking.ResponseMessage, intent);
+
+                    } else {
+
+                        Functions.showDialog(context, context.getString(R.string.failed), null);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RequestForBooking> call, Throwable t) {
+                Functions.showDialog(context, context.getString(R.string.failed), null);
             }
         });
-        dialog.show();
+
+
     }
 }
