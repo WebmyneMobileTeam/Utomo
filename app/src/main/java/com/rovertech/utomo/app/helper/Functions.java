@@ -17,6 +17,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
+import com.rovertech.utomo.app.R;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
@@ -61,7 +63,7 @@ public class Functions {
         try {
             Glide.clear(imageView);
             Glide.with(context).load(url).into(imageView);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -224,5 +226,22 @@ public class Functions {
             idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         }
         return cursor.getString(idx);
+    }
+
+    public static int getColor(Context context, float f) {
+
+        int loadedColor = 0;
+
+        if (f < 10 && f > 0) {
+            loadedColor = ContextCompat.getColor(context, R.color.color10);
+        } else if (f > 10 && f < 40) {
+            loadedColor = ContextCompat.getColor(context, R.color.color40);
+        } else if (f > 40 && f < 70) {
+            loadedColor = ContextCompat.getColor(context, R.color.color70);
+        } else {
+            loadedColor = ContextCompat.getColor(context, R.color.color100);
+        }
+
+        return loadedColor;
     }
 }

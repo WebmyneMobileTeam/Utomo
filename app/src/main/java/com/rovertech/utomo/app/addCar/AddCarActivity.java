@@ -40,7 +40,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     private View parentView;
     private RelativeLayout imageSelectLayout;
     private ImageView imageCar;
-    private EditText edtVehicleNo, edtServiceDate, edtPUC, edtInsuranceDate;
+    private EditText edtVehicleNo, edtServiceDate, edtPUC, edtInsuranceDate, edtPermitsDate;
     private TextView edtKms;
     private AddCarPresenter presenter;
     private Odometer odometer;
@@ -82,6 +82,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         edtPUC.setOnClickListener(this);
         edtInsuranceDate.setOnClickListener(this);
+        edtPermitsDate.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
         edtServiceDate.setOnClickListener(this);
         txtSkip.setOnClickListener(this);
@@ -158,6 +159,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         edtServiceDate = (EditText) findViewById(R.id.edtServiceDate);
         edtPUC = (EditText) findViewById(R.id.edtPUC);
         edtInsuranceDate = (EditText) findViewById(R.id.edtInsuranceDate);
+        edtPermitsDate = (EditText) findViewById(R.id.edtPermitsDate);
         edtKms = (TextView) findViewById(R.id.edtKms);
         odometer = (Odometer) findViewById(R.id.odometer);
 
@@ -170,6 +172,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         edtServiceDate.setTypeface(Functions.getNormalFont(this));
         edtPUC.setTypeface(Functions.getNormalFont(this));
         edtInsuranceDate.setTypeface(Functions.getNormalFont(this));
+        edtPermitsDate.setTypeface(Functions.getNormalFont(this));
         edtKms.setTypeface(Functions.getNormalFont(this));
         txtCustomTitle.setTypeface(Functions.getBoldFont(this));
     }
@@ -213,9 +216,13 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 presenter.selectInsuranceDate(AddCarActivity.this);
                 break;
 
+            case R.id.edtPermitsDate:
+                presenter.selectPermitsDate(AddCarActivity.this);
+                break;
+
             case R.id.btnAdd:
                 presenter.addCar(AddCarActivity.this, file, Functions.toStr(edtVehicleNo), selectedMake, selectedYear, selectModelYear, Functions.toStr(edtServiceDate),
-                        Functions.toStr(edtPUC), Functions.toStr(edtInsuranceDate), odometer.getValue());
+                        Functions.toStr(edtPUC), Functions.toStr(edtInsuranceDate), Functions.toStr(edtPermitsDate), odometer.getValue());
                 break;
 
             case R.id.edtServiceDate:
@@ -368,6 +375,11 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void setVehicleError() {
         edtVehicleNo.setError("Like GJ 11 AA 1111");
+    }
+
+    @Override
+    public void setPermitsDate(String date) {
+        edtPermitsDate.setText(date);
     }
 
     @Override

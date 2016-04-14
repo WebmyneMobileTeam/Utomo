@@ -9,6 +9,8 @@ public class AddCarRequest implements Serializable {
 
     public String InsuranceDate;
 
+    public String LastPermitsDate;
+
     public String Make;
 
     public String PUCExpiryDate;

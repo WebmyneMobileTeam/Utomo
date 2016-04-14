@@ -48,15 +48,21 @@ public class HealthMeterTile extends LinearLayout {
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtPercent.setTypeface(Typeface.createFromAsset(context.getAssets(), "digit_font.ttf"),Typeface.BOLD);
+        txtPercent.setTypeface(Typeface.createFromAsset(context.getAssets(), "digit_font.ttf"), Typeface.BOLD);
     }
 
     private void findViewById() {
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtPercent = (TextView) parentView.findViewById(R.id.txtPercent);
-        //txtPercent.setTypeface(Typeface.createFromAsset(context.getAssets(), "digit_font.ttf"));
         progressLayout = (ProgressLayout) parentView.findViewById(R.id.progressLayout);
         progressLayout.setCurrentProgress(40);
 
+    }
+
+    public void setCarHealth(String carHealth) {
+        txtPercent.setText(String.format("%s %s", carHealth, "%"));
+
+        float f = Float.parseFloat(carHealth);
+        progressLayout.setCurrentProgress((int) f);
     }
 }

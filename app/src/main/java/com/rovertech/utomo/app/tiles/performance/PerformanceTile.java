@@ -11,11 +11,17 @@ import android.widget.TextView;
 import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.home.car.model.Performance;
+import com.rovertech.utomo.app.widget.performanceWidget.PerformanceTileItem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by sagartahelyani on 10-03-2016.
  */
-public class PerformanceTile extends LinearLayout {
+public class PerformanceTile extends LinearLayout implements View.OnClickListener {
 
     Context context;
     private View parentView;
@@ -23,8 +29,9 @@ public class PerformanceTile extends LinearLayout {
 
     private TextView txtTitle;
     private ExpandableLayout expandLayout;
-    private LinearLayout expandClickLayout;
+    private LinearLayout expandClickLayout, initialLayout, remainsLayout;
     private ImageView imgArrow;
+    private TextView txtMore;
 
     public PerformanceTile(Context context) {
         super(context);
@@ -45,31 +52,71 @@ public class PerformanceTile extends LinearLayout {
         findViewById();
 
         setTypeface();
-
     }
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
-
+        txtMore.setTypeface(Functions.getBoldFont(context));
     }
 
     private void findViewById() {
+        remainsLayout = (LinearLayout) parentView.findViewById(R.id.remainsLayout);
+        initialLayout = (LinearLayout) parentView.findViewById(R.id.initialLayout);
+        txtMore = (TextView) parentView.findViewById(R.id.txtMore);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         expandLayout = (ExpandableLayout) parentView.findViewById(R.id.expandLayout);
         imgArrow = (ImageView) parentView.findViewById(R.id.imgArrow);
         expandClickLayout = (LinearLayout) parentView.findViewById(R.id.expandClickLayout);
 
-        expandClickLayout.setOnClickListener(new OnClickListener() {
+        expandClickLayout.setOnClickListener(this);
+        txtMore.setOnClickListener(this);
+    }
+
+    private void doExpandCollapse() {
+
+        if (expandLayout.isExpanded()) {
+            Functions.antirotateViewClockwise(imgArrow);
+            txtMore.setText("More");
+        } else {
+            Functions.rotateViewClockwise(imgArrow);
+            txtMore.setText("Less");
+        }
+
+        expandLayout.toggle();
+    }
+
+    public void setPerformance(ArrayList<Performance> lstPerformance) {
+
+        Collections.sort(lstPerformance, new Comparator<Performance>() {
             @Override
-            public void onClick(View v) {
-                if (expandLayout.isExpanded()) {
-                    Functions.antirotateViewClockwise(imgArrow);
-                } else {
-                    Functions.rotateViewClockwise(imgArrow);
-                }
-                expandLayout.toggle();
+            public int compare(Performance lhs, Performance rhs) {
+                return Float.compare(Float.parseFloat(lhs.PerformancePercentage), Float.parseFloat(rhs.PerformancePercentage));
             }
         });
 
+        for (int i = 0; i < 3; i++) {
+            PerformanceTileItem item = new PerformanceTileItem(context);
+            item.setValue(lstPerformance.get(i));
+            initialLayout.addView(item);
+        }
+
+        for (int j = 3; j < lstPerformance.size(); j++) {
+            PerformanceTileItem item = new PerformanceTileItem(context);
+            item.setValue(lstPerformance.get(j));
+            remainsLayout.addView(item);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.txtMore:
+                doExpandCollapse();
+                break;
+
+            case R.id.expandClickLayout:
+                doExpandCollapse();
+                break;
+        }
     }
 }

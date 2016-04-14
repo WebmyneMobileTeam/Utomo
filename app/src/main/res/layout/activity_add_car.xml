@@ -212,6 +212,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
 
+                <EditText
+                    android:id="@+id/edtPermitsDate"
+                    style="@style/MyEditTextStyle"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_account"
+                    android:focusable="false"
+                    android:hint="Last Permits Date"
+                    android:longClickable="false" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

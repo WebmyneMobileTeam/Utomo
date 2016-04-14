@@ -180,4 +180,8 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
         reverseLoginSet.start();
 
     }
+
+    public void setOdometerReading(String odometerReading) {
+        odometer.setValue(odometerReading);
+    }
 }

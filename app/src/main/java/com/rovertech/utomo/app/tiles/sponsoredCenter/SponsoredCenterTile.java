@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.home.car.model.SponsoredCenter;
 import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 
 /**
@@ -22,7 +24,7 @@ public class SponsoredCenterTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtTitle, txtInfo, txtDetails;
+    private TextView txtCenterName, txtExpertise;
     private ImageView imgCenter;
     private CardView sponsoredCardView;
 
@@ -56,18 +58,28 @@ public class SponsoredCenterTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtInfo.setTypeface(Functions.getNormalFont(context));
-        txtDetails.setTypeface(Functions.getNormalFont(context));
-
+        txtCenterName.setTypeface(Functions.getBoldFont(context));
+        txtExpertise.setTypeface(Functions.getNormalFont(context));
     }
 
     private void findViewById() {
-        txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
+        txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
-        txtInfo = (TextView) parentView.findViewById(R.id.txtInfo);
-        txtDetails = (TextView) parentView.findViewById(R.id.txtDetails);
+        txtExpertise = (TextView) parentView.findViewById(R.id.txtExpertise);
         sponsoredCardView = (CardView) parentView.findViewById(R.id.sponsoredCardView);
 
+    }
+
+
+    public void setDetails(SponsoredCenter sponsoredCenter) {
+        txtCenterName.setText(sponsoredCenter.ServiceCentreName);
+
+        if (!sponsoredCenter.Expertise.equals(""))
+            txtExpertise.setText(String.format("Expert in %s", sponsoredCenter.Expertise));
+        else
+            txtExpertise.setVisibility(GONE);
+
+        if (sponsoredCenter.ImageName != null && sponsoredCenter.ImageName.length() > 0)
+            Glide.with(context).load(sponsoredCenter.ImageName).into(imgCenter);
     }
 }

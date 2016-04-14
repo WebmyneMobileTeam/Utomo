@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 
 /**
@@ -22,7 +24,7 @@ public class CurrentServiceTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtTitle, txtBookingDate, txtCenterName, txtCenterAddress, txtServiceStatus;
+    private TextView txtBookingId, txtBookingDate, txtCenterName, txtServiceStatus;
     private ImageView imgCenter;
     private CardView currentCardView;
 
@@ -55,24 +57,30 @@ public class CurrentServiceTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtBookingId.setTypeface(Functions.getBoldFont(context));
         txtBookingDate.setTypeface(Functions.getNormalFont(context));
         txtCenterName.setTypeface(Functions.getBoldFont(context));
-        txtCenterAddress.setTypeface(Functions.getNormalFont(context));
         txtServiceStatus.setTypeface(Functions.getBoldFont(context));
     }
 
     private void findViewById() {
-        txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
+        txtBookingId = (TextView) parentView.findViewById(R.id.txtBookingId);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
-        txtCenterAddress = (TextView) parentView.findViewById(R.id.txtCenterAddress);
         txtServiceStatus = (TextView) parentView.findViewById(R.id.txtServiceStatus);
         currentCardView = (CardView) parentView.findViewById(R.id.currentCardView);
     }
 
     public View getParentView() {
         return parentView;
+    }
+
+    public void setDetails(DashboardData data) {
+        txtBookingId.setText(String.format("Booking ID: %d", data.BookingID));
+        Glide.with(context).load(data.SCImageName).into(imgCenter);
+        txtCenterName.setText(data.ServiceCentreName);
+        txtBookingDate.setText(data.CreatedDate);
+        txtServiceStatus.setText(data.Status);
     }
 }

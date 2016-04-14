@@ -11,35 +11,43 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/mainContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.rovertech.utomo.app.tiles.CurrentServiceTile
+                android:id="@+id/currentServiceTile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.rovertech.utomo.app.tiles.PastServiceTile
+                android:id="@+id/pastServiceTile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.rovertech.utomo.app.tiles.HealthMeterTile
+                android:id="@+id/healthMeterTile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.rovertech.utomo.app.tiles.serviceDate.ServiceDateTile
+                android:id="@+id/serviceDateTile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.rovertech.utomo.app.tiles.odometer.OdometerTile
+                android:id="@+id/odometerTile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.rovertech.utomo.app.tiles.performance.PerformanceTile
+                android:id="@+id/performanceTile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterSet
+                android:id="@+id/sponsoredCenterSet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

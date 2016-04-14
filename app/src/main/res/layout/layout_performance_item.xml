@@ -25,7 +25,7 @@
         app:autoProgress="true"
         app:currentProgress="30"
         app:emptyColor="#f1f1f1"
-        app:loadedColor="@color/color30"
+        app:loadedColor="@color/color40"
         app:maxProgress="100" />
 
     <TextView

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 
 /**
@@ -80,5 +81,9 @@ public class PastServiceTile extends LinearLayout {
         txtRepeat = (TextView) parentView.findViewById(R.id.txtRepeat);
 
         txtReviews.setText(Html.fromHtml("<u>1 Review</u>"));
+    }
+
+    public void setDetails(DashboardData data) {
+
     }
 }

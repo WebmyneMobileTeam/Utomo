@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context="com.rovertech.utomo.app.main.SplashActivity">
+    android:background="@drawable/gradient_bg"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:drawableTop="@drawable/ic_launcher"
-        android:textSize="@dimen/XL_TEXT"
-        android:text="Splash"
-        android:textColor="@color/purple" />
+        android:gravity="center"
+        android:text="UToMo"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/splash_textsize"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/car2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:src="@drawable/transport_1"
+        android:tint="@color/colorPrimaryDark"
+        android:tintMode="src_atop" />
 
 </RelativeLayout>

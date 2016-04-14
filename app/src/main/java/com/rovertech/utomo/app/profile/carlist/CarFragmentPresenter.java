@@ -11,5 +11,5 @@ public interface CarFragmentPresenter {
 
     void fetchMyCars(Context context);
 
-    void deleteVehicle(int vehicleId);
+    void deleteVehicle(String vehicleId);
 }

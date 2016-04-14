@@ -27,5 +27,7 @@ public interface AddCarPresenter {
     void getImage(Intent data, Context context, int requestCode);
 
     void addCar(Context context, File file, String vehicleNo, String selectedMake, String selectedYear, String selectModelYear,
-                String serviceDate, String pucDate, String insuranceDate, String odometerValue);
+                String serviceDate, String pucDate, String insuranceDate, String permitsDate, String odometerValue);
+
+    void selectPermitsDate(Context context);
 }

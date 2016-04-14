@@ -21,13 +21,13 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
                 android:layout_marginLeft="4dp"
-                android:textSize="@dimen/N_TEXT"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
                 android:clickable="false"
                 android:padding="8dp"
-                android:text="Performance Metrices" />
+                android:text="Performance Metrices"
+                android:textSize="@dimen/N_TEXT" />
 
             <ImageView
                 android:id="@+id/imgArrow"
@@ -36,7 +36,16 @@
                 android:layout_marginRight="8dp"
                 android:clickable="false"
                 android:src="@drawable/ic_arrow"
-                android:tint="@color/trans_blue" />
+                android:tint="@color/trans_blue"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/initialLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -49,11 +58,22 @@
             app:ael_interpolator="linear"
             app:ael_orientation="vertical">
 
-            <com.rovertech.utomo.app.widget.performanceWidget.PerformanceTileBox
+            <LinearLayout
+                android:id="@+id/remainsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+        <TextView
+            android:id="@+id/txtMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="8dp"
+            android:text="More" />
 
     </LinearLayout>
 

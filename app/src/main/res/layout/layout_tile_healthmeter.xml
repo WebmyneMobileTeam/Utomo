@@ -12,7 +12,7 @@
         android:layout_height="42dp"
         app:autoProgress="true"
         app:emptyColor="@color/white"
-        app:loadedColor="@color/color30"
+        app:loadedColor="@color/color40"
         app:maxProgress="100" />
 
     <RelativeLayout

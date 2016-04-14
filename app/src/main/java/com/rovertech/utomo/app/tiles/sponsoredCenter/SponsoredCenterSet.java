@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.home.car.model.SponsoredCenter;
+
+import java.util.ArrayList;
 
 /**
  * Created by sagartahelyani on 10-03-2016.
@@ -21,10 +24,10 @@ public class SponsoredCenterSet extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtTitle, txtInfo, txtDetails;
+    private TextView txtTitle;
     private ImageView imgArrow;
     private ExpandableLayout expandLayout;
-    private LinearLayout expandRecommendedClick;
+    private LinearLayout expandRecommendedClick, sponsoredLinearLayout;
 
     public SponsoredCenterSet(Context context) {
         super(context);
@@ -50,16 +53,12 @@ public class SponsoredCenterSet extends LinearLayout {
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtInfo.setTypeface(Functions.getNormalFont(context));
-        txtDetails.setTypeface(Functions.getNormalFont(context));
-
     }
 
     private void findViewById() {
+        sponsoredLinearLayout = (LinearLayout) parentView.findViewById(R.id.sponsoredLinearLayout);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         imgArrow = (ImageView) parentView.findViewById(R.id.imgArrow);
-        txtInfo = (TextView) parentView.findViewById(R.id.txtInfo);
-        txtDetails = (TextView) parentView.findViewById(R.id.txtDetails);
         expandRecommendedClick = (LinearLayout) findViewById(R.id.expandRecommendedClick);
         expandLayout = (ExpandableLayout) findViewById(R.id.expandLayout);
 
@@ -75,5 +74,14 @@ public class SponsoredCenterSet extends LinearLayout {
             }
         });
 
+    }
+
+    public void setCenterList(ArrayList<SponsoredCenter> lstReferTile) {
+
+        for (int i = 0; i < lstReferTile.size(); i++) {
+            SponsoredCenterTile item = new SponsoredCenterTile(context);
+            item.setDetails(lstReferTile.get(i));
+            sponsoredLinearLayout.addView(item);
+        }
     }
 }

@@ -239,7 +239,6 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
 
         }
 
-
     }
 
     @Override

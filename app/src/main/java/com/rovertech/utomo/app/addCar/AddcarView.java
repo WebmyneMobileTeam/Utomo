@@ -51,4 +51,6 @@ public interface AddcarView {
     void fail(String responseMessage);
 
     void setVehicleError();
+
+    void setPermitsDate(String date);
 }

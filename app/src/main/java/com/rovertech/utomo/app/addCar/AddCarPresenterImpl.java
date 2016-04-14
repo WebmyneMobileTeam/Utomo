@@ -269,10 +269,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
     @Override
     public void addCar(final Context context, final File file, String vehicleNo, String selectedMake, String selectedYear, String selectModelYear,
-                       String serviceDate, String pucDate, String insuranceDate, String odometerValue) {
-
-        if (addcarView != null)
-            addcarView.showProgress();
+                       String serviceDate, String pucDate, String insuranceDate, String permitsDate, String odometerValue) {
 
         if (vehicleNo.equals("")) {
             Functions.showToast(context, "Vehicle number cannot be empty");
@@ -291,21 +288,27 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             Functions.showToast(context, "Select Year");
 
         } else {
+
             final AddCarRequest request = new AddCarRequest();
             request.Make = selectedMake;
 
             if (pucDate.equals(""))
-                request.PUCExpiryDate = "2015-03-25";
+                request.PUCExpiryDate = "";
             else
                 request.PUCExpiryDate = pucDate;
 
             if (insuranceDate.equals(""))
-                request.InsuranceDate = "2015-03-25";
+                request.InsuranceDate = "";
             else
                 request.InsuranceDate = insuranceDate;
 
+            if (permitsDate.equals(""))
+                request.LastPermitsDate = "";
+            else
+                request.LastPermitsDate = permitsDate;
+
             if (serviceDate.equals(""))
-                request.ServiceDate = "2015-03-25";
+                request.ServiceDate = "5";
             else
                 request.ServiceDate = serviceDate;
 
@@ -318,6 +321,13 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             new AsyncTask<Void, Void, Void>() {
 
                 private String responseFromMultipart = null;
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    if (addcarView != null)
+                        addcarView.showProgress();
+                }
 
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -354,6 +364,27 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         }
     }
 
+    @Override
+    public void selectPermitsDate(Context context) {
+        Calendar cal = Calendar.getInstance();
+
+        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                addcarView.setPermitsDate(date);
+            }
+        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                addcarView.setPermitsDate("");
+            }
+        });
+        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+        dialog.show();
+    }
+
     private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {
 
         String doResponse = null;
@@ -383,6 +414,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     .addPart("VehicleNo", new StringBody(request.VehicleNo))
                     .addPart("TravelledKM", new StringBody(request.TravelledKM))
                     .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
+                    .addPart("LastPermitsDate", new StringBody(request.LastPermitsDate))
                     .addPart("Year", new StringBody(request.Year + ""))
                     .addPart("ServiceDate", new StringBody(request.ServiceDate))
                     .addPart("Image", bab)
@@ -398,6 +430,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     .addPart("VehicleNo", new StringBody(request.VehicleNo))
                     .addPart("TravelledKM", new StringBody(request.TravelledKM))
                     .addPart("InsuranceDate", new StringBody(request.InsuranceDate))
+                    .addPart("LastPermitsDate", new StringBody(request.LastPermitsDate))
                     .addPart("Year", new StringBody(request.Year + ""))
                     .addPart("ServiceDate", new StringBody(request.ServiceDate))
                     .build();

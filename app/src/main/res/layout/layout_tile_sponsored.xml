@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/sponsoredCardView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sponsoredCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -14,7 +14,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imgCenter"
@@ -46,31 +46,23 @@
                 android:padding="4dp">
 
                 <TextView
-                    android:id="@+id/txtTitle"
+                    android:id="@+id/txtCenterName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/M_TEXT"
                     android:padding="4dp"
                     android:text="Service Center Name"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/M_TEXT" />
 
                 <TextView
-                    android:id="@+id/txtInfo"
+                    android:id="@+id/txtExpertise"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/N_TEXT"
                     android:padding="2dp"
                     android:text="@string/dummy1"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/N_TEXT" />
 
-                <TextView
-                    android:id="@+id/txtDetails"
-                    android:layout_width="match_parent"
-                    android:textSize="@dimen/N_TEXT"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp"
-                    android:text="@string/dummy4"
-                    android:textColor="@color/white" />
 
             </LinearLayout>
 

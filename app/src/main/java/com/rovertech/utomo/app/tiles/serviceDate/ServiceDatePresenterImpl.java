@@ -27,8 +27,7 @@ public class ServiceDatePresenterImpl implements ServiceDatePresenter {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
-                serviceDateView.setDate(convertedDate);
+                serviceDateView.setDate(date);
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         dialog.getDatePicker().setMinDate(cal.getTimeInMillis());

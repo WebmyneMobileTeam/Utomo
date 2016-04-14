@@ -73,7 +73,7 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
     }
 
     @Override
-    public void deleteVehicle(final int vehicleId) {
+    public void deleteVehicle(final String vehicleId) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 context);
         alertDialogBuilder.setTitle("Delete Car")
@@ -93,7 +93,7 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
         alertDialog.show();
     }
 
-    private void doDeleteCar(int vehicleId) {
+    private void doDeleteCar(String vehicleId) {
         
         DeleteCarService service = UtomoApplication.retrofit.create(DeleteCarService.class);
         Call<DeleteVehicleResponse> call = service.deletCar(PrefUtils.getUserID(context), vehicleId);

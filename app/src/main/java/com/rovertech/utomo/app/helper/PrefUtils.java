@@ -20,6 +20,15 @@ public class PrefUtils {
     public static String DEVICE_ID = "Device_ID";
     public static String CURRENT_CAR_SELECTED = "CURRENT_CAR_SELECTED";
 
+    public static void setSplash(Context ctx, boolean value) {
+        Prefs.with(ctx).save(AppConstant.IS_SPLASH, value);
+    }
+
+    public static boolean isSplash(Context ctx) {
+        return Prefs.with(ctx).getBoolean(AppConstant.IS_SPLASH, false);
+    }
+
+
     public static void setLoggedIn(Context ctx, boolean value) {
         Prefs.with(ctx).save(AppConstant.LOGGED_IN, value);
     }

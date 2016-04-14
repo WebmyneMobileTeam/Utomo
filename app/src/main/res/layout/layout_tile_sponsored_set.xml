@@ -50,25 +50,11 @@
             app:ael_orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/sponsoredLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterTile
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterTile
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterTile
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterTile
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

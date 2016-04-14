@@ -6,6 +6,7 @@ package com.rovertech.utomo.app.helper;
 public class AppConstant {
 
     public static String LOGGED_IN = "LOGGED_IN";
+    public static String IS_SPLASH = "IS_SPLASH";
 
     public static String LOGIN = "login";
     public static String SIGN_UP = "sign_up";
@@ -32,6 +33,9 @@ public class AppConstant {
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
     final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
     final public static String FETCH_VEHICLE_LIST = "UserActivities.svc/json/FetchVehicleList";
+
+    // dashboard
+    final public static String FETCH_DASHBOARD = "UserActivities.svc/json/FetchUserVehicleDashboard";
 
     public static String NO_INTERNET_CONNECTION = "No Internet Connection";
     public static String INTERNAL_ERROR = "INTERNAL ERROR.Please try again later.";

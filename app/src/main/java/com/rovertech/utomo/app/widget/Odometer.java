@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import com.rovertech.utomo.app.R;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
@@ -93,8 +95,7 @@ public class Odometer extends LinearLayout {
                     .build();
 
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-          //  setTextColor(numberPicker, Color.WHITE);
-           // setTextFont(numberPicker);
+            //  setTextColor(numberPicker, Color.WHITE);
             numberPicker.setBackgroundResource(R.drawable.rounded_shape);
             numberPicker.setGravity(Gravity.CENTER);
             numberPicker.setOnValueChangedListener(changeListener);
@@ -127,47 +128,41 @@ public class Odometer extends LinearLayout {
         return false;
     }
 
-    private void setTextFont(MaterialNumberPicker numberPicker) {
-
-        final int count = numberPicker.getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = numberPicker.getChildAt(i);
-            if (child instanceof EditText) {
-                try {
-                    Field selectorWheelPaintField = numberPicker.getClass()
-                            .getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((EditText) child).setTypeface(Typeface.createFromAsset(context.getAssets(), "digit_font.ttf"));
-                    numberPicker.invalidate();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-    }
-
     public String getValue() {
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < linearPicker.getChildCount(); i++) {
             MaterialNumberPicker picker = (MaterialNumberPicker) linearPicker.getChildAt(i);
-            sb.append(picker.getValue() + "");
+            sb.append(picker.getValue()).append("");
         }
-
         return sb.toString();
     }
 
     public void reset() {
-
         for (int i = 0; i < linearPicker.getChildCount(); i++) {
             MaterialNumberPicker picker = (MaterialNumberPicker) linearPicker.getChildAt(i);
             picker.setValue(0);
         }
     }
 
+    public void setValue(String odometerReading) {
+        Log.e("odometer", odometerReading);
+
+        for (int i = 0; i < linearPicker.getChildCount(); i++) {
+            MaterialNumberPicker picker = (MaterialNumberPicker) linearPicker.getChildAt(i);
+            picker.setValue(Integer.parseInt(String.valueOf(odometerReading.charAt(i))));
+        }
+    }
+
     public interface onOdometerChangeListener {
         void readingChange();
+    }
+
+    List<Integer> digits(int i) {
+        List<Integer> digits = new ArrayList<Integer>();
+        while (i > 0) {
+            digits.add(i % 10);
+            i /= 10;
+        }
+        return digits;
     }
 }
