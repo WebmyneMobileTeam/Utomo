@@ -17,8 +17,6 @@ public class BookingRequest {
 
     public boolean IsBodyShop;
 
-
-
     public boolean IsService;
 
     public boolean IsDrop;

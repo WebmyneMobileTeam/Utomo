@@ -14,13 +14,15 @@
         android:orientation="vertical">
 
         <com.rovertech.utomo.app.main.centreDetail.centreHeader.CentreHeaderDetails
+            android:id="@+id/centreHeaderDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.rovertech.utomo.app.main.centreDetail.centreMain.CentreMainDetails
             android:id="@+id/centreMainDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="8dp" />
 
     </LinearLayout>
 

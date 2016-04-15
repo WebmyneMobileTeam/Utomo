@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.main.centreDetail.centreHeader;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,6 +12,10 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.centreDetail.ImageAdapter;
+import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sagartahelyani on 16-03-2016.
@@ -24,10 +27,9 @@ public class CentreHeaderDetails extends LinearLayout {
     private View parentView;
     private ViewPager viewPager;
     private ImageAdapter adapter;
-    private int[] images = new int[]{R.drawable.slider1, R.drawable.slider2, R.drawable.slider3,
-            R.drawable.slider1, R.drawable.slider2, R.drawable.slider3};
+    private List<String> images = new ArrayList<>();
     private TextView txtReviews, txtDistance, txtCentreName;
-    private ImageView imgLeft, imgRight;
+    private ImageView imgLeft, imgRight, imgOffer, imgCall, imgStar, imgLocation;
 
     public CentreHeaderDetails(Context context) {
         super(context);
@@ -53,6 +55,10 @@ public class CentreHeaderDetails extends LinearLayout {
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
         imgLeft = (ImageView) parentView.findViewById(R.id.imgLeft);
         imgRight = (ImageView) parentView.findViewById(R.id.imgRight);
+        imgOffer = (ImageView) parentView.findViewById(R.id.imgOffer);
+        imgCall = (ImageView) parentView.findViewById(R.id.imgCall);
+        imgStar = (ImageView) parentView.findViewById(R.id.imgStar);
+        imgLocation = (ImageView) parentView.findViewById(R.id.imgLocation);
 
         setTypeface();
 
@@ -81,5 +87,57 @@ public class CentreHeaderDetails extends LinearLayout {
     private void initPager() {
         adapter = new ImageAdapter(context, images);
         viewPager.setAdapter(adapter);
+    }
+
+    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
+
+
+        if (centreDetailPojo.lstServiceCentreImage.size() > 0) {
+
+            for (int i = 0; i < centreDetailPojo.lstServiceCentreImage.size(); i++) {
+                images.add(centreDetailPojo.lstServiceCentreImage.get(i).ImageName);
+            }
+            adapter.notifyDataSetChanged();
+        } else {
+
+            imgLeft.setVisibility(GONE);
+            imgRight.setVisibility(GONE);
+        }
+
+        imgOffer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        imgCall.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        imgStar.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        imgLocation.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (centreDetailPojo.Lattitude != 0.0 && centreDetailPojo.Longitude != 0.0) {
+
+                    Functions.openInMap(context, centreDetailPojo.Lattitude, centreDetailPojo.Longitude, centreDetailPojo.ServiceCentreName);
+                } else {
+                    Functions.showDialog(context, "Currently Location unavailable", null);
+                }
+
+            }
+        });
+
+
     }
 }

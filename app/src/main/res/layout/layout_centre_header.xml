@@ -79,6 +79,7 @@
             android:padding="4dp">
 
             <ImageView
+                android:id="@+id/imgOffer"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -92,6 +93,7 @@
                 android:background="@color/white" />
 
             <ImageView
+                android:id="@+id/imgCall"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -105,6 +107,7 @@
                 android:background="@color/white" />
 
             <ImageView
+                android:id="@+id/imgStar"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_weight="1"
@@ -118,6 +121,7 @@
                 android:background="@color/white" />
 
             <ImageView
+                android:id="@+id/imgLocation"
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_weight="1"

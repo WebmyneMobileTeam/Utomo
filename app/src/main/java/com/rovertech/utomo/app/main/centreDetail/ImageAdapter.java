@@ -10,22 +10,26 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.rovertech.utomo.app.helper.Functions;
+
+import java.util.List;
+
 /**
  * Created by sagartahelyani on 16-03-2016.
  */
 public class ImageAdapter extends PagerAdapter {
 
     Context context;
-    private int[] images;
+    private List<String> images;
 
-    public ImageAdapter(Context context, int[] images) {
+    public ImageAdapter(Context context, List<String> images) {
         this.context = context;
         this.images = images;
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return images.size();
     }
 
     @Override
@@ -38,7 +42,7 @@ public class ImageAdapter extends PagerAdapter {
 
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(images[position]);
+        Functions.LoadImage(imageView, images.get(position), context);
 
         FrameLayout frameLayout = new FrameLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

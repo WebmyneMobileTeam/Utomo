@@ -34,7 +34,7 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
 
         FetchServiceCentreDetailAPI fetchServiceCentreDetailAPI = UtomoApplication.retrofit.create(FetchServiceCentreDetailAPI.class);
 
-        retrofit2.Call<FetchServiceCentreDetailResponse> fetchServiceCentreDetailCall = fetchServiceCentreDetailAPI.fetchServiceCentreDetail(serviceCentreID);
+        retrofit2.Call<FetchServiceCentreDetailResponse> fetchServiceCentreDetailCall = fetchServiceCentreDetailAPI.fetchServiceCentreDetail(2);
         fetchServiceCentreDetailCall.enqueue(new Callback<FetchServiceCentreDetailResponse>() {
             @Override
             public void onResponse(Call<FetchServiceCentreDetailResponse> call, Response<FetchServiceCentreDetailResponse> response) {

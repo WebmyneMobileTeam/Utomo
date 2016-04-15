@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -103,6 +104,7 @@ public class BookingPresenterImpl implements BookingPresenter {
             return;
         }
 
+        Log.d("bookrequest", UtomoApplication.getInstance().getGson().toJson(bookingRequest));
         BookingRequestAPI bookingRequestAPI = UtomoApplication.retrofit.create(BookingRequestAPI.class);
         Call<RequestForBooking> requestForBookingCall = bookingRequestAPI.bookingService(bookingRequest);
         requestForBookingCall.enqueue(new Callback<RequestForBooking>() {

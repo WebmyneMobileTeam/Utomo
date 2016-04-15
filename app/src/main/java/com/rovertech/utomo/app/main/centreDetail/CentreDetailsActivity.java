@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.centreDetail.centreHeader.CentreHeaderDetails;
 import com.rovertech.utomo.app.main.centreDetail.centreMain.CentreMainDetails;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.main.centreDetail.service.CentreDetailsView;
@@ -20,6 +20,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     private View parentView;
     private CentreDetailsPresnter centreDetailsPresnter;
     private CentreMainDetails centreMainDetails;
+    private CentreHeaderDetails centreHeaderDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,10 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
 
     private void init() {
 
-       // Toast.makeText(CentreDetailsActivity.this, "centreId ## " + getIntent().getExtras().getInt("centreId"), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(CentreDetailsActivity.this, "centreId ## " + getIntent().getExtras().getInt("centreId"), Toast.LENGTH_SHORT).show();
         parentView = findViewById(android.R.id.content);
         centreMainDetails = (CentreMainDetails) findViewById(R.id.centreMainDetails);
-
+        centreHeaderDetails = (CentreHeaderDetails) findViewById(R.id.centreHeaderDetails);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
 
         //Todo sagar Replace static id 2 with intent data
@@ -63,6 +64,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
 
     @Override
     public void setDetails(FetchServiceCentreDetailPojo centreDetailPojo) {
+        centreHeaderDetails.setDetails(centreDetailPojo);
         centreMainDetails.setDetails(centreDetailPojo);
     }
 

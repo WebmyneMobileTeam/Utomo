@@ -408,7 +408,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     public void bookRequest() {
 
         try {
-            boolean isValid = true;
 
             bookingRequest.Description = Functions.toStr(edtDescription);
 
@@ -423,12 +422,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             bookingRequest.IsBodyShop = checkBodyWash.isChecked();
 
-            if(!checkBodyWash.isChecked() && !checkService.isChecked()){
+            if (!checkBodyWash.isChecked() && !checkService.isChecked()) {
 
 
                 Toast.makeText(this, "Please, Select Service Type.", Toast.LENGTH_SHORT).show();
-
-                isValid=false;
+                return;
             }
 
             if (!TextUtils.isEmpty(bookingRequest.PickAddress) && !TextUtils.isEmpty(bookingRequest.PickArea)
@@ -447,10 +445,10 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             if (!isValidDateTime) {
                 Toast.makeText(this, "Please, Select Date and Time.", Toast.LENGTH_SHORT).show();
-                isValid = false;
+                return;
             } else {
 
-                isValid=true;
+
                 bookingRequest.PreferredDateTime = Functions.parseDate(bookingDateAndTime, bookingDateTimeFormate, Functions.ServerDateTimeFormat);
 
             }
@@ -460,10 +458,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             bookingRequest.UserID = userProfileOutput.UserID;
 
             bookingRequest.VehicleID = carPojo.VehicleID;
-
-            if (!isValid) {
-                return;
-            }
 
             presenter.book(this, bookingRequest);
         } catch (Exception e) {
