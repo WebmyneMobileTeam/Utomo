@@ -16,9 +16,7 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 
-/**
- * Created by sagartahelyani on 10-03-2016.
- */
+
 public class CurrentServiceTile extends LinearLayout {
 
     Context context;

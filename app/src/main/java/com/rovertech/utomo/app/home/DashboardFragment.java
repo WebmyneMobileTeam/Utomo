@@ -69,6 +69,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
+
         init();
 
         presenter = new DashboardPresenterImpl(this);

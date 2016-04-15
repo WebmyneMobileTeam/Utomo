@@ -35,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:checked="true"
                 android:padding="8dp"
                 android:text="Body Shop"
                 android:textSize="@dimen/M_TEXT" />
@@ -44,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:checked="true"
                 android:padding="8dp"
                 android:text="Pickup-Drop off"
                 android:textSize="@dimen/M_TEXT" />

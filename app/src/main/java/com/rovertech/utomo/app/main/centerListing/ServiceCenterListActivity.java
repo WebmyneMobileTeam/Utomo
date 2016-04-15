@@ -68,7 +68,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     // right drawer
     private Button btnReset, btnApply;
     private SwitchCompat switchBodyShop, switchPickup;
-    private boolean isBodyShop = false, isPickup = false;
+    private boolean isBodyShop = true, isPickup = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +201,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     }
 
     private void initRecycler() {
+
         mFooterLoadMoreView = View.inflate(this, R.layout.footer_view_load_more, null);
         mFooterLoadMoreView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 

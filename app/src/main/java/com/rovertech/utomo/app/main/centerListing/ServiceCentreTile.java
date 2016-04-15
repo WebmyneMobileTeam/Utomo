@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
@@ -68,6 +69,7 @@ public class ServiceCentreTile extends LinearLayout {
     }
 
     public void setDetails(final ServiceCenterPojo centerPojo) {
+
 
         serviceTypeLayout.removeAllViews();
         serviceTypeLayout.invalidate();
