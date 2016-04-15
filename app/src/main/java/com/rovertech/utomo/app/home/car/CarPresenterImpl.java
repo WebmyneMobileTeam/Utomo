@@ -62,10 +62,10 @@ public class CarPresenterImpl implements CarPresenter {
                     if (dashboardResponse.ResponseCode == 1) {
                         carView.setDashboard(dashboardResponse.Data.get(0));
                     } else {
-                        Log.e("res", dashboardResponse.ResponseMessage);
+                        Functions.showToast(context, dashboardResponse.ResponseMessage);
                     }
                 } else {
-                    Log.e("res", "Error has been occurred");
+                    Functions.showToast(context, "Error has been occurred");
                 }
             }
 

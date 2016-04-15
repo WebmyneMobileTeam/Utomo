@@ -7,10 +7,10 @@
         android:id="@+id/currentBookingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".bookings.CurrentBooking.BookingFragment"></android.support.v7.widget.RecyclerView>
+        tools:context=".bookings.CurrentBooking.BookingFragment" />
 
     <ProgressBar
-       android:id="@+id/progress_bar"
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />

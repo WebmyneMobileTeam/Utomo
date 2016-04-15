@@ -21,6 +21,7 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
 
     @IntDef({CURRENTBOOKING, PASTBOOKING})
     public @interface BookingViewMode {
+
     }
     public static final int CURRENTBOOKING = 1;
     public static final int PASTBOOKING = 2;

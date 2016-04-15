@@ -69,5 +69,4 @@ public class AppConstant {
     public static int REQUEST_CAMERA = 0;
     public static int PICK_IMAGE = 1;
 
-
 }

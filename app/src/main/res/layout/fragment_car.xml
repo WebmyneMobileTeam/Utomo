@@ -21,11 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.rovertech.utomo.app.tiles.PastServiceTile
-                android:id="@+id/pastServiceTile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <com.rovertech.utomo.app.tiles.HealthMeterTile
                 android:id="@+id/healthMeterTile"
                 android:layout_width="match_parent"

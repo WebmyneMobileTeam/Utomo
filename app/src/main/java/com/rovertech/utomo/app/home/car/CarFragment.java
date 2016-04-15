@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.bookings.MyBookingFragment;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.tiles.CurrentServiceTile;
 import com.rovertech.utomo.app.tiles.HealthMeterTile;
-import com.rovertech.utomo.app.tiles.PastServiceTile;
 import com.rovertech.utomo.app.tiles.odometer.OdometerTile;
 import com.rovertech.utomo.app.tiles.performance.PerformanceTile;
 import com.rovertech.utomo.app.tiles.serviceDate.ServiceDateTile;
@@ -34,7 +34,6 @@ public class CarFragment extends Fragment implements CarView {
     private LinearLayout mainContent;
 
     private CurrentServiceTile currentServiceTile;
-    private PastServiceTile pastServiceTile;
     private HealthMeterTile healthMeterTile;
     private ServiceDateTile serviceDateTile;
     private OdometerTile odometerTile;
@@ -81,7 +80,6 @@ public class CarFragment extends Fragment implements CarView {
 
         // findview
         currentServiceTile = (CurrentServiceTile) parentView.findViewById(R.id.currentServiceTile);
-        pastServiceTile = (PastServiceTile) parentView.findViewById(R.id.pastServiceTile);
         healthMeterTile = (HealthMeterTile) parentView.findViewById(R.id.healthMeterTile);
         serviceDateTile = (ServiceDateTile) parentView.findViewById(R.id.serviceDateTile);
         odometerTile = (OdometerTile) parentView.findViewById(R.id.odometerTile);
@@ -107,18 +105,15 @@ public class CarFragment extends Fragment implements CarView {
 
         if (data.IsCurrentBooking) {
             currentServiceTile.setVisibility(View.VISIBLE);
-            pastServiceTile.setVisibility(View.GONE);
-            currentServiceTile.setDetails(data);
+            currentServiceTile.setDetails(data, MyBookingFragment.CURRENTBOOKING);
 
         } else {
 
-            if (data.BookingID != 0) {
+            if (data.BookingID == 0) {
                 currentServiceTile.setVisibility(View.GONE);
-                pastServiceTile.setVisibility(View.VISIBLE);
-                pastServiceTile.setDetails(data);
             } else {
-                currentServiceTile.setVisibility(View.GONE);
-                pastServiceTile.setVisibility(View.GONE);
+                currentServiceTile.setVisibility(View.VISIBLE);
+                currentServiceTile.setDetails(data, MyBookingFragment.PASTBOOKING);
             }
         }
 

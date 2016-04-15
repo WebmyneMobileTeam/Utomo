@@ -1,15 +1,14 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.CurrentBooking.model.UserBookingsPojo;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
@@ -26,10 +25,9 @@ public class CurrentServiceTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtTitle,   txtCenterAddress,  txtRepeat, txtReviews, txtRating;
-    private TextView txtBookingId, txtBookingDate, txtCenterName, txtServiceStatus;
+    private TextView txtBookingId, txtBookingDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
     private ImageView imgCenter;
-    private RelativeLayout currentCardView;
+    private CardView currentCardView;
 
     public CurrentServiceTile(Context context) {
         super(context);
@@ -73,11 +71,10 @@ public class CurrentServiceTile extends LinearLayout {
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
         txtServiceStatus = (TextView) parentView.findViewById(R.id.txtServiceStatus);
 
-        txtRepeat = (TextView) parentView.findViewById(R.id.txtRepeat);
         txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
         txtRating = (TextView) parentView.findViewById(R.id.txtRating);
 
-        currentCardView = (RelativeLayout) parentView.findViewById(R.id.currentCardView);
+        currentCardView = (CardView) parentView.findViewById(R.id.currentCardView);
     }
 
     public View getParentView() {
@@ -87,32 +84,42 @@ public class CurrentServiceTile extends LinearLayout {
     public void setCurrentServiceDetails(UserBookingsPojo userBookingsPojo, @MyBookingFragment.BookingViewMode int bookingViewMode) {
 
         if (bookingViewMode == MyBookingFragment.CURRENTBOOKING) {
-            txtRepeat.setVisibility(GONE);
             txtReviews.setVisibility(GONE);
             txtRating.setVisibility(GONE);
             txtServiceStatus.setVisibility(VISIBLE);
 
         } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
-            txtRepeat.setVisibility(VISIBLE);
             txtReviews.setVisibility(VISIBLE);
             txtRating.setVisibility(VISIBLE);
             txtServiceStatus.setVisibility(GONE);
         }
 
-        txtTitle.setText(String.format("%s : %s", "Booking Id", userBookingsPojo.BookingCode));
+        txtBookingId.setText(String.format("%s : %s", "Booking Id", userBookingsPojo.BookingID));
         txtCenterName.setText(userBookingsPojo.SCName);
         Functions.LoadImage(imgCenter, userBookingsPojo.SCImageName, context);
         txtBookingDate.setText(Functions.displayOnlyDate(userBookingsPojo.CreatedDate));
         txtServiceStatus.setText(userBookingsPojo.Status);
 
-
     }
 
-    public void setDetails(DashboardData data) {
-        txtBookingId.setText(String.format("Booking ID: %d", data.BookingID));
-        Glide.with(context).load(data.SCImageName).into(imgCenter);
+    public void setDetails(DashboardData data, @MyBookingFragment.BookingViewMode int bookingViewMode) {
+
+        if (bookingViewMode == MyBookingFragment.CURRENTBOOKING) {
+            txtReviews.setVisibility(GONE);
+            txtRating.setVisibility(GONE);
+            txtServiceStatus.setVisibility(VISIBLE);
+
+        } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
+            txtReviews.setVisibility(VISIBLE);
+            txtRating.setVisibility(VISIBLE);
+            txtServiceStatus.setVisibility(GONE);
+        }
+
+        txtBookingId.setText(String.format("%s : %d", "Booking ID", data.BookingID));
+        Functions.LoadImage(imgCenter, data.SCImageName, context);
         txtCenterName.setText(data.ServiceCentreName);
         txtBookingDate.setText(data.CreatedDate);
         txtServiceStatus.setText(data.Status);
+        txtReviews.setText(String.format("%d %s", data.ReviewCount, "Reviews"));
     }
 }
