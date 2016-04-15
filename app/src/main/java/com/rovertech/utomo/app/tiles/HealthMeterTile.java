@@ -64,5 +64,6 @@ public class HealthMeterTile extends LinearLayout {
 
         float f = Float.parseFloat(carHealth);
         progressLayout.setCurrentProgress((int) f);
+        progressLayout.setLoadedColor(Functions.getColor(context, f));
     }
 }

@@ -11,35 +11,57 @@
         android:id="@+id/txtItemName"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="2dp"
+        android:gravity="center_vertical"
         android:text="Engine Oil"
         android:textSize="@dimen/N_TEXT" />
 
-    <com.rovertech.utomo.app.widget.progress.ProgressLayout
-        android:id="@+id/txtItemProgress"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="6dp"
-        android:layout_gravity="center"
-        android:layout_margin="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
         android:layout_weight="1"
-        app:autoProgress="true"
-        app:currentProgress="30"
-        app:emptyColor="#f1f1f1"
-        app:loadedColor="@color/color40"
-        app:maxProgress="100" />
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtProgressStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Excellent"
+            android:textSize="@dimen/N_TEXT" />
+
+        <com.rovertech.utomo.app.widget.progress.ProgressLayout
+            android:id="@+id/txtItemProgress"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            app:autoProgress="true"
+            app:currentProgress="30"
+            app:emptyColor="#f1f1f1"
+            app:loadedColor="@color/color40"
+            app:maxProgress="100" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtItemValue"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="2dp"
+        android:gravity="center_vertical"
         android:text="30%"
         android:textSize="@dimen/N_TEXT" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/txtReset"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:src="@drawable/ic_reset" />
+        android:layout_margin="2dp"
+        android:gravity="center_vertical"
+        android:text="Reset"
+        android:textSize="@dimen/N_TEXT" />
 
 </LinearLayout>

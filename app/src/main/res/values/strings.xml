@@ -47,6 +47,10 @@
     <string name="city">City</string>
     <string name="ZipCode">ZipCode</string>
 
+    <string name="urgent">Urgent Replacement</string>
+    <string name="need">Need to Replacement</string>
+    <string name="ok">OK</string>
+    <string name="excellent">Excellent</string>
 
     <string name="large_text">
         "Material is the metaphor.\n\n"

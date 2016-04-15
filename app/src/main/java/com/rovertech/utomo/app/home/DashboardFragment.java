@@ -87,7 +87,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
         activity = (DrawerActivity) getActivity();
         activity.hideFab(true);
 
-        pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
+      //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
         txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);
         txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
         viewPager = (ViewPager) parentView.findViewById(R.id.pager);
@@ -118,7 +118,9 @@ public class DashboardFragment extends Fragment implements DashboardView {
     public void setCarList(ArrayList<CarPojo> data) {
         fab.setVisibility(View.VISIBLE);
         txtNoCar.setVisibility(View.GONE);
-        pagerLayout.setVisibility(View.VISIBLE);
+
+
+      //  pagerLayout.setVisibility(View.VISIBLE);
         setCarPager(viewPager, data);
     }
 
@@ -166,7 +168,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     @Override
     public void setErrorMsg(String msg) {
-        pagerLayout.setVisibility(View.GONE);
+    //    pagerLayout.setVisibility(View.GONE);
         txtNoCar.setVisibility(View.VISIBLE);
         txtNoCar.setText(msg);
         fab.setVisibility(View.GONE);

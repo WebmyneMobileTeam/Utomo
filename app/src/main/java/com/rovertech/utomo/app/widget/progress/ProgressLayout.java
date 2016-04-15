@@ -45,6 +45,8 @@ public class ProgressLayout extends View implements Animatable {
     private int maxProgress;
     private int currentProgress = 0;
 
+    int loadedColor;
+
     private Handler handlerProgress;
 
     private ProgressLayoutListener progressLayoutListener;
@@ -111,7 +113,7 @@ public class ProgressLayout extends View implements Animatable {
         currentProgress = a.getInt(R.styleable.progressLayout_currentProgress, 0);
         maxProgress = maxProgress * 10;
         currentProgress = currentProgress * 10;
-        int loadedColor = a.getColor(R.styleable.progressLayout_loadedColor, COLOR_LOADED_DEFAULT);
+        loadedColor = a.getColor(R.styleable.progressLayout_loadedColor, COLOR_LOADED_DEFAULT);
         int emptyColor = a.getColor(R.styleable.progressLayout_emptyColor, COLOR_EMPTY_DEFAULT);
         a.recycle();
 
@@ -128,8 +130,10 @@ public class ProgressLayout extends View implements Animatable {
         handlerProgress = new Handler();
     }
 
-    public void setLoadedColor(int color){
-
+    public void setLoadedColor(int color) {
+        loadedColor = color;
+        requestLayout();
+        invalidate();
     }
 
     private int calculatePositionIndex(int currentProgress) {

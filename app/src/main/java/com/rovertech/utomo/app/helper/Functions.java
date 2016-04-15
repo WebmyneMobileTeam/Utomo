@@ -272,16 +272,32 @@ public class Functions {
 
         int loadedColor = 0;
 
-        if (f < 10 && f > 0) {
+        if (f < 10 && f >= 0) {
             loadedColor = ContextCompat.getColor(context, R.color.color10);
-        } else if (f > 10 && f < 40) {
+        } else if (f > 10 && f <= 40) {
             loadedColor = ContextCompat.getColor(context, R.color.color40);
-        } else if (f > 40 && f < 70) {
+        } else if (f > 40 && f <= 70) {
             loadedColor = ContextCompat.getColor(context, R.color.color70);
         } else {
             loadedColor = ContextCompat.getColor(context, R.color.color100);
         }
 
         return loadedColor;
+    }
+
+    public static String getProgressStatus(Context context, float f) {
+        String status = "";
+
+        if (f < 10 && f >= 0) {
+            status = context.getString(R.string.urgent);
+        } else if (f > 10 && f <= 40) {
+            status = context.getString(R.string.need);
+        } else if (f > 40 && f <= 70) {
+            status = context.getString(R.string.ok);
+        } else {
+            status = context.getString(R.string.excellent);
+        }
+
+        return status;
     }
 }

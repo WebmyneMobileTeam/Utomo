@@ -11,10 +11,10 @@ public class FetchVehicleRequest {
 
     public int UserID;
 
-    public String VehicleID;
+    public int VehicleID;
 
     public FetchVehicleRequest(Context context) {
         UserID = PrefUtils.getUserID(context);
-        VehicleID = "";
+        VehicleID = 0;
     }
 }

@@ -1,35 +1,37 @@
 package com.rovertech.utomo.app.helper;
 
 import android.content.Context;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
-    private int toolbarHeight;
+public class ScrollingFABBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
 
     public ScrollingFABBehavior(Context context, AttributeSet attrs) {
         super();
-        this.toolbarHeight = Utils.getToolbarHeight(context);
     }
 
     @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton fab, View dependency) {
-        return super.layoutDependsOn(parent, fab, dependency) || (dependency instanceof AppBarLayout);
+    public boolean onStartNestedScroll(final CoordinatorLayout coordinatorLayout,
+                                       final FloatingActionButton child,
+                                       final View directTargetChild, final View target, final int nestedScrollAxes) {
+        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton fab, View dependency) {
-        boolean returnValue = super.onDependentViewChanged(parent, fab, dependency);
-        if (dependency instanceof AppBarLayout) {
-                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-                int fabBottomMargin = lp.bottomMargin;
-                int distanceToScroll = fab.getHeight() + fabBottomMargin;
-                float ratio = (float)dependency.getY()/(float)toolbarHeight;
-                fab.setTranslationY(-distanceToScroll * ratio);
+    public void onNestedScroll(final CoordinatorLayout coordinatorLayout,
+                               final FloatingActionButton child,
+                               final View target, final int dxConsumed, final int dyConsumed,
+                               final int dxUnconsumed, final int dyUnconsumed) {
+        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
+                dxUnconsumed, dyUnconsumed);
+        //child -> Floating Action Button
+        if (child.getVisibility() == View.VISIBLE && dyConsumed > 0) {
+            child.hide();
+        } else if (child.getVisibility() == View.GONE && dyConsumed < 0) {
+            child.show();
         }
-        return returnValue;
     }
 }

@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.home.car.model.Performance;
 import com.rovertech.utomo.app.widget.progress.ProgressLayout;
 
@@ -19,7 +20,7 @@ public class PerformanceTileItem extends LinearLayout {
     Context context;
     View parentView;
     private LayoutInflater inflater;
-    private TextView txtItemName, txtItemValue;
+    private TextView txtItemName, txtItemValue, txtReset, txtProgressStatus;
     private ProgressLayout txtItemProgress;
 
     public PerformanceTileItem(Context context) {
@@ -38,9 +39,20 @@ public class PerformanceTileItem extends LinearLayout {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         parentView = inflater.inflate(R.layout.layout_performance_item, this, true);
 
+        txtProgressStatus = (TextView) parentView.findViewById(R.id.txtProgressStatus);
         txtItemName = (TextView) parentView.findViewById(R.id.txtItemName);
         txtItemProgress = (ProgressLayout) parentView.findViewById(R.id.txtItemProgress);
         txtItemValue = (TextView) parentView.findViewById(R.id.txtItemValue);
+        txtReset = (TextView) parentView.findViewById(R.id.txtReset);
+
+        setTypeface();
+    }
+
+    private void setTypeface() {
+        txtProgressStatus.setTypeface(Functions.getNormalFont(context));
+        txtItemName.setTypeface(Functions.getNormalFont(context));
+        txtItemValue.setTypeface(Functions.getNormalFont(context));
+        txtReset.setTypeface(Functions.getBoldFont(context));
     }
 
     public void setValue(Performance performance) {
@@ -48,9 +60,10 @@ public class PerformanceTileItem extends LinearLayout {
 
         float f = Float.parseFloat(performance.PerformancePercentage);
         txtItemProgress.setCurrentProgress((int) f);
+        txtItemValue.setText(String.format("%s %s", performance.PerformancePercentage, "%"));
 
-        txtItemValue.setText(performance.PerformancePercentage + "");
-      //  txtItemValue.setText(String.format("%s \\%", performance.PerformancePercentage));
+        txtProgressStatus.setText(Functions.getProgressStatus(context, f));
+        txtProgressStatus.setTextColor(Functions.getColor(context, f));
     }
 
 }
