@@ -24,7 +24,7 @@ import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
 /**
  * Created by sagartahelyani on 16-03-2016.
  */
-public class CentreMainDetails extends LinearLayout {
+public class    CentreMainDetails extends LinearLayout {
 
     private Context context;
     private LayoutInflater inflater;
@@ -94,7 +94,6 @@ public class CentreMainDetails extends LinearLayout {
         txtCentreName.setText(String.format("%s", centreDetailPojo.ServiceCentreName));
         ratingBar.setRating(centreDetailPojo.Rating);
         txtCentreInfo.setText(String.format("%s", centreDetailPojo.Expertise));
-        centreDetailPojo.IsBodyWash = true;
         if (centreDetailPojo.IsBodyWash) {
             ServiceChip serviceChip = new ServiceChip(context, "Body Shop");
             serviceFlowLayout.addView(serviceChip, params);

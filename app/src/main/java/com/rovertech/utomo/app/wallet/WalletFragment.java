@@ -2,18 +2,14 @@ package com.rovertech.utomo.app.wallet;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.wallet.adpter.RecyclerViewAdapter;
 
 
 public class WalletFragment extends Fragment {
@@ -52,7 +48,7 @@ public class WalletFragment extends Fragment {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(true);
+        //activity.hideFab(true);
 
         txtWallet=(TextView)parentView.findViewById(R.id.txtWalletRs);
         txtInvite=(TextView)parentView.findViewById(R.id.txtInvite);
