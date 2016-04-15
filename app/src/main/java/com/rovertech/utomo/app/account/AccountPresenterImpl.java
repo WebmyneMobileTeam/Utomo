@@ -517,8 +517,6 @@ public class AccountPresenterImpl implements AccountPresenter {
     @Override
     public void checkCredentials(String number, String name, String email, String pwd, int cityId) {
 
-        setProgressBar();
-
         boolean isError = false;
 
         if (number.length() != 10) {
@@ -545,6 +543,7 @@ public class AccountPresenterImpl implements AccountPresenter {
         }
 
         if (!isError) {
+            setProgressBar();
             doSignUp(number, name, email, pwd, cityId);
         }
     }
@@ -627,6 +626,9 @@ public class AccountPresenterImpl implements AccountPresenter {
                 @Override
                 public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
 
+                    if (accountView != null)
+                        accountView.hideProgress();
+
                     if (response.body() == null) {
                         Functions.showToast(activity, "Error occurred.");
 
@@ -649,6 +651,8 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                 @Override
                 public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
+                    if (accountView != null)
+                        accountView.hideProgress();
                     Log.e("onFailure", t.toString());
                 }
             });

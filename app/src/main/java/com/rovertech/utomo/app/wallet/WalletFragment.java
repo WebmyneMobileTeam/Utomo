@@ -16,10 +16,10 @@ public class WalletFragment extends Fragment {
 
     private View parentView;
     private DrawerActivity activity;
-   // private RecyclerView recyclerView;
-    private TextView txtWallet,txtInvite,txtWalletTitle;
-  //  private LinearLayoutManager linearLayoutManager;
-   // private RecyclerViewAdapter myRecyclerViewAdapter;
+    // private RecyclerView recyclerView;
+    private TextView txtWallet, txtInvite, txtWalletTitle;
+    //  private LinearLayoutManager linearLayoutManager;
+    // private RecyclerViewAdapter myRecyclerViewAdapter;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -50,9 +50,11 @@ public class WalletFragment extends Fragment {
         activity = (DrawerActivity) getActivity();
         //activity.hideFab(true);
 
-        txtWallet=(TextView)parentView.findViewById(R.id.txtWalletRs);
-        txtInvite=(TextView)parentView.findViewById(R.id.txtInvite);
-        txtWalletTitle=(TextView)parentView.findViewById(R.id.txtWalletRsTitle);
+        txtWallet = (TextView) parentView.findViewById(R.id.txtWalletRs);
+        txtInvite = (TextView) parentView.findViewById(R.id.txtInvite);
+        txtWalletTitle = (TextView) parentView.findViewById(R.id.txtWalletRsTitle);
+
+        txtWallet.setText(getString(R.string.Rs) + " 1000");
 
         setTypeface();
 

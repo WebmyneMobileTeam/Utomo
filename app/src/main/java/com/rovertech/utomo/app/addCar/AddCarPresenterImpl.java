@@ -348,7 +348,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                         if (res.getJSONObject("InsertVehicleDetails").getInt("ResponseCode") == 1) {
                             addcarView.success();
                         } else {
-                            addcarView.fail(res.getString("ResponseMessage"));
+                            addcarView.fail(res.getJSONObject("InsertVehicleDetails").getString("ResponseMessage"));
                         }
 
                     } catch (JSONException e) {
