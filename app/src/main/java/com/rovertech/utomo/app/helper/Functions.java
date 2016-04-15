@@ -74,7 +74,6 @@ public class Functions {
 
         }
 
-
     }
 
     public static Typeface getNormalFont(Context _context) {
@@ -170,7 +169,7 @@ public class Functions {
         return isConnected;
     }
 
-    public static void showErrorAlert(Context context, String msg) {
+    public static void showErrorAlert(final Context context, String msg, final boolean isFinish) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Error");
@@ -179,8 +178,13 @@ public class Functions {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                if (isFinish) {
+                    Activity activity = (Activity) context;
+                    activity.finish();
+                }
             }
         });
+        alert.setCancelable(false);
         alert.show();
     }
 

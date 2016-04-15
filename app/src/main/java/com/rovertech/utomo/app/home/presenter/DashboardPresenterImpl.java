@@ -70,7 +70,7 @@ public class DashboardPresenterImpl implements DashboardPresenter {
                 if (view != null)
                     view.hideProgress();
                 if (t.getCause() instanceof TimeoutException) {
-                    Functions.showErrorAlert(context, AppConstant.TIMEOUTERRROR);
+                    Functions.showErrorAlert(context, AppConstant.TIMEOUTERRROR, false);
                 }
             }
         });

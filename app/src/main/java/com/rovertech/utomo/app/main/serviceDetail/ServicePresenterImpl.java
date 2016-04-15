@@ -60,7 +60,7 @@ public class ServicePresenterImpl implements ServicePresenter {
                 if (serviceView != null)
                     serviceView.hideProgress();
                 if (t.getCause() instanceof TimeoutException)
-                    Functions.showErrorAlert(context, AppConstant.TIMEOUTERRROR);
+                    Functions.showErrorAlert(context, AppConstant.TIMEOUTERRROR, false);
             }
         });
     }

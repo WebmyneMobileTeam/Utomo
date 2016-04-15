@@ -93,6 +93,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void navigate() {
+
         if (isLoggedIn) {
             Intent intent = new Intent(SplashActivity.this, DrawerActivity.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);

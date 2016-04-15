@@ -45,6 +45,10 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
 
+        if (!Functions.isConnected(this)) {
+            Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);
+        }
+
         init();
 
         presenter = new StartupPresenterImpl(this);

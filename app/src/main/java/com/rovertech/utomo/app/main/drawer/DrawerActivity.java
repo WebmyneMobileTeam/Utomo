@@ -80,7 +80,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
     private void init() {
         parentView = findViewById(android.R.id.content);
-
         initToolbar();
 
     }
@@ -97,15 +96,21 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     @Override
     protected void onResume() {
         super.onResume();
-        initDrawer();
 
-        if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
-            presenter.openDashboard();
+        if (!Functions.isConnected(this)) {
+            Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);
 
-        } else if (fragmentValue.equals(AppConstant.MY_BOOKING_FRAGMENT)) {
-            presenter.openMyBookings();
+        } else {
+            initDrawer();
+
+            if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
+                presenter.openDashboard();
+
+            } else if (fragmentValue.equals(AppConstant.MY_BOOKING_FRAGMENT)) {
+                presenter.openMyBookings();
+            }
         }
-        //presenter.checkGPS(DrawerActivity.this);
+
     }
 
     public void setHeaderTitle(String title) {
