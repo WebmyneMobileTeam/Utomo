@@ -82,6 +82,12 @@ public class Functions {
         return tf;
     }
 
+    public static Typeface getNormalFontRoboto(Context _context) {
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "Roboto-Regular.ttf");
+        return tf;
+    }
+
+
     public static Typeface getBoldFont(Context _context) {
         Typeface tf = Typeface.createFromAsset(_context.getAssets(), "custombold.otf");
         return tf;
