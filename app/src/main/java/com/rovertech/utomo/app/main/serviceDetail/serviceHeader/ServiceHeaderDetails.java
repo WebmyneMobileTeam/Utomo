@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 
 /**
  * Created by sagartahelyani on 21-03-2016.
@@ -51,5 +52,19 @@ public class ServiceHeaderDetails extends LinearLayout {
         txtCentreName.setTypeface(Functions.getBoldFont(context));
         txtRating.setTypeface(Functions.getBoldFont(context));
         txtReviews.setTypeface(Functions.getBoldFont(context));
+    }
+
+    public void setHeaderDetails(UserBookingData userBookingData) {
+
+        Functions.LoadImage(imgServiceCentre, userBookingData.SCImageName, context);
+        txtCentreName.setText(userBookingData.ServiceCentreName);
+
+        float rating = Float.parseFloat(userBookingData.Rating);
+        if (rating == 0.0)
+            txtRating.setText("0 / 5");
+        else
+            txtRating.setText(String.format("%.1f / 5", Float.parseFloat(userBookingData.Rating)));
+
+        txtReviews.setText(String.format("%d Reviews", Integer.parseInt(userBookingData.ReviewCount)));
     }
 }

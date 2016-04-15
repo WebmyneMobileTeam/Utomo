@@ -26,6 +26,7 @@
             app:titleEnabled="true">
 
             <com.rovertech.utomo.app.main.serviceDetail.serviceHeader.ServiceHeaderDetails
+                android:id="@+id/headerDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible" />
@@ -51,6 +52,7 @@
             android:orientation="vertical">
 
             <com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails
+                android:id="@+id/mainDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -34,7 +34,10 @@ public class AppConstant {
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
     final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
     final public static String FETCH_VEHICLE_LIST = "UserActivities.svc/json/FetchVehicleList";
+
+    // Booking
     final public static String USER_BOOKINGS = "BookingActivities.svc/json/UserBookings/";
+    final public static String BOOKING_DETAILS = "BookingActivities.svc/json/UserBookingDetail/{BOOKINGID}";
 
     // dashboard
     final public static String FETCH_DASHBOARD = "UserActivities.svc/json/FetchUserVehicleDashboard";

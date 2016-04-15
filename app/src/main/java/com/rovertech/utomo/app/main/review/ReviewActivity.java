@@ -33,12 +33,16 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
     private AppCompatRadioButton radioYes;
     private AppCompatRatingBar ratingBar;
 
+    private int serviceCenterId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
-        presenter = new ReviewPresenterImpl(this);
+        serviceCenterId = getIntent().getIntExtra("serviceCenterId", 0);
+
+        presenter = new ReviewPresenterImpl(this, serviceCenterId);
 
         init();
 

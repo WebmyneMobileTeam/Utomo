@@ -24,9 +24,11 @@ public class ReviewPresenterImpl implements ReviewPresenter {
 
     // View
     ReviewView view;
+    int serviceCenterId;
 
     // Constructor
-    public ReviewPresenterImpl(ReviewView view) {
+    public ReviewPresenterImpl(ReviewView view, int serviceCenterId) {
+        this.serviceCenterId = serviceCenterId;
         this.view = view;
     }
 
@@ -41,7 +43,7 @@ public class ReviewPresenterImpl implements ReviewPresenter {
             request.ClientID = PrefUtils.getUserFullProfileDetails(context).UserID;
             request.FeedBackMessage = strMessage;
             request.Rating = rating;
-            request.ServiceCentreID = 7;
+            request.ServiceCentreID = serviceCenterId;
 
             Log.e("rating_request", Functions.jsonString(request));
 

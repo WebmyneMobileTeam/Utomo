@@ -7,9 +7,5 @@ import android.content.Context;
  */
 public interface ServicePresenter {
 
-    void onCall(Context context);
-
-    void onDirection(Context context);
-
-    void onReview(Context context);
+    void fetchBookingDetails(Context context, int bookingId);
 }

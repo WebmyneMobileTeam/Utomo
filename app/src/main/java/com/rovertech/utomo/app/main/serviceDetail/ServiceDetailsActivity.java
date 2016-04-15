@@ -1,9 +1,13 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +16,10 @@ import android.widget.LinearLayout;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.review.ReviewActivity;
+import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
+import com.rovertech.utomo.app.main.serviceDetail.serviceHeader.ServiceHeaderDetails;
+import com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails;
 
 public class ServiceDetailsActivity extends AppCompatActivity implements ServiceView, View.OnClickListener {
 
@@ -21,18 +29,29 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private FloatingActionButton fab;
     private LinearLayout bottomCall, bottomDirection, bottomReview;
     private ServicePresenter presenter;
-
+    private CoordinatorLayout main_content;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout appBarLayout;
+
+    private int bookingId;
+    private ProgressDialog progressDialog;
+
+    private ServiceHeaderDetails headerDetails;
+    private ServiceMainDetails mainDetails;
+    private UserBookingData userBookingData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_details);
 
+        bookingId = getIntent().getIntExtra("bookingId", 0);
+
         init();
 
         presenter = new ServicePresenterImpl(this);
+
+        presenter.fetchBookingDetails(ServiceDetailsActivity.this, bookingId);
 
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -55,8 +74,12 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         initToolbar();
 
+        main_content = (CoordinatorLayout) findViewById(R.id.main_content);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setCollapsedTitleTypeface(Functions.getBoldFont(this));
+
+        headerDetails = (ServiceHeaderDetails) findViewById(R.id.headerDetails);
+        mainDetails = (ServiceMainDetails) findViewById(R.id.mainDetails);
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
@@ -118,16 +141,22 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.bottomCall:
-                presenter.onCall(this);
+                Intent dialIntent = new Intent();
+                dialIntent.setAction(Intent.ACTION_DIAL);
+                dialIntent.setData(Uri.parse("tel:" + userBookingData.ContactNo));
+                startActivity(dialIntent);
                 break;
 
             case R.id.bottomDirection:
-                presenter.onDirection(this);
+                Functions.openInMap(ServiceDetailsActivity.this, userBookingData.Lattitude, userBookingData.Longitude, userBookingData.ServiceCentreName);
                 break;
 
             case R.id.bottomReview:
-                presenter.onReview(this);
+                Intent reviewIntent  = new Intent(ServiceDetailsActivity.this, ReviewActivity.class);
+                reviewIntent.putExtra("serviceCenterId", userBookingData.ServiceCentreID);
+                startActivity(reviewIntent);
                 break;
 
             case R.id.bottom_sheet:
@@ -138,5 +167,29 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 break;
         }
+    }
+
+    @Override
+    public void showProgress() {
+        main_content.setVisibility(View.GONE);
+        progressDialog = ProgressDialog.show(this, "Loading", "Please wait", false);
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+    @Override
+    public void setBookingDetails(final UserBookingData userBookingData) {
+
+        this.userBookingData = userBookingData;
+
+        headerDetails.setHeaderDetails(userBookingData);
+        mainDetails.setMainDetails(userBookingData);
+
+        main_content.setVisibility(View.VISIBLE);
+
     }
 }

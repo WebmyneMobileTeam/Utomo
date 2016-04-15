@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 
 /**
  * Created by sagartahelyani on 21-03-2016.
@@ -19,7 +20,7 @@ public class ServiceMainDetails extends LinearLayout {
     private LayoutInflater inflater;
     private View parentView;
 
-    private TextView txtBookingDate, txtDeliveryDate, txtStatusDetails, txtServiceDetails, txtStatusTitle, txtBookingTitle, txtServiceTitle;
+    private TextView txtCurrentStatus, txtBookingDate, txtDeliveryDate, txtServiceDetails, txtBookingTitle, txtServiceTitle;
 
     public ServiceMainDetails(Context context) {
         super(context);
@@ -37,12 +38,11 @@ public class ServiceMainDetails extends LinearLayout {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         parentView = inflater.inflate(R.layout.layout_service_main, this, true);
 
+        txtCurrentStatus = (TextView) parentView.findViewById(R.id.txtCurrentStatus);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
         txtDeliveryDate = (TextView) parentView.findViewById(R.id.txtDeliveryDate);
         txtServiceDetails = (TextView) parentView.findViewById(R.id.txtServiceDetails);
-        txtStatusDetails = (TextView) parentView.findViewById(R.id.txtStatusDetails);
         txtServiceDetails = (TextView) parentView.findViewById(R.id.txtServiceDetails);
-        txtStatusTitle = (TextView) parentView.findViewById(R.id.txtStatusTitle);
         txtBookingTitle = (TextView) parentView.findViewById(R.id.txtBookingTitle);
         txtServiceTitle = (TextView) parentView.findViewById(R.id.txtServiceTitle);
 
@@ -50,12 +50,26 @@ public class ServiceMainDetails extends LinearLayout {
     }
 
     private void setTypeface() {
+
         txtBookingDate.setTypeface(Functions.getNormalFont(context));
         txtDeliveryDate.setTypeface(Functions.getNormalFont(context));
-        txtStatusDetails.setTypeface(Functions.getNormalFont(context));
         txtServiceDetails.setTypeface(Functions.getNormalFont(context));
-        txtStatusTitle.setTypeface(Functions.getBoldFont(context));
         txtBookingTitle.setTypeface(Functions.getBoldFont(context));
         txtServiceTitle.setTypeface(Functions.getBoldFont(context));
+        txtCurrentStatus.setTypeface(Functions.getBoldFont(context));
+    }
+
+    public void setMainDetails(UserBookingData userBookingData) {
+
+        txtCurrentStatus.setText(String.format("Current Status: %s", userBookingData.Status));
+
+        txtBookingDate.setText(String.format("Booking On: %s", userBookingData.CreatedDate));
+
+        if (userBookingData.IsCarDelivered)
+            txtDeliveryDate.setText(String.format("Delivered On: %s", userBookingData.DeliveredDate));
+        else
+            txtDeliveryDate.setVisibility(GONE);
+
+        txtServiceDetails.setText(userBookingData.Description);
     }
 }

@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ public class CurrentServiceTile extends LinearLayout {
     private ImageView imgCenter;
     private CardView currentCardView;
 
+    private int bookingId;
+
     public CurrentServiceTile(Context context) {
         super(context);
         this.context = context;
@@ -50,7 +53,10 @@ public class CurrentServiceTile extends LinearLayout {
         currentCardView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntent(context, ServiceDetailsActivity.class);
+                Intent intent = new Intent(context, ServiceDetailsActivity.class);
+                intent.putExtra("bookingId", bookingId);
+                context.startActivity(intent);
+
             }
         });
     }
@@ -92,6 +98,8 @@ public class CurrentServiceTile extends LinearLayout {
             txtServiceStatus.setVisibility(GONE);
         }
 
+        bookingId = userBookingsPojo.BookingID;
+
         txtBookingId.setText(String.format("%s : %s", "Booking Id", userBookingsPojo.BookingID));
         txtCenterName.setText(userBookingsPojo.SCName);
         Functions.LoadImage(imgCenter, userBookingsPojo.SCImageName, context);
@@ -112,6 +120,8 @@ public class CurrentServiceTile extends LinearLayout {
             txtRating.setVisibility(VISIBLE);
             txtServiceStatus.setVisibility(GONE);
         }
+
+        bookingId = data.BookingID;
 
         txtBookingId.setText(String.format("%s : %d", "Booking ID", data.BookingID));
         Functions.LoadImage(imgCenter, data.SCImageName, context);
