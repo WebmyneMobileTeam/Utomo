@@ -24,18 +24,4 @@
             android:orientation="vertical" />
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_book"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:layout_behavior="com.rovertech.utomo.app.helper.ScrollingFABBehavior"
-        app:rippleColor="@color/colorPrimaryDark" />
-
 </android.support.design.widget.CoordinatorLayout>

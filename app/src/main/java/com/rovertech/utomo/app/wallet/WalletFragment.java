@@ -42,6 +42,5 @@ public class WalletFragment extends Fragment {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(true);
     }
 }

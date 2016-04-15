@@ -274,10 +274,6 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         if (vehicleNo.equals("")) {
             Functions.showToast(context, "Vehicle number cannot be empty");
 
-        } else if (!Functions.vehicleValidation(vehicleNo)) {
-            Functions.showToast(context, "Invalid Vehicle number");
-            addcarView.setVehicleError();
-
         } else if (selectedMake.equals("")) {
             Functions.showToast(context, "Select Dealership");
 

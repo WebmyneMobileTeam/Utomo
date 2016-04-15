@@ -52,7 +52,6 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(true);
 
         txtCode = (TextView) parentView.findViewById(R.id.txtCode);
         txtDesc = (TextView) parentView.findViewById(R.id.txtDesc);

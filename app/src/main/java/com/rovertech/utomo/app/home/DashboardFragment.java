@@ -28,15 +28,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.home.car.CarFragment;
 import com.rovertech.utomo.app.home.presenter.DashboardPresenter;
 import com.rovertech.utomo.app.home.presenter.DashboardPresenterImpl;
 import com.rovertech.utomo.app.home.presenter.DashboardView;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
-import com.rovertech.utomo.app.home.car.CarFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
 
 import java.util.ArrayList;
@@ -85,9 +86,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(true);
 
-      //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
+        //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
         txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);
         txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
         viewPager = (ViewPager) parentView.findViewById(R.id.pager);
@@ -96,7 +96,11 @@ public class DashboardFragment extends Fragment implements DashboardView {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.openCenterListing();
+                if (PrefUtils.getCurrentCarSelected(getActivity()).CurrentBooking) {
+                    Functions.showErrorAlert(getActivity(), "Cant' Book", AppConstant.ALREADY_BOOK);
+                } else {
+                    presenter.openCenterListing();
+                }
             }
         });
     }
@@ -119,8 +123,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
         fab.setVisibility(View.VISIBLE);
         txtNoCar.setVisibility(View.GONE);
 
-
-      //  pagerLayout.setVisibility(View.VISIBLE);
+        //  pagerLayout.setVisibility(View.VISIBLE);
         setCarPager(viewPager, data);
     }
 
@@ -159,7 +162,6 @@ public class DashboardFragment extends Fragment implements DashboardView {
         });
     }
 
-
     @Override
     public void hideProgress() {
         if (progressDialog.isShowing())
@@ -168,7 +170,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     @Override
     public void setErrorMsg(String msg) {
-    //    pagerLayout.setVisibility(View.GONE);
+        //    pagerLayout.setVisibility(View.GONE);
         txtNoCar.setVisibility(View.VISIBLE);
         txtNoCar.setText(msg);
         fab.setVisibility(View.GONE);

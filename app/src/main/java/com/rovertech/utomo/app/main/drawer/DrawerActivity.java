@@ -2,11 +2,8 @@ package com.rovertech.utomo.app.main.drawer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,10 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -31,8 +26,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
-import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.about.AboutFragment;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
@@ -58,7 +51,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private TextView txtCustomTitle;
     private DrawerPresenter presenter;
     private View parentView;
-    private FloatingActionButton fab;
     private BadgeHelper badgeHelper;
     private MenuItem notificationMenuItem;
     private String fragmentValue;
@@ -89,20 +81,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private void init() {
         parentView = findViewById(android.R.id.content);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
         initToolbar();
 
-        //initDrawer();
-
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.openCenterListing();
-            }
-        });
     }
 
     @Override
@@ -320,12 +300,5 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             }
         });
         alert.show();
-    }
-
-    public void hideFab(boolean isHide) {
-        if (isHide)
-            fab.setVisibility(View.GONE);
-        else
-            fab.setVisibility(View.VISIBLE);
     }
 }

@@ -48,7 +48,6 @@ public class SettingsFragment extends Fragment {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(true);
 
         switchOffer = (SwitchCompat) parentView.findViewById(R.id.switchOffer);
         switchBooking = (SwitchCompat) parentView.findViewById(R.id.switchBooking);

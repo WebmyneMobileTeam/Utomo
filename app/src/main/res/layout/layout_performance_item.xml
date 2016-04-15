@@ -11,6 +11,7 @@
         android:id="@+id/txtItemName"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="2dp"
         android:gravity="center_vertical"
         android:text="Engine Oil"
@@ -19,6 +20,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginRight="2dp"
         android:layout_marginTop="2dp"
         android:layout_weight="1"
@@ -48,8 +50,9 @@
 
     <TextView
         android:id="@+id/txtItemValue"
-        android:layout_width="60dp"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="2dp"
         android:gravity="center_vertical"
         android:text="30%"
@@ -59,6 +62,7 @@
         android:id="@+id/txtReset"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="2dp"
         android:gravity="center_vertical"
         android:text="Reset"

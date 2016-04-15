@@ -60,7 +60,7 @@ public class PerformanceTileItem extends LinearLayout {
 
         float f = Float.parseFloat(performance.PerformancePercentage);
         txtItemProgress.setCurrentProgress((int) f);
-        txtItemValue.setText(String.format("%s %s", performance.PerformancePercentage, "%"));
+        txtItemValue.setText(String.format("%d %s", (int) f, "%"));
 
         txtProgressStatus.setText(Functions.getProgressStatus(context, f));
         txtProgressStatus.setTextColor(Functions.getColor(context, f));

@@ -42,6 +42,7 @@ public class AppConstant {
     public static String NO_INTERNET_CONNECTION = "No Internet Connection";
     public static String INTERNAL_ERROR = "INTERNAL ERROR.Please try again later.";
     public static String TIMEOUTERRROR = "Server not Responding";
+    public static String ALREADY_BOOK = "You have request for service or this car has already is under service. Please choose another car.";
 
     public static String FRAGMENT_VALUE = "fragment";
     public static String HOME_FRAGMENT = "home";
@@ -69,4 +70,15 @@ public class AppConstant {
     public static int REQUEST_CAMERA = 0;
     public static int PICK_IMAGE = 1;
 
+    // Booking Status Codes
+    public static int PENDING = 1;
+    public static int SCHEDULE = 2;
+    public static int ACCEPTED = 3;
+    public static int PICKED = 4;
+    public static int JOB_CARD_DONE = 5;
+    public static int SERVICE_COMPLETED = 6;
+    public static int INVOICED = 7;
+    public static int PAYMENT_DONE = 8;
+    public static int CAR_DELIVERED = 9;
+    public static int CANCELLED = 10;
 }

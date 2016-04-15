@@ -179,7 +179,6 @@ public class Functions {
     }
 
     public static void showErrorAlert(Context context, String title, String msg) {
-
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle(title);
         alert.setMessage(msg);

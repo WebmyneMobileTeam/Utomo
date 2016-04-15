@@ -46,7 +46,6 @@ public class AboutFragment extends Fragment {
 
     private void init() {
         activity = (DrawerActivity) getActivity();
-        activity.hideFab(true);
 
         txtAppName = (TextView) parentView.findViewById(R.id.txtAppName);
         txt1 = (TextView) parentView.findViewById(R.id.txt1);

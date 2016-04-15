@@ -130,6 +130,7 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
     @Override
     public void setCarList(ArrayList<CarPojo> carList) {
         emptyLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         adapter.setCarList(carList);
         btnAddCar.setVisibility(View.VISIBLE);
     }

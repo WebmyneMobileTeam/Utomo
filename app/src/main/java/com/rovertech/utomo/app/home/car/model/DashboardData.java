@@ -15,6 +15,8 @@ public class DashboardData implements Serializable {
 
     public int BookingID;
 
+    public int BookingStatusID;
+
     public String CarHealth;
 
     public String CreatedDate;
