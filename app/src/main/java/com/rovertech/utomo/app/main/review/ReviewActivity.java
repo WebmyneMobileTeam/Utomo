@@ -62,7 +62,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
         ratingBar = (AppCompatRatingBar) findViewById(R.id.ratingBar);
 
         Drawable progress = ratingBar.getProgressDrawable();
-        DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.colorPrimary));
+        DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.purple));
 
         setTypeface();
 

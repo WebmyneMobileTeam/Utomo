@@ -40,6 +40,8 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private ServiceMainDetails mainDetails;
     private UserBookingData userBookingData;
 
+    private boolean isBottomSheetExpanded = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
             @Override
             public void onStateChanged(View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    fab.setVisibility(View.GONE);
+                    fab.setVisibility(View.VISIBLE);
                 } else {
                     fab.setVisibility(View.VISIBLE);
                 }
@@ -154,7 +156,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 break;
 
             case R.id.bottomReview:
-                Intent reviewIntent  = new Intent(ServiceDetailsActivity.this, ReviewActivity.class);
+                Intent reviewIntent = new Intent(ServiceDetailsActivity.this, ReviewActivity.class);
                 reviewIntent.putExtra("serviceCenterId", userBookingData.ServiceCentreID);
                 startActivity(reviewIntent);
                 break;
@@ -164,7 +166,13 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 break;
 
             case R.id.fab:
-                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                if (!isBottomSheetExpanded) {
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    isBottomSheetExpanded = true;
+                } else {
+                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    isBottomSheetExpanded = false;
+                }
                 break;
         }
     }

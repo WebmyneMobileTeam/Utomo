@@ -304,7 +304,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 request.LastPermitsDate = permitsDate;
 
             if (serviceDate.equals(""))
-                request.ServiceDate = "5";
+                request.ServiceDate = "";
             else
                 request.ServiceDate = serviceDate;
 

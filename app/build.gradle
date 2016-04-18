@@ -12,7 +12,7 @@ android {
         config {
             keyAlias 'utomo'
             keyPassword 'webmyne'
-            storeFile file('D:/Project/Utomo/utomo.jks')
+            storeFile file('D:/jks/utomo.jks')
             storePassword 'webmyne'
         }
     }
