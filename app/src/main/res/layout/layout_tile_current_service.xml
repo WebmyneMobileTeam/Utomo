@@ -1,122 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/currentCardView"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        android:id="@+id/currentCardView"
         android:layout_width="match_parent"
-        android:layout_height="155dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@color/white">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imgCenter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/slider1" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#A6000000" />
-
-            <RelativeLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/imgCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/slider1" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/shadow" />
+
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/bottomBar"
-                    android:orientation="vertical"
-                    android:padding="4dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/txtTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@+id/imgService"
-                            android:textSize="@dimen/M_TEXT"
-                            android:padding="4dp"
-                            android:text="Booking Id: BK1F55"
-                            android:textColor="@color/white" />
-
-                        <ImageView
-                            android:id="@+id/imgService"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/under_service"
-                            android:tint="@color/yellow" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/txtBookingDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/N_TEXT"
-                        android:padding="2dp"
-                        android:text="11th March, 2016"
-                        android:textColor="@color/white" />
+                    android:layout_marginTop="4dp">
 
                     <TextView
                         android:id="@+id/txtCenterName"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/N_TEXT"
                         android:padding="2dp"
-                        android:text="Dummy Service Center"
-                        android:textColor="@color/white" />
+                        android:text="Maruti Service Centre"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/M_TEXT" />
 
                     <TextView
-                        android:id="@+id/txtCenterAddress"
-                        android:layout_width="match_parent"
+                        android:id="@+id/txtRating"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/N_TEXT"
-                        android:padding="2dp"
-                        android:text="Address: 18, Shayamal Complex, R.C.Dutt Road, Alkapuri, Vadodara"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/bottomBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="10dp"
-
-                    android:padding="2dp">
-
-                    <TextView
-                        android:id="@+id/txtServiceStatus"
-                        style="@style/MyTileTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/N_TEXT"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="bottom"
-                        android:gravity="right"
-                        android:text="Pickup Done" />
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/review_border"
+                        android:padding="4dp"
+                        android:text="4.5/5"
+                        android:textColor="@color/purple"
+                        android:textSize="@dimen/VS_TEXT"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </FrameLayout>
+                    <TextView
+                        android:id="@+id/txtBookingId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="Booking Id: BK1F55"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/N_TEXT" />
 
-    </LinearLayout>
+                </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtCenterName">
+
+                    <TextView
+                        android:id="@+id/txtBookingDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="2dp"
+                        android:text="11th March, 2016"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/N_TEXT" />
+
+                    <TextView
+                        android:id="@+id/txtReviews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                        android:text="4 Review"
+                        android:textColor="@color/purple"
+                        android:textSize="@dimen/S_TEXT"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtServiceStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="8dp"
+                    android:padding="2dp"
+                    android:text="Status: Under Service"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
