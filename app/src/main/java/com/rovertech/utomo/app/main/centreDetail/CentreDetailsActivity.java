@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -15,12 +17,14 @@ import com.rovertech.utomo.app.main.centreDetail.service.CentreDetailsView;
 
 public class CentreDetailsActivity extends AppCompatActivity implements CentreDetailsView {
 
+    private LinearLayout mainHolder;
     private Toolbar toolbar;
     private TextView txtCustomTitle;
     private View parentView;
     private CentreDetailsPresnter centreDetailsPresnter;
     private CentreMainDetails centreMainDetails;
     private CentreHeaderDetails centreHeaderDetails;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         parentView = findViewById(android.R.id.content);
         centreMainDetails = (CentreMainDetails) findViewById(R.id.centreMainDetails);
         centreHeaderDetails = (CentreHeaderDetails) findViewById(R.id.centreHeaderDetails);
+        mainHolder = (LinearLayout) findViewById(R.id.mainHolder);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
 
         //Todo sagar Replace static id 2 with intent data
@@ -66,6 +72,28 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     public void setDetails(FetchServiceCentreDetailPojo centreDetailPojo) {
         centreHeaderDetails.setDetails(centreDetailPojo);
         centreMainDetails.setDetails(centreDetailPojo);
+    }
+
+    @Override
+    public void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void showMainLayoutHolder() {
+        mainHolder.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideMainLayoutHolder() {
+        mainHolder.setVisibility(View.GONE);
     }
 
 

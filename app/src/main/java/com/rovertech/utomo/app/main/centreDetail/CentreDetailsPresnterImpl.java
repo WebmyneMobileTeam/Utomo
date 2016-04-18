@@ -32,8 +32,10 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
     @Override
     public void fetchServiceCenterDetails(int serviceCentreID) {
 
-        FetchServiceCentreDetailAPI fetchServiceCentreDetailAPI = UtomoApplication.retrofit.create(FetchServiceCentreDetailAPI.class);
+        mCentreDetailsView.showProgressBar();
+        mCentreDetailsView.hideMainLayoutHolder();
 
+        FetchServiceCentreDetailAPI fetchServiceCentreDetailAPI = UtomoApplication.retrofit.create(FetchServiceCentreDetailAPI.class);
         retrofit2.Call<FetchServiceCentreDetailResponse> fetchServiceCentreDetailCall = fetchServiceCentreDetailAPI.fetchServiceCentreDetail(serviceCentreID);
         fetchServiceCentreDetailCall.enqueue(new Callback<FetchServiceCentreDetailResponse>() {
             @Override
@@ -46,11 +48,13 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
                         mCentreDetailsView.setDetails(fetchServiceCentreDetailResponse.fetchServiceCentreDetail.fetchServiceCentreDetailPojo.get(0));
                     }
                 }
-
+                mCentreDetailsView.showMainLayoutHolder();
+                mCentreDetailsView.hideProgressBar();
             }
 
             @Override
             public void onFailure(Call<FetchServiceCentreDetailResponse> call, Throwable t) {
+                mCentreDetailsView.hideProgressBar();
 
             }
         });

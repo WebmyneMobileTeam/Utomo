@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.bookings;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -104,6 +105,8 @@ public class BookingPresenterImpl implements BookingPresenter {
             return;
         }
 
+        final ProgressDialog progressDialog = ProgressDialog.show(context, "Booking", "Wait while Booking a request.", false, false);
+
         Log.d("bookrequest", UtomoApplication.getInstance().getGson().toJson(bookingRequest));
         BookingRequestAPI bookingRequestAPI = UtomoApplication.retrofit.create(BookingRequestAPI.class);
         Call<RequestForBooking> requestForBookingCall = bookingRequestAPI.bookingService(bookingRequest);
@@ -118,19 +121,24 @@ public class BookingPresenterImpl implements BookingPresenter {
                     if (requestForBooking.ResponseCode == 1) {
                         Intent intent = new Intent(context, DrawerActivity.class);
                         intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
-                        Functions.showDialog(context, requestForBooking.ResponseMessage, intent);
+                        Functions.
+                                showDialog(context,
+                                        context.getResources().getString(R.string.Success),
+                                        requestForBooking.ResponseMessage, true, intent);
 
                     } else {
 
-                        Functions.showDialog(context, context.getString(R.string.failed), null);
+                        Functions.showErrorAlert(context, context.getString(R.string.failed), false);
                     }
 
+                    progressDialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<RequestForBooking> call, Throwable t) {
-                Functions.showDialog(context, context.getString(R.string.failed), null);
+                progressDialog.dismiss();
+                Functions.showErrorAlert(context, context.getString(R.string.failed), false);
             }
         });
 

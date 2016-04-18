@@ -277,6 +277,36 @@ public class Functions {
 
     }
 
+
+    public static void showDialog(final Context context, String title, String msg, final boolean isFinish, final Intent intent) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle(title);
+        alert.setMessage(msg);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if (isFinish) {
+
+                    try {
+                        if (intent != null) {
+                            intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            }
+        });
+        alert.show();
+    }
+
+
     public static int getColor(Context context, float f) {
 
         int loadedColor = 0;

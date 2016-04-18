@@ -22,7 +22,7 @@
                     style="@style/TitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Maruti Service Centre"
+                    android:text=""
                     android:textSize="@dimen/L_TEXT" />
 
                 <RatingBar
@@ -35,33 +35,31 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:numStars="5"
-                    android:rating="2.5"
                     android:stepSize="0.5" />
             </RelativeLayout>
 
             <TextView
-                android:textColor="@color/md_grey_800"
                 android:id="@+id/txtCentreInfo"
                 style="@style/BodyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/dummy3"
+                android:textColor="@color/md_grey_800"
+
                 android:textSize="@dimen/M_TEXT" />
 
             <TextView
                 android:id="@+id/txtCentreAddress"
                 style="@style/BodyTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dummy2" />
+                android:layout_height="wrap_content" />
 
 
             <LinearLayout
-                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:padding="8dp"
                 android:weightSum="3">
 
 

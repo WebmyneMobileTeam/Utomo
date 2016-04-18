@@ -49,9 +49,8 @@
                 style="@style/MyButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/booking_card_margin"
-                android:layout_marginLeft="@dimen/booking_card_margin"
-                android:layout_marginRight="@dimen/booking_card_margin"
+                android:layout_margin="@dimen/booking_card_margin"
+
                 android:text="Book" />
         </LinearLayout>
 

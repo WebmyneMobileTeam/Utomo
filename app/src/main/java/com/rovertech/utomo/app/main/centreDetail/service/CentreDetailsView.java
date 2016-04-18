@@ -10,4 +10,12 @@ public interface CentreDetailsView {
     void initToolbar();
 
     void setDetails(FetchServiceCentreDetailPojo centreDetailPojo);
+
+    void showProgressBar();
+
+    void hideProgressBar();
+
+    void showMainLayoutHolder();
+
+    void hideMainLayoutHolder();
 }

@@ -145,5 +145,6 @@
     <string name="item_booking_edit">Edit</string>
     <string name="item_booking_delete">Delete</string>
     <string name="failed">Failed, Please Try again.</string>
+    <string name="Success">Success</string>
 
 </resources>
