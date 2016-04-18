@@ -18,6 +18,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
@@ -65,11 +68,20 @@ public class Functions {
 
     }
 
-    public static void LoadImage(ImageView imageView, String url, Context context) {
+    public static void LoadImage(final ImageView imageView, String url, final Context context) {
 
         try {
             Glide.clear(imageView);
-            Glide.with(context).load(url).into(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                            RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    imageView.setImageDrawable(circularBitmapDrawable);
+                }
+            });
+
         } catch (Exception e) {
 
         }
@@ -77,18 +89,18 @@ public class Functions {
     }
 
     public static Typeface getNormalFont(Context _context) {
-        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "custom.otf");
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.regular.ttf");
         return tf;
     }
 
     public static Typeface getNormalFontRoboto(Context _context) {
-        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "Roboto-Regular.ttf");
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.regular.ttf");
         return tf;
     }
 
 
     public static Typeface getBoldFont(Context _context) {
-        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "custombold.otf");
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.bold.ttf");
         return tf;
     }
 

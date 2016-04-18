@@ -17,7 +17,6 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 
-
 public class CurrentServiceTile extends LinearLayout {
 
     Context context;
@@ -44,7 +43,7 @@ public class CurrentServiceTile extends LinearLayout {
 
     private void init() {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        parentView = inflater.inflate(R.layout.layout_tile_current_service_revised, this, true);
+        parentView = inflater.inflate(R.layout.layout_tile_current_service, this, true);
 
         findViewById();
 
@@ -62,13 +61,14 @@ public class CurrentServiceTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtBookingId.setTypeface(Functions.getBoldFont(context));
+        txtBookingId.setTypeface(Functions.getNormalFontRoboto(context));
         txtBookingDate.setTypeface(Functions.getNormalFont(context));
-        txtCenterName.setTypeface(Functions.getBoldFont(context));
-        txtServiceStatus.setTypeface(Functions.getBoldFont(context));
+        txtCenterName.setTypeface(Functions.getNormalFontRoboto(context));
+        txtServiceStatus.setTypeface(Functions.getNormalFontRoboto(context));
     }
 
     private void findViewById() {
+
         txtBookingId = (TextView) parentView.findViewById(R.id.txtBookingId);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
