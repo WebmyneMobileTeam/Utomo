@@ -5,9 +5,15 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
+import com.rovertech.utomo.app.main.centreDetail.model.FeedBack;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by xitij on 17-03-2015.
@@ -16,6 +22,7 @@ public class PrefUtils {
 
     public static String USER_ID = "UserId";
     public static String USER_PROFILE_KEY = "USER_PROFILE_KEY";
+    public static String FEEDBACK = "FEEDBACK";
     public static String GCM_ID = "GCM_ID";
     public static String DEVICE_ID = "Device_ID";
     public static String CURRENT_CAR_SELECTED = "CURRENT_CAR_SELECTED";
@@ -66,6 +73,40 @@ public class PrefUtils {
 
         }
         return userProfileDetails;
+    }
+
+    public static void setFeedBack(Context context, List<FeedBack> feedBacks) {
+
+        String feedBackString;
+        if (feedBacks != null) {
+
+            feedBackString = UtomoApplication.getInstance().getGson().toJson(feedBacks);
+
+        } else {
+            feedBacks = new ArrayList<>();
+            feedBackString = UtomoApplication.getInstance().getGson().toJson(feedBacks);
+        }
+
+        Prefs.with(context).save(FEEDBACK, feedBackString);
+    }
+
+
+    public static List<FeedBack> getFeedBack(Context context) {
+        Gson gson = new Gson();
+
+        List<FeedBack> feedBackList = null;
+
+        String getCityString = Prefs.with(context).getString(FEEDBACK, "");
+
+        try {
+            Type type = new TypeToken<List<FeedBack>>() {
+            }.getType();
+            feedBackList = gson.fromJson(getCityString, type);
+
+        } catch (Exception e) {
+
+        }
+        return feedBackList;
     }
 
     public static void setCurrentCarSelected(Context context, CarPojo carPojo) {

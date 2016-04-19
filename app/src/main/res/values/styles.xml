@@ -54,9 +54,9 @@
     <style name="MyEditTextStyle" parent="android:Widget.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:drawablePadding">16dp</item>
         <item name="android:background">@null</item>
         <item name="android:padding">@dimen/edittext_padding</item>
+        <item name="android:drawablePadding">16dp</item>
         <item name="android:textSize">@dimen/EDIT_TEXT_SIZE</item>
     </style>
 
@@ -91,12 +91,12 @@
     </style>
 
     <style name="myToolbarTheme" parent="Widget.AppCompat.ActionBar">
-        <item name="colorControlNormal">@color/purple</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/tab_max_width</item>
-        <item name="tabIndicatorColor">@color/gplus</item>
+        <item name="tabIndicatorColor">@color/theme_purple_accent</item>
         <item name="tabIndicatorHeight">2dp</item>
         <item name="tabPaddingStart">0dp</item>
         <item name="tabPaddingEnd">0dp</item>

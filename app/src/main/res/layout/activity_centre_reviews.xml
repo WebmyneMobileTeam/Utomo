@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rovertech.utomo.app.main.centreDetail.centreReviews.CentreReviewsActivity">
+
+    <include layout="@layout/app_bar" />
+
+    <TextView
+        style="@style/TitleTextStyle"
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="No reviews found."
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/centreFamiliarRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:padding="8dp"
+        app:frv_emptyView="@id/tv_empty" />
+
+
+
+
+</RelativeLayout>

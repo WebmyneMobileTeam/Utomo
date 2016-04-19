@@ -26,7 +26,8 @@ public class BadgeHelper {
 
     public void displayBadge(int count) {
         if (count > 0) {
-            ActionItemBadge.update(context, menuItem, menuItem.getIcon(), badgeStyles.RED, count);
+
+            ActionItemBadge.update(context, menuItem, menuItem.getIcon(), badgeStyles, count);
 
         } else {
             ImageView img = (ImageView) menuItem.getActionView().findViewById(R.id.menu_badge_icon);

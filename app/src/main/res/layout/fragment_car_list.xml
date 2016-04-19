@@ -39,20 +39,15 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
-        android:id="@+id/bottomBar"
+
+    <Button
+        android:id="@+id/btnAddCar"
+        style="@style/MyButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:layout_margin="4dp"
+        android:text="Add Car" />
 
-        <Button
-            android:id="@+id/btnAddCar"
-            style="@style/MyButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="Add Car" />
-    </LinearLayout>
 
 </RelativeLayout>

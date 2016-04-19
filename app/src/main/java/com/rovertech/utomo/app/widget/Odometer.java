@@ -3,16 +3,21 @@ package com.rovertech.utomo.app.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+
+import java.lang.reflect.Field;
 
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
@@ -84,13 +89,14 @@ public class Odometer extends LinearLayout {
                     .maxValue(9)
                     .defaultValue(0)
                     .separatorColor(Color.TRANSPARENT)
-                    .textColor(Color.YELLOW)
+                    .textColor(ContextCompat.getColor(context, R.color.theme_purple_accent))
                     .textSize(16)
                     .enableFocusability(true)
                     .wrapSelectorWheel(true)
                     .build();
 
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            //  setTextColor(numberPicker, Color.WHITE);
             numberPicker.setBackgroundResource(R.drawable.rounded_shape);
             numberPicker.setGravity(Gravity.CENTER);
             numberPicker.setOnValueChangedListener(changeListener);
@@ -100,6 +106,27 @@ public class Odometer extends LinearLayout {
 
         requestLayout();
         invalidate();
+    }
+
+    private boolean setTextColor(MaterialNumberPicker numberPicker, int color) {
+        final int count = numberPicker.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = numberPicker.getChildAt(i);
+            if (child instanceof EditText) {
+                try {
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText) child).setTextColor(color);
+                    numberPicker.invalidate();
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
     }
 
     public String getValue() {

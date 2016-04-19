@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimary">#8E24CF</color>
     <color name="colorPrimaryDark">#6A1B9A</color>
     <color name="colorAccent">#4c4c4c</color>
 
@@ -41,5 +41,6 @@
     <color name="TextTitle">#616161</color>
     <color name="TextBody">#7F7F7F</color>
     <color name="addColor">#404040</color>
-
+    <color name="theme_purple_accent">#ff9419</color>
+    <color name="theme_purple_accent_opacity">#43ff9419</color>
 </resources>

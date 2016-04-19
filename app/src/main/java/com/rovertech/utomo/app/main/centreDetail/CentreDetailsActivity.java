@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.centreDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     private CentreMainDetails centreMainDetails;
     private CentreHeaderDetails centreHeaderDetails;
     private ProgressBar mProgressBar;
+    private float distance=0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,12 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
 
-        centreDetailsPresnter.fetchServiceCenterDetails(getIntent().getExtras().getInt("centreId"));
+        //Todo sagar Replace static id 2 with intent data
+
+        Intent intent = getIntent();
+        int serviceCenterId = intent.getExtras().getInt("centreId");
+        distance = intent.getFloatExtra("DistanceKM", 0.0f);
+        centreDetailsPresnter.fetchServiceCenterDetails(serviceCenterId);
     }
 
     @Override
@@ -69,7 +76,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
 
     @Override
     public void setDetails(FetchServiceCentreDetailPojo centreDetailPojo) {
-        centreHeaderDetails.setDetails(centreDetailPojo);
+        centreHeaderDetails.setDetails(centreDetailPojo,distance);
         centreMainDetails.setDetails(centreDetailPojo);
     }
 

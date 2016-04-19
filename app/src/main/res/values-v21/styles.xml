@@ -2,6 +2,6 @@
 <resources>
 
     <style name="myToolbarTheme" parent="Widget.AppCompat.ActionBar">
-        <item name="colorControlNormal">@color/purple</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>
