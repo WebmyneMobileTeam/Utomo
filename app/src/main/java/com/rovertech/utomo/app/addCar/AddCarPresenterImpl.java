@@ -344,7 +344,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
                     try {
                         JSONObject res = new JSONObject(responseFromMultipart);
-                        Log.e("res", Functions.jsonString(res));
+                        // Log.e("res", Functions.jsonString(res));
                         if (res.getJSONObject("InsertVehicleDetails").getInt("ResponseCode") == 1) {
                             addcarView.success();
                         } else {
@@ -416,6 +416,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     .addPart("Image", bab)
                     .build();
         } else {
+
             entity = MultipartEntityBuilder.create()
                     .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
                     .setBoundary(boundary)
