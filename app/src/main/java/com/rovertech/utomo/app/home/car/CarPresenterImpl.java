@@ -28,13 +28,15 @@ public class CarPresenterImpl implements CarPresenter {
     }
 
     @Override
-    public void fetchDashboard(final Context context, CarPojo carPojo) {
+    public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode) {
         if (carView != null)
             carView.showProgress();
 
         DashboardRequest request = new DashboardRequest();
         request.UserID = PrefUtils.getUserID(context);
         request.VehicleID = carPojo.VehicleID;
+        request.ServiceDate = date;
+        request.Mode = mode;
 
         LocationFinder locationFinder = new LocationFinder(context);
 

@@ -3,22 +3,16 @@ package com.rovertech.utomo.app.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
 import com.rovertech.utomo.app.R;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import com.rovertech.utomo.app.helper.Functions;
 
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
@@ -33,6 +27,7 @@ public class Odometer extends LinearLayout {
     private LinearLayout linearPicker;
     private NumberPicker.OnValueChangeListener changeListener;
     private onOdometerChangeListener onOdometerChangeListener;
+    private String originalOdometerReading;
 
     public void setOnOdometerChangeListener(Odometer.onOdometerChangeListener onOdometerChangeListener) {
         this.onOdometerChangeListener = onOdometerChangeListener;
@@ -78,7 +73,8 @@ public class Odometer extends LinearLayout {
 
     public void setSlots(int num) {
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(74, 136);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Functions.convertDpToPixel(36, context),
+                (int) Functions.convertDpToPixel(76, context));
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
 
         for (int i = 0; i < num; i++) {
@@ -95,7 +91,6 @@ public class Odometer extends LinearLayout {
                     .build();
 
             numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-            //  setTextColor(numberPicker, Color.WHITE);
             numberPicker.setBackgroundResource(R.drawable.rounded_shape);
             numberPicker.setGravity(Gravity.CENTER);
             numberPicker.setOnValueChangedListener(changeListener);
@@ -105,27 +100,6 @@ public class Odometer extends LinearLayout {
 
         requestLayout();
         invalidate();
-    }
-
-    private boolean setTextColor(MaterialNumberPicker numberPicker, int color) {
-        final int count = numberPicker.getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = numberPicker.getChildAt(i);
-            if (child instanceof EditText) {
-                try {
-                    Field selectorWheelPaintField = numberPicker.getClass()
-                            .getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
-                    ((EditText) child).setTextColor(color);
-                    numberPicker.invalidate();
-                    return true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return false;
     }
 
     public String getValue() {
@@ -145,7 +119,8 @@ public class Odometer extends LinearLayout {
     }
 
     public void setValue(String odometerReading) {
-        Log.e("odometer", odometerReading);
+
+        originalOdometerReading = odometerReading;
 
         for (int i = 0; i < linearPicker.getChildCount(); i++) {
             MaterialNumberPicker picker = (MaterialNumberPicker) linearPicker.getChildAt(i);
@@ -155,14 +130,5 @@ public class Odometer extends LinearLayout {
 
     public interface onOdometerChangeListener {
         void readingChange();
-    }
-
-    List<Integer> digits(int i) {
-        List<Integer> digits = new ArrayList<Integer>();
-        while (i > 0) {
-            digits.add(i % 10);
-            i /= 10;
-        }
-        return digits;
     }
 }

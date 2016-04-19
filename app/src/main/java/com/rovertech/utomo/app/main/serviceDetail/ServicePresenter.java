@@ -8,4 +8,6 @@ import android.content.Context;
 public interface ServicePresenter {
 
     void fetchBookingDetails(Context context, int bookingId);
+
+    void cancelBooking(Context context, int bookingID);
 }

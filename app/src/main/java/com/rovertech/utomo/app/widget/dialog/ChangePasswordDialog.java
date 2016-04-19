@@ -50,8 +50,8 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     }
 
     private void setTypeface() {
-        edtPassword.setTypeface(Functions.getNormalFont(context));
-        edtRePassword.setTypeface(Functions.getNormalFont(context));
+        edtPassword.setTypeface(Functions.getRegularFont(context));
+        edtRePassword.setTypeface(Functions.getRegularFont(context));
         btnSubmit.setTypeface(Functions.getBoldFont(context));
     }
 

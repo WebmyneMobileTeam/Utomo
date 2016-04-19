@@ -59,7 +59,7 @@ public class SponsoredCenterTile extends LinearLayout {
 
     private void setTypeface() {
         txtCenterName.setTypeface(Functions.getBoldFont(context));
-        txtExpertise.setTypeface(Functions.getNormalFont(context));
+        txtExpertise.setTypeface(Functions.getRegularFont(context));
     }
 
     private void findViewById() {

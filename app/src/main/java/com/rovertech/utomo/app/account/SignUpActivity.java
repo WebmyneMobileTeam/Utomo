@@ -115,8 +115,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private void setTypeface() {
         txtOr.setTypeface(Functions.getBoldFont(this));
         btnLogin.setTypeface(Functions.getBoldFont(this));
-        txtSignUp.setTypeface(Functions.getNormalFont(this));
-        //edtCity.setTypeface(Functions.getNormalFont(this));
+        txtSignUp.setTypeface(Functions.getRegularFont(this));
+        //edtCity.setTypeface(Functions.getRegularFont(this));
         txtLogin.setTypeface(Functions.getBoldFont(this));
         txtTc.setTypeface(Functions.getBoldFont(this));
         txtCustomTitle.setTypeface(Functions.getBoldFont(this));

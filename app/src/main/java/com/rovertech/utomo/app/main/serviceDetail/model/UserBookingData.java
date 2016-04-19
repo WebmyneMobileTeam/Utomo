@@ -9,6 +9,8 @@ public class UserBookingData {
 
     public int BookingID;
 
+    public int BookingStatusID;
+
     public String ContactNo;
 
     public String CreatedDate;

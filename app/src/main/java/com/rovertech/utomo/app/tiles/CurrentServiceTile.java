@@ -61,10 +61,10 @@ public class CurrentServiceTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtBookingId.setTypeface(Functions.getNormalFontRoboto(context));
-        txtBookingDate.setTypeface(Functions.getNormalFont(context));
-        txtCenterName.setTypeface(Functions.getNormalFontRoboto(context));
-        txtServiceStatus.setTypeface(Functions.getNormalFontRoboto(context));
+        txtBookingId.setTypeface(Functions.getThinFont(context));
+        txtBookingDate.setTypeface(Functions.getThinFont(context));
+        txtCenterName.setTypeface(Functions.getRegularFont(context));
+        txtServiceStatus.setTypeface(Functions.getLightFont(context));
     }
 
     private void findViewById() {
@@ -102,9 +102,9 @@ public class CurrentServiceTile extends LinearLayout {
 
         txtBookingId.setText(String.format("%s : %s", "Booking Id", userBookingsPojo.BookingID));
         txtCenterName.setText(userBookingsPojo.SCName);
-        Functions.LoadImage(imgCenter, userBookingsPojo.SCImageName, context);
-        txtBookingDate.setText(Functions.displayOnlyDate(userBookingsPojo.CreatedDate));
-        txtServiceStatus.setText(userBookingsPojo.Status);
+        Functions.loadRoundImage(imgCenter, userBookingsPojo.SCImageName, context);
+        txtBookingDate.setText(String.format("Booking on: %s", Functions.displayOnlyDate(userBookingsPojo.CreatedDate)));
+        txtServiceStatus.setText(String.format("Current Service Status: %s", userBookingsPojo.Status));
 
     }
 
@@ -124,10 +124,10 @@ public class CurrentServiceTile extends LinearLayout {
         bookingId = data.BookingID;
 
         txtBookingId.setText(String.format("%s : %d", "Booking ID", data.BookingID));
-        Functions.LoadImage(imgCenter, data.SCImageName, context);
+        Functions.loadRoundImage(imgCenter, data.SCImageName, context);
         txtCenterName.setText(data.ServiceCentreName);
-        txtBookingDate.setText(data.CreatedDate);
-        txtServiceStatus.setText(data.Status);
+        txtBookingDate.setText(String.format("Booking on: %s", data.CreatedDate));
+        txtServiceStatus.setText(String.format("Current Service Status: %s", data.Status));
         txtReviews.setText(String.format("%d %s", data.ReviewCount, "Reviews"));
     }
 }

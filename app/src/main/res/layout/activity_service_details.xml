@@ -84,13 +84,14 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_marginLeft="16dp"
                     android:src="@drawable/ic_call"
-                    android:tint="@color/half_black" />
+                    android:tint="@color/black" />
 
                 <TextView
+                    android:id="@+id/txtCall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -108,13 +109,14 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_marginLeft="16dp"
                     android:src="@drawable/ic_directions"
-                    android:tint="@color/half_black" />
+                    android:tint="@color/black" />
 
                 <TextView
+                    android:id="@+id/txtMap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -132,17 +134,44 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="16dp"
                     android:src="@drawable/ic_star_rate"
-                    android:tint="@color/half_black" />
+                    android:tint="@color/black" />
 
                 <TextView
+                    android:id="@+id/txtReviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="Review"
+                    android:textColor="@color/half_black"
+                    android:textSize="@dimen/M_TEXT" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bottomCancelReq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="16dp"
+                    android:tintMode="src_atop"
+                    android:src="@drawable/ic_action_close"
+                    android:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/txtCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Cancel Booking"
                     android:textColor="@color/half_black"
                     android:textSize="@dimen/M_TEXT" />
             </LinearLayout>

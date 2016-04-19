@@ -28,6 +28,7 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_gravity="center"
+                    android:elevation="24dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/slider1" />
 
@@ -50,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:text="Maruti Service Centre"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/M_TEXT" />
+                        android:textSize="@dimen/XXL_TEXT" />
 
                     <TextView
                         android:id="@+id/txtRating"
@@ -59,6 +60,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="8dp"
                         android:background="@drawable/review_border"
+                        android:padding="2dp"
                         android:text="4.5/5"
                         android:textColor="@color/purple"
                         android:textSize="@dimen/VS_TEXT"
@@ -68,14 +70,15 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/txtBookingId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Booking Id: BK1F55"
-                        android:textColor="@color/black"
+                        android:textColor="@color/half_black"
                         android:textSize="@dimen/N_TEXT" />
 
                     <TextView
@@ -98,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="11th March, 2016"
-                    android:textColor="@color/black"
+                    android:textColor="@color/half_black"
                     android:textSize="@dimen/N_TEXT" />
 
                 <TextView
@@ -108,7 +111,7 @@
                     android:layout_gravity="right"
                     android:layout_marginRight="8dp"
                     android:text="Status: Under Service"
-                    android:textStyle="bold" />
+                    android:textColor="@color/half_black" />
 
             </LinearLayout>
 

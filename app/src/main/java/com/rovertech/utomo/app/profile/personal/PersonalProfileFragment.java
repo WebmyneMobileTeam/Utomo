@@ -94,12 +94,12 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     }
 
     private void setTypeface() {
-        edtEmail.setTypeface(Functions.getNormalFont(getActivity()));
-        edtMobile.setTypeface(Functions.getNormalFont(getActivity()));
-        edtName.setTypeface(Functions.getNormalFont(getActivity()));
-        edtDOB.setTypeface(Functions.getNormalFont(getActivity()));
-        edtAddress.setTypeface(Functions.getNormalFont(getActivity()));
-        edtCity.setTypeface(Functions.getNormalFont(getActivity()));
+        edtEmail.setTypeface(Functions.getRegularFont(getActivity()));
+        edtMobile.setTypeface(Functions.getRegularFont(getActivity()));
+        edtName.setTypeface(Functions.getRegularFont(getActivity()));
+        edtDOB.setTypeface(Functions.getRegularFont(getActivity()));
+        edtAddress.setTypeface(Functions.getRegularFont(getActivity()));
+        edtCity.setTypeface(Functions.getRegularFont(getActivity()));
         txtChangePassword.setTypeface(Functions.getBoldFont(getActivity()));
         txtUpdate.setTypeface(Functions.getBoldFont(getActivity()));
     }

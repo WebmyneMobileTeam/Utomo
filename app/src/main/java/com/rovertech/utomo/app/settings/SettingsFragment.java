@@ -7,7 +7,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -59,8 +58,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setTypeface() {
-        switchBooking.setTypeface(Functions.getNormalFont(getActivity()));
-        switchOffer.setTypeface(Functions.getNormalFont(getActivity()));
+        switchBooking.setTypeface(Functions.getRegularFont(getActivity()));
+        switchOffer.setTypeface(Functions.getRegularFont(getActivity()));
         txtNotification.setTypeface(Functions.getBoldFont(getActivity()));
     }
 

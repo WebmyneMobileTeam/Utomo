@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.about;
 
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,13 +27,14 @@ public class AboutFragment extends Fragment {
     }
 
     public static AboutFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         AboutFragment fragment = new AboutFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,13 +60,13 @@ public class AboutFragment extends Fragment {
     }
 
     private void setTypeface() {
-        txtAppName.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "roboto_light.ttf"));
-        txt1.setTypeface(Functions.getNormalFont(getActivity()));
-        txt2.setTypeface(Functions.getNormalFont(getActivity()));
-        txt3.setTypeface(Functions.getNormalFont(getActivity()));
-        txt4.setTypeface(Functions.getNormalFont(getActivity()));
-        txt5.setTypeface(Functions.getNormalFont(getActivity()));
-        txtVersion.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "roboto_light.ttf"));
+        txtAppName.setTypeface(Functions.getBoldFont(getActivity()));
+        txt1.setTypeface(Functions.getThinFont(getActivity()));
+        txt2.setTypeface(Functions.getThinFont(getActivity()));
+        txt3.setTypeface(Functions.getThinFont(getActivity()));
+        txt4.setTypeface(Functions.getThinFont(getActivity()));
+        txt5.setTypeface(Functions.getThinFont(getActivity()));
+        txtVersion.setTypeface(Functions.getRegularFont(getActivity()));
     }
 
 }

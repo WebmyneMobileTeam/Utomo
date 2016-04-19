@@ -49,9 +49,9 @@ public class PerformanceTileItem extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtProgressStatus.setTypeface(Functions.getNormalFont(context));
-        txtItemName.setTypeface(Functions.getNormalFont(context));
-        txtItemValue.setTypeface(Functions.getNormalFont(context));
+        txtProgressStatus.setTypeface(Functions.getRegularFont(context));
+        txtItemName.setTypeface(Functions.getRegularFont(context));
+        txtItemValue.setTypeface(Functions.getRegularFont(context));
         txtReset.setTypeface(Functions.getBoldFont(context));
     }
 

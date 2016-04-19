@@ -13,12 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.widget.dialog.SuccessDialog;
 
 public class ReviewActivity extends AppCompatActivity implements View.OnClickListener, ReviewView {
 
@@ -71,10 +69,10 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
     private void setTypeface() {
         txtRecommend.setTypeface(Functions.getBoldFont(this));
-        edtComment.setTypeface(Functions.getNormalFont(this));
+        edtComment.setTypeface(Functions.getRegularFont(this));
         btnSubmit.setTypeface(Functions.getBoldFont(this));
-        radioYes.setTypeface(Functions.getNormalFont(this));
-        radioNo.setTypeface(Functions.getNormalFont(this));
+        radioYes.setTypeface(Functions.getRegularFont(this));
+        radioNo.setTypeface(Functions.getRegularFont(this));
     }
 
     private void clickListener() {

@@ -83,9 +83,9 @@ public class WalletFragment extends Fragment {
 
 
     private void setTypeface() {
-        txtWallet.setTypeface(Functions.getNormalFontRoboto(getActivity()));
-        txtInvite.setTypeface(Functions.getNormalFontRoboto(getActivity()));
-        txtWalletTitle.setTypeface(Functions.getNormalFontRoboto(getActivity()));
+        txtWallet.setTypeface(Functions.getThinFont(getActivity()));
+        txtInvite.setTypeface(Functions.getThinFont(getActivity()));
+        txtWalletTitle.setTypeface(Functions.getThinFont(getActivity()));
     }
 
     /*@Override

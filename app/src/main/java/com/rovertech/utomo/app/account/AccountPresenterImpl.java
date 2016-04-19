@@ -53,6 +53,7 @@ import com.rovertech.utomo.app.widget.dialog.OTPDialog;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -299,7 +300,11 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                 @Override
                 public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
-                    Log.e("onFailure", t.toString());
+                    accountView.hideProgress();
+                    if (t.getCause() instanceof TimeoutException) {
+                        Functions.showToast(activity, AppConstant.TIMEOUTERRROR);
+                    }
+
                 }
             });
         }

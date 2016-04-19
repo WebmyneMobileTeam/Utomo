@@ -38,6 +38,7 @@ public class AppConstant {
     // Booking
     final public static String USER_BOOKINGS = "BookingActivities.svc/json/UserBookings/";
     final public static String BOOKING_DETAILS = "BookingActivities.svc/json/UserBookingDetail/{BOOKINGID}";
+    final public static String CANCEL_BOOKING = "BookingActivities.svc/json/CancleBooking/{BOOKINGID}";
 
     // dashboard
     final public static String FETCH_DASHBOARD = "UserActivities.svc/json/FetchUserVehicleDashboard";
@@ -84,4 +85,10 @@ public class AppConstant {
     public static int PAYMENT_DONE = 8;
     public static int CAR_DELIVERED = 9;
     public static int CANCELLED = 10;
+
+    // dashboard mode constants
+    public static int MODE_ODOMETER = 1;
+    public static int MODE_DATE = 2;
+    public static int MODE_PERFORMANCE = 3;
+
 }

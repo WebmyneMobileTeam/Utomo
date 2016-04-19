@@ -28,6 +28,7 @@
             android:layout_centerVertical="true"
             android:padding="4dp"
             android:text="Car Health"
+            android:textColor="@color/black"
             android:textSize="@dimen/N_TEXT" />
 
         <TextView

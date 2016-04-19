@@ -1,16 +1,17 @@
 package com.rovertech.utomo.app.tiles.serviceDate;
 
-import android.app.DatePickerDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
@@ -22,8 +23,14 @@ public class ServiceDateTile extends LinearLayout implements View.OnClickListene
     Context context;
     private View parentView;
     private LayoutInflater inflater;
-
+    private String date;
     private TextView txtTitle, txtServiceDate, txtChangeDate;
+
+    private onDateSetListener onDateSetListener;
+
+    public void setOnDateSetListener(ServiceDateTile.onDateSetListener onDateSetListener) {
+        this.onDateSetListener = onDateSetListener;
+    }
 
     public ServiceDateTile(Context context) {
         super(context);
@@ -51,7 +58,7 @@ public class ServiceDateTile extends LinearLayout implements View.OnClickListene
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtServiceDate.setTypeface(Functions.getNormalFont(context));
+        txtServiceDate.setTypeface(Functions.getRegularFont(context));
         txtChangeDate.setTypeface(Functions.getBoldFont(context));
     }
 
@@ -72,19 +79,34 @@ public class ServiceDateTile extends LinearLayout implements View.OnClickListene
     }
 
     private void selectDate() {
-        Calendar cal = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                setDate(date);
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-        dialog.show();
+
+        Calendar now = Calendar.getInstance();
+
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        setDate(date);
+                        if (onDateSetListener != null)
+                            onDateSetListener.setDate(date, AppConstant.MODE_DATE);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     public void setDate(String date) {
-        txtServiceDate.setText(date);
+        if (date.equals(""))
+            txtServiceDate.setText("NA");
+        else
+            txtServiceDate.setText(date);
+    }
+
+    public interface onDateSetListener {
+        void setDate(String date, int mode);
     }
 }

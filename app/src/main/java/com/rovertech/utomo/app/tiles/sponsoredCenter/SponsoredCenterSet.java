@@ -78,6 +78,9 @@ public class SponsoredCenterSet extends LinearLayout {
 
     public void setCenterList(ArrayList<SponsoredCenter> lstReferTile) {
 
+        sponsoredLinearLayout.removeAllViews();
+        sponsoredLinearLayout.invalidate();
+
         for (int i = 0; i < lstReferTile.size(); i++) {
             SponsoredCenterTile item = new SponsoredCenterTile(context);
             item.setDetails(lstReferTile.get(i));

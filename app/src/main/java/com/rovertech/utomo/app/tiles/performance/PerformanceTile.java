@@ -87,6 +87,11 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
 
     public void setPerformance(ArrayList<Performance> lstPerformance) {
 
+        initialLayout.removeAllViews();
+        initialLayout.invalidate();
+        remainsLayout.removeAllViews();
+        remainsLayout.invalidate();
+
         Collections.sort(lstPerformance, new Comparator<Performance>() {
             @Override
             public int compare(Performance lhs, Performance rhs) {

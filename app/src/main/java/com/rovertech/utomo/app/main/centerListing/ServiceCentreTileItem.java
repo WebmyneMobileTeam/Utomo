@@ -51,11 +51,11 @@ public class ServiceCentreTileItem extends LinearLayout {
 
     private void setTypeface() {
         txtCentreName.setTypeface(Functions.getBoldFont(context));
-        txtCentreAddress.setTypeface(Functions.getNormalFont(context));
-        txtRating.setTypeface(Functions.getNormalFont(context));
-        txtReviews.setTypeface(Functions.getNormalFont(context));
-        txtOffers.setTypeface(Functions.getNormalFont(context));
-        txtDistance.setTypeface(Functions.getNormalFont(context));
+        txtCentreAddress.setTypeface(Functions.getRegularFont(context));
+        txtRating.setTypeface(Functions.getRegularFont(context));
+        txtReviews.setTypeface(Functions.getRegularFont(context));
+        txtOffers.setTypeface(Functions.getRegularFont(context));
+        txtDistance.setTypeface(Functions.getRegularFont(context));
 
     }
 

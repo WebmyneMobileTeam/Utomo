@@ -78,8 +78,8 @@ public class    CentreMainDetails extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtCentreAddress.setTypeface(Functions.getNormalFont(context));
-        txtCentreInfo.setTypeface(Functions.getNormalFont(context));
+        txtCentreAddress.setTypeface(Functions.getRegularFont(context));
+        txtCentreInfo.setTypeface(Functions.getRegularFont(context));
         txtStartPrice.setTypeface(Functions.getBoldFont(context));
         txtCentreName.setTypeface(Functions.getBoldFont(context));
         btnBook.setTypeface(Functions.getBoldFont(context));

@@ -63,11 +63,11 @@ public class PastServiceTile extends LinearLayout {
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtBookingDate.setTypeface(Functions.getNormalFont(context));
+        txtBookingDate.setTypeface(Functions.getRegularFont(context));
         txtCenterName.setTypeface(Functions.getBoldFont(context));
-        txtRating.setTypeface(Functions.getNormalFont(context));
+        txtRating.setTypeface(Functions.getRegularFont(context));
         txtRepeat.setTypeface(Functions.getBoldFont(context));
-        txtReviews.setTypeface(Functions.getNormalFont(context));
+        txtReviews.setTypeface(Functions.getRegularFont(context));
     }
 
     private void findViewById() {

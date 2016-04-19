@@ -51,9 +51,9 @@ public class ServiceMainDetails extends LinearLayout {
 
     private void setTypeface() {
 
-        txtBookingDate.setTypeface(Functions.getNormalFont(context));
-        txtDeliveryDate.setTypeface(Functions.getNormalFont(context));
-        txtServiceDetails.setTypeface(Functions.getNormalFont(context));
+        txtBookingDate.setTypeface(Functions.getRegularFont(context));
+        txtDeliveryDate.setTypeface(Functions.getRegularFont(context));
+        txtServiceDetails.setTypeface(Functions.getRegularFont(context));
         txtBookingTitle.setTypeface(Functions.getBoldFont(context));
         txtServiceTitle.setTypeface(Functions.getBoldFont(context));
         txtCurrentStatus.setTypeface(Functions.getBoldFont(context));
@@ -70,6 +70,9 @@ public class ServiceMainDetails extends LinearLayout {
         else
             txtDeliveryDate.setVisibility(GONE);
 
-        txtServiceDetails.setText(userBookingData.Description);
+        if (userBookingData.Description.equals(""))
+            txtServiceDetails.setText("No Description");
+        else
+            txtServiceDetails.setText(userBookingData.Description);
     }
 }

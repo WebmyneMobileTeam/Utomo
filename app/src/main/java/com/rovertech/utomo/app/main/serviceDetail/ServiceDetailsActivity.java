@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
@@ -27,7 +28,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private View parentView, bottomSheet;
     private BottomSheetBehavior behavior;
     private FloatingActionButton fab;
-    private LinearLayout bottomCall, bottomDirection, bottomReview;
+    private LinearLayout bottomCall, bottomDirection, bottomReview, bottomCancelReq;
     private ServicePresenter presenter;
     private CoordinatorLayout main_content;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -41,6 +42,8 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private UserBookingData userBookingData;
 
     private boolean isBottomSheetExpanded = false;
+
+    private TextView txtCancel, txtReviews, txtMap, txtCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,10 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
             public void onStateChanged(View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     fab.setVisibility(View.VISIBLE);
+                    isBottomSheetExpanded = true;
                 } else {
                     fab.setVisibility(View.VISIBLE);
+                    isBottomSheetExpanded = false;
                 }
             }
 
@@ -75,6 +80,11 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private void init() {
 
         initToolbar();
+
+        txtCancel = (TextView) findViewById(R.id.txtCancel);
+        txtCall = (TextView) findViewById(R.id.txtCall);
+        txtMap = (TextView) findViewById(R.id.txtMap);
+        txtReviews = (TextView) findViewById(R.id.txtReviews);
 
         main_content = (CoordinatorLayout) findViewById(R.id.main_content);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -95,7 +105,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle("Maruti Service Centre");
+                    collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
                     isShow = true;
 
                 } else if (isShow) {
@@ -110,10 +120,20 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         behavior = BottomSheetBehavior.from(bottomSheet);
         bottomCall = (LinearLayout) findViewById(R.id.bottomCall);
         bottomDirection = (LinearLayout) findViewById(R.id.bottomDirection);
+        bottomCancelReq = (LinearLayout) findViewById(R.id.bottomCancelReq);
         bottomReview = (LinearLayout) findViewById(R.id.bottomReview);
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         clickListener();
+
+        setTypeface();
+    }
+
+    private void setTypeface() {
+        txtCancel.setTypeface(Functions.getRegularFont(this));
+        txtReviews.setTypeface(Functions.getRegularFont(this));
+        txtMap.setTypeface(Functions.getRegularFont(this));
+        txtCall.setTypeface(Functions.getRegularFont(this));
     }
 
     private void clickListener() {
@@ -121,6 +141,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         bottomDirection.setOnClickListener(this);
         bottomReview.setOnClickListener(this);
         bottomSheet.setOnClickListener(this);
+        bottomCancelReq.setOnClickListener(this);
         fab.setOnClickListener(this);
     }
 
@@ -166,13 +187,14 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 break;
 
             case R.id.fab:
-                if (!isBottomSheetExpanded) {
-                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    isBottomSheetExpanded = true;
-                } else {
+                if (isBottomSheetExpanded)
                     behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    isBottomSheetExpanded = false;
-                }
+                else
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                break;
+
+            case R.id.bottomCancelReq:
+                presenter.cancelBooking(this, userBookingData.BookingID);
                 break;
         }
     }
@@ -198,6 +220,12 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         mainDetails.setMainDetails(userBookingData);
 
         main_content.setVisibility(View.VISIBLE);
+
+        if (userBookingData.BookingStatusID == 1) {
+            bottomCancelReq.setVisibility(View.VISIBLE);
+        } else {
+            bottomCancelReq.setVisibility(View.GONE);
+        }
 
     }
 }

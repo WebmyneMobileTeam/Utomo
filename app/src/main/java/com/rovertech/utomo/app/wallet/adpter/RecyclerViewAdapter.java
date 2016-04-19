@@ -77,7 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             itemView.setOnClickListener(this);
             this.parent = parent;
             textItemName = (TextView) itemView.findViewById(R.id.item_name);
-            textItemName.setTypeface(Functions.getNormalFontRoboto(context));
+            textItemName.setTypeface(Functions.getThinFont(context));
         }
 
         public void setItemName(CharSequence name){

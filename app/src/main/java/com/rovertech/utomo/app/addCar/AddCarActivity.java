@@ -168,12 +168,12 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     private void setTypeface() {
         btnAdd.setTypeface(Functions.getBoldFont(this));
-        edtVehicleNo.setTypeface(Functions.getNormalFont(this));
-        edtServiceDate.setTypeface(Functions.getNormalFont(this));
-        edtPUC.setTypeface(Functions.getNormalFont(this));
-        edtInsuranceDate.setTypeface(Functions.getNormalFont(this));
-        edtPermitsDate.setTypeface(Functions.getNormalFont(this));
-        edtKms.setTypeface(Functions.getNormalFont(this));
+        edtVehicleNo.setTypeface(Functions.getRegularFont(this));
+        edtServiceDate.setTypeface(Functions.getRegularFont(this));
+        edtPUC.setTypeface(Functions.getRegularFont(this));
+        edtInsuranceDate.setTypeface(Functions.getRegularFont(this));
+        edtPermitsDate.setTypeface(Functions.getRegularFont(this));
+        edtKms.setTypeface(Functions.getRegularFont(this));
         txtCustomTitle.setTypeface(Functions.getBoldFont(this));
     }
 

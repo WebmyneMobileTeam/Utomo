@@ -241,9 +241,9 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     private void setTypeface() {
 
-        edtCity.setTypeface(Functions.getNormalFont(this));
-        switchBodyShop.setTypeface(Functions.getNormalFont(this));
-        switchPickup.setTypeface(Functions.getNormalFont(this));
+        edtCity.setTypeface(Functions.getRegularFont(this));
+        switchBodyShop.setTypeface(Functions.getRegularFont(this));
+        switchPickup.setTypeface(Functions.getRegularFont(this));
         txtNoData.setTypeface(Functions.getBoldFont(this));
         btnSearch.setTypeface(Functions.getBoldFont(this));
         txtFilterTitle.setTypeface(Functions.getBoldFont(this));

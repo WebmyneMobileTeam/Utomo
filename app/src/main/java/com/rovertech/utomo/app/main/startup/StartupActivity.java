@@ -70,7 +70,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                 myText.setEllipsize(TextUtils.TruncateAt.END);
                 myText.setLines(2);
                 myText.setText(AppConstant.startupTexts[0]);
-                myText.setTypeface(Functions.getNormalFont(StartupActivity.this));
+                myText.setTypeface(Functions.getRegularFont(StartupActivity.this));
                 myText.setTextColor(Color.BLACK);
                 return myText;
             }

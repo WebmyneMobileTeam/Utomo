@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -21,6 +22,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -60,7 +62,20 @@ public class Functions {
     public static void fireIntent(Context context, Class cls) {
         Intent i = new Intent(context, cls);
         context.startActivity(i);
+    }
 
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return px;
+    }
+
+    public static float convertPixelsToDp(float px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        return dp;
     }
 
     public static void fireIntent(Context context, Intent intent) {
@@ -68,7 +83,7 @@ public class Functions {
 
     }
 
-    public static void LoadImage(final ImageView imageView, String url, final Context context) {
+    public static void loadRoundImage(final ImageView imageView, String url, final Context context) {
 
         try {
             Glide.clear(imageView);
@@ -78,6 +93,7 @@ public class Functions {
                     RoundedBitmapDrawable circularBitmapDrawable =
                             RoundedBitmapDrawableFactory.create(context.getResources(), resource);
                     circularBitmapDrawable.setCircular(true);
+                    circularBitmapDrawable.setCornerRadius(convertDpToPixel(8, context));
                     imageView.setImageDrawable(circularBitmapDrawable);
                 }
             });
@@ -88,16 +104,32 @@ public class Functions {
 
     }
 
-    public static Typeface getNormalFont(Context _context) {
+    public static void LoadImage(final ImageView imageView, String url, final Context context) {
+
+        try {
+            Glide.clear(imageView);
+            Glide.with(context).load(url).asBitmap().centerCrop().into(imageView);
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public static Typeface getThinFont(Context _context) {
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.thin.ttf");
+        return tf;
+    }
+
+    public static Typeface getRegularFont(Context _context) {
         Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.regular.ttf");
         return tf;
     }
 
-    public static Typeface getNormalFontRoboto(Context _context) {
-        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.regular.ttf");
+    public static Typeface getLightFont(Context _context) {
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.light.ttf");
         return tf;
     }
-
 
     public static Typeface getBoldFont(Context _context) {
         Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.bold.ttf");
@@ -337,9 +369,10 @@ public class Functions {
     }
 
     public static String getProgressStatus(Context context, float f) {
-        String status = "";
 
-        if (f < 10 && f >= 0) {
+        String status;
+
+        if (f <= 10) {
             status = context.getString(R.string.urgent);
         } else if (f > 10 && f <= 40) {
             status = context.getString(R.string.need);

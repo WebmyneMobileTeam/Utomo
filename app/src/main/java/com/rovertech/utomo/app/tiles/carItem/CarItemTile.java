@@ -2,7 +2,6 @@ package com.rovertech.utomo.app.tiles.carItem;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,8 +48,8 @@ public class CarItemTile extends LinearLayout {
 
     private void setTypeface() {
         txtCarName.setTypeface(Functions.getBoldFont(context));
-        txtVehicleNo.setTypeface(Functions.getNormalFont(context));
-        txtOdometerValue.setTypeface(Functions.getNormalFont(context));
+        txtVehicleNo.setTypeface(Functions.getRegularFont(context));
+        txtOdometerValue.setTypeface(Functions.getRegularFont(context));
         txtDelete.setTypeface(Functions.getBoldFont(context));
     }
 

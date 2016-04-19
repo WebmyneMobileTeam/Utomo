@@ -170,28 +170,28 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     private void setTypeface() {
         btnBook.setTypeface(Functions.getBoldFont(this));
-        //txtPromo.setTypeface(Functions.getNormalFont(this));
-        edtDescription.setTypeface(Functions.getNormalFont(this));
-        edtPromoCode.setTypeface(Functions.getNormalFont(this));
-        //  radioDefault.setTypeface(Functions.getNormalFont(this));
-        //  radioPromo.setTypeface(Functions.getNormalFont(this));
-        //txtApply.setTypeface(Functions.getNormalFont(this));
+        //txtPromo.setTypeface(Functions.getRegularFont(this));
+        edtDescription.setTypeface(Functions.getRegularFont(this));
+        edtPromoCode.setTypeface(Functions.getRegularFont(this));
+        //  radioDefault.setTypeface(Functions.getRegularFont(this));
+        //  radioPromo.setTypeface(Functions.getRegularFont(this));
+        //txtApply.setTypeface(Functions.getRegularFont(this));
         txtTitle.setTypeface(Functions.getBoldFont(this));
-        //txtAddress.setTypeface(Functions.getNormalFont(this));
+        //txtAddress.setTypeface(Functions.getRegularFont(this));
         txtUsername.setTypeface(Functions.getBoldFont(this));
-        txtCarName.setTypeface(Functions.getNormalFont(this));
-        txtCarNo.setTypeface(Functions.getNormalFont(this));
-        txtDate.setTypeface(Functions.getNormalFont(this));
-        txtTime.setTypeface(Functions.getNormalFont(this));
-        txtSchedule.setTypeface(Functions.getNormalFont(this));
-        checkService.setTypeface(Functions.getNormalFont(this));
-        checkBodyWash.setTypeface(Functions.getNormalFont(this));
-        checkPickup.setTypeface(Functions.getNormalFont(this));
-        checkDropoff.setTypeface(Functions.getNormalFont(this));
-        txtSelectPickup.setTypeface(Functions.getNormalFont(this));
-        txtSelectDropoff.setTypeface(Functions.getNormalFont(this));
-        txtPickupAddress.setTypeface(Functions.getNormalFont(this));
-        txtDropoffAddress.setTypeface(Functions.getNormalFont(this));
+        txtCarName.setTypeface(Functions.getRegularFont(this));
+        txtCarNo.setTypeface(Functions.getRegularFont(this));
+        txtDate.setTypeface(Functions.getRegularFont(this));
+        txtTime.setTypeface(Functions.getRegularFont(this));
+        txtSchedule.setTypeface(Functions.getRegularFont(this));
+        checkService.setTypeface(Functions.getRegularFont(this));
+        checkBodyWash.setTypeface(Functions.getRegularFont(this));
+        checkPickup.setTypeface(Functions.getRegularFont(this));
+        checkDropoff.setTypeface(Functions.getRegularFont(this));
+        txtSelectPickup.setTypeface(Functions.getRegularFont(this));
+        txtSelectDropoff.setTypeface(Functions.getRegularFont(this));
+        txtPickupAddress.setTypeface(Functions.getRegularFont(this));
+        txtDropoffAddress.setTypeface(Functions.getRegularFont(this));
     }
 
     private void initToolbar() {

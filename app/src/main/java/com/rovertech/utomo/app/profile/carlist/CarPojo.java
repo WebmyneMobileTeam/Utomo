@@ -13,7 +13,7 @@ public class CarPojo implements Serializable {
 
     public boolean CurrentBooking;
 
-    public String InsuranceDate;
+    public String InsuranceStartDate;
 
     public String LastServiceDate;
 
@@ -21,7 +21,9 @@ public class CarPojo implements Serializable {
 
     public String Model;
 
-    public String PUCExpiryDate;
+    public String PUCStartDate;
+
+    public String PermitsStartDate;
 
     public String RegistrationNo;
 

@@ -44,7 +44,7 @@ public class CentreServiceTypeTile extends LinearLayout {
         imgServiceIcon = (ImageView) parentView.findViewById(R.id.imgServiceIcon);
         txtServiceName = (TextView) parentView.findViewById(R.id.txtServiceName);
 
-        txtServiceName.setTypeface(Functions.getNormalFont(context));
+        txtServiceName.setTypeface(Functions.getRegularFont(context));
 
         txtServiceName.setText(serviceString);
 

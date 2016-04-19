@@ -78,7 +78,7 @@ public class CentreHeaderDetails extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtReviews.setTypeface(Functions.getNormalFont(context));
+        txtReviews.setTypeface(Functions.getRegularFont(context));
         txtDistance.setTypeface(Functions.getBoldFont(context));
         txtCentreName.setTypeface(Functions.getBoldFont(context));
 

@@ -1,4 +1,4 @@
-package com.rovertech.utomo.app.main.serviceDetail;
+package com.rovertech.utomo.app.main.serviceDetail.service;
 
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingDetailsResponse;

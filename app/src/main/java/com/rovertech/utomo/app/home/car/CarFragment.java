@@ -53,7 +53,7 @@ public class CarFragment extends Fragment implements CarView {
         init();
 
         presenter = new CarPresenterImpl(this);
-        presenter.fetchDashboard(getActivity(), carPojo);
+        presenter.fetchDashboard(getActivity(), carPojo, "", 0);
 
         return parentView;
     }
@@ -81,7 +81,15 @@ public class CarFragment extends Fragment implements CarView {
         // findview
         currentServiceTile = (CurrentServiceTile) parentView.findViewById(R.id.currentServiceTile);
         healthMeterTile = (HealthMeterTile) parentView.findViewById(R.id.healthMeterTile);
+
         serviceDateTile = (ServiceDateTile) parentView.findViewById(R.id.serviceDateTile);
+        serviceDateTile.setOnDateSetListener(new ServiceDateTile.onDateSetListener() {
+            @Override
+            public void setDate(String date, int mode) {
+                presenter.fetchDashboard(getActivity(), carPojo, date, mode);
+            }
+        });
+
         odometerTile = (OdometerTile) parentView.findViewById(R.id.odometerTile);
         performanceTile = (PerformanceTile) parentView.findViewById(R.id.performanceTile);
         sponsoredCenterSet = (SponsoredCenterSet) parentView.findViewById(R.id.sponsoredCenterSet);
