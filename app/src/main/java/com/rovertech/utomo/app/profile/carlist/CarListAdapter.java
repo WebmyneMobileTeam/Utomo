@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
@@ -65,12 +65,15 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
                         onDeleteListener.onDelete(carPojo.VehicleID);
                 }
             });
-            holder.carCardView.setOnClickListener(new View.OnClickListener() {
+
+            holder.txtEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Functions.showToast(context, "To be continued..");
+
+                    Functions.showSnack(v, "Edit Car");
                 }
             });
+
         }
     }
 
@@ -82,12 +85,13 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public CarItemTile carItemTile;
-        public TextView txtDelete;
+        public ImageView txtDelete, txtEdit;
         public CardView carCardView;
 
         public ViewHolder(View view) {
             super(view);
-            txtDelete = (TextView) view.findViewById(R.id.txtDelete);
+            txtDelete = (ImageView) view.findViewById(R.id.txtDelete);
+            txtEdit = (ImageView) view.findViewById(R.id.txtEdit);
             carCardView = (CardView) view.findViewById(R.id.carCardView);
         }
     }

@@ -2,7 +2,6 @@ package com.rovertech.utomo.app.main.serviceDetail;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
@@ -166,10 +165,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         switch (v.getId()) {
 
             case R.id.bottomCall:
-                Intent dialIntent = new Intent();
-                dialIntent.setAction(Intent.ACTION_DIAL);
-                dialIntent.setData(Uri.parse("tel:" + userBookingData.ContactNo));
-                startActivity(dialIntent);
+                Functions.makePhoneCall(this, userBookingData.ContactNo);
                 break;
 
             case R.id.bottomDirection:

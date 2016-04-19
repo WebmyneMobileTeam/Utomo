@@ -114,6 +114,7 @@ public class ServiceCentreTile extends LinearLayout {
 
                 Intent intent = new Intent(context, CentreDetailsActivity.class);
                 intent.putExtra("centreId", centerPojo.ServiceCentreID);
+                intent.putExtra("DistanceKM", centerPojo.DistanceKM);
                 context.startActivity(intent);
 
 

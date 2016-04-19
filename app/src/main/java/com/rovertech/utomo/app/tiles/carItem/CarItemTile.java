@@ -21,8 +21,8 @@ public class CarItemTile extends LinearLayout {
     private View parentView;
     private CardView carCardView;
 
-    private TextView txtCarName, txtVehicleNo, txtOdometerValue, txtDelete;
-    private ImageView imgCar;
+    private TextView txtCarName, txtVehicleNo, txtOdometerValue;
+    private ImageView imgCar, txtDelete;
 
     private CarPojo carPojo;
 
@@ -50,11 +50,10 @@ public class CarItemTile extends LinearLayout {
         txtCarName.setTypeface(Functions.getBoldFont(context));
         txtVehicleNo.setTypeface(Functions.getRegularFont(context));
         txtOdometerValue.setTypeface(Functions.getRegularFont(context));
-        txtDelete.setTypeface(Functions.getBoldFont(context));
     }
 
     private void findViewById() {
-        txtDelete = (TextView) parentView.findViewById(R.id.txtDelete);
+        txtDelete = (ImageView) parentView.findViewById(R.id.txtDelete);
         carCardView = (CardView) parentView.findViewById(R.id.carCardView);
         txtCarName = (TextView) parentView.findViewById(R.id.txtCarName);
         imgCar = (ImageView) parentView.findViewById(R.id.imgCar);

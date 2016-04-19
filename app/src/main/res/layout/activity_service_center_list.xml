@@ -144,7 +144,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_map_black_24dp"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/theme_purple_accent"
         app:fabSize="normal"
         app:rippleColor="@color/colorPrimaryDark" />
 

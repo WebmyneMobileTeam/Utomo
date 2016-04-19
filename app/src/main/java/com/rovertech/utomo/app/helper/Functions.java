@@ -350,6 +350,12 @@ public class Functions {
         alert.show();
     }
 
+    public static void makePhoneCall(Context context, String callNo) {
+        Intent dialIntent = new Intent();
+        dialIntent.setAction(Intent.ACTION_DIAL);
+        dialIntent.setData(Uri.parse("tel:" + callNo));
+        context.startActivity(dialIntent);
+    }
 
     public static int getColor(Context context, float f) {
 

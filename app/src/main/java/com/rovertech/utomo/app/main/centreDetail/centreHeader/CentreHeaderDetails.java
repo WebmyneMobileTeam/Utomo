@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.centreDetail.ImageAdapter;
+import com.rovertech.utomo.app.main.centreDetail.centreReviews.CentreReviewsActivity;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
+import com.rovertech.utomo.app.main.centreDetail.offer.CentreOfferActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,7 @@ public class CentreHeaderDetails extends LinearLayout {
     private List<String> images = new ArrayList<>();
     private TextView txtReviews, txtDistance, txtCentreName;
     private ImageView imgLeft, imgRight, imgOffer, imgCall, imgStar, imgLocation;
+    private LinearLayout distanceHolder;
 
     public CentreHeaderDetails(Context context) {
         super(context);
@@ -59,6 +63,7 @@ public class CentreHeaderDetails extends LinearLayout {
         imgCall = (ImageView) parentView.findViewById(R.id.imgCall);
         imgStar = (ImageView) parentView.findViewById(R.id.imgStar);
         imgLocation = (ImageView) parentView.findViewById(R.id.imgLocation);
+        distanceHolder = (LinearLayout) parentView.findViewById(R.id.distanceHolder);
 
         setTypeface();
 
@@ -89,11 +94,17 @@ public class CentreHeaderDetails extends LinearLayout {
         viewPager.setAdapter(adapter);
     }
 
-    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
+    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo, float distance) {
 
 
         if (centreDetailPojo.lstServiceCentreImage.size() > 0) {
 
+
+            if (centreDetailPojo.lstServiceCentreImage.size() == 1) {
+
+                imgLeft.setVisibility(GONE);
+                imgRight.setVisibility(GONE);
+            }
             for (int i = 0; i < centreDetailPojo.lstServiceCentreImage.size(); i++) {
                 images.add(centreDetailPojo.lstServiceCentreImage.get(i).ImageName);
             }
@@ -108,6 +119,8 @@ public class CentreHeaderDetails extends LinearLayout {
             @Override
             public void onClick(View v) {
 
+                Functions.fireIntent(context, CentreOfferActivity.class);
+
             }
         });
 
@@ -115,6 +128,7 @@ public class CentreHeaderDetails extends LinearLayout {
             @Override
             public void onClick(View v) {
 
+                Functions.makePhoneCall(context, centreDetailPojo.ContactPhoneNo1);
             }
         });
 
@@ -122,6 +136,8 @@ public class CentreHeaderDetails extends LinearLayout {
             @Override
             public void onClick(View v) {
 
+                PrefUtils.setFeedBack(context, centreDetailPojo.lstFeedBack);
+                Functions.fireIntent(context, CentreReviewsActivity.class);
             }
         });
         imgLocation.setOnClickListener(new OnClickListener() {
@@ -137,6 +153,15 @@ public class CentreHeaderDetails extends LinearLayout {
 
             }
         });
+
+        if (distance == 0) {
+            distanceHolder.setVisibility(GONE);
+
+        } else {
+            distanceHolder.setVisibility(VISIBLE);
+            txtReviews.setText(String.format("%.1f Km", distance));
+
+        }
 
 
     }

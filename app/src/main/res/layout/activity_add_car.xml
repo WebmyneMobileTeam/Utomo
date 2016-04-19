@@ -23,14 +23,25 @@
                 android:id="@+id/imageSelectLayout"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@color/off_white">
+                android:background="@color/off_white"
+                android:elevation="4dp">
 
                 <ImageView
                     android:id="@+id/imageCar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_small_camera" />
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_edit"
+                    android:tint="@color/black" />
+
             </RelativeLayout>
 
             <android.support.v7.widget.CardView
@@ -39,6 +50,7 @@
                 android:layout_marginTop="8dp">
 
                 <EditText
+
                     android:id="@+id/edtVehicleNo"
                     style="@style/MyEditTextStyle"
                     android:digits="@string/digits"
@@ -171,7 +183,7 @@
                     android:id="@+id/edtServiceDate"
                     style="@style/MyEditTextStyle"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/ic_account"
+                    android:drawableLeft="@drawable/ic_action_today"
                     android:focusable="false"
                     android:hint="Add service Date"
                     android:longClickable="false" />
@@ -186,7 +198,7 @@
                     android:id="@+id/edtPUC"
                     style="@style/MyEditTextStyle"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/ic_account"
+                    android:drawableLeft="@drawable/ic_action_today"
                     android:focusable="false"
                     android:hint="PUC Date"
                     android:longClickable="false" />
@@ -201,7 +213,7 @@
                     android:id="@+id/edtInsuranceDate"
                     style="@style/MyEditTextStyle"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/ic_account"
+                    android:drawableLeft="@drawable/ic_action_today"
                     android:focusable="false"
                     android:hint="Insurance Date"
                     android:longClickable="false" />
@@ -216,7 +228,7 @@
                     android:id="@+id/edtPermitsDate"
                     style="@style/MyEditTextStyle"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/ic_account"
+                    android:drawableLeft="@drawable/ic_action_today"
                     android:focusable="false"
                     android:hint="Last Permits Date"
                     android:longClickable="false" />

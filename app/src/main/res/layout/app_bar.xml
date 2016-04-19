@@ -16,7 +16,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:text="Title"
-        android:textColor="@color/purple"
+        android:textColor="@color/white"
         android:textSize="@dimen/toolbar_textsize"
         android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
         android:layout_gravity="right"
         android:layout_marginRight="8dp"
         android:text="Skip"
-        android:textColor="@color/purple"
+        android:textColor="@color/white"
         android:textSize="@dimen/toolbar_textsize"
         android:textStyle="bold"
         android:visibility="gone" />

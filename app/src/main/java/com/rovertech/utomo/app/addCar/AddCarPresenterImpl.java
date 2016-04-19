@@ -67,7 +67,6 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     @Override
     public void selectPUCDate(Context context) {
         Calendar cal = Calendar.getInstance();
-
         DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
