@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.addCar;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -66,43 +67,40 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
     @Override
     public void selectPUCDate(Context context) {
-        Calendar cal = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                addcarView.setPUCDate(date);
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                addcarView.setPUCDate("");
-            }
-        });
-        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-        dialog.show();
+        Calendar now = Calendar.getInstance();
+        com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        addcarView.setPUCDate(date);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.setMaxDate(now);
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     @Override
     public void selectInsuranceDate(Context context) {
-        Calendar cal = Calendar.getInstance();
-
-        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                addcarView.setInsuranceDate(date);
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                addcarView.setInsuranceDate("");
-            }
-        });
-        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-        dialog.show();
+        Calendar now = Calendar.getInstance();
+        com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        addcarView.setInsuranceDate(date);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.setMaxDate(now);
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     @Override
@@ -217,22 +215,21 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
     @Override
     public void selectServiceDate(Context context) {
-        Calendar cal = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                addcarView.setServiceDate(date);
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                addcarView.setServiceDate("");
-            }
-        });
-        dialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-        dialog.show();
+        Calendar now = Calendar.getInstance();
+        com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        addcarView.setServiceDate(date);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.setMaxDate(now);
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     @Override
@@ -361,27 +358,24 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
     @Override
     public void selectPermitsDate(Context context) {
-        Calendar cal = Calendar.getInstance();
-
-        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                addcarView.setPermitsDate(date);
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                addcarView.setPermitsDate("");
-            }
-        });
-        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-        dialog.show();
+        Calendar now = Calendar.getInstance();
+        com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
+                new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        addcarView.setPermitsDate(date);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.setMaxDate(now);
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {
-
         String doResponse = null;
         HttpEntity entity;
 

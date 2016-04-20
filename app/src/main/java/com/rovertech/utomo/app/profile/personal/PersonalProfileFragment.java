@@ -88,7 +88,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         edtCity.setText(profile.CityName);
         edtName.setText(profile.Name);
         edtDOB.setText(profile.DOB);
-        edtAddress.setText(profile.Address);
+        edtAddress.setText(profile.Address.trim());
         if (profile.ProfileImg != null && profile.ProfileImg.length() > 0)
             Glide.with(getActivity()).load(profile.ProfileImg).into(imagePerson);
     }

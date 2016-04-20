@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
@@ -34,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private View parentView;
     private AccountPresenter presenter;
     private TextView btnLogin;
-    private IconEditText edtMobileNumber, edtName, edtEmail, edtPassword;
+    private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword;
     private AutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
     private LinearLayout socialBar, cityLayout;
@@ -58,10 +59,10 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
-        edtMobileNumber = (IconEditText) findViewById(R.id.edtMobileNumber);
-        edtEmail = (IconEditText) findViewById(R.id.edtEmail);
-        edtName = (IconEditText) findViewById(R.id.edtName);
-        edtPassword = (IconEditText) findViewById(R.id.edtPassword);
+        edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
+        edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);
+        edtName = (MaterialEditText) findViewById(R.id.edtName);
+        edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);
 
         txtOr = (TextView) findViewById(R.id.txtOr);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
@@ -70,10 +71,6 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         parentView = findViewById(android.R.id.content);
         btnLogin = (TextView) findViewById(R.id.btnLogin);
         btnLogin.setText("Sign Up");
-        edtEmail = (IconEditText) findViewById(R.id.edtEmail);
-        edtMobileNumber = (IconEditText) findViewById(R.id.edtMobileNumber);
-        edtName = (IconEditText) findViewById(R.id.edtName);
-        edtPassword = (IconEditText) findViewById(R.id.edtPassword);
 
         edtEmail.setVisibility(View.VISIBLE);
         edtName.setVisibility(View.VISIBLE);

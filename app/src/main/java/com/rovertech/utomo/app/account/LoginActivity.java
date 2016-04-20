@@ -23,6 +23,7 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
@@ -31,7 +32,6 @@ import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.widget.IconEditText;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private AccountPresenter presenter;
     private ImageView imgFb, imgGoogle;
     private TextView btnLogin;
-    private IconEditText edtMobileNumber, edtPassword, edtName, edtEmail;
+    private MaterialEditText edtMobileNumber, edtPassword, edtName, edtEmail;
     private ProgressDialog progressDialog;
     private LinearLayout socialBar, cityLayout;
 
@@ -130,8 +130,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         cityLayout.setVisibility(View.GONE);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
-        edtEmail = (IconEditText) findViewById(R.id.edtEmail);
-        edtName = (IconEditText) findViewById(R.id.edtName);
+        edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);
+        edtName = (MaterialEditText) findViewById(R.id.edtName);
 
         txtOr = (TextView) findViewById(R.id.txtOr);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
@@ -142,8 +142,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
         btnLogin = (TextView) findViewById(R.id.btnLogin);
         btnLogin.setText("Login");
-        edtMobileNumber = (IconEditText) findViewById(R.id.edtMobileNumber);
-        edtPassword = (IconEditText) findViewById(R.id.edtPassword);
+        edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
+        edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);
 
         edtEmail.setVisibility(View.GONE);
         edtName.setVisibility(View.GONE);
