@@ -35,4 +35,5 @@
 
     <dimen name="odometer_width">74dp</dimen>
     <dimen name="odometer_height">156dp</dimen>
+    <dimen name="cardview_radius">5dp</dimen>
 </resources>
