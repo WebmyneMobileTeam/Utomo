@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+
     android:orientation="vertical"
     tools:context="com.rovertech.utomo.app.addCar.AddCarActivity">
 
@@ -44,224 +46,165 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.CardView
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtVehicleNo"
+                style="@style/MyEditTextStyle"
+                android:digits="@string/digits"
+                android:hint="Vehicle No"
+                android:inputType="textCapCharacters|textNoSuggestions|"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                custom:met_baseColor="@color/editTextColor"
+                custom:met_primaryColor="@color/editTextColor"
+                custom:met_floatingLabel="highlight"
+                custom:met_iconLeft="@drawable/ic_password" />
+
+
+            <LinearLayout
+                android:layout_marginLeft="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edtVehicleNo"
-                    style="@style/MyEditTextStyle"
-                    android:digits="@string/digits"
-                    android:drawableLeft="@drawable/ic_account"
-                    android:hint="Vehicle No"
-                    android:inputType="textCapCharacters|textNoSuggestions|"
-                    android:singleLine="true"
-                    android:textAllCaps="true" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/makeCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/makeSpinner"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="@dimen/edittext_padding"
+                    android:layout_marginRight="@dimen/edittext_padding"
+                    android:layout_weight="1"
+                    android:entries="@array/spinner_loading_array"
+                    android:overlapAnchor="false" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/edittext_padding"
-                        android:src="@drawable/ic_account" />
+                <ProgressBar
+                    android:id="@+id/makeProgressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="8dp" />
 
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/makeSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/edittext_padding"
-                        android:layout_marginRight="@dimen/edittext_padding"
-                        android:layout_weight="1"
-                        android:entries="@array/spinner_loading_array"
-                        android:overlapAnchor="false" />
+            </LinearLayout>
 
-                    <ProgressBar
-                        android:id="@+id/makeProgressBar"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="8dp" />
 
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
+                android:layout_marginLeft="48dp"
                 android:id="@+id/yearCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/yearSpinner"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="@dimen/edittext_padding"
+                    android:layout_marginRight="@dimen/edittext_padding"
+                    android:layout_weight="1"
+                    android:entries="@array/spinner_loading_array"
+                    android:overlapAnchor="false" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/edittext_padding"
-                        android:src="@drawable/ic_account" />
+                <ProgressBar
+                    android:id="@+id/yearProgressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="8dp" />
+            </LinearLayout>
 
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/yearSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/edittext_padding"
-                        android:layout_marginRight="@dimen/edittext_padding"
-                        android:layout_weight="1"
-                        android:entries="@array/spinner_loading_array"
-                        android:overlapAnchor="false" />
 
-                    <ProgressBar
-                        android:id="@+id/yearProgressBar"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="8dp" />
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
+                android:layout_marginLeft="48dp"
                 android:id="@+id/modelCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:visibility="gone">
 
-                <LinearLayout
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/modelSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/edittext_padding"
+                    android:layout_marginRight="@dimen/edittext_padding"
+                    android:layout_weight="1"
+                    android:entries="@array/spinner_loading_array"
+                    android:overlapAnchor="false" />
+
+                <ProgressBar
+                    android:id="@+id/modelProgressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="8dp" />
+            </LinearLayout>
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtServiceDate"
+                style="@style/MyEditTextStyle"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Add service Date"
+                android:longClickable="false"
+                custom:met_iconLeft="@drawable/ic_action_today" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtPUC"
+                style="@style/MyEditTextStyle"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="PUC Date"
+                android:longClickable="false"
+                custom:met_iconLeft="@drawable/ic_action_today" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtInsuranceDate"
+                style="@style/MyEditTextStyle"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Insurance Date"
+                android:longClickable="false"
+                custom:met_iconLeft="@drawable/ic_action_today" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtPermitsDate"
+                style="@style/MyEditTextStyle"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Last Permits Date"
+                android:longClickable="false"
+                custom:met_iconLeft="@drawable/ic_action_today" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/edtKms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:text="Odometer Reading" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/edittext_padding"
-                        android:src="@drawable/ic_account" />
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/modelSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/edittext_padding"
-                        android:layout_marginRight="@dimen/edittext_padding"
-                        android:layout_weight="1"
-                        android:entries="@array/spinner_loading_array"
-                        android:overlapAnchor="false" />
-
-                    <ProgressBar
-                        android:id="@+id/modelProgressBar"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="8dp" />
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtServiceDate"
-                    style="@style/MyEditTextStyle"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_action_today"
-                    android:focusable="false"
-                    android:hint="Add service Date"
-                    android:longClickable="false" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtPUC"
-                    style="@style/MyEditTextStyle"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_action_today"
-                    android:focusable="false"
-                    android:hint="PUC Date"
-                    android:longClickable="false" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtInsuranceDate"
-                    style="@style/MyEditTextStyle"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_action_today"
-                    android:focusable="false"
-                    android:hint="Insurance Date"
-                    android:longClickable="false" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/edtPermitsDate"
-                    style="@style/MyEditTextStyle"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_action_today"
-                    android:focusable="false"
-                    android:hint="Last Permits Date"
-                    android:longClickable="false" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.rovertech.utomo.app.widget.Odometer
+                    android:id="@+id/odometer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    custom:slots="6" />
 
-                    <TextView
-                        android:id="@+id/edtKms"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Odometer Reading" />
+            </LinearLayout>
 
-                    <com.rovertech.utomo.app.widget.Odometer
-                        android:id="@+id/odometer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        custom:slots="6" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
 
             <Button
                 android:id="@+id/btnAdd"

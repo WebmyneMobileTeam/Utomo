@@ -9,19 +9,19 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
 import com.rovertech.utomo.app.addCar.model.Vehicle;
@@ -40,7 +40,8 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     private View parentView;
     private RelativeLayout imageSelectLayout;
     private ImageView imageCar;
-    private EditText edtVehicleNo, edtServiceDate, edtPUC, edtInsuranceDate, edtPermitsDate;
+    private MaterialEditText edtVehicleNo, edtServiceDate, edtPUC, edtInsuranceDate, edtPermitsDate;
+
     private TextView edtKms;
     private AddCarPresenter presenter;
     private Odometer odometer;
@@ -49,7 +50,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     private ProgressBar makeProgressBar, yearProgressBar, modelProgressBar;
     private String selectedMake = "", selectedYear = "", selectedModel = "", selectModelYear = "";
 
-    private CardView yearCardView, modelCardView;
+    private LinearLayout yearCardView, modelCardView;
     private ProgressDialog progressDialog;
 
     private boolean isSkip;
@@ -141,8 +142,8 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         initToolbar();
 
-        yearCardView = (CardView) findViewById(R.id.yearCardView);
-        modelCardView = (CardView) findViewById(R.id.modelCardView);
+        yearCardView = (LinearLayout) findViewById(R.id.yearCardView);
+        modelCardView = (LinearLayout) findViewById(R.id.modelCardView);
         modelSpinner = (AppCompatSpinner) findViewById(R.id.modelSpinner);
         modelProgressBar = (ProgressBar) findViewById(R.id.modelProgressBar);
         yearProgressBar = (ProgressBar) findViewById(R.id.yearProgressBar);
@@ -154,12 +155,12 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         imageSelectLayout = (RelativeLayout) findViewById(R.id.imageSelectLayout);
         imageCar = (ImageView) findViewById(R.id.imageCar);
 
-        edtVehicleNo = (EditText) findViewById(R.id.edtVehicleNo);
+        edtVehicleNo = (MaterialEditText) findViewById(R.id.edtVehicleNo);
 
-        edtServiceDate = (EditText) findViewById(R.id.edtServiceDate);
-        edtPUC = (EditText) findViewById(R.id.edtPUC);
-        edtInsuranceDate = (EditText) findViewById(R.id.edtInsuranceDate);
-        edtPermitsDate = (EditText) findViewById(R.id.edtPermitsDate);
+        edtServiceDate = (MaterialEditText) findViewById(R.id.edtServiceDate);
+        edtPUC = (MaterialEditText) findViewById(R.id.edtPUC);
+        edtInsuranceDate = (MaterialEditText) findViewById(R.id.edtInsuranceDate);
+        edtPermitsDate = (MaterialEditText) findViewById(R.id.edtPermitsDate);
         edtKms = (TextView) findViewById(R.id.edtKms);
         odometer = (Odometer) findViewById(R.id.odometer);
 

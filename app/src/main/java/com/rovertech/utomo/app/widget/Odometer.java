@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -147,11 +148,12 @@ public class Odometer extends LinearLayout {
 
     public void setValue(String odometerReading) {
 
-        originalOdometerReading = odometerReading;
-
-        for (int i = 0; i < linearPicker.getChildCount(); i++) {
-            MaterialNumberPicker picker = (MaterialNumberPicker) linearPicker.getChildAt(i);
-            picker.setValue(Integer.parseInt(String.valueOf(odometerReading.charAt(i))));
+        if (!TextUtils.isEmpty(odometerReading)) {
+            originalOdometerReading = odometerReading;
+            for (int i = 0; i < linearPicker.getChildCount(); i++) {
+                MaterialNumberPicker picker = (MaterialNumberPicker) linearPicker.getChildAt(i);
+                picker.setValue(Integer.parseInt(String.valueOf(odometerReading.charAt(i))));
+            }
         }
     }
 

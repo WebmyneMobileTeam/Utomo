@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.model.BookingRequest;
 import com.rovertech.utomo.app.helper.Functions;
@@ -26,7 +26,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
     Context context;
     private TextView txtTitle;
     private ImageView imgClose;
-    private EditText edtAddress, edtArea, edtCity, edtZipCode;
+    private MaterialEditText edtAddress, edtArea, edtCity, edtZipCode;
     private CheckBox checkSame;
     private Button btnOk;
     private int addressType = 0;
@@ -59,10 +59,10 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         parentView = View.inflate(context, R.layout.layout_address_dialog, null);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
-        edtAddress = (EditText) parentView.findViewById(R.id.edtAddress);
-        edtArea = (EditText) parentView.findViewById(R.id.edtArea);
-        edtCity = (EditText) parentView.findViewById(R.id.edtCity);
-        edtZipCode = (EditText) parentView.findViewById(R.id.edtZipCode);
+        edtAddress = (MaterialEditText) parentView.findViewById(R.id.edtAddress);
+        edtArea = (MaterialEditText) parentView.findViewById(R.id.edtArea);
+        edtCity = (MaterialEditText) parentView.findViewById(R.id.edtCity);
+        edtZipCode = (MaterialEditText) parentView.findViewById(R.id.edtZipCode);
         btnOk = (Button) parentView.findViewById(R.id.btnOk);
         checkSame = (CheckBox) parentView.findViewById(R.id.checkSame);
 

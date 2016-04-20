@@ -171,7 +171,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
             if (googleMap == null || centerList == null) {
                 return;
             }
-
+            googleMap.clear();
             final HashMap<String, ServiceCenterPojo> integerServiceCenterPojoHashMap = new HashMap<>();
 
             int lastItem = centerList.size();
@@ -230,9 +230,13 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
                 @Override
                 public void onInfoWindowClick(Marker marker) {
                     final ServiceCenterPojo serviceCenterPojo = integerServiceCenterPojoHashMap.get(marker.getId());
-                    Intent intent = new Intent(context, CentreDetailsActivity.class);
-                    intent.putExtra("centreId", serviceCenterPojo.ServiceCentreID);
-                    context.startActivity(intent);
+                    if (serviceCenterPojo != null) {
+                        Intent intent = new Intent(context, CentreDetailsActivity.class);
+                        intent.putExtra("centreId", serviceCenterPojo.ServiceCentreID);
+                        context.startActivity(intent);
+                    } else {
+                        Toast.makeText(context, "Error, Please try again later", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         } catch (Exception e) {

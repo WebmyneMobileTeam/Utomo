@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.tiles.serviceDate;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,7 +101,7 @@ public class ServiceDateTile extends LinearLayout implements View.OnClickListene
     }
 
     public void setDate(String date) {
-        if (date.equals(""))
+        if (TextUtils.isEmpty(date))
             txtServiceDate.setText("NA");
         else
             txtServiceDate.setText(date);

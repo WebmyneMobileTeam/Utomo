@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/imageView"
                 android:padding="4dp"
-                android:text="Hello"
+
                 android:textSize="@dimen/L_TEXT" />
 
             <TextView
@@ -41,7 +41,6 @@
                 android:layout_toRightOf="@+id/imageView"
                 android:gravity="center"
                 android:padding="4dp"
-                android:text="Rating"
                 android:textColor="@color/black" />
 
             <!--<TextView-->

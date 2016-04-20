@@ -180,7 +180,8 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             }
         });
 
-        switchPickup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchPickup.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isPickup = isChecked;
