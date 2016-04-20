@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.rovertech.utomo.app.R;
+
+import java.util.regex.Pattern;
 
 
 public class IconEditText extends LinearLayout {
@@ -36,7 +39,7 @@ public class IconEditText extends LinearLayout {
      * The Hint text to display.
      */
     private String _hint;
-    private int _maxLength = 100;
+    private int mMaxLenth = 100;
 
     /**
      * Indicates if the EditText is for a password.
@@ -102,7 +105,7 @@ public class IconEditText extends LinearLayout {
             _iconResource = a.getResourceId(R.styleable.IconEditText_iconSrc, 0);
             _hint = a.getString(R.styleable.IconEditText_hint);
             _inputType = a.getInt(R.styleable.IconEditText_inputType, 0);
-            _maxLength = a.getInt(R.styleable.IconEditText_maxLength, 0);
+            mMaxLenth = a.getInt(R.styleable.IconEditText_maxLength, 0);
 
             Log.d(TAG, "{ _iconResource: " + _iconResource + ", _hint: " + _hint + ", _inputType:" + _inputType + "}");
         } catch (Exception ex) {
@@ -119,6 +122,7 @@ public class IconEditText extends LinearLayout {
     private void initialize() {
         Log.d(TAG, "initialize()");
 
+        boolean isEmailAddress = false;
         // Mandatory parameters
         this.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -151,16 +155,20 @@ public class IconEditText extends LinearLayout {
                 _editText.setInputType(InputType.TYPE_CLASS_NUMBER);
             } else if (_inputType == 2) {
                 _editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                isEmailAddress = true;
             } else if (_inputType == 3) {
                 _editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             } else {
                 _editText.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
             }
 
-            InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(_maxLength);
-            _editText.setFilters(fArray);
 
+            if (mMaxLenth == 100 || mMaxLenth == 0) {
+                mMaxLenth = 100;
+            }
+            if (!isEmailAddress) {
+                _editText.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(mMaxLenth)});
+            }
             this.addView(_editText);
         }
     }
@@ -199,5 +207,18 @@ public class IconEditText extends LinearLayout {
     public ImageView getImageView() {
         return _icon;
     }
+
+    InputFilter filter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            for (int i = start; i < end; ++i) {
+                if (!Pattern.compile("[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 ]*").matcher(String.valueOf(source.charAt(i))).matches()) {
+                    return "";
+                }
+            }
+
+            return null;
+        }
+    };
 
 }
