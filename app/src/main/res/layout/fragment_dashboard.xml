@@ -44,7 +44,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_book"
-        app:backgroundTint="@color/theme_purple_accent"
+        app:backgroundTint="@color/purple"
         app:fabSize="normal"
         app:layout_behavior="com.rovertech.utomo.app.helper.ScrollingFABBehavior"
         app:rippleColor="@color/colorPrimaryDark" />

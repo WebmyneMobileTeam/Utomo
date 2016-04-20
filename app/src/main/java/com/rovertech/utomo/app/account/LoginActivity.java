@@ -7,12 +7,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,6 +31,7 @@ import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.widget.IconEditText;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -46,14 +45,12 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private AccountPresenter presenter;
     private ImageView imgFb, imgGoogle;
     private TextView btnLogin;
-    private EditText edtMobileNumber, edtName, edtEmail, edtPassword;
+    private IconEditText edtMobileNumber, edtPassword, edtName, edtEmail;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar;
+    private LinearLayout socialBar, cityLayout;
 
     //google
     private GoogleApiClient mGoogleApiClient;
-
-    private CardView cardEmail, cardName, cardCity;
 
     private void initSocial() {
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -129,12 +126,12 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
         initToolbar();
 
-        cardCity = (CardView) findViewById(R.id.cardCity);
-        cardCity.setVisibility(View.GONE);
+        cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
+        cityLayout.setVisibility(View.GONE);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
-        cardEmail = (CardView) findViewById(R.id.cardEmail);
-        cardName = (CardView) findViewById(R.id.cardName);
+        edtEmail = (IconEditText) findViewById(R.id.edtEmail);
+        edtEmail = (IconEditText) findViewById(R.id.edtName);
 
         txtOr = (TextView) findViewById(R.id.txtOr);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
@@ -145,13 +142,11 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
         btnLogin = (TextView) findViewById(R.id.btnLogin);
         btnLogin.setText("Login");
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
-        edtMobileNumber = (EditText) findViewById(R.id.edtMobileNumber);
-        edtName = (EditText) findViewById(R.id.edtName);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        edtMobileNumber = (IconEditText) findViewById(R.id.edtMobileNumber);
+        edtPassword = (IconEditText) findViewById(R.id.edtPassword);
 
-        cardEmail.setVisibility(View.GONE);
-        cardName.setVisibility(View.GONE);
+        edtEmail.setVisibility(View.GONE);
+        edtEmail.setVisibility(View.GONE);
         txtSignUp.setVisibility(View.VISIBLE);
         txtLogin.setVisibility(View.GONE);
         socialBar.setVisibility(View.VISIBLE);
@@ -209,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
                 break;
 
             case R.id.btnLogin:
-                presenter.checkCredentials(Functions.toStr(edtMobileNumber), Functions.toStr(edtPassword));
+                presenter.checkCredentials(edtMobileNumber.getText().toString(), edtPassword.getText().toString());
                 break;
 
             case R.id.txtSignUp:
@@ -217,7 +212,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
                 break;
 
             case R.id.txtForget:
-                presenter.openForget(this, Functions.toStr(edtMobileNumber));
+                presenter.openForget(this, edtMobileNumber.getText().toString());
                 break;
         }
     }

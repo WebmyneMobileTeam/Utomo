@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +23,7 @@ import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.widget.IconEditText;
 
 import java.util.ArrayList;
 
@@ -35,13 +34,11 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private View parentView;
     private AccountPresenter presenter;
     private TextView btnLogin;
-    private EditText edtMobileNumber, edtName, edtEmail, edtPassword;
+    private IconEditText edtMobileNumber, edtName, edtEmail, edtPassword;
     private AutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar;
+    private LinearLayout socialBar, cityLayout;
     private int cityId = 0;
-
-    private CardView cardMobile, cardEmail, cardName, cardPassword, cardCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +55,13 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         initToolbar();
 
         edtCity = (AutoCompleteTextView) findViewById(R.id.edtCity);
-        cardCity = (CardView) findViewById(R.id.cardCity);
+        cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
-        cardMobile = (CardView) findViewById(R.id.cardMobile);
-        cardEmail = (CardView) findViewById(R.id.cardEmail);
-        cardName = (CardView) findViewById(R.id.cardName);
-        cardPassword = (CardView) findViewById(R.id.cardPassword);
+        edtMobileNumber = (IconEditText) findViewById(R.id.edtMobileNumber);
+        edtEmail = (IconEditText) findViewById(R.id.edtEmail);
+        edtName = (IconEditText) findViewById(R.id.edtName);
+        edtPassword = (IconEditText) findViewById(R.id.edtPassword);
 
         txtOr = (TextView) findViewById(R.id.txtOr);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
@@ -73,14 +70,14 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         parentView = findViewById(android.R.id.content);
         btnLogin = (TextView) findViewById(R.id.btnLogin);
         btnLogin.setText("Sign Up");
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
-        edtMobileNumber = (EditText) findViewById(R.id.edtMobileNumber);
-        edtName = (EditText) findViewById(R.id.edtName);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        edtEmail = (IconEditText) findViewById(R.id.edtEmail);
+        edtMobileNumber = (IconEditText) findViewById(R.id.edtMobileNumber);
+        edtName = (IconEditText) findViewById(R.id.edtName);
+        edtPassword = (IconEditText) findViewById(R.id.edtPassword);
 
-        cardEmail.setVisibility(View.VISIBLE);
-        cardName.setVisibility(View.VISIBLE);
-        cardCity.setVisibility(View.VISIBLE);
+        edtEmail.setVisibility(View.VISIBLE);
+        edtName.setVisibility(View.VISIBLE);
+        edtCity.setVisibility(View.VISIBLE);
         txtLogin.setVisibility(View.VISIBLE);
         edtCity.setVisibility(View.VISIBLE);
         txtSignUp.setVisibility(View.GONE);
@@ -116,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         txtOr.setTypeface(Functions.getBoldFont(this));
         btnLogin.setTypeface(Functions.getBoldFont(this));
         txtSignUp.setTypeface(Functions.getRegularFont(this));
-        //edtCity.setTypeface(Functions.getRegularFont(this));
+        edtCity.setTypeface(Functions.getRegularFont(this));
         txtLogin.setTypeface(Functions.getBoldFont(this));
         txtTc.setTypeface(Functions.getBoldFont(this));
         txtCustomTitle.setTypeface(Functions.getBoldFont(this));
@@ -139,14 +136,14 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin:
-                presenter.checkCredentials(Functions.toStr(edtMobileNumber), Functions.toStr(edtName), Functions.toStr(edtEmail), Functions.toStr(edtPassword), cityId);
+                presenter.checkCredentials(edtMobileNumber.getText().toString().trim(), edtName.getText().toString().trim(),
+                        edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), cityId);
                 break;
 
             case R.id.txtLogin:

@@ -48,7 +48,6 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
         ViewHolder viewHolder = new ViewHolder(v);
         viewHolder.carItemTile = new CarItemTile(context, v);
         return viewHolder;
-
     }
 
     @Override

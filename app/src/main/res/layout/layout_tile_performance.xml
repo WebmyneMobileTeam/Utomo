@@ -25,9 +25,9 @@
                 android:layout_marginTop="4dp"
                 android:layout_weight="1"
                 android:clickable="false"
-                android:padding="8dp"
-                android:textColor="@color/black"
+                android:padding="4dp"
                 android:text="Performance Metrices"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="@dimen/N_TEXT" />
 
             <ImageView
@@ -38,7 +38,7 @@
                 android:clickable="false"
                 android:src="@drawable/ic_arrow"
                 android:tint="@color/trans_blue"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -74,8 +74,9 @@
             android:layout_gravity="right"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="8dp"
+            android:text="More"
             android:textColor="@color/purple"
-            android:text="More" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

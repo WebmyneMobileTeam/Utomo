@@ -366,7 +366,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     public void showMapContainer() {
 
         mapContainer.setVisibility(View.VISIBLE);
-        fab.setImageResource(R.drawable.ic_list_black_24dp);
+        fab.setImageResource(R.drawable.ic_list_white);
     }
 
     @Override
@@ -388,7 +388,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     @Override
     public void showListLayout() {
 
-        fab.setImageResource(R.drawable.ic_map_black_24dp);
+        fab.setImageResource(R.drawable.ic_map_white);
         listLayout.setVisibility(View.VISIBLE);
     }
 
