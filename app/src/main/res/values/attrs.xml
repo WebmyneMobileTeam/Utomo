@@ -119,6 +119,7 @@
     <declare-styleable name="IconEditText">
         <attr name="iconSrc" format="reference" />
         <attr name="hint" format="string" />
+        <attr name="maxLength" format="integer" />
         <attr name="inputType" format="enum">
             <enum name="number" value="1" />
             <enum name="textEmailAddress" value="2" />

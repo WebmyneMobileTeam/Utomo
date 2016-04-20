@@ -3,13 +3,13 @@ package com.rovertech.utomo.app.widget.dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.widget.IconEditText;
 
 /**
  * Created by sagartahelyani on 17-03-2016.
@@ -19,7 +19,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     View parentView;
     Context context;
 
-    private EditText edtPassword, edtRePassword;
+    private IconEditText edtPassword, edtRePassword;
     private Button btnSubmit;
 
     onSubmitListener onSubmitListener;
@@ -40,8 +40,8 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
         dismissAnim(new SlideRightExit());
 
         parentView = View.inflate(context, R.layout.layout_change_pwd, null);
-        edtPassword = (EditText) parentView.findViewById(R.id.edtPassword);
-        edtRePassword = (EditText) parentView.findViewById(R.id.edtRePassword);
+        edtPassword = (IconEditText) parentView.findViewById(R.id.edtPassword);
+        edtRePassword = (IconEditText) parentView.findViewById(R.id.edtRePassword);
         btnSubmit = (Button) parentView.findViewById(R.id.btnSubmit);
 
         setTypeface();
@@ -79,11 +79,11 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     }
 
     private void checkValidation() {
-        if (Functions.toStr(edtPassword).length() == 0 || Functions.toStr(edtRePassword).length() == 0) {
+        if (edtPassword.getText().toString().trim().length() == 0 || edtRePassword.getText().toString().trim().length() == 0) {
             Functions.showToast(context, "Password can't be empty");
         } else {
-            if (Functions.toStr(edtPassword).equals(Functions.toStr(edtRePassword)) && onSubmitListener != null) {
-                onSubmitListener.onSubmit(Functions.toStr(edtPassword));
+            if (edtPassword.getText().toString().trim().equals(edtRePassword.getText().toString().trim()) && onSubmitListener != null) {
+                onSubmitListener.onSubmit(edtPassword.getText().toString().trim());
             } else {
                 Functions.showToast(context, "Password mismatch");
             }

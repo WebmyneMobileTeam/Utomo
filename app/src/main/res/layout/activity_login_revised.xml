@@ -80,6 +80,7 @@
                     android:padding="8dp"
                     widget:hint="Mobile Number"
                     widget:iconSrc="@drawable/ic_phone"
+                    widget:maxLength="10"
                     widget:inputType="number" />
 
                 <com.rovertech.utomo.app.widget.IconEditText
@@ -143,8 +144,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginTop="8dp"
-                    android:background="@color/orange"
-                    android:textColor="?android:textColorPrimary"
                     android:text="Login" />
 
                 <TextView

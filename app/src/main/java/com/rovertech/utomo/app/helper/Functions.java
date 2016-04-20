@@ -34,6 +34,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.widget.IconEditText;
 import com.rovertech.utomo.app.widget.dialog.SuccessDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -201,8 +202,6 @@ public class Functions {
     }
 
     public static String toStr(EditText editText) {
-
-
         return editText.getText().toString().trim();
     }
 

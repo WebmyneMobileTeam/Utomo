@@ -17,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -29,6 +28,7 @@ import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.profile.ProfileActivity;
+import com.rovertech.utomo.app.widget.IconEditText;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
     private View parentView;
     private ProfileActivity activity;
-    private EditText edtEmail, edtMobile, edtName, edtDOB, edtAddress;
+    private IconEditText edtEmail, edtMobile, edtName, edtDOB, edtAddress;
     private AutoCompleteTextView edtCity;
     private Button txtUpdate, txtChangePassword;
     private ImageView imagePerson;
@@ -108,12 +108,12 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         activity = (ProfileActivity) getActivity();
         imagePerson = (ImageView) parentView.findViewById(R.id.imagePerson);
         imageSelectLayout = (RelativeLayout) parentView.findViewById(R.id.imageSelectLayout);
-        edtDOB = (EditText) parentView.findViewById(R.id.edtDOB);
+        edtDOB = (IconEditText) parentView.findViewById(R.id.edtDOB);
         edtCity = (AutoCompleteTextView) parentView.findViewById(R.id.edtCity);
-        edtAddress = (EditText) parentView.findViewById(R.id.edtAddress);
-        edtEmail = (EditText) parentView.findViewById(R.id.edtEmail);
-        edtMobile = (EditText) parentView.findViewById(R.id.edtMobile);
-        edtName = (EditText) parentView.findViewById(R.id.edtName);
+        edtAddress = (IconEditText) parentView.findViewById(R.id.edtAddress);
+        edtEmail = (IconEditText) parentView.findViewById(R.id.edtEmail);
+        edtMobile = (IconEditText) parentView.findViewById(R.id.edtMobile);
+        edtName = (IconEditText) parentView.findViewById(R.id.edtName);
         txtChangePassword = (Button) parentView.findViewById(R.id.txtChangePassword);
         txtUpdate = (Button) parentView.findViewById(R.id.txtUpdate);
 
@@ -201,7 +201,8 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtUpdate:
-                personalProfilePresenter.doUpdate(getActivity(), Functions.toStr(edtName), Functions.toStr(edtDOB), Functions.toStr(edtAddress), cityId, file, Functions.toStr(edtEmail));
+                personalProfilePresenter.doUpdate(getActivity(), edtName.getText().toString().trim(), edtDOB.getText().toString().trim(),
+                        edtAddress.getText().toString().trim(), cityId, file, edtEmail.getText().toString().trim());
                 break;
 
             case R.id.edtDOB:

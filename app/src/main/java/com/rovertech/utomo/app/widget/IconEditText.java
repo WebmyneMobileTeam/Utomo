@@ -2,7 +2,9 @@ package com.rovertech.utomo.app.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,6 +36,7 @@ public class IconEditText extends LinearLayout {
      * The Hint text to display.
      */
     private String _hint;
+    private int _maxLength = 100;
 
     /**
      * Indicates if the EditText is for a password.
@@ -99,6 +102,7 @@ public class IconEditText extends LinearLayout {
             _iconResource = a.getResourceId(R.styleable.IconEditText_iconSrc, 0);
             _hint = a.getString(R.styleable.IconEditText_hint);
             _inputType = a.getInt(R.styleable.IconEditText_inputType, 0);
+            _maxLength = a.getInt(R.styleable.IconEditText_maxLength, 0);
 
             Log.d(TAG, "{ _iconResource: " + _iconResource + ", _hint: " + _hint + ", _inputType:" + _inputType + "}");
         } catch (Exception ex) {
@@ -153,6 +157,10 @@ public class IconEditText extends LinearLayout {
                 _editText.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
             }
 
+            InputFilter[] fArray = new InputFilter[1];
+            fArray[0] = new InputFilter.LengthFilter(_maxLength);
+            _editText.setFilters(fArray);
+
             this.addView(_editText);
         }
     }
@@ -163,7 +171,15 @@ public class IconEditText extends LinearLayout {
      * @return
      */
     public Editable getText() {
-        return _editText.getText();
+        return getEditText().getText();
+    }
+
+    public void setText(String text) {
+        getEditText().setText(text);
+    }
+
+    public void setTypeface(Typeface ttf) {
+        getEditText().setTypeface(ttf);
     }
 
     /**

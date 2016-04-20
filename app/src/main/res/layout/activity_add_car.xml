@@ -50,7 +50,6 @@
                 android:layout_marginTop="8dp">
 
                 <EditText
-
                     android:id="@+id/edtVehicleNo"
                     style="@style/MyEditTextStyle"
                     android:digits="@string/digits"

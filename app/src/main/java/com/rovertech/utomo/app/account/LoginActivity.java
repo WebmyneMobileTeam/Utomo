@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
         edtEmail = (IconEditText) findViewById(R.id.edtEmail);
-        edtEmail = (IconEditText) findViewById(R.id.edtName);
+        edtName = (IconEditText) findViewById(R.id.edtName);
 
         txtOr = (TextView) findViewById(R.id.txtOr);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         edtPassword = (IconEditText) findViewById(R.id.edtPassword);
 
         edtEmail.setVisibility(View.GONE);
-        edtEmail.setVisibility(View.GONE);
+        edtName.setVisibility(View.GONE);
         txtSignUp.setVisibility(View.VISIBLE);
         txtLogin.setVisibility(View.GONE);
         socialBar.setVisibility(View.VISIBLE);
