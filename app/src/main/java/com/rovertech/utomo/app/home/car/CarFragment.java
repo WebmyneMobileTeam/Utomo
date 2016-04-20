@@ -80,9 +80,8 @@ public class CarFragment extends Fragment implements CarView {
         mainContent = (LinearLayout) parentView.findViewById(R.id.mainContent);
         mainContent.setVisibility(View.GONE);
 
-        scrollView = (ScrollView) parentView.findViewById(R.id.scrollView);
-
         // findview
+        scrollView = (ScrollView) parentView.findViewById(R.id.scrollView);
         currentServiceTile = (CurrentServiceTile) parentView.findViewById(R.id.currentServiceTile);
         healthMeterTile = (HealthMeterTile) parentView.findViewById(R.id.healthMeterTile);
 

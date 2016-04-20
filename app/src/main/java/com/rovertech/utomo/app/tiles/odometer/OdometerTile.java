@@ -27,6 +27,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
     private TextView txtTitle;
     private Odometer odometer;
     private TextView txtReset, txtDone;
+    private LinearLayout changeLayout;
     private boolean isChange = false;
 
     Animator fadeIn, fadeOut, reverseFadeIn, reverseFadeOut;
@@ -65,7 +66,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
         // Regular Animation
         fadeIn = ObjectAnimator.ofFloat(txtReset, "translationY", 0, 150);
-        fadeOut = ObjectAnimator.ofFloat(txtDone, "translationY", -80, 0);
+        fadeOut = ObjectAnimator.ofFloat(changeLayout, "translationY", -80, 0);
 
         fadeIn.setDuration(900);
         fadeOut.setDuration(600);
@@ -75,7 +76,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
         loginSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                txtDone.setVisibility(VISIBLE);
+                changeLayout.setVisibility(VISIBLE);
             }
 
             @Override
@@ -97,7 +98,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
         // Reverse Animation
         reverseFadeIn = ObjectAnimator.ofFloat(txtReset, "translationY", 100, 0);
-        reverseFadeOut = ObjectAnimator.ofFloat(txtDone, "translationY", 0, -150);
+        reverseFadeOut = ObjectAnimator.ofFloat(changeLayout, "translationY", 0, -150);
 
         reverseFadeIn.setDuration(600);
         reverseFadeOut.setDuration(800);
@@ -112,7 +113,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                txtDone.setVisibility(GONE);
+                changeLayout.setVisibility(GONE);
             }
 
             @Override
@@ -132,6 +133,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
     }
 
     private void findViewById() {
+        changeLayout = (LinearLayout) parentView.findViewById(R.id.changeLayout);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtReset = (TextView) parentView.findViewById(R.id.txtReset);
         txtDone = (TextView) parentView.findViewById(R.id.txtDone);
