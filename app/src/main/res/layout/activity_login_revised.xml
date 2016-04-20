@@ -73,33 +73,42 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.rovertech.utomo.app.widget.IconEditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtMobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    widget:hint="Mobile Number"
-                    widget:iconSrc="@drawable/ic_phone"
-                    widget:maxLength="10"
-                    widget:inputType="number" />
+                    android:layout_margin="8dp"
+                    android:hint="Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_iconLeft="@drawable/ic_phone"
+                    widget:met_primaryColor="@color/editTextColor" />
 
-                <com.rovertech.utomo.app.widget.IconEditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    widget:hint="Enter Name"
-                    widget:iconSrc="@drawable/ic_account"
-                    widget:inputType="text" />
+                    android:layout_margin="8dp"
+                    android:hint="Enter Name"
+                    android:inputType="text"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_iconLeft="@drawable/ic_account"
+                    widget:met_primaryColor="@color/editTextColor" />
 
-                <com.rovertech.utomo.app.widget.IconEditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    widget:hint="Email (optional)"
-                    widget:iconSrc="@drawable/ic_email"
-                    widget:inputType="textEmailAddress" />
+                    android:layout_margin="8dp"
+                    android:hint="Email (optional)"
+                    android:inputType="textEmailAddress"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_iconLeft="@drawable/ic_email"
+                    widget:met_primaryColor="@color/editTextColor" />
 
                 <LinearLayout
                     android:id="@+id/cityLayout"
@@ -125,17 +134,19 @@
                         android:hint="City"
                         android:paddingLeft="12dp"
                         android:singleLine="true" />
-
                 </LinearLayout>
 
-                <com.rovertech.utomo.app.widget.IconEditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    widget:hint="Password"
-                    widget:iconSrc="@drawable/ic_password"
-                    widget:inputType="password" />
+                    android:layout_margin="8dp"
+                    android:hint="Password"
+                    android:inputType="password"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_iconLeft="@drawable/ic_password"
+                    widget:met_primaryColor="@color/editTextColor" />
 
                 <TextView
                     android:id="@+id/btnLogin"

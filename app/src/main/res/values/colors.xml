@@ -8,9 +8,12 @@
 
     <color name="silver">#c0c0c0</color>
     <color name="off_white">#e4e4e4</color>
-    <color name="black">#000000</color>
     <color name="odometer_background">#2C2C2C</color>
+    <color name="black">#000000</color>
     <color name="half_black">#4c4c4c</color>
+
+    <color name="editTextColor">@color/black</color>
+    <color name="editTextHintColor">@color/half_black</color>
 
     <!--<color name="purple">#512DA8</color>-->
     <color name="purple">#8E24AA</color>

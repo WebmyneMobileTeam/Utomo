@@ -103,4 +103,7 @@ dependencies {
 
     // date-time picker
     compile 'com.wdullaer:materialdatetimepicker:2.3.0'
+
+    // edittext
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
 }
