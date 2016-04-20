@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
@@ -55,7 +56,7 @@ public class CarFragment extends Fragment implements CarView {
         init();
 
         presenter = new CarPresenterImpl(this);
-        presenter.fetchDashboard(getActivity(), carPojo, "", 0);
+        presenter.fetchDashboard(getActivity(), carPojo, "", 0, "");
 
         return parentView;
     }
@@ -89,7 +90,7 @@ public class CarFragment extends Fragment implements CarView {
         serviceDateTile.setOnDateSetListener(new ServiceDateTile.onDateSetListener() {
             @Override
             public void setDate(String date, int mode) {
-                presenter.fetchDashboard(getActivity(), carPojo, date, mode);
+                presenter.fetchDashboard(getActivity(), carPojo, date, mode,"");
             }
         });
 
@@ -130,7 +131,15 @@ public class CarFragment extends Fragment implements CarView {
 
         healthMeterTile.setCarHealth(data.CarHealth);
         serviceDateTile.setDate(data.LastServiceDate);
+
         odometerTile.setOdometerReading(data.OdometerReading);
+        odometerTile.setOnOdometerChangeListener(new OdometerTile.onOdometerChangeListener() {
+            @Override
+            public void onChange(String odometer) {
+                presenter.fetchDashboard(getActivity(), carPojo, "", AppConstant.MODE_ODOMETER, odometer);
+            }
+        });
+
         performanceTile.setPerformance(data.lstPerformance);
 
         if (data.lstReferTile.size() == 0) {

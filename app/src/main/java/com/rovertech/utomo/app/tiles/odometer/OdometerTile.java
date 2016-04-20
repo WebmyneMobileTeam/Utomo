@@ -26,15 +26,22 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
 
     private TextView txtTitle;
     private Odometer odometer;
-    private TextView txtReset, txtDone;
+    private TextView txtReset, txtDone, txtCancel;
     private LinearLayout changeLayout;
     private boolean isChange = false;
+    private String originalOdometer;
 
     Animator fadeIn, fadeOut, reverseFadeIn, reverseFadeOut;
     AnimatorSet loginSet = new AnimatorSet();
     AnimatorSet reverseLoginSet = new AnimatorSet();
 
     OdometerPresenter presenter;
+
+    private onOdometerChangeListener onOdometerChangeListener;
+
+    public void setOnOdometerChangeListener(OdometerTile.onOdometerChangeListener onOdometerChangeListener) {
+        this.onOdometerChangeListener = onOdometerChangeListener;
+    }
 
     public OdometerTile(Context context) {
         super(context);
@@ -137,13 +144,16 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtReset = (TextView) parentView.findViewById(R.id.txtReset);
         txtDone = (TextView) parentView.findViewById(R.id.txtDone);
+        txtCancel = (TextView) parentView.findViewById(R.id.txtCancel);
         odometer = (Odometer) parentView.findViewById(R.id.odometer);
 
         txtReset.setTypeface(Functions.getBoldFont(context));
         txtDone.setTypeface(Functions.getBoldFont(context));
+        txtCancel.setTypeface(Functions.getBoldFont(context));
 
         txtReset.setOnClickListener(this);
         txtDone.setOnClickListener(this);
+        txtCancel.setOnClickListener(this);
 
         odometer.setOnOdometerChangeListener(new Odometer.onOdometerChangeListener() {
             @Override
@@ -166,6 +176,12 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
             case R.id.txtDone:
                 presenter.done(context);
                 break;
+
+            case R.id.txtCancel:
+                odometer.setValue(originalOdometer);
+                isChange = false;
+                reverseLoginSet.start();
+                break;
         }
     }
 
@@ -173,6 +189,8 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
     public void resetOdometer() {
         Toast.makeText(context, "Reset", Toast.LENGTH_SHORT).show();
         odometer.reset();
+        if (onOdometerChangeListener != null)
+            onOdometerChangeListener.onChange("000000");
     }
 
     @Override
@@ -180,10 +198,17 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
         Toast.makeText(context, "Change Reading", Toast.LENGTH_SHORT).show();
         isChange = false;
         reverseLoginSet.start();
+        if (onOdometerChangeListener != null)
+            onOdometerChangeListener.onChange(odometer.getValue());
 
     }
 
     public void setOdometerReading(String odometerReading) {
+        originalOdometer = odometerReading;
         odometer.setValue(odometerReading);
+    }
+
+    public interface onOdometerChangeListener {
+        public void onChange(String odometer);
     }
 }

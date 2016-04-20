@@ -28,7 +28,7 @@ public class CarPresenterImpl implements CarPresenter {
     }
 
     @Override
-    public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode) {
+    public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode, String odometer) {
         if (carView != null)
             carView.showProgress();
 
@@ -37,6 +37,8 @@ public class CarPresenterImpl implements CarPresenter {
         request.VehicleID = carPojo.VehicleID;
         request.ServiceDate = date;
         request.Mode = mode;
+        if (!odometer.isEmpty())
+            request.OdometerReading = Float.parseFloat(odometer);
 
         LocationFinder locationFinder = new LocationFinder(context);
 

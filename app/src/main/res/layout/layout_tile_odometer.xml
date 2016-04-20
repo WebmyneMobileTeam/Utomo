@@ -33,9 +33,10 @@
                 android:id="@+id/odometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
+                android:layout_marginRight="16dp"
                 android:gravity="center"
                 custom:slots="6" />
 
@@ -46,10 +47,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="2dp"
                 android:text="Reset"
-                android:textColor="@color/purple"
-                android:visibility="gone" />
+                android:textColor="@color/purple" />
 
             <LinearLayout
                 android:id="@+id/changeLayout"
@@ -59,13 +58,15 @@
                 android:layout_centerVertical="true"
                 android:layout_margin="2dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/txtDone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="8dp"
                     android:text="Apply"
                     android:textColor="@color/purple" />
 
@@ -74,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
                     android:text="Cancel"
                     android:textColor="@color/purple" />
 
