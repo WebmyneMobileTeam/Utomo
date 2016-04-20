@@ -27,6 +27,7 @@ public class BadgeHelper {
     public void displayBadge(int count) {
         if (count > 0) {
 
+
             ActionItemBadge.update(context, menuItem, menuItem.getIcon(), badgeStyles, count);
 
         } else {

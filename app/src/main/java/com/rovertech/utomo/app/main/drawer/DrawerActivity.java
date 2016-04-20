@@ -73,7 +73,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer_menu, menu);
 
-        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.YELLOW);
+        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
         presenter.setNotificationBadge(badgeHelper);
 
         return super.onCreateOptionsMenu(menu);
