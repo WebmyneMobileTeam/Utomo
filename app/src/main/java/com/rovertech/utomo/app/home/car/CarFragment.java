@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
@@ -32,6 +33,7 @@ public class CarFragment extends Fragment implements CarView {
     private CarPojo carPojo;
     private ProgressDialog progressDialog;
     private LinearLayout mainContent;
+    private ScrollView scrollView;
 
     private CurrentServiceTile currentServiceTile;
     private HealthMeterTile healthMeterTile;
@@ -77,6 +79,8 @@ public class CarFragment extends Fragment implements CarView {
         activity = (DrawerActivity) getActivity();
         mainContent = (LinearLayout) parentView.findViewById(R.id.mainContent);
         mainContent.setVisibility(View.GONE);
+
+        scrollView = (ScrollView) parentView.findViewById(R.id.scrollView);
 
         // findview
         currentServiceTile = (CurrentServiceTile) parentView.findViewById(R.id.currentServiceTile);

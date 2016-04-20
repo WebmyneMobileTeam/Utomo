@@ -55,7 +55,7 @@ public class PerformanceTileItem extends LinearLayout {
         txtReset.setTypeface(Functions.getBoldFont(context));
     }
 
-    public void setValue(Performance performance) {
+    public void setValue(final Performance performance) {
         txtItemName.setText(performance.CriteriaName);
 
         float f = Float.parseFloat(performance.PerformancePercentage);
@@ -64,6 +64,17 @@ public class PerformanceTileItem extends LinearLayout {
 
         txtProgressStatus.setText(Functions.getProgressStatus(context, f));
         txtProgressStatus.setTextColor(Functions.getColor(context, f));
+
+        txtReset.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (performance.getGroup() == 0) {
+                    Functions.showToast(context, "Reset");
+                } else {
+                    Functions.showToast(context, "Select date");
+                }
+            }
+        });
     }
 
 }
