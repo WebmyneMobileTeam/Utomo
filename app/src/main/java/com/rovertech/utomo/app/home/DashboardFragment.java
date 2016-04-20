@@ -148,12 +148,12 @@ public class DashboardFragment extends Fragment implements DashboardView {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
             }
 
             @Override
             public void onPageSelected(int position) {
 
+                PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
             }
 
             @Override
