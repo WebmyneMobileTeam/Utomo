@@ -34,6 +34,8 @@ public class PerformanceTileItem extends LinearLayout {
     public PerformanceTileItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+
+
         init();
     }
 
