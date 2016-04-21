@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.account;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,7 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -183,38 +186,48 @@ public class AccountPresenterImpl implements AccountPresenter {
     @Override
     public void loginGplus(Activity activity, GoogleApiClient mGoogleApiClient) {
         this.activity = activity;
+
+        validateServerClientID();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void onFacebookLogin(SocialRequest socialRequest, boolean isSuccess, String success, String error) {
         if (isSuccess) {
-            SocialLoginService service = UtomoApplication.retrofit.create(SocialLoginService.class);
-            Call<ManiBasicLoginSignUp> call = service.doSocialLogin(socialRequest);
-            call.enqueue(new Callback<ManiBasicLoginSignUp>() {
-                @Override
-                public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
-                    if (response.body() != null) {
-
-                        ManiBasicLoginSignUp output = response.body();
-
-                        if (output.SocialLoginSignUp.ResponseCode == 1) {
-                            PrefUtils.setUserFullProfileDetails(activity, output.SocialLoginSignUp.Data.get(0));
-                            PrefUtils.setLoggedIn(activity, true);
-                            LoginManager.getInstance().logOut();
-                            loginSuccess();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
-
-                }
-            });
+            doLogin(socialRequest);
         } else {
             accountView.onFacebookLoginError(error);
         }
+    }
+
+    private void doLogin(SocialRequest socialRequest) {
+
+        final ProgressDialog progressDialog = Functions.showProgressBarDiaog(activity);
+
+        SocialLoginService service = UtomoApplication.retrofit.create(SocialLoginService.class);
+        Call<ManiBasicLoginSignUp> call = service.doSocialLogin(socialRequest);
+        call.enqueue(new Callback<ManiBasicLoginSignUp>() {
+            @Override
+            public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
+                if (response.body() != null) {
+
+                    ManiBasicLoginSignUp output = response.body();
+
+                    if (output.SocialLoginSignUp.ResponseCode == 1) {
+                        PrefUtils.setUserFullProfileDetails(activity, output.SocialLoginSignUp.Data.get(0));
+                        PrefUtils.setLoggedIn(activity, true);
+                        LoginManager.getInstance().logOut();
+                        loginSuccess();
+                        progressDialog.dismiss();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
+                progressDialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -303,8 +316,10 @@ public class AccountPresenterImpl implements AccountPresenter {
                     accountView.hideProgress();
                     if (t.getCause() instanceof TimeoutException) {
                         Functions.showToast(activity, AppConstant.TIMEOUTERRROR);
+
                     }
 
+                    accountView.hideProgress();
                 }
             });
         }
@@ -410,6 +425,8 @@ public class AccountPresenterImpl implements AccountPresenter {
     private void onGoogleLogin(SocialRequest socialRequest, boolean isSuccess, String success, String error) {
         if (isSuccess) {
             accountView.onGoogleLoginSuccess(socialRequest, success);
+            doLogin(socialRequest);
+
         } else {
             accountView.onGoogleLoginError(error);
         }
@@ -418,23 +435,21 @@ public class AccountPresenterImpl implements AccountPresenter {
     @Override
     public void checkCredentials(String number, String pwd) {
 
-        setProgressBar();
 
-        boolean isError = false;
+
 
         if (number.length() != 10) {
-            isError = true;
             setNumberError();
+            return;
 
         } else if (pwd.length() == 0) {
-            isError = true;
             setPasswordError();
+            return;
 
         }
 
-        if (!isError) {
-            doNormalLogin(number, pwd);
-        }
+        setProgressBar();
+        doNormalLogin(number, pwd);
 
     }
 
@@ -495,7 +510,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     private void setNumberError() {
         if (accountView != null) {
-            accountView.hideProgress();
+            // accountView.hideProgress();
             accountView.numberError();
         }
     }
@@ -509,7 +524,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     private void setEmailError() {
         if (accountView != null) {
-            accountView.hideProgress();
+            //accountView.hideProgress();
             accountView.emailError();
         }
     }
@@ -522,40 +537,44 @@ public class AccountPresenterImpl implements AccountPresenter {
     @Override
     public void checkCredentials(String number, String name, String email, String pwd, int cityId) {
 
-        boolean isError = false;
 
         if (number.length() != 10) {
-            isError = true;
             setNumberError();
+            return;
 
-        } else if (name.length() == 0) {
-            isError = true;
+        }
+        if (name.length() == 0) {
             setNameError();
+            return;
 
-        } else if (pwd.length() < 6) {
-            isError = true;
-            setPasswordError();
-
-        } else if (email.length() != 0) {
+        }
+        if (TextUtils.isEmpty(email)) {
+            setEmailError();
+            return;
+        } else {
             if (!Functions.emailValidation(email)) {
-                isError = true;
+
                 setEmailError();
+                return;
             }
-
-        } else if (cityId == 0) {
-            isError = true;
+        }
+        if (cityId == 0) {
             setCityError();
+            return;
         }
+        if (pwd.length() < 8) {
+            setPasswordError();
+            return;
 
-        if (!isError) {
-            setProgressBar();
-            doSignUp(number, name, email, pwd, cityId);
         }
+        setProgressBar();
+        doSignUp(number, name, email, pwd, cityId);
+
     }
 
     private void setCityError() {
         if (accountView != null) {
-            accountView.hideProgress();
+            // accountView.hideProgress();
             accountView.cityError();
         }
     }
@@ -805,15 +824,26 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     private void setNameError() {
         if (accountView != null) {
-            accountView.hideProgress();
+            // accountView.hideProgress();
             accountView.nameError();
         }
     }
 
     private void setPasswordError() {
         if (accountView != null) {
-            accountView.hideProgress();
+            // accountView.hideProgress();
             accountView.pwdError();
+        }
+    }
+
+    private void validateServerClientID() {
+        String serverClientId = activity.getResources().getString(R.string.server_client_id);
+        String suffix = ".apps.googleusercontent.com";
+        if (!serverClientId.trim().endsWith(suffix)) {
+            String message = "Invalid server client ID in strings.xml, must end with " + suffix;
+
+
+            Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
         }
     }
 }

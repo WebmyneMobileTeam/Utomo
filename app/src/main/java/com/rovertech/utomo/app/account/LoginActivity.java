@@ -21,7 +21,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -62,9 +64,9 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initSocial();
-
         setContentView(R.layout.activity_login_revised);
 
+        //Functions.fireIntent(this, LaunchActivity.class);
         init();
 
         presenter = new AccountPresenterImpl(this, LoginActivity.this);
@@ -114,13 +116,18 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         printKey(); // key hash
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope((Scopes.PLUS_ME)))
+                .requestScopes(new Scope((Scopes.PROFILE)))
+                .requestScopes(new Scope((Scopes.PLUS_LOGIN)))
+                .requestIdToken(getString(R.string.server_client_id))
                 .requestEmail()
-                .requestScopes(new Scope(Scopes.PROFILE))
+                .requestProfile()
                 .build();
+
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .addApi(Plus.API)
                     .build();
@@ -221,12 +228,12 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void emailError() {
-        Functions.showSnack(parentView, "Invalid Email-id");
+        Functions.showErrorAlert(this, "Invalid Email-id", false);
     }
 
     @Override
     public void nameError() {
-        Functions.showSnack(parentView, "Please enter name");
+        Functions.showErrorAlert(this, "Please enter name", false);
     }
 
     @Override
@@ -251,7 +258,9 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void numberError() {
-        Functions.showSnack(parentView, "Invalid Mobile Number");
+
+        Functions.showErrorAlert(this, "Invalid Mobile number", false);
+
     }
 
     @Override
@@ -281,16 +290,18 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     @Override
     public void onGoogleLoginSuccess(SocialRequest socialRequest, String success) {
         Functions.jsonString(socialRequest);
+        disconnectGoogle();
     }
 
     @Override
     public void onGoogleLoginError(String error) {
         Functions.showToast(this, error);
+        disconnectGoogle();
     }
 
     @Override
     public void pwdError() {
-        Functions.showSnack(parentView, "Password Cannot Be Empty");
+        Functions.showErrorAlert(this, "Password should not be empty", false);
     }
 
     @Override
@@ -300,6 +311,20 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void cityError() {
+
+    }
+
+    @Override
+    public void disconnectGoogle() {
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        Log.d("TAG", "signOut:onResult:" + status);
+
+                    }
+                });
 
     }
 

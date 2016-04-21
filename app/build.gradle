@@ -112,3 +112,4 @@ dependencies {
     compile 'com.liulishuo.magicprogresswidget:library:1.0.8'
 
 }
+apply plugin: 'com.google.gms.google-services'

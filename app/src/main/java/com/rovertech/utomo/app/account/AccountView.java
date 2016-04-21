@@ -3,7 +3,6 @@ package com.rovertech.utomo.app.account;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
 import com.rovertech.utomo.app.account.model.SocialRequest;
-import com.rovertech.utomo.app.account.model.UserProfile;
 
 import java.util.ArrayList;
 
@@ -41,4 +40,6 @@ public interface AccountView {
     void setCityAdapter(CityAdapter adapter, ArrayList<City> cityArrayList);
 
     void cityError();
+
+    void disconnectGoogle();
 }

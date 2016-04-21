@@ -6,7 +6,7 @@
 
     <!--google-->
     <string name="project_id">950342667766</string>
-    <string name="server_client_id">950342667766-ff89n5skrn5lkn3k2372sh6iq8hrpn0h.apps.googleusercontent.com</string>
+    <string name="server_client_id">950342667766-tv9g153q2u7ga7qhg1nqboagth4go1b6.apps.googleusercontent.com</string>
 
     <integer name="duration_animation">350</integer>
     <string name="digits">ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890</string>
@@ -146,5 +146,6 @@
     <string name="item_booking_delete">Delete</string>
     <string name="failed">Failed, Please Try again.</string>
     <string name="Success">Success</string>
+    <string name="digits_text">[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ]</string>
 
 </resources>

@@ -6,6 +6,7 @@ package com.rovertech.utomo.app.helper;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,7 +18,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -26,7 +26,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -181,11 +180,11 @@ public class Functions {
     }
 
     public static void showSnack(View v, String msg) {
-        Snackbar.make(v, msg, Snackbar.LENGTH_LONG).show();
+        showErrorAlert(v.getContext(), msg, false);
     }
 
     public static void showToast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        showErrorAlert(context, msg, false);
     }
 
     public static void rotateViewClockwise(ImageView imageview) {
@@ -214,7 +213,6 @@ public class Functions {
     public static void showErrorAlert(final Context context, String msg, final boolean isFinish) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle("Error");
         alert.setMessage(msg);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -371,6 +369,11 @@ public class Functions {
         }
 
         return loadedColor;
+    }
+
+    public static ProgressDialog showProgressBarDiaog(Context context) {
+
+        return ProgressDialog.show(context, "", "waiting..", false, true);
     }
 
     public static String getProgressStatus(Context context, float f) {

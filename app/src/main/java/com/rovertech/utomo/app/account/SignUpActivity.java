@@ -37,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword;
     private MaterialAutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar;
+    private LinearLayout socialBar, cityLayout;
     private int cityId = 0;
 
     @Override
@@ -55,6 +55,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         initToolbar();
 
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
+        cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
         edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
@@ -100,6 +101,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
                     presenter.fetchCity(SignUpActivity.this, s.toString());
             }
         });
+
+
 
         setTypeface();
     }
@@ -239,7 +242,12 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void cityError() {
-        Functions.showSnack(parentView, "City Cannot Be Empty");
+        Functions.showSnack(parentView, "Invalid City Name. ");
+    }
+
+    @Override
+    public void disconnectGoogle() {
+
     }
 
     @Override

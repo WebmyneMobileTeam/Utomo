@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
     tools:context=".account.LoginActivity">
 
     <include layout="@layout/app_bar2" />
@@ -76,11 +77,12 @@
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtMobileNumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_margin="8dp"
                     android:hint="Mobile Number"
                     android:inputType="number"
                     android:maxLength="10"
+                    android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_phone"
@@ -88,11 +90,13 @@
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtName"
+                    android:maxLength="100"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_margin="8dp"
+                    android:digits="@string/digits_text"
                     android:hint="Enter Name"
-                    android:inputType="text"
+                    android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_account"
@@ -101,33 +105,45 @@
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_margin="8dp"
                     android:hint="Email (optional)"
                     android:inputType="textEmailAddress"
+                    android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_email"
                     widget:met_primaryColor="@color/editTextColor" />
 
-                <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-                    android:id="@+id/edtCity"
+                <LinearLayout
+                    android:id="@+id/cityLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:hint="City"
-                    widget:met_baseColor="@color/editTextColor"
-                    widget:met_floatingLabel="highlight"
-                    widget:met_iconLeft="@drawable/ic_map"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    android:layout_height="wrap_content">
+
+
+                    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+                        android:id="@+id/edtCity"
+                        android:layout_width="0dp"
+                        android:layout_height="?actionBarSize"
+                        android:layout_margin="8dp"
+                        android:layout_weight="0.9"
+                        android:hint="City"
+                        android:singleLine="true"
+                        widget:met_baseColor="@color/editTextColor"
+                        widget:met_floatingLabel="highlight"
+                        widget:met_iconLeft="@drawable/ic_map"
+                        widget:met_primaryColor="@color/editTextColor" />
+                </LinearLayout>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_margin="8dp"
                     android:hint="Password"
+                    android:maxLength="16"
                     android:inputType="textPassword"
+                    android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_password"
