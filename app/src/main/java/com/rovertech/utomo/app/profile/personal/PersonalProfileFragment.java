@@ -15,12 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
@@ -28,7 +29,6 @@ import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.profile.ProfileActivity;
-import com.rovertech.utomo.app.widget.IconEditText;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
     private View parentView;
     private ProfileActivity activity;
-    private IconEditText edtEmail, edtMobile, edtName, edtDOB, edtAddress;
-    private AutoCompleteTextView edtCity;
+    private MaterialEditText edtEmail, edtMobile, edtName, edtDOB, edtAddress;
+    private MaterialAutoCompleteTextView edtCity;
     private Button txtUpdate, txtChangePassword;
     private ImageView imagePerson;
     private RelativeLayout imageSelectLayout;
@@ -108,12 +108,12 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         activity = (ProfileActivity) getActivity();
         imagePerson = (ImageView) parentView.findViewById(R.id.imagePerson);
         imageSelectLayout = (RelativeLayout) parentView.findViewById(R.id.imageSelectLayout);
-        edtDOB = (IconEditText) parentView.findViewById(R.id.edtDOB);
-        edtCity = (AutoCompleteTextView) parentView.findViewById(R.id.edtCity);
-        edtAddress = (IconEditText) parentView.findViewById(R.id.edtAddress);
-        edtEmail = (IconEditText) parentView.findViewById(R.id.edtEmail);
-        edtMobile = (IconEditText) parentView.findViewById(R.id.edtMobile);
-        edtName = (IconEditText) parentView.findViewById(R.id.edtName);
+        edtDOB = (MaterialEditText) parentView.findViewById(R.id.edtDOB);
+        edtCity = (MaterialAutoCompleteTextView) parentView.findViewById(R.id.edtCity);
+        edtAddress = (MaterialEditText) parentView.findViewById(R.id.edtAddress);
+        edtEmail = (MaterialEditText) parentView.findViewById(R.id.edtEmail);
+        edtMobile = (MaterialEditText) parentView.findViewById(R.id.edtMobile);
+        edtName = (MaterialEditText) parentView.findViewById(R.id.edtName);
         txtChangePassword = (Button) parentView.findViewById(R.id.txtChangePassword);
         txtUpdate = (Button) parentView.findViewById(R.id.txtUpdate);
 
