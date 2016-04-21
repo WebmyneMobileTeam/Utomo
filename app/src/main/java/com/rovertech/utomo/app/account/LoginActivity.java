@@ -23,6 +23,7 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
@@ -47,7 +48,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private TextView btnLogin;
     private MaterialEditText edtMobileNumber, edtPassword, edtName, edtEmail;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar, cityLayout;
+    private LinearLayout socialBar;
+    private MaterialAutoCompleteTextView edtCity;
 
     //google
     private GoogleApiClient mGoogleApiClient;
@@ -126,8 +128,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
         initToolbar();
 
-        cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
-        cityLayout.setVisibility(View.GONE);
+        edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
+        edtCity.setVisibility(View.GONE);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
         edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);

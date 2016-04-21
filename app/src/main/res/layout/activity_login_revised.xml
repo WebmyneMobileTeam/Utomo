@@ -77,7 +77,7 @@
                     android:id="@+id/edtMobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:hint="Mobile Number"
                     android:inputType="number"
                     android:maxLength="10"
@@ -90,7 +90,7 @@
                     android:id="@+id/edtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:hint="Enter Name"
                     android:inputType="text"
                     widget:met_baseColor="@color/editTextColor"
@@ -102,7 +102,7 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:hint="Email (optional)"
                     android:inputType="textEmailAddress"
                     widget:met_baseColor="@color/editTextColor"
@@ -110,37 +110,22 @@
                     widget:met_iconLeft="@drawable/ic_email"
                     widget:met_primaryColor="@color/editTextColor" />
 
-                <LinearLayout
-                    android:id="@+id/cityLayout"
+                <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+                    android:id="@+id/edtCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="16dp">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.1"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_map" />
-
-                    <AutoCompleteTextView
-                        android:id="@+id/edtCity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="0.9"
-                        android:hint="City"
-                        android:paddingLeft="12dp"
-                        android:singleLine="true" />
-                </LinearLayout>
+                    android:layout_margin="4dp"
+                    android:hint="City"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_iconLeft="@drawable/ic_map"
+                    widget:met_primaryColor="@color/editTextColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:hint="Password"
                     android:inputType="textPassword"
                     widget:met_baseColor="@color/editTextColor"

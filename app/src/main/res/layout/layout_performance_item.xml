@@ -34,17 +34,14 @@
             android:text="Excellent"
             android:textSize="@dimen/N_TEXT" />
 
-        <com.rovertech.utomo.app.widget.progress.ProgressLayout
-            android:id="@+id/txtItemProgress"
+        <com.liulishuo.magicprogresswidget.MagicProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="2dp"
-            app:autoProgress="true"
-            app:currentProgress="30"
-            app:emptyColor="#f1f1f1"
-            app:loadedColor="@color/color40"
-            app:maxProgress="100" />
+            android:layout_height="8dp"
+            app:mpb_fill_color="@color/color40"
+            app:mpb_background_color="@color/off_white"
+            app:mpc_stroke_width="32dp"
+            app:mpb_flat="true"/>
 
     </LinearLayout>
 
@@ -64,9 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="2dp"
-        android:textColor="@color/purple"
         android:gravity="center_vertical"
         android:text="Reset"
+        android:textColor="@color/purple"
         android:textSize="@dimen/N_TEXT" />
 
 </LinearLayout>

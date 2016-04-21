@@ -184,10 +184,11 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 break;
 
             case R.id.fab:
-                if (isBottomSheetExpanded)
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+               /* if (isBottomSheetExpanded)
                     behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 else
-                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);*/
                 break;
 
             case R.id.bottomCancelReq:

@@ -21,7 +21,7 @@ android {
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.rovertech.utomo"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -74,6 +74,7 @@ dependencies {
 
     // expandable layout
     compile 'com.github.aakira:expandable-layout:1.3.0@aar'
+
     // searchview
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
 
@@ -106,4 +107,8 @@ dependencies {
 
     // edittext
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+
+    // progress bar
+    compile 'com.liulishuo.magicprogresswidget:library:1.0.8'
+
 }

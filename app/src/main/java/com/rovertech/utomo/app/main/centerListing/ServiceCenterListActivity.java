@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
 import com.rovertech.utomo.app.account.model.City;
@@ -44,7 +45,7 @@ import java.util.List;
 public class ServiceCenterListActivity extends AppCompatActivity implements ServiceCentreView, View.OnClickListener {
 
     private TextView txtCustomTitle, txtNoData;
-    private AutoCompleteTextView edtCity;
+    private MaterialAutoCompleteTextView edtCity;
     private Button btnSearch;
     private ImageView imgFilter;
     private LinearLayout searchLayout, listLayout;
@@ -102,7 +103,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         initToolbar();
 
-        edtCity = (AutoCompleteTextView) findViewById(R.id.edtCity);
+        edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
         btnSearch = (Button) findViewById(R.id.btnSearch);
         txtNoData = (TextView) findViewById(R.id.txtNoData);
         imgFilter = (ImageView) findViewById(R.id.imgFilter);

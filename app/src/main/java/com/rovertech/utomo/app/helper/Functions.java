@@ -34,7 +34,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.widget.IconEditText;
 import com.rovertech.utomo.app.widget.dialog.SuccessDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -378,7 +377,7 @@ public class Functions {
 
         String status;
 
-        if (f <= 10) {
+        if (f < 10 && f >= 0) {
             status = context.getString(R.string.urgent);
         } else if (f > 10 && f <= 40) {
             status = context.getString(R.string.need);

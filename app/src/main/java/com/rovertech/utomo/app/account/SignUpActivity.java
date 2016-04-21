@@ -11,10 +11,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
@@ -24,7 +24,6 @@ import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.widget.IconEditText;
 
 import java.util.ArrayList;
 
@@ -36,9 +35,9 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private AccountPresenter presenter;
     private TextView btnLogin;
     private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword;
-    private AutoCompleteTextView edtCity;
+    private MaterialAutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar, cityLayout;
+    private LinearLayout socialBar;
     private int cityId = 0;
 
     @Override
@@ -55,8 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
         initToolbar();
 
-        edtCity = (AutoCompleteTextView) findViewById(R.id.edtCity);
-        cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
+        edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
         edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);

@@ -2,6 +2,7 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:widget="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,19 +31,16 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cardCity"
+                    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+                        android:id="@+id/edtCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/edtCity"
-                            style="@style/MyEditTextStyle"
-                            android:drawableLeft="@drawable/ic_map"
-                            android:hint="City"
-                            android:singleLine="true" />
-                    </android.support.v7.widget.CardView>
+                        android:layout_margin="4dp"
+                        android:hint="City"
+                        widget:met_baseColor="@color/editTextColor"
+                        widget:met_floatingLabel="highlight"
+                        widget:met_iconLeft="@drawable/ic_map"
+                        widget:met_primaryColor="@color/editTextColor" />
 
                     <Button
                         android:id="@+id/btnSearch"

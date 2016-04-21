@@ -273,7 +273,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                     if (accountView != null)
                         accountView.hideProgress();
 
-                    if (response == null) {
+                    if (response.body() == null) {
                         Functions.showToast(activity, "Error occurred.");
 
                     } else {
