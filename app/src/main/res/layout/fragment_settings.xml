@@ -14,11 +14,12 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/TitleTextStyle"
                 android:id="@+id/txtNotification"
+                style="@style/TitleTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="16dp"
+                android:gravity="center"
                 android:text="Notification Settings"
                 android:textSize="@dimen/M_TEXT" />
 
@@ -28,8 +29,8 @@
                 android:id="@+id/switchOffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:padding="8dp"
+
+                android:padding="16dp"
                 android:text="Offers"
                 android:textSize="@dimen/M_TEXT" />
 
@@ -37,8 +38,8 @@
                 android:id="@+id/switchBooking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:padding="8dp"
+
+                android:padding="16dp"
                 android:text="Booking Status"
                 android:textSize="@dimen/M_TEXT" />
 

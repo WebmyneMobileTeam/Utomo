@@ -88,6 +88,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         main_content = (CoordinatorLayout) findViewById(R.id.main_content);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setCollapsedTitleTypeface(Functions.getBoldFont(this));
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
 
         headerDetails = (ServiceHeaderDetails) findViewById(R.id.headerDetails);
         mainDetails = (ServiceMainDetails) findViewById(R.id.mainDetails);
