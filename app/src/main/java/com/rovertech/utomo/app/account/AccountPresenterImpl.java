@@ -606,6 +606,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                             } catch (Exception ex) {
                                 GCM_ID = "";
                             }
+
                             return GCM_ID;
                         }
 
