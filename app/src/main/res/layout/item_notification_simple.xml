@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/booking_card_margin"
+    android:layout_marginRight="@dimen/booking_card_margin"
+    android:layout_marginTop="@dimen/booking_card_margin">
+
+
+    <com.alexzh.circleimageview.CircleImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/car" />
+
+
+</android.support.v7.widget.CardView>
