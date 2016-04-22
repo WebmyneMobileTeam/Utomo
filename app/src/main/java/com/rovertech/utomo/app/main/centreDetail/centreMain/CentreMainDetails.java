@@ -94,6 +94,7 @@ public class    CentreMainDetails extends LinearLayout {
         txtCentreName.setText(String.format("%s", centreDetailPojo.ServiceCentreName));
         ratingBar.setRating(centreDetailPojo.Rating);
         txtCentreInfo.setText(String.format("%s", centreDetailPojo.Expertise));
+
         if (centreDetailPojo.IsBodyWash) {
             ServiceChip serviceChip = new ServiceChip(context, "Body Shop");
             serviceFlowLayout.addView(serviceChip, params);

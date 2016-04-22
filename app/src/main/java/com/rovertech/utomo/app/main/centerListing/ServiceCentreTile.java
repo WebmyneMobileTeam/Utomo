@@ -3,7 +3,6 @@ package com.rovertech.utomo.app.main.centerListing;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +11,8 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
-import com.rovertech.utomo.app.tiles.centreServiceType.CentreServiceTypeTile;
+import com.rovertech.utomo.app.widget.FlowLayout;
+import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
 
 /**
  * Created by sagartahelyani on 10-03-2016.
@@ -21,12 +21,12 @@ public class ServiceCentreTile extends LinearLayout {
 
     Context context;
     private View parentView;
-    private LayoutInflater inflater;
-
-    private LinearLayout serviceTypeLayout, offerLayout;
-    private TextView txtCentreName, txtCentreAddress, txtRating, txtReviews, txtOffers, txtDistance;
+    private FlowLayout serviceTypeLayout;
+    private LinearLayout offerLayout;
+    private TextView txtCentreName, txtRating, txtReviews, txtOffers, txtDistance;
     private ImageView imgCenter;
     private CardView cardLayout;
+    LinearLayout.LayoutParams params;
 
     public ServiceCentreTile(Context context, View view) {
         super(context);
@@ -41,11 +41,12 @@ public class ServiceCentreTile extends LinearLayout {
 
         setTypeface();
 
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
     }
 
     private void setTypeface() {
         txtCentreName.setTypeface(Functions.getBoldFont(context));
-        txtCentreAddress.setTypeface(Functions.getRegularFont(context));
         txtRating.setTypeface(Functions.getRegularFont(context));
         txtReviews.setTypeface(Functions.getRegularFont(context));
         txtOffers.setTypeface(Functions.getRegularFont(context));
@@ -55,10 +56,10 @@ public class ServiceCentreTile extends LinearLayout {
 
     private void findViewById() {
         offerLayout = (LinearLayout) parentView.findViewById(R.id.offerLayout);
-        serviceTypeLayout = (LinearLayout) parentView.findViewById(R.id.serviceTypeLayout);
+        serviceTypeLayout = (FlowLayout) parentView.findViewById(R.id.serviceTypeLayout);
+        serviceTypeLayout.setOrientation(HORIZONTAL);
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
-        txtCentreAddress = (TextView) parentView.findViewById(R.id.txtCentreAddress);
         txtRating = (TextView) parentView.findViewById(R.id.txtRating);
         txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
         txtOffers = (TextView) parentView.findViewById(R.id.txtOffers);
@@ -69,22 +70,24 @@ public class ServiceCentreTile extends LinearLayout {
 
     public void setDetails(final ServiceCenterPojo centerPojo) {
 
+        Functions.LoadImage(imgCenter, centerPojo.ServiceCentreImage, context);
 
         serviceTypeLayout.removeAllViews();
         serviceTypeLayout.invalidate();
 
         txtCentreName.setText(centerPojo.ServiceCentreName);
-        txtCentreAddress.setText("");
 
         if (centerPojo.Rating != 0)
             txtRating.setText(String.format("%.1f", centerPojo.Rating));
         else
             txtRating.setVisibility(GONE);
 
-        if (centerPojo.ReviewCounter == 0)
-            txtReviews.setText("No Reviews");
-        else
+        if (centerPojo.ReviewCounter == 0) {
+            txtReviews.setVisibility(GONE);
+        } else {
+            txtReviews.setVisibility(VISIBLE);
             txtReviews.setText(String.format("%d Reviews", centerPojo.ReviewCounter));
+        }
 
         if (centerPojo.IsOfferAvaill) {
             offerLayout.setVisibility(VISIBLE);
@@ -93,31 +96,28 @@ public class ServiceCentreTile extends LinearLayout {
         }
 
         if (centerPojo.IsBodyWash) {
-            CentreServiceTypeTile tile = new CentreServiceTypeTile(context, "Body Shop");
-            serviceTypeLayout.addView(tile);
+            ServiceChip serviceChip = new ServiceChip(context, "Body Shop");
+            serviceTypeLayout.addView(serviceChip, params);
         }
 
         if (centerPojo.IsPickupDrop) {
-            CentreServiceTypeTile tile = new CentreServiceTypeTile(context, "Pickup-Drop");
-            serviceTypeLayout.addView(tile);
+            ServiceChip serviceChip = new ServiceChip(context, "Pickup-Drop off");
+            serviceTypeLayout.addView(serviceChip, params);
         }
 
         if (centerPojo.DistanceKM == 0) {
             txtDistance.setVisibility(GONE);
         } else {
-            txtDistance.setText(centerPojo.DistanceKM + " Km");
+            txtDistance.setText(String.format("%.1f Km", centerPojo.DistanceKM));
         }
 
         cardLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(context, CentreDetailsActivity.class);
                 intent.putExtra("centreId", centerPojo.ServiceCentreID);
                 intent.putExtra("DistanceKM", centerPojo.DistanceKM);
                 context.startActivity(intent);
-
-
             }
         });
     }

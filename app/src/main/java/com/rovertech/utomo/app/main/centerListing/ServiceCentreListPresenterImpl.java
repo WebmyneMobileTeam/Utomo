@@ -101,7 +101,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
                     centerArrayList = new ArrayList<ServiceCenterPojo>();
 
                     if (centreListResponse.FetchServiceCentreList.ResponseCode == 0) {
-                        onSubmit(new ArrayList<ServiceCenterPojo>(), 0);
+                        onSubmit(new ArrayList<ServiceCenterPojo>(), lastCentreId);
 
                     } else if (centreListResponse.FetchServiceCentreList.Data.size() > 0) {
 

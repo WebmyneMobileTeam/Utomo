@@ -28,26 +28,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp">
 
                     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
                         android:id="@+id/edtCity"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:hint="City"
+                        android:layout_weight="1"
+                        android:hint="Enter City"
+                        android:singleLine="true"
                         widget:met_baseColor="@color/editTextColor"
                         widget:met_floatingLabel="highlight"
                         widget:met_iconLeft="@drawable/ic_map"
                         widget:met_primaryColor="@color/editTextColor" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/btnSearch"
                         style="@style/MyButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_margin="8dp"
                         android:text="Search" />
 
@@ -57,7 +58,7 @@
                     android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="6dp">
+                    android:padding="4dp">
 
                     <android.support.v4.widget.SwipeRefreshLayout
                         android:id="@+id/mSwipeRefreshLayout"

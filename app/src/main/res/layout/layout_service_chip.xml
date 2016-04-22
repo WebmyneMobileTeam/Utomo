@@ -17,7 +17,7 @@
         android:id="@+id/txtServiceType"
         style="@style/MyTextStyleLabel"
         android:paddingRight="6dp"
-        android:text="Body Wash"
+        android:text="Body Shop"
         android:textSize="@dimen/VS_TEXT" />
 
 </LinearLayout>

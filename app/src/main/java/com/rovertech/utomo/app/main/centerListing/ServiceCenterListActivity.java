@@ -46,7 +46,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     private TextView txtCustomTitle, txtNoData;
     private MaterialAutoCompleteTextView edtCity;
-    private Button btnSearch;
+    private TextView btnSearch;
     private LinearLayout searchLayout, listLayout, emptyLayout;
     private RelativeLayout contentLayout;
     private ServiceCentreLisPresenter presenter;
@@ -124,7 +124,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         contentLayout = (RelativeLayout) findViewById(R.id.contentLayout);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch = (TextView) findViewById(R.id.btnSearch);
         txtNoData = (TextView) findViewById(R.id.txtNoData);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         txtFilterTitle = (TextView) findViewById(R.id.txtFilterTitle);
@@ -209,7 +209,6 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     }
 
     private void initMap() {
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -226,6 +225,10 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         mFooterLoadMoreView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mSwipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.color10,
+                R.color.color40,
+                R.color.color70,
+                R.color.color100);
         recyclerView = (FamiliarRecyclerView) findViewById(R.id.recyclerView);
         recyclerView.addFooterView(mFooterLoadMoreView);
 
@@ -279,7 +282,12 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
 
-        txtCustomTitle.setText("Nearby Centres");
+        if (type == AppConstant.BY_CITY) {
+            txtCustomTitle.setText(String.format("%s", "Centers by City"));
+        } else if (type == AppConstant.BY_LAT_LNG) {
+            txtCustomTitle.setText(String.format("%s", "Nearby Centres"));
+        }
+
         txtCustomTitle.setTypeface(Functions.getBoldFont(this));
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
