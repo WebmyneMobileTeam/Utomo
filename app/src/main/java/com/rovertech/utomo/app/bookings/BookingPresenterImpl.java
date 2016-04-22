@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -119,12 +121,23 @@ public class BookingPresenterImpl implements BookingPresenter {
 
                     RequestForBookingResponse requestForBooking = response.body().RequestForBooking;
                     if (requestForBooking.ResponseCode == 1) {
-                        Intent intent = new Intent(context, DrawerActivity.class);
-                        intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
-                        Functions.
-                                showDialog(context,
-                                        context.getResources().getString(R.string.Success),
-                                        requestForBooking.ResponseMessage, true, intent);
+
+                        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                        alert.setTitle(context.getResources().getString(R.string.Success));
+                        alert.setMessage(requestForBooking.ResponseMessage);
+                        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent intent = new Intent(context, DrawerActivity.class);
+                                intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                context.startActivity(intent);
+
+                            }
+                        });
+                        alert.show();
+
 
                     } else {
 

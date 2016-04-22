@@ -400,6 +400,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     @Override
     public void success() {
+
         Functions.showToast(this, "Your car has been added successfully.");
         if (isSkip)
             navigateToDashboard();

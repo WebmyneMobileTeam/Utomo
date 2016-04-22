@@ -26,6 +26,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -201,7 +202,8 @@ public class Functions {
     }
 
     public static void showToast(Context context, String msg) {
-        showErrorAlert(context, msg, false);
+      //  showErrorAlert(context, msg, false);
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void rotateViewClockwise(ImageView imageview) {

@@ -1,11 +1,10 @@
 package com.rovertech.utomo.app.main.drawer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -20,8 +19,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -66,6 +63,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private MenuItem offerItem;
     private String fragmentValue;
     private Menu mainMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

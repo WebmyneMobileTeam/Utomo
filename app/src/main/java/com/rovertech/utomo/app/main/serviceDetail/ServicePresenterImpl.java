@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -106,6 +107,7 @@ public class ServicePresenterImpl implements ServicePresenter {
                     CancelBookingOutput output = response.body();
                     if (output.CancleBooking.ResponseCode == 1) {
                         Functions.showToast(context, "Booking cancel successfully.");
+                        ((Activity) context).finish();
                     } else {
                         Functions.showToast(context, output.CancleBooking.ResponseMessage);
                     }

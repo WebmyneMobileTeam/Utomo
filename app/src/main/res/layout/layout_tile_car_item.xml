@@ -21,11 +21,11 @@
             android:layout_weight="1.5">
 
             <ImageView
-                android:padding="8dp"
+
                 android:id="@+id/imgCar"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:src="@drawable/car" />
 
 
