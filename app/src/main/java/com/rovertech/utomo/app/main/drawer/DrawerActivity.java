@@ -2,6 +2,8 @@ package com.rovertech.utomo.app.main.drawer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
@@ -75,6 +80,19 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
         badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
         presenter.setNotificationBadge(badgeHelper);
+
+        MenuItem item = menu.findItem(R.id.action_offers);
+        item.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+//        Animation mAnimation = new AlphaAnimation(1, 0);
+//        mAnimation.setDuration(500);
+//        mAnimation.setInterpolator(new LinearInterpolator());
+//        mAnimation.setRepeatCount(Animation.INFINITE);
+//        mAnimation.setRepeatMode(Animation.REVERSE);
+//
+//        MenuItem item = menu.findItem(R.id.action_offers);
+//        item.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+//        item.getActionView().startAnimation(mAnimation);
+
 
         return super.onCreateOptionsMenu(menu);
     }
