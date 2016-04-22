@@ -69,6 +69,8 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
 
+
+
                     Functions.showSnack(v, "Edit Car");
                 }
             });

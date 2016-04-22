@@ -19,6 +19,7 @@
         android:text="No Notifications" />
 
     <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
+        android:scrollbars="vertical"
         android:id="@+id/notificationsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -44,6 +44,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     public void setUpRecyclerView(NotificationAdapter notificationAdapter) {
 
         FamiliarRecyclerView notificationsFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
+        notificationsFamiliarRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         notificationsFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
         notificationsFamiliarRecyclerView.setAdapter(notificationAdapter);

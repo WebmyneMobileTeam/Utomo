@@ -2,15 +2,74 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/booking_card_margin"
-    android:layout_marginRight="@dimen/booking_card_margin"
-    android:layout_marginTop="@dimen/booking_card_margin">
+    android:layout_marginLeft="@dimen/notifications_margin"
+    android:layout_marginRight="@dimen/notifications_margin"
+    android:layout_marginTop="@dimen/notifications_margin">
 
 
-    <com.alexzh.circleimageview.CircleImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:src="@drawable/car" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <com.alexzh.circleimageview.CircleImageView
+            android:id="@+id/imgNotifications"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/car"  />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/imgNotifications"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtNotificationTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/txtNotificationsTimestamp"
+                    android:text="Maruti Service Centre"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txtNotificationTitle"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@+id/txtNotificationsTimestamp"
+                    android:text="You car is ready."
+                    android:textColor="?android:textColorSecondary" />
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/txtNotificationsTimestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="2:42 PM"
+
+                    android:textColor="?android:textColorSecondary" />
+
+            </RelativeLayout>
 
 
+        </LinearLayout>
+
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -56,7 +56,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 20;
     }
 
     public static class NotificationViewHolder extends RecyclerView.ViewHolder {
