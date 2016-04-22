@@ -48,13 +48,145 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails
                 android:id="@+id/mainDetails"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/linearExtraDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+
+                        android:id="@+id/bottomCall"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:actionBarSize"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_call"
+                            android:tint="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txtCall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:text="Call"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/M_TEXT" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bottomDirection"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:actionBarSize"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_directions"
+                            android:tint="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txtMap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:text="Directions"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/M_TEXT" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/bottomReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:actionBarSize"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_star_rate"
+                            android:tint="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txtReviews"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:text="Review"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/M_TEXT" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bottomCancelReq"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:actionBarSize"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_action_close"
+                            android:tint="@color/black"
+                            android:tintMode="src_atop" />
+
+                        <TextView
+                            android:id="@+id/txtCancel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:text="Cancel Booking"
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/M_TEXT" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -75,106 +207,106 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/bottomCall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+            <!--<LinearLayout-->
+            <!--android:id="@+id/bottomCall"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="16dp">-->
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginLeft="16dp"
-                    android:src="@drawable/ic_call"
-                    android:tint="@color/black" />
+            <!--<ImageView-->
+            <!--android:layout_width="22dp"-->
+            <!--android:layout_height="22dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:src="@drawable/ic_call"-->
+            <!--android:tint="@color/black" />-->
 
-                <TextView
-                    android:id="@+id/txtCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Call to Service Centre"
-                    android:textColor="@color/half_black"
-                    android:textSize="@dimen/M_TEXT" />
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/txtCall"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:text="Call to Service Centre"-->
+            <!--android:textColor="@color/half_black"-->
+            <!--android:textSize="@dimen/M_TEXT" />-->
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/bottomDirection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+            <!--<LinearLayout-->
+            <!--android:id="@+id/bottomDirection"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="16dp">-->
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginLeft="16dp"
-                    android:src="@drawable/ic_directions"
-                    android:tint="@color/black" />
+            <!--<ImageView-->
+            <!--android:layout_width="22dp"-->
+            <!--android:layout_height="22dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:src="@drawable/ic_directions"-->
+            <!--android:tint="@color/black" />-->
 
-                <TextView
-                    android:id="@+id/txtMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Directions"
-                    android:textColor="@color/half_black"
-                    android:textSize="@dimen/M_TEXT" />
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/txtMap"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:text="Directions"-->
+            <!--android:textColor="@color/half_black"-->
+            <!--android:textSize="@dimen/M_TEXT" />-->
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/bottomReview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+            <!--<LinearLayout-->
+            <!--android:id="@+id/bottomReview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="16dp">-->
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="16dp"
-                    android:src="@drawable/ic_star_rate"
-                    android:tint="@color/black" />
+            <!--<ImageView-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:src="@drawable/ic_star_rate"-->
+            <!--android:tint="@color/black" />-->
 
-                <TextView
-                    android:id="@+id/txtReviews"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Review"
-                    android:textColor="@color/half_black"
-                    android:textSize="@dimen/M_TEXT" />
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/txtReviews"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:text="Review"-->
+            <!--android:textColor="@color/half_black"-->
+            <!--android:textSize="@dimen/M_TEXT" />-->
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/bottomCancelReq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+            <!--<LinearLayout-->
+            <!--android:id="@+id/bottomCancelReq"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="16dp">-->
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginLeft="16dp"
-                    android:tintMode="src_atop"
-                    android:src="@drawable/ic_action_close"
-                    android:tint="@color/black" />
+            <!--<ImageView-->
+            <!--android:layout_width="22dp"-->
+            <!--android:layout_height="22dp"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:src="@drawable/ic_action_close"-->
+            <!--android:tint="@color/black"-->
+            <!--android:tintMode="src_atop" />-->
 
-                <TextView
-                    android:id="@+id/txtCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Cancel Booking"
-                    android:textColor="@color/half_black"
-                    android:textSize="@dimen/M_TEXT" />
-            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/txtCancel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:text="Cancel Booking"-->
+            <!--android:textColor="@color/half_black"-->
+            <!--android:textSize="@dimen/M_TEXT" />-->
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 
@@ -184,13 +316,13 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:src="@drawable/ic_menu"
         android:tint="@color/white"
+        android:visibility="gone"
         app:backgroundTint="@color/purple"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end"
         app:rippleColor="@color/colorPrimaryDark" />
 
 </android.support.design.widget.CoordinatorLayout>

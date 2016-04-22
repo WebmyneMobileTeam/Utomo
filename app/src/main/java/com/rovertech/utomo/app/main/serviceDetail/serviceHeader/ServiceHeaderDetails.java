@@ -59,12 +59,23 @@ public class ServiceHeaderDetails extends LinearLayout {
         Functions.LoadImage(imgServiceCentre, userBookingData.SCImageName, context);
         txtCentreName.setText(userBookingData.ServiceCentreName);
 
-        float rating = Float.parseFloat(userBookingData.Rating);
-        if (rating == 0.0)
-            txtRating.setText("0 / 5");
-        else
-            txtRating.setText(String.format("%.1f / 5", Float.parseFloat(userBookingData.Rating)));
+        if (userBookingData.Rating != null && userBookingData.Rating.isEmpty() == false) {
+            float rating = Float.parseFloat(userBookingData.Rating);
+            if (rating == 0.0)
+                txtRating.setText("0 / 5");
+            else
+                txtRating.setText(String.format("%.1f / 5", Float.parseFloat(userBookingData.Rating)));
 
-        txtReviews.setText(String.format("%d Reviews", Integer.parseInt(userBookingData.ReviewCount)));
+        } else {
+            txtRating.setVisibility(INVISIBLE);
+        }
+
+
+        if (Integer.parseInt(userBookingData.ReviewCount) > 0) {
+            txtReviews.setText(String.format("%d Reviews", Integer.parseInt(userBookingData.ReviewCount)));
+        } else {
+            txtReviews.setVisibility(GONE);
+        }
+
     }
 }

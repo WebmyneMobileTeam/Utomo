@@ -10,6 +10,7 @@
         android:paddingBottom="24dp">
 
         <TextView
+            android:padding="16dp"
             android:id="@+id/txtCurrentStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

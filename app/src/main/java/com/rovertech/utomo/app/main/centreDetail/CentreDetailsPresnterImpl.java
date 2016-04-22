@@ -1,5 +1,7 @@
 package com.rovertech.utomo.app.main.centreDetail;
 
+import android.util.Log;
+
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailResponse;
 import com.rovertech.utomo.app.main.centreDetail.service.CentreDetailsView;
@@ -40,6 +42,7 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
         fetchServiceCentreDetailCall.enqueue(new Callback<FetchServiceCentreDetailResponse>() {
             @Override
             public void onResponse(Call<FetchServiceCentreDetailResponse> call, Response<FetchServiceCentreDetailResponse> response) {
+
 
                 if (response.isSuccess()) {
 

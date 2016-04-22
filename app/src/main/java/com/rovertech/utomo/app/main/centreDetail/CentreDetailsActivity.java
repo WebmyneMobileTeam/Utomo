@@ -46,7 +46,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
 
-        //Todo sagar Replace static id 2 with intent data
+
 
         Intent intent = getIntent();
         int serviceCenterId = intent.getExtras().getInt("centreId");

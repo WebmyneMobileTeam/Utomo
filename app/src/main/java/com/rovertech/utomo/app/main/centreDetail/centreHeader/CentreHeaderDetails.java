@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.main.centreDetail.centreHeader;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.centreDetail.ImageAdapter;
@@ -96,7 +98,7 @@ public class CentreHeaderDetails extends LinearLayout {
 
     public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo, float distance) {
 
-
+        Log.e("Received Image", UtomoApplication.getInstance().getGson().toJson(centreDetailPojo));
         if (centreDetailPojo.lstServiceCentreImage.size() > 0) {
 
 
@@ -107,6 +109,7 @@ public class CentreHeaderDetails extends LinearLayout {
             }
             for (int i = 0; i < centreDetailPojo.lstServiceCentreImage.size(); i++) {
                 images.add(centreDetailPojo.lstServiceCentreImage.get(i).ImageName);
+
             }
             adapter.notifyDataSetChanged();
         } else {
@@ -160,7 +163,6 @@ public class CentreHeaderDetails extends LinearLayout {
         } else {
             distanceHolder.setVisibility(VISIBLE);
             txtReviews.setText(String.format("%.1f Km", distance));
-
         }
 
 

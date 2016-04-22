@@ -26,7 +26,7 @@
 
     <style name="TitleTextStyle" parent="android:Widget.TextView">
         <item name="android:textSize">@dimen/N_TEXT</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">16dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/TextTitle</item>
     </style>
