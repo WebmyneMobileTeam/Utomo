@@ -23,7 +23,7 @@ public class CurrentServiceTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtBookingId, txtBookingDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
+    private TextView txtBookingDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
     private ImageView imgCenter;
     private CardView currentCardView;
 
@@ -61,7 +61,6 @@ public class CurrentServiceTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtBookingId.setTypeface(Functions.getThinFont(context));
         txtBookingDate.setTypeface(Functions.getThinFont(context));
         txtCenterName.setTypeface(Functions.getRegularFont(context));
         txtServiceStatus.setTypeface(Functions.getLightFont(context));
@@ -69,7 +68,6 @@ public class CurrentServiceTile extends LinearLayout {
 
     private void findViewById() {
 
-        txtBookingId = (TextView) parentView.findViewById(R.id.txtBookingId);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
@@ -100,7 +98,6 @@ public class CurrentServiceTile extends LinearLayout {
 
         bookingId = userBookingsPojo.BookingID;
 
-        txtBookingId.setText(String.format("%s : %s", "Booking Id", userBookingsPojo.BookingID));
         txtCenterName.setText(userBookingsPojo.SCName);
         Functions.loadRoundImage(imgCenter, userBookingsPojo.SCImageName, context);
         txtBookingDate.setText(String.format("Booking on: %s", Functions.displayOnlyDate(userBookingsPojo.CreatedDate)));
@@ -123,7 +120,6 @@ public class CurrentServiceTile extends LinearLayout {
 
         bookingId = data.BookingID;
 
-        txtBookingId.setText(String.format("%s : %d", "Booking ID", data.BookingID));
         Functions.loadRoundImage(imgCenter, data.SCImageName, context);
         txtCenterName.setText(data.ServiceCentreName);
         txtBookingDate.setText(String.format("Booking on: %s", data.CreatedDate));

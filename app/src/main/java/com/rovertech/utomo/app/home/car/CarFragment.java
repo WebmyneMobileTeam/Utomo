@@ -64,7 +64,6 @@ public class CarFragment extends Fragment implements CarView {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
     }
 
     public static CarFragment newInstance(CarPojo carPojo) {

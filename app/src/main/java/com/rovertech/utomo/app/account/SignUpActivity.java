@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private TextView txtCustomTitle, txtTc, txtSignUp, txtLogin, txtOr, txtForget;
     private View parentView;
     private AccountPresenter presenter;
-    private TextView btnLogin;
+    private Button btnLogin;
     private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword;
     private MaterialAutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
@@ -68,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         txtSignUp = (TextView) findViewById(R.id.txtSignUp);
         txtTc = (TextView) findViewById(R.id.txtTc);
         parentView = findViewById(android.R.id.content);
-        btnLogin = (TextView) findViewById(R.id.btnLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setText("Sign Up");
 
         edtEmail.setVisibility(View.VISIBLE);

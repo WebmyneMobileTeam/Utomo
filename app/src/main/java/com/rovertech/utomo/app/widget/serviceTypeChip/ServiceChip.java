@@ -36,7 +36,7 @@ public class ServiceChip extends LinearLayout {
         imgServiceIcon = (ImageView) parentView.findViewById(R.id.imgServiceIcon);
         txtServiceType = (TextView) parentView.findViewById(R.id.txtServiceType);
 
-        txtServiceType.setTypeface(Functions.getRegularFont(context));
+        txtServiceType.setTypeface(Functions.getLightFont(context));
 
         txtServiceType.setText(service);
 

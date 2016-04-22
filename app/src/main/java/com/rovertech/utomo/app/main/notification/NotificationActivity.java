@@ -1,8 +1,10 @@
 package com.rovertech.utomo.app.main.notification;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -48,7 +50,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         notificationsFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
         notificationsFamiliarRecyclerView.setAdapter(notificationAdapter);
-
+        notificationsFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
 
     }
 
@@ -82,5 +84,20 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     protected void onDestroy() {
         super.onDestroy();
         mNotificationPresenter.destroy();
+    }
+
+    private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private final int mVerticalSpaceHeight;
+
+        public VerticalSpaceItemDecoration(int mVerticalSpaceHeight) {
+            this.mVerticalSpaceHeight = mVerticalSpaceHeight;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                                   RecyclerView.State state) {
+            outRect.bottom = mVerticalSpaceHeight;
+        }
     }
 }

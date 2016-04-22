@@ -12,6 +12,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 import com.rovertech.utomo.app.widget.FlowLayout;
+import com.rovertech.utomo.app.widget.labelView.LabelImageView;
 import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
 
 /**
@@ -22,11 +23,11 @@ public class ServiceCentreTile extends LinearLayout {
     Context context;
     private View parentView;
     private FlowLayout serviceTypeLayout;
-    private LinearLayout offerLayout;
-    private TextView txtCentreName, txtRating, txtReviews, txtOffers, txtDistance;
+    private TextView txtCentreName, txtRating, txtReviews, txtDistance;
     private ImageView imgCenter;
     private CardView cardLayout;
     LinearLayout.LayoutParams params;
+    private LabelImageView offerAvailable;
 
     public ServiceCentreTile(Context context, View view) {
         super(context);
@@ -49,23 +50,20 @@ public class ServiceCentreTile extends LinearLayout {
         txtCentreName.setTypeface(Functions.getBoldFont(context));
         txtRating.setTypeface(Functions.getRegularFont(context));
         txtReviews.setTypeface(Functions.getRegularFont(context));
-        txtOffers.setTypeface(Functions.getRegularFont(context));
         txtDistance.setTypeface(Functions.getRegularFont(context));
 
     }
 
     private void findViewById() {
-        offerLayout = (LinearLayout) parentView.findViewById(R.id.offerLayout);
         serviceTypeLayout = (FlowLayout) parentView.findViewById(R.id.serviceTypeLayout);
         serviceTypeLayout.setOrientation(HORIZONTAL);
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtRating = (TextView) parentView.findViewById(R.id.txtRating);
         txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
-        txtOffers = (TextView) parentView.findViewById(R.id.txtOffers);
         txtDistance = (TextView) parentView.findViewById(R.id.txtDistance);
         cardLayout = (CardView) parentView.findViewById(R.id.cardLayout);
-
+        offerAvailable = (LabelImageView) parentView.findViewById(R.id.offerAvailable);
     }
 
     public void setDetails(final ServiceCenterPojo centerPojo) {
@@ -90,9 +88,9 @@ public class ServiceCentreTile extends LinearLayout {
         }
 
         if (centerPojo.IsOfferAvaill) {
-            offerLayout.setVisibility(VISIBLE);
+            offerAvailable.setVisibility(VISIBLE);
         } else {
-            offerLayout.setVisibility(GONE);
+            offerAvailable.setVisibility(GONE);
         }
 
         if (centerPojo.IsBodyWash) {

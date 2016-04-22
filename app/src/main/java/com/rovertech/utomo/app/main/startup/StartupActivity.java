@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
     private TextView txtSkip;
     private TextSwitcher textView;
-    private TextView btnLogin, btnSignUp;
+    private Button btnLogin, btnSignUp;
 
     private StartupPresenter presenter;
     private View parentView;
@@ -78,8 +79,8 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
         parentView = findViewById(android.R.id.content);
         txtSkip = (TextView) findViewById(R.id.txtSkip);
-        btnLogin = (TextView) findViewById(R.id.btnLogin);
-        btnSignUp = (TextView) findViewById(R.id.btnSignUp);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
         mPager = (ViewPager) findViewById(R.id.viewPager);
         mFramePager = (ViewPager) findViewById(R.id.main_scrolllayout);
 

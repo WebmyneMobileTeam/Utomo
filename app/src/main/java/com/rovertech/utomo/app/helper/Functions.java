@@ -357,7 +357,6 @@ public class Functions {
         int loadedColor = 0;
 
         if (f < 10 && f >= 0) {
-
             loadedColor = ContextCompat.getColor(context, R.color.color10);
         } else if (f > 10 && f <= 40) {
             loadedColor = ContextCompat.getColor(context, R.color.color40);
@@ -379,7 +378,7 @@ public class Functions {
 
         String status;
 
-        if (f < 10 && f >= 0) {
+        if (f <= 10) {
             status = context.getString(R.string.urgent);
         } else if (f > 10 && f <= 40) {
             status = context.getString(R.string.need);

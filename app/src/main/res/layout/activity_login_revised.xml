@@ -149,11 +149,10 @@
                     widget:met_iconLeft="@drawable/ic_password"
                     widget:met_primaryColor="@color/editTextColor" />
 
-                <TextView
+                <Button
                     android:id="@+id/btnLogin"
                     style="@style/MyButtonStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:text="Login" />
 

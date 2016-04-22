@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -26,6 +27,18 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/slider3"
                     android:tint="#40000000" />
+
+                <com.rovertech.utomo.app.widget.labelView.LabelImageView
+                    android:id="@+id/offerAvailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:label_backgroundColor="@color/button_bg"
+                    app:label_orientation="RIGHT_TOP"
+                    app:label_text="Offer"
+                    app:label_textColor="@color/black"
+                    app:label_textSize="@dimen/S_TEXT"
+                    app:label_typeface="custombold.otf" />
 
             </FrameLayout>
 
@@ -73,66 +86,49 @@
 
                 </LinearLayout>
 
-                <com.rovertech.utomo.app.widget.FlowLayout
-                    android:id="@+id/serviceTypeLayout"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="start|top">
+                    android:orientation="horizontal">
 
-                </com.rovertech.utomo.app.widget.FlowLayout>
-
-                <LinearLayout
-                    android:id="@+id/bottomBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="4dp">
-
-                    <TextView
-                        android:id="@+id/txtRating"
-                        android:layout_width="wrap_content"
+                    <com.rovertech.utomo.app.widget.FlowLayout
+                        android:id="@+id/serviceTypeLayout"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/review_border"
-                        android:padding="4dp"
-                        android:text="4.5 / 5"
-                        android:textColor="?android:textColorSecondary"
-                        android:textSize="@dimen/S_TEXT" />
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:gravity="start|top">
 
-                    <TextView
-                        android:id="@+id/txtReviews"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:text="1 Reviews"
-                        android:textColor="?android:textColorSecondary" />
+                    </com.rovertech.utomo.app.widget.FlowLayout>
 
                     <LinearLayout
-                        android:id="@+id/offerLayout"
+                        android:id="@+id/bottomBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_offer"
-                            android:tint="?android:textColorSecondary" />
+                        android:layout_gravity="right"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
 
                         <TextView
-                            android:id="@+id/txtOffers"
+                            android:id="@+id/txtRating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="2dp"
-                            android:text="Offer Available"
+                            android:layout_alignParentLeft="true"
+                            android:background="@drawable/review_border"
+                            android:padding="4dp"
+                            android:text="4.5 / 5"
+                            android:textColor="?android:textColorSecondary"
+                            android:textSize="@dimen/S_TEXT" />
+
+                        <TextView
+                            android:id="@+id/txtReviews"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="1 Reviews"
                             android:textColor="?android:textColorSecondary" />
 
                     </LinearLayout>

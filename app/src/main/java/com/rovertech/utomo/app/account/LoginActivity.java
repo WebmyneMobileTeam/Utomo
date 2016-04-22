@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private View parentView;
     private AccountPresenter presenter;
     private ImageView imgFb, imgGoogle;
-    private TextView btnLogin;
+    private Button btnLogin;
     private MaterialEditText edtMobileNumber, edtPassword, edtName, edtEmail;
     private ProgressDialog progressDialog;
     private LinearLayout socialBar;
@@ -149,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         parentView = findViewById(android.R.id.content);
         imgFb = (ImageView) findViewById(R.id.imgFb);
         imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
-        btnLogin = (TextView) findViewById(R.id.btnLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setText("Login");
         edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
         edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);

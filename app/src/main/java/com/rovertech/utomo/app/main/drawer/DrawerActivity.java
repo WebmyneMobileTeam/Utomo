@@ -1,9 +1,11 @@
 package com.rovertech.utomo.app.main.drawer;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -14,12 +16,16 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
@@ -57,10 +63,9 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private DrawerPresenter presenter;
     private View parentView;
     private BadgeHelper badgeHelper;
-    private MenuItem notificationMenuItem;
+    private MenuItem offerItem;
     private String fragmentValue;
     private Menu mainMenu;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,19 +85,22 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer_menu, menu);
 
+        mainMenu = menu;
+        offerItem = mainMenu.findItem(R.id.action_offers);
+
         badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
         presenter.setNotificationBadge(badgeHelper);
 
-        MenuItem item = menu.findItem(R.id.action_offers);
-       item.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ImageView iv = (ImageView) inflater.inflate(R.layout.iv_offer, null);
 
-        Animation mAnimation = new AlphaAnimation(1, 0);
+       /* Animation mAnimation = new AlphaAnimation(1, 0);
         mAnimation.setDuration(500);
         mAnimation.setInterpolator(new LinearInterpolator());
         mAnimation.setRepeatCount(Animation.INFINITE);
         mAnimation.setRepeatMode(Animation.REVERSE);
-        item.getActionView().startAnimation(mAnimation);
-
+        iv.startAnimation(mAnimation);*/
+        menu.findItem(R.id.action_offers).setActionView(iv);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -105,6 +113,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.action_notification) {
             presenter.openNotification(this);
         } else if (item.getItemId() == R.id.action_offers) {

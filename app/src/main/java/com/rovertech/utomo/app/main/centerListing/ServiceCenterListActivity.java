@@ -46,7 +46,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     private TextView txtCustomTitle, txtNoData;
     private MaterialAutoCompleteTextView edtCity;
-    private TextView btnSearch;
+    private Button btnSearch;
     private LinearLayout searchLayout, listLayout, emptyLayout;
     private RelativeLayout contentLayout;
     private ServiceCentreLisPresenter presenter;
@@ -124,7 +124,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         contentLayout = (RelativeLayout) findViewById(R.id.contentLayout);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
-        btnSearch = (TextView) findViewById(R.id.btnSearch);
+        btnSearch = (Button) findViewById(R.id.btnSearch);
         txtNoData = (TextView) findViewById(R.id.txtNoData);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         txtFilterTitle = (TextView) findViewById(R.id.txtFilterTitle);
