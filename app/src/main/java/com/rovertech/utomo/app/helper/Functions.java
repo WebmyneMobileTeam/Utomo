@@ -211,7 +211,6 @@ public class Functions {
     }
 
     public static void showErrorAlert(final Context context, String msg, final boolean isFinish) {
-
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setMessage(msg);
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {

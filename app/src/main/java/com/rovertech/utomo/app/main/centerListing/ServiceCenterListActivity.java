@@ -14,14 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,8 +47,8 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private TextView txtCustomTitle, txtNoData;
     private MaterialAutoCompleteTextView edtCity;
     private Button btnSearch;
-    private ImageView imgFilter;
-    private LinearLayout searchLayout, listLayout;
+    private LinearLayout searchLayout, listLayout, emptyLayout;
+    private RelativeLayout contentLayout;
     private ServiceCentreLisPresenter presenter;
     private List<ServiceCenterPojo> centerList;
     private ServiceCentreListAdapter adapter;
@@ -99,15 +99,33 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.center_listing_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_filter) {
+            if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void init() {
 
         initToolbar();
 
+        contentLayout = (RelativeLayout) findViewById(R.id.contentLayout);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
         btnSearch = (Button) findViewById(R.id.btnSearch);
         txtNoData = (TextView) findViewById(R.id.txtNoData);
-        imgFilter = (ImageView) findViewById(R.id.imgFilter);
-        imgFilter.setOnClickListener(this);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         txtFilterTitle = (TextView) findViewById(R.id.txtFilterTitle);
         btnApply = (Button) findViewById(R.id.btnApply);
@@ -116,9 +134,9 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         switchPickup = (SwitchCompat) findViewById(R.id.switchPickup);
         searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
         listLayout = (LinearLayout) findViewById(R.id.listLayout);
+        emptyLayout = (LinearLayout) findViewById(R.id.emptyLayout);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         mapContainer = (RelativeLayout) findViewById(R.id.mapContainer);
-        searchLayout.setVisibility(View.GONE);
 
         actionListeners();
 
@@ -183,11 +201,11 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         switchPickup.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isPickup = isChecked;
-            }
-        });
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        isPickup = isChecked;
+                    }
+                });
     }
 
     private void initMap() {
@@ -276,15 +294,9 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.imgFilter:
-                if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                    drawerLayout.closeDrawer(Gravity.RIGHT);
-                } else {
-                    drawerLayout.openDrawer(Gravity.RIGHT);
-                }
-                break;
-
             case R.id.btnSearch:
+                centerList = new ArrayList<>();
+                centerList.clear();
                 lastCentreId = 0;
                 type = AppConstant.BY_CITY;
                 presenter.setLocation(0.0, 0.0, cityId);
@@ -325,17 +337,18 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         if (centerArrayList.size() > 0) {
             centerList.addAll(centerArrayList);
-            adapter.setCentreList(centerList);
         }
 
         if (centerList.size() == 0) {
-            searchLayout.setVisibility(View.VISIBLE);
-            imgFilter.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.VISIBLE);
+            contentLayout.setVisibility(View.GONE);
+            fab.setVisibility(View.GONE);
 
         } else {
-            searchLayout.setVisibility(View.GONE);
-            imgFilter.setVisibility(View.VISIBLE);
-
+            emptyLayout.setVisibility(View.GONE);
+            contentLayout.setVisibility(View.VISIBLE);
+            adapter.setCentreList(centerList);
+            fab.setVisibility(View.VISIBLE);
         }
 
         hideScroll();

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:widget="http://schemas.android.com/tools"
@@ -28,14 +27,15 @@
                     android:id="@+id/searchLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
                         android:id="@+id/edtCity"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
+                        android:layout_margin="8dp"
                         android:hint="City"
                         widget:met_baseColor="@color/editTextColor"
                         widget:met_floatingLabel="highlight"
@@ -45,7 +45,7 @@
                     <Button
                         android:id="@+id/btnSearch"
                         style="@style/MyButtonStyle"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_margin="8dp"
@@ -53,18 +53,8 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imgFilter"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_filter"
-                    android:tintMode="src_atop"
-                    android:visibility="gone" />
-
                 <RelativeLayout
+                    android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="6dp">

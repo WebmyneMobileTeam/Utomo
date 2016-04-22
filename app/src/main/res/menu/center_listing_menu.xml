@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_search"
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter"
         android:orderInCategory="100"
-        android:title="Search"
+        android:title="Filter"
         app:showAsAction="always" />
 
 </menu>

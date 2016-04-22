@@ -134,6 +134,7 @@
                 android:id="@+id/txtChangePassword"
                 style="@style/MyButtonStyle"
                 android:layout_width="0dp"
+                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Change Password" />
@@ -142,6 +143,7 @@
                 android:id="@+id/txtUpdate"
                 style="@style/MyButtonStyle"
                 android:layout_width="0dp"
+                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Update" />

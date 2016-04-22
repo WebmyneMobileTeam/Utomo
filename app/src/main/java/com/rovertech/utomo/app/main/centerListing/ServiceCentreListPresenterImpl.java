@@ -63,7 +63,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
     }
 
     @Override
-    public void fetchCentreList(int centreId, Context context, int type, boolean isBodyShop, boolean isPickup) {
+    public void fetchCentreList(int centreId, final Context context, int type, boolean isBodyShop, boolean isPickup) {
 
         // Call WS
         CentreListRequest request = new CentreListRequest();
@@ -92,7 +92,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
             public void onResponse(Call<CentreListResponse> call, Response<CentreListResponse> response) {
 
                 if (response.body() == null) {
-                    Log.e("Error", "Error");
+                    Functions.showToast(context, "Error occurred");
 
                 } else {
                     Log.e("response", Functions.jsonString(response.body()));
@@ -100,7 +100,11 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
 
                     centerArrayList = new ArrayList<ServiceCenterPojo>();
 
-                    if (centreListResponse.FetchServiceCentreList.Data.size() > 0) {
+                    if (centreListResponse.FetchServiceCentreList.ResponseCode == 0) {
+                        onSubmit(new ArrayList<ServiceCenterPojo>(), 0);
+
+                    } else if (centreListResponse.FetchServiceCentreList.Data.size() > 0) {
+
                         centerArrayList.addAll(centreListResponse.FetchServiceCentreList.Data);
 
                         ServiceCenterPojo center = centreListResponse.FetchServiceCentreList.Data.get(centreListResponse.FetchServiceCentreList.Data.size() - 1);
@@ -122,6 +126,11 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
         });
 
     }
+
+    public void onSubmit(List<ServiceCenterPojo> list, int lastCentreId) {
+        centreView.setListing(list, lastCentreId);
+    }
+
 
     @Override
     public void fetchCity(final Context context, String string) {
@@ -251,10 +260,6 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
             centreView = null;
 
         }
-    }
-
-    public void onSubmit(List<ServiceCenterPojo> list, int lastCentreId) {
-        centreView.setListing(list, lastCentreId);
     }
 
 
