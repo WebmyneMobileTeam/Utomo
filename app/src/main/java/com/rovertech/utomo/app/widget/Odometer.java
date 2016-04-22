@@ -148,6 +148,9 @@ public class Odometer extends LinearLayout {
 
     public void setValue(String odometerReading) {
 
+
+
+
         if (!TextUtils.isEmpty(odometerReading)) {
             originalOdometerReading = odometerReading;
             for (int i = 0; i < linearPicker.getChildCount(); i++) {

@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.profile.carlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.tiles.carItem.CarItemTile;
 
@@ -69,9 +71,10 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
 
-
-
-                    Functions.showSnack(v, "Edit Car");
+                    Intent editCarIntent = new Intent(context, AddCarActivity.class);
+                    editCarIntent.putExtra("EditCar", AddCarActivity.editCar);
+                    editCarIntent.putExtra("CarPojo", carPojo);
+                    Functions.fireIntent(context, editCarIntent);
                 }
             });
 

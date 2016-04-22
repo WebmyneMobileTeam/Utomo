@@ -21,7 +21,6 @@ public class AppConstant {
     final public static String RESET_PASSWORD = "UserLoginSignup.svc/json/ResetPassword/{MOBILENO}/{NEWPASSWORD}";
     final public static String UPDATE_PROFILE = BASE_URL + "UserLoginSignup.svc/json/UpdateUserProfile";
     final public static String BOOKING_ACTIVITIES = BASE_URL + "BookingActivities.svc/json/RequestForBooking";
-
     // Add car WS list
     final public static String FETCH_CITY = "UserActivities.svc/json/FetchCity";
     final public static String FETCH_MAKE = "UserActivities.svc/json/FetchMake";
@@ -34,6 +33,8 @@ public class AppConstant {
     final public static String ADD_REVIEW = "UserActivities.svc/json/AddReview";
     final public static String FETCH_SERVICE_CENTRE_DETAIL = "UserActivities.svc/json/FetchServiceCentreDetail/";
     final public static String FETCH_VEHICLE_LIST = "UserActivities.svc/json/FetchVehicleList";
+    final public static String INSERT_VEHICLE_DETAILS = "UserActivities.svc/json/InsertVehicleDetails";
+    final public static String UPDATE_VEHICLE_DETAILS = "UserActivities.svc/json/UpdateVehicleDetails";
 
     // Booking
     final public static String USER_BOOKINGS = "BookingActivities.svc/json/UserBookings/";

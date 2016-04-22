@@ -4,8 +4,7 @@ import android.graphics.Bitmap;
 import android.widget.ArrayAdapter;
 
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
-import com.rovertech.utomo.app.addCar.model.Data;
-import com.rovertech.utomo.app.addCar.model.Vehicle;
+import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.io.File;
 
@@ -53,4 +52,14 @@ public interface AddcarView {
     void setVehicleError();
 
     void setPermitsDate(String date);
+
+    void getDataFromIntent();
+
+    void setCarDetails(CarPojo carPojo);
+
+    void setMakeSpinner(CarPojo carPojo);
+
+    void setYearSpinner(CarPojo carPojo);
+
+    void setModelSpinner(CarPojo carPojo);
 }

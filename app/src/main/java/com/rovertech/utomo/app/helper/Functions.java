@@ -47,6 +47,8 @@ public class Functions {
 
     public static final String ServerDateTimeFormat = "dd-MM-yyyy HH:mm:ss";
     public static final String ServerDateFormat = "dd-MM-yyyy";
+    public static final String CalenderDateFormateddmmyyyy = "dd-MM-yyyy";
+    public static final String CalenderDateFormateddmyyyy = "dd-M-yyyy";
     public static final String DisplayDateFormate = "dd MMMM ,yyyy";
 
 
@@ -177,6 +179,21 @@ public class Functions {
             e.printStackTrace();
         }
         return str;
+    }
+
+    public static Date getDate(String inputDate, String inputPattern, String outputPattern) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(inputDate);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     public static void showSnack(View v, String msg) {

@@ -1,19 +1,18 @@
 package com.rovertech.utomo.app.addCar;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 
+import com.google.gson.annotations.SerializedName;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
@@ -28,6 +27,7 @@ import com.rovertech.utomo.app.addCar.service.FetchYearService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -49,6 +49,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,45 +61,74 @@ import retrofit2.Response;
 public class AddCarPresenterImpl implements AddCarPresenter {
 
     AddcarView addcarView;
+    CarPojo mCarPojo;
+    int carMode = 0;
+
 
     public AddCarPresenterImpl(AddcarView addcarView) {
         this.addcarView = addcarView;
     }
 
     @Override
-    public void selectPUCDate(Context context) {
-        Calendar now = Calendar.getInstance();
+    public void selectPUCDate(Context context, String selectedDate) {
+        Calendar selectedDateCalender = Calendar.getInstance();
+        if (!TextUtils.isEmpty(selectedDate)) {
+
+            Date date = Functions.getDate(selectedDate, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
+            selectedDateCalender.setTime(date);
+        }
         com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
                 new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+
+                        String day = String.valueOf(dayOfMonth);
+                        if (dayOfMonth < 10) {
+                            day = "0" + day;
+                        }
+                        String date = day + "-" + (monthOfYear + 1) + "-" + year;
+                        date = Functions.parseDate(date, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
                         addcarView.setPUCDate(date);
                     }
                 },
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
+                selectedDateCalender.get(Calendar.YEAR),
+                selectedDateCalender.get(Calendar.MONTH),
+                selectedDateCalender.get(Calendar.DAY_OF_MONTH)
         );
+        Calendar now = Calendar.getInstance();
         datePickerDialog.setMaxDate(now);
         datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     @Override
-    public void selectInsuranceDate(Context context) {
-        Calendar now = Calendar.getInstance();
+    public void selectInsuranceDate(Context context, String selectedDate) {
+
+        Calendar selectedDateCalender = Calendar.getInstance();
+        if (!TextUtils.isEmpty(selectedDate)) {
+
+            Date date = Functions.getDate(selectedDate, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
+            selectedDateCalender.setTime(date);
+        }
+
         com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
                 new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        String day = String.valueOf(dayOfMonth);
+                        if (dayOfMonth < 10) {
+                            day = "0" + day;
+                        }
+                        String date = day + "-" + (monthOfYear + 1) + "-" + year;
+                        date = Functions.parseDate(date, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
+
                         addcarView.setInsuranceDate(date);
                     }
                 },
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
+                selectedDateCalender.get(Calendar.YEAR),
+                selectedDateCalender.get(Calendar.MONTH),
+                selectedDateCalender.get(Calendar.DAY_OF_MONTH)
         );
+        Calendar now = Calendar.getInstance();
         datePickerDialog.setMaxDate(now);
         datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
@@ -129,6 +159,13 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, makeList);
                     addcarView.setMakeAdapter(adapter);
                     addcarView.hideMakeProgress();
+
+                    //edit car
+                    if (carMode == AddCarActivity.editCar && mCarPojo != null) {
+                        addcarView.setCarDetails(mCarPojo);
+                        addcarView.setMakeSpinner(mCarPojo);
+
+                    }
                 }
             }
 
@@ -165,6 +202,11 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, yearList);
                     addcarView.setYearAdapter(adapter);
                     addcarView.hideYearProgress();
+
+                    //edit car
+                    if (carMode == AddCarActivity.editCar && mCarPojo != null) {
+                        addcarView.setYearSpinner(mCarPojo);
+                    }
                 }
             }
 
@@ -203,6 +245,11 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     //ArrayAdapter<Vehicle> adapter = new ArrayAdapter<Vehicle>(context, android.R.layout.simple_list_item_1, modelList);
                     addcarView.setModelAdapter(adapter);
                     addcarView.hideModelProgress();
+
+                    //edit car
+                    if (carMode == AddCarActivity.editCar && mCarPojo != null) {
+                        addcarView.setModelSpinner(mCarPojo);
+                    }
                 }
             }
 
@@ -214,20 +261,33 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     }
 
     @Override
-    public void selectServiceDate(Context context) {
-        Calendar now = Calendar.getInstance();
+    public void selectServiceDate(Context context, String selectedDate) {
+
+        Calendar selectedDateCalender = Calendar.getInstance();
+        if (!TextUtils.isEmpty(selectedDate)) {
+
+            Date date = Functions.getDate(selectedDate, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
+            selectedDateCalender.setTime(date);
+        }
         com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
                 new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+
+                        String day = String.valueOf(dayOfMonth);
+                        if (dayOfMonth < 10) {
+                            day = "0" + day;
+                        }
+                        String date = day + "-" + (monthOfYear + 1) + "-" + year;
+                        date = Functions.parseDate(date, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
                         addcarView.setServiceDate(date);
                     }
                 },
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
+                selectedDateCalender.get(Calendar.YEAR),
+                selectedDateCalender.get(Calendar.MONTH),
+                selectedDateCalender.get(Calendar.DAY_OF_MONTH)
         );
+        Calendar now = Calendar.getInstance();
         datePickerDialog.setMaxDate(now);
         datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
@@ -357,23 +417,142 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     }
 
     @Override
-    public void selectPermitsDate(Context context) {
-        Calendar now = Calendar.getInstance();
+    public void updateCar(final Context context, final File file, String vehicleNo, String selectedMake, String selectedYear, String selectModelYear, String serviceDate, String pucDate, String insuranceDate, String permitsDate, String odometerValue) {
+
+
+        if (vehicleNo.equals("")) {
+            Functions.showToast(context, "Vehicle number cannot be empty");
+
+        } else if (selectedMake.equals("")) {
+            Functions.showToast(context, "Select Dealership");
+
+        } else if (selectedYear.equals("")) {
+            Functions.showToast(context, "Select Year");
+
+        } else if (selectModelYear.equals("")) {
+            Functions.showToast(context, "Select Year");
+
+        } else {
+
+            final AddCarRequest request = new AddCarRequest();
+            request.Make = selectedMake;
+
+            if (pucDate.equals(""))
+                request.PUCExpiryDate = "";
+            else
+                request.PUCExpiryDate = pucDate;
+
+            if (insuranceDate.equals(""))
+                request.InsuranceDate = "";
+            else
+                request.InsuranceDate = insuranceDate;
+
+            if (permitsDate.equals(""))
+                request.LastPermitsDate = "";
+            else
+                request.LastPermitsDate = permitsDate;
+
+            if (serviceDate.equals(""))
+                request.ServiceDate = "";
+            else
+                request.ServiceDate = serviceDate;
+
+            request.TravelledKM = odometerValue;
+            request.ClientID = PrefUtils.getUserFullProfileDetails(context).UserID;
+            request.VehicleModelYearID = Integer.parseInt(selectModelYear);
+            request.VehicleNo = vehicleNo;
+            request.Year = Integer.parseInt(selectedYear);
+
+            new AsyncTask<Void, Void, Void>() {
+
+                private String responseFromMultipart = null;
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    if (addcarView != null)
+                        addcarView.showProgress();
+                }
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    try {
+                        responseFromMultipart = doFileUploadAnotherUpdate(file, context, request);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+
+                    if (addcarView != null)
+                        addcarView.hideProgress();
+
+                    try {
+
+                        UpdateVehicleDetails updateVehicleDetails = UtomoApplication.getInstance().getGson().fromJson(responseFromMultipart, UpdateVehicleDetails.class);
+                        if (updateVehicleDetails.vehicleDetails != null && updateVehicleDetails.vehicleDetails.ResponseCode == 1) {
+
+                            Functions.showErrorAlert(context, "Success", "Car Details has been Updated.", true);
+
+                        } else {
+
+                            Functions.showErrorAlert(context, "", "Failed to update car.", false);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Functions.showErrorAlert(context, "", "Failed to update car.", false);
+                    }
+                }
+            }.execute();
+
+        }
+
+    }
+
+    @Override
+    public void selectPermitsDate(Context context, String selectedDate) {
+        Calendar selectedDateCalender = Calendar.getInstance();
+        if (!TextUtils.isEmpty(selectedDate)) {
+
+            Date date = Functions.getDate(selectedDate, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
+            selectedDateCalender.setTime(date);
+        }
+
         com.wdullaer.materialdatetimepicker.date.DatePickerDialog datePickerDialog = com.wdullaer.materialdatetimepicker.date.DatePickerDialog.newInstance(
                 new com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+
+                        String day = String.valueOf(dayOfMonth);
+                        if (dayOfMonth < 10) {
+                            day = "0" + day;
+                        }
+                        String date = day + "-" + (monthOfYear + 1) + "-" + year;
+                        date = Functions.parseDate(date, Functions.CalenderDateFormateddmyyyy, Functions.CalenderDateFormateddmmyyyy);
                         addcarView.setPermitsDate(date);
                     }
                 },
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
+                selectedDateCalender.get(Calendar.YEAR),
+                selectedDateCalender.get(Calendar.MONTH),
+                selectedDateCalender.get(Calendar.DAY_OF_MONTH)
         );
+        Calendar now = Calendar.getInstance();
         datePickerDialog.setMaxDate(now);
         datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
+
+    @Override
+    public void setEditCarDetails(CarPojo carPojo, @AddCarActivity.CarMode int carMode) {
+        this.mCarPojo = carPojo;
+        this.carMode = carMode;
+
+    }
+
 
     private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {
         String doResponse = null;
@@ -381,7 +560,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-        HttpPost httppost = new HttpPost("http://ws-srv-net.in.webmyne.com/Applications/CarBell/Development/UTOMOService_V01/Service/UserActivities.svc/json/InsertVehicleDetails");
+        HttpPost httppost = new HttpPost(AppConstant.INSERT_VEHICLE_DETAILS);
         String boundary = "--";
         httppost.setHeader("Content-type", "multipart/form-data; boundary=" + boundary);
 
@@ -441,4 +620,83 @@ public class AddCarPresenterImpl implements AddCarPresenter {
         return doResponse;
 
     }
+
+    private String doFileUploadAnotherUpdate(File f, final Context context, AddCarRequest request) throws Exception {
+        String doResponse = null;
+        HttpEntity entity;
+
+        HttpClient httpclient = new DefaultHttpClient();
+        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+        HttpPost httppost = new HttpPost(AppConstant.UPDATE_VEHICLE_DETAILS);
+        String boundary = "--";
+        httppost.setHeader("Content-type", "multipart/form-data; boundary=" + boundary);
+
+        if (f != null) {
+
+            Bitmap b = BitmapFactory.decodeFile(f.getAbsolutePath());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            b.compress(Bitmap.CompressFormat.JPEG, 85, baos);
+            byte[] imageBytes = baos.toByteArray();
+            ByteArrayBody bab = new ByteArrayBody(imageBytes, new File(f.getAbsolutePath()).getName() + ".jpg");
+
+            entity = MultipartEntityBuilder.create()
+                    .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .setBoundary(boundary)
+                    .addPart("VehicleID", new StringBody(mCarPojo.VehicleID + ""))
+                    .addPart("ClientID", new StringBody(request.ClientID + ""))
+                    .addPart("Make", new StringBody(request.Make))
+                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                    .addPart("PUCStartDate", new StringBody(request.PUCExpiryDate))
+                    .addPart("VehicleNo", new StringBody(request.VehicleNo))
+                    .addPart("TravelledKM", new StringBody(request.TravelledKM))
+                    .addPart("InsuranceStartDate", new StringBody(request.InsuranceDate))
+                    .addPart("PermitsStartDate", new StringBody(request.LastPermitsDate))
+                    .addPart("Year", new StringBody(request.Year + ""))
+                    .addPart("ServiceDate", new StringBody(request.ServiceDate))
+                    .addPart("Image", bab)
+                    .build();
+        } else {
+
+            entity = MultipartEntityBuilder.create()
+                    .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+                    .setBoundary(boundary)
+                    .addPart("VehicleID", new StringBody(mCarPojo.VehicleID + ""))
+                    .addPart("ClientID", new StringBody(request.ClientID + ""))
+                    .addPart("Make", new StringBody(request.Make))
+                    .addPart("VehicleModelYearID", new StringBody(request.VehicleModelYearID + ""))
+                    .addPart("PUCStartDate", new StringBody(request.PUCExpiryDate))
+                    .addPart("VehicleNo", new StringBody(request.VehicleNo))
+                    .addPart("TravelledKM", new StringBody(request.TravelledKM))
+                    .addPart("InsuranceStartDate", new StringBody(request.InsuranceDate))
+                    .addPart("PermitsStartDate", new StringBody(request.LastPermitsDate))
+                    .addPart("Year", new StringBody(request.Year + ""))
+                    .addPart("ServiceDate", new StringBody(request.ServiceDate))
+                    .build();
+        }
+
+        Log.e("req", Functions.jsonString(request));
+
+        httppost.setEntity(entity);
+        try {
+            HttpResponse response = httpclient.execute(httppost);
+            entity = response.getEntity();
+            doResponse = EntityUtils.toString(entity);
+            Log.e("card Update", doResponse);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return doResponse;
+
+    }
+
+
+    public class UpdateVehicleDetails {
+
+        @SerializedName("UpdateVehicleDetails")
+        public VehicleDetails vehicleDetails;
+    }
+
+
 }

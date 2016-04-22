@@ -61,6 +61,7 @@
 
 
             <LinearLayout
+                android:id="@+id/dealerShipHolder"
                 android:layout_marginLeft="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,6 +215,17 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="16dp"
                 android:text="Add Car" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnUpdate"
+                style="@style/MyButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp"
+                android:text="Update Car" />
+
 
         </LinearLayout>
 
