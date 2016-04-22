@@ -16,10 +16,7 @@ public class WalletFragment extends Fragment {
 
     private View parentView;
     private DrawerActivity activity;
-    // private RecyclerView recyclerView;
     private TextView txtWallet, txtInvite, txtWalletTitle;
-    //  private LinearLayoutManager linearLayoutManager;
-    // private RecyclerViewAdapter myRecyclerViewAdapter;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -58,40 +55,13 @@ public class WalletFragment extends Fragment {
 
         setTypeface();
 
-       /* recyclerView=(RecyclerView)parentView.findViewById(R.id.recyclerView);
-        linearLayoutManager =
-                new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        myRecyclerViewAdapter = new RecyclerViewAdapter(getActivity());
-        myRecyclerViewAdapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(myRecyclerViewAdapter);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        myRecyclerViewAdapter.add(0, "Eric");
-        myRecyclerViewAdapter.add(1, "Android");
-        myRecyclerViewAdapter.add(0, "Android-er");
-        myRecyclerViewAdapter.add(2, "Google");
-        myRecyclerViewAdapter.add(3, "android dev");
-       *//* myRecyclerViewAdapter.add(0, "android-er.blogspot.com");
-        myRecyclerViewAdapter.add(4, "Peter");
-        myRecyclerViewAdapter.add(4, "Paul");
-        myRecyclerViewAdapter.add(4, "Mary");
-        myRecyclerViewAdapter.add(4, "May");
-        myRecyclerViewAdapter.add(4, "Divid");
-        myRecyclerViewAdapter.add(4, "Frankie");*//*
-*/
     }
 
 
     private void setTypeface() {
         txtWallet.setTypeface(Functions.getThinFont(getActivity()));
-        txtInvite.setTypeface(Functions.getThinFont(getActivity()));
-        txtWalletTitle.setTypeface(Functions.getThinFont(getActivity()));
+        txtInvite.setTypeface(Functions.getBoldFont(getActivity()));
+        txtWalletTitle.setTypeface(Functions.getRegularFont(getActivity()));
     }
 
-    /*@Override
-    public void onItemClick(RecyclerViewAdapter.ItemHolder item, int position) {
-        *//*Toast.makeText(getActivity(),
-                position + " : " + item.getItemName(),
-                Toast.LENGTH_SHORT).show();*//*
-    }*/
 }

@@ -1,29 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="5"
     tools:context="com.rovertech.utomo.app.wallet.WalletFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight="2.5"
+        android:layout_height="wrap_content"
         android:background="@color/button_bg"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="24dp">
 
         <TextView
             android:id="@+id/txtWalletRsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:gravity="center_horizontal|center_vertical"
             android:text="Wallet Balance"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/white"
             android:textSize="@dimen/L_TEXT" />
 
         <TextView
@@ -32,59 +29,17 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:text="RS 1000"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/splash_textsize" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/XXL_TEXT" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/txtInvite"
+        style="@style/MyButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom|center"
+        android:text="INVITE AND EARN" />
 
-        <!--    <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RS 1000"
-                android:textColor="@color/colorPrimaryDark"
-                android:id="@+id/txt1"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RS 1000"
-                android:textColor="@color/colorPrimaryDark"
-                android:id="@+id/txt2"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RS 1000"
-                android:textColor="@color/colorPrimaryDark"
-
-                android:id="@+id/txt3"
-                />
-    -->
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5">
-
-        <TextView
-            android:id="@+id/txtInvite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:gravity="bottom|center"
-            android:text="INVITE AND EARN"
-            android:textColor="@color/colorPrimaryDark" />
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>
