@@ -171,7 +171,11 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                fab.setVisibility(View.VISIBLE);
+                if (centerList.size() == 0) {
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
