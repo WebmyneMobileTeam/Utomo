@@ -59,6 +59,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private BadgeHelper badgeHelper;
     private MenuItem notificationMenuItem;
     private String fragmentValue;
+    private Menu mainMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,16 +84,14 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         presenter.setNotificationBadge(badgeHelper);
 
         MenuItem item = menu.findItem(R.id.action_offers);
-        item.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-//        Animation mAnimation = new AlphaAnimation(1, 0);
-//        mAnimation.setDuration(500);
-//        mAnimation.setInterpolator(new LinearInterpolator());
-//        mAnimation.setRepeatCount(Animation.INFINITE);
-//        mAnimation.setRepeatMode(Animation.REVERSE);
-//
-//        MenuItem item = menu.findItem(R.id.action_offers);
-//        item.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-//        item.getActionView().startAnimation(mAnimation);
+       item.getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+
+        Animation mAnimation = new AlphaAnimation(1, 0);
+        mAnimation.setDuration(500);
+        mAnimation.setInterpolator(new LinearInterpolator());
+        mAnimation.setRepeatCount(Animation.INFINITE);
+        mAnimation.setRepeatMode(Animation.REVERSE);
+        item.getActionView().startAnimation(mAnimation);
 
 
         return super.onCreateOptionsMenu(menu);
@@ -107,6 +107,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_notification) {
             presenter.openNotification(this);
+        } else if (item.getItemId() == R.id.action_offers) {
+            presenter.openOffersPage(this);
         }
 
         return super.onOptionsItemSelected(item);

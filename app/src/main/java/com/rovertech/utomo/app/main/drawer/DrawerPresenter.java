@@ -35,4 +35,6 @@ public interface DrawerPresenter {
     void openNotification(Context context);
 
     void share(Context context);
+
+    void openOffersPage(Context context);
 }

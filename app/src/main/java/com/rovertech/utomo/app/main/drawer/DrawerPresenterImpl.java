@@ -14,6 +14,7 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.notification.NotificationActivity;
 import com.rovertech.utomo.app.main.startup.StartupActivity;
+import com.rovertech.utomo.app.offers.AdminOffersLIstingActivity;
 import com.rovertech.utomo.app.widget.LocationFinder;
 
 /**
@@ -122,6 +123,12 @@ public class DrawerPresenterImpl implements DrawerPresenter {
         shareIntent.putExtra(Intent.EXTRA_TEXT, text + appURL);
         shareIntent.setType("text/plain");
         context.startActivity(Intent.createChooser(shareIntent, "Share via..."));
+    }
+
+    @Override
+    public void openOffersPage(Context context) {
+        Functions.fireIntent(context, AdminOffersLIstingActivity.class);
+        ((Activity) context).overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
     }
 
 

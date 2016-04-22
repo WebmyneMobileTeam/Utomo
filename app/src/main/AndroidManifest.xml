@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.rovertech.utomo.app">
+    package="com.rovertech.utomo.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -21,7 +21,6 @@
     <uses-permission android:name="com.rovertech.utomo.app.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
 
     <application
         android:name=".UtomoApplication"
@@ -120,9 +119,9 @@
         <activity android:name=".main.centreDetail.offer.CentreOfferActivity" />
         <activity
             android:name=".main.centreDetail.centreReviews.CentreReviewsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
 
-        <!--  GCM -->
+        <!-- GCM -->
         <receiver
             android:name=".gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
@@ -134,6 +133,8 @@
         </receiver>
 
         <service android:name=".gcm.GcmMessageHandler" />
+
+        <activity android:name=".offers.AdminOffersLIstingActivity"></activity>
     </application>
 
 </manifest>
