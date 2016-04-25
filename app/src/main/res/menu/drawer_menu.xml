@@ -7,6 +7,7 @@
         android:icon="@drawable/ic_offer"
         android:orderInCategory="99"
         android:title="Offers"
+        android:visible="false"
         app:showAsAction="always" />
 
     <item

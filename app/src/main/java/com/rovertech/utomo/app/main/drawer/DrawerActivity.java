@@ -18,12 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -35,9 +37,13 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.about.AboutFragment;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
+import com.rovertech.utomo.app.bookings.BookingRequestAPI;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.bookings.model.RequestForBooking;
+import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.BadgeHelper;
 import com.rovertech.utomo.app.helper.Functions;
@@ -45,10 +51,18 @@ import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.DashboardFragment;
 import com.rovertech.utomo.app.invite.InviteFragment;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
+import com.rovertech.utomo.app.offers.model.AdminOfferResp;
+import com.rovertech.utomo.app.offers.model.FetchAdminOffer;
 import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
@@ -63,6 +77,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private MenuItem offerItem;
     private String fragmentValue;
     private Menu mainMenu;
+    private int size=0;
+
 
 
     @Override
@@ -86,12 +102,24 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         mainMenu = menu;
         offerItem = mainMenu.findItem(R.id.action_offers);
 
+        if(size>=1)
+        { offerItem.setVisible(true);}
+
+        
         badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
         presenter.setNotificationBadge(badgeHelper);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView iv = (ImageView) inflater.inflate(R.layout.iv_offer, null);
+        iv.setOnTouchListener(new View.OnTouchListener() {
 
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+               // Log.d("m click?","action_offers click");
+                presenter.openOffersPage(DrawerActivity.this);
+                return false;
+            }
+        });
         menu.findItem(R.id.action_offers).setActionView(iv);
 
         return super.onCreateOptionsMenu(menu);
@@ -107,9 +135,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_notification) {
+            //Log.d("m click?","action_notification click");
             presenter.openNotification(this);
-        } else if (item.getItemId() == R.id.action_offers) {
-            presenter.openOffersPage(this);
         }
 
         return super.onOptionsItemSelected(item);
@@ -125,6 +152,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         } else {
             initDrawer();
 
+            callOfferApi();
+
             if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
                 presenter.openDashboard();
 
@@ -132,6 +161,29 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
                 presenter.openMyBookings();
             }
         }
+
+    }
+
+    private void callOfferApi() {
+
+       // Log.d("Resp","Inside Call");
+
+        AdminOfferRequestAPI api = UtomoApplication.retrofit.create(AdminOfferRequestAPI.class);
+        Call<AdminOfferResp> call = api.adminOfferApi();
+
+        call.enqueue(new Callback<AdminOfferResp>() {
+            @Override
+            public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
+                if (response.body().FetchAdminOffer.ResponseCode == 1) {
+                    size=response.body().FetchAdminOffer.Data.size();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AdminOfferResp> call, Throwable t) {
+                Log.e("error",t.toString());
+            }
+        });
 
     }
 
@@ -303,6 +355,16 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             centreIntent.putExtra("lng", finder.getLongitude());
             startActivity(centreIntent);
         }
+    }
+
+    @Override
+    public void showOfferIcon() {
+        offerItem.setVisible(true);
+    }
+
+    @Override
+    public void hideOfferIcon() {
+        offerItem.setVisible(false);
     }
 
     private void accurateAlert() {

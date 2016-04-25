@@ -23,4 +23,7 @@ public interface DrawerView {
 
     void navigateCenterListActivity();
 
+    void showOfferIcon();
+
+    void hideOfferIcon();
 }

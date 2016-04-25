@@ -39,7 +39,7 @@
 
     <style name="BodyTextStyle4dp" parent="android:Widget.TextView">
         <item name="android:textSize">@dimen/N_TEXT</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:padding">4dp</item>
         <item name="android:textColor">@color/TextBody</item>
     </style>
 

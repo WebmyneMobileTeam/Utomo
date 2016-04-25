@@ -37,4 +37,6 @@ public interface DrawerPresenter {
     void share(Context context);
 
     void openOffersPage(Context context);
+
+
 }
