@@ -9,75 +9,94 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="4dp">
+
+        <com.alexzh.circleimageview.CircleImageView
+            android:id="@+id/ImageView01"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/slider1"></com.alexzh.circleimageview.CircleImageView>
 
         <TextView
             android:id="@+id/txtAppName"
-            style="@style/MyAboutTextStyle"
             android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="36dp" />
+            android:textSize="@dimen/XL_TEXT" />
 
         <TextView
             android:id="@+id/txtVersion"
-            style="@style/MyAboutTextStyle"
-            android:gravity="center"
-            android:text="Version 1.1.2.7" />
-
-        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:gravity="center"
+            android:textSize="@dimen/S_TEXT"
+            android:text="Version 1.1.2.7" />
 
-            <android.support.v7.widget.CardView
+
+         <!--   <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:background="@color/white">
+                android:layout_marginTop="2dp">-->
 
-                <LinearLayout
+                <!--   <com.alexzh.circleimageview.CircleImageView
+                       android:layout_width="120dp"
+                       android:layout_height="120dp"
+                       android:layout_marginTop="10dp"
+                       android:layout_gravity="center_horizontal|top"
+                       android:src="@drawable/slider1" />-->
+
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="65dp"
-                    android:orientation="vertical"
-                    android:padding="8dp">
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/txt1"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy1" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
-                    <TextView
-                        android:id="@+id/txt2"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy2" />
+                        <TextView
+                            android:id="@+id/txt1"
+                            style="@style/MyAboutTextStyle"
+                            android:text="@string/dummy1" />
 
-                    <TextView
-                        android:id="@+id/txt3"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy3" />
+                        <TextView
+                            android:id="@+id/txt2"
+                            style="@style/MyAboutTextStyle"
+                            android:text="@string/dummy2" />
 
-                    <TextView
-                        android:id="@+id/txt4"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy4" />
+                        <TextView
+                            android:id="@+id/txt3"
+                            style="@style/MyAboutTextStyle"
+                            android:text="@string/dummy3" />
 
-                    <TextView
-                        android:id="@+id/txt5"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy5" />
+                        <TextView
+                            android:id="@+id/txt4"
+                            style="@style/MyAboutTextStyle"
+                            android:text="@string/dummy4" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt5"
+                            style="@style/MyAboutTextStyle"
+                            android:text="@string/dummy5" />
 
-            </android.support.v7.widget.CardView>
+                    </LinearLayout>
 
-            <com.alexzh.circleimageview.CircleImageView
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/slider1" />
+                </android.support.v7.widget.CardView>
 
-        </FrameLayout>
+
+
+         <!--   </FrameLayout>-->
+
 
     </LinearLayout>
 
