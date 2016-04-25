@@ -115,7 +115,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
 
                     } else {
                         onSubmit(new ArrayList<ServiceCenterPojo>(), lastCentreId);
-                    }
+                }
                 }
             }
 
