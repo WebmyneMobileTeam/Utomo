@@ -98,14 +98,17 @@ public class SplashActivity extends AppCompatActivity {
         if (isLoggedIn) {
 
             if (PrefUtils.isCarAdded(this)) {
+                callDrawer();
 
-                if (PrefUtils.getUserFullProfileDetails(this).VehicleCount == 0)
-                    callAddCar();
-                else
-                    callDrawer();
             } else {
-                callAddCar();
+
+                if (PrefUtils.getUserFullProfileDetails(this).VehicleCount == 0) {
+                    callAddCar();
+                } else {
+                    callDrawer();
+                }
             }
+
         } else {
             Functions.fireIntent(SplashActivity.this, StartupActivity.class);
         }

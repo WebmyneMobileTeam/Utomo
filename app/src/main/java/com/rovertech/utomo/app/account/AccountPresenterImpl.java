@@ -546,8 +546,8 @@ public class AccountPresenterImpl implements AccountPresenter {
 
         }
         if (TextUtils.isEmpty(email)) {
-            setEmailError();
             return;
+
         } else {
             if (!Functions.emailValidation(email)) {
 

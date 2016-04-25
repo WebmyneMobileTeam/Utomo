@@ -208,6 +208,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void navigateAddCar() {
+        PrefUtils.setRedirectLogin(this,AppConstant.FROM_START);
         Intent addCarIntent = new Intent(this, AddCarActivity.class);
         addCarIntent.putExtra(AppConstant.SKIP, true);
         addCarIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
