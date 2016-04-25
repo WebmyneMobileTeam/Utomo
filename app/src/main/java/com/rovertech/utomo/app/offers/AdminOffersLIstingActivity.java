@@ -82,11 +82,12 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
 
     public void setUpRecyclerView() {
 
-        RecyclerView OfferFamiliarRecyclerView = (RecyclerView) findViewById(R.id.notificationsRecyclerView);
+        FamiliarRecyclerView OfferFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
+       // OfferFamiliarRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         OfferFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
-       // Log.d("Itemlist", "Size= "+ itemList.size() +"|| "+ itemList.toString());
-        RecyclerView.Adapter adminOfferAdapter =new AdminOfferAdapter(itemList);
+        Log.d("Itemlist", "Size= "+ itemList.size() +"|| "+ itemList.toString());
+        RecyclerView.Adapter adminOfferAdapter =new AdminOfferAdapter(this,itemList);
         OfferFamiliarRecyclerView.setAdapter(adminOfferAdapter);
         OfferFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
 
@@ -165,4 +166,6 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
         });
 
     }
+
+
 }

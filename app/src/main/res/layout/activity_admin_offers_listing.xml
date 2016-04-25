@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="No Admin Offer" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
         android:scrollbars="vertical"
         android:id="@+id/notificationsRecyclerView"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         app:frv_isEmptyViewKeepShowHeadOrFooter="true"
         app:frv_emptyView="@id/emptyNotifications">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
 
 
 </RelativeLayout>
