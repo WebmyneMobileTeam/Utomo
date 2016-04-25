@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -17,6 +18,7 @@ public class WalletFragment extends Fragment {
     private View parentView;
     private DrawerActivity activity;
     private TextView txtWallet, txtInvite, txtWalletTitle;
+    private LinearLayout amountLayout;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -47,21 +49,19 @@ public class WalletFragment extends Fragment {
         activity = (DrawerActivity) getActivity();
         //activity.hideFab(true);
 
+        amountLayout = (LinearLayout) parentView.findViewById(R.id.amountLayout);
         txtWallet = (TextView) parentView.findViewById(R.id.txtWalletRs);
         txtInvite = (TextView) parentView.findViewById(R.id.txtInvite);
         txtWalletTitle = (TextView) parentView.findViewById(R.id.txtWalletRsTitle);
 
-        txtWallet.setText(getString(R.string.Rs) + " 1000");
+        txtWallet.setText(String.format("%s %s", getString(R.string.Rs), "1000"));
 
         setTypeface();
-
     }
 
-
     private void setTypeface() {
-        txtWallet.setTypeface(Functions.getThinFont(getActivity()));
+        txtWallet.setTypeface(Functions.getRegularFont(getActivity()));
         txtInvite.setTypeface(Functions.getBoldFont(getActivity()));
         txtWalletTitle.setTypeface(Functions.getRegularFont(getActivity()));
     }
-
 }
