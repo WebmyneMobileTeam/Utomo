@@ -46,8 +46,6 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
 
-
-
         Intent intent = getIntent();
         int serviceCenterId = intent.getExtras().getInt("centreId");
         distance = intent.getFloatExtra("DistanceKM", 0.0f);

@@ -90,6 +90,8 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         collapsingToolbarLayout.setCollapsedTitleTypeface(Functions.getBoldFont(this));
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
 
+        collapsingToolbarLayout.setExpandedTitleTypeface(Functions.getBoldFont(this));
+
         headerDetails = (ServiceHeaderDetails) findViewById(R.id.headerDetails);
         mainDetails = (ServiceMainDetails) findViewById(R.id.mainDetails);
 
@@ -104,14 +106,14 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 if (scrollRange == -1) {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
-                if (scrollRange + verticalOffset == 0) {
+                /*if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
                     isShow = true;
 
                 } else if (isShow) {
                     collapsingToolbarLayout.setTitle("");
                     isShow = false;
-                }
+                }*/
             }
         });
 
@@ -214,6 +216,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         this.userBookingData = userBookingData;
 
+        collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
         headerDetails.setHeaderDetails(userBookingData);
         mainDetails.setMainDetails(userBookingData);
 

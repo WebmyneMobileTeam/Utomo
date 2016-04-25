@@ -18,8 +18,15 @@ import com.rovertech.utomo.app.bookings.model.RequestForBooking;
 import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.profile.carlist.CarPojo;
+import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
+import com.rovertech.utomo.app.profile.carlist.model.VehicleListResponse;
+import com.rovertech.utomo.app.profile.carlist.service.FetchVehicleListService;
+import com.rovertech.utomo.app.widget.dialog.CarListDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -109,13 +116,12 @@ public class BookingPresenterImpl implements BookingPresenter {
 
         final ProgressDialog progressDialog = ProgressDialog.show(context, "Booking", "Wait while Booking a request.", false, false);
 
-        Log.d("bookrequest", UtomoApplication.getInstance().getGson().toJson(bookingRequest));
+        Log.e("bookrequest", UtomoApplication.getInstance().getGson().toJson(bookingRequest));
         BookingRequestAPI bookingRequestAPI = UtomoApplication.retrofit.create(BookingRequestAPI.class);
         Call<RequestForBooking> requestForBookingCall = bookingRequestAPI.bookingService(bookingRequest);
         requestForBookingCall.enqueue(new Callback<RequestForBooking>() {
             @Override
             public void onResponse(Call<RequestForBooking> call, Response<RequestForBooking> response) {
-
 
                 if (response.isSuccess()) {
 
@@ -155,6 +161,67 @@ public class BookingPresenterImpl implements BookingPresenter {
             }
         });
 
+
+    }
+
+    @Override
+    public void openCarList(final Context context, final String dealership) {
+
+        final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading.", "Please Wait fetching your vehicles.", false, false);
+
+        final ArrayList<CarPojo> carList = new ArrayList<>();
+        FetchVehicleRequest request = new FetchVehicleRequest(context);
+        Log.e("req", Functions.jsonString(request));
+
+        FetchVehicleListService service = UtomoApplication.retrofit.create(FetchVehicleListService.class);
+        Call<VehicleListResponse> responseCall = service.doFetchVehicleList(request);
+        responseCall.enqueue(new Callback<VehicleListResponse>() {
+            @Override
+            public void onResponse(Call<VehicleListResponse> call, Response<VehicleListResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.body() == null) {
+                    Functions.showToast(context, "Error occurred.");
+                } else {
+                    Log.e("res", Functions.jsonString(response.body()));
+
+                    VehicleListResponse vehicleListResponse = response.body();
+                    if (vehicleListResponse.FetchVehicleList.ResponseCode == 1) {
+
+                        if (vehicleListResponse.FetchVehicleList.Data.size() > 0) {
+
+                            for (CarPojo carPojo : vehicleListResponse.FetchVehicleList.Data) {
+
+                                if (carPojo.Make.equals(dealership)) {
+                                    carList.add(carPojo);
+                                }
+                            }
+
+                            final CarListDialog dialog = new CarListDialog(context, carList);
+                            dialog.setOnSubmitListener(new CarListDialog.onSubmitListener() {
+                                @Override
+                                public void onSubmit(CarPojo carPojo) {
+                                    PrefUtils.setCurrentCarSelected(context, carPojo);
+                                    bookingView.setSelectedCar(carPojo);
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+                        }
+
+                    } else {
+                        Functions.showToast(context, vehicleListResponse.FetchVehicleList.ResponseMessage);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VehicleListResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Functions.showToast(context, t.getMessage());
+
+            }
+        });
 
     }
 }

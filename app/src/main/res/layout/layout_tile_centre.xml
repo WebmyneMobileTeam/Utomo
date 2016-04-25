@@ -64,6 +64,7 @@
                         android:textSize="@dimen/L_TEXT" />
 
                     <LinearLayout
+                        android:id="@+id/distanceLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

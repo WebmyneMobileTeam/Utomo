@@ -19,6 +19,7 @@
         <TextView
             android:id="@+id/txtCentreName"
             style="@style/MyTextStyleLabel"
+            android:visibility="gone"
             android:layout_centerInParent="true"
             android:text="Maruti Service Centre"
             android:textSize="@dimen/XL_TEXT" />

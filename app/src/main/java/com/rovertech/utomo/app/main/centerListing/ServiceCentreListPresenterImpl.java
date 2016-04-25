@@ -120,12 +120,13 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
 
                     } else {
                         onSubmit(new ArrayList<ServiceCenterPojo>(), lastCentreId);
-                }
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<CentreListResponse> call, Throwable t) {
+                Functions.showToast(context, "Failed " + t.getMessage());
                 onSubmit(new ArrayList<ServiceCenterPojo>(), 0);
             }
         });

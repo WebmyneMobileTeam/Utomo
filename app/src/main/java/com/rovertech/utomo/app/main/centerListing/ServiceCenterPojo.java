@@ -13,7 +13,7 @@ public class ServiceCenterPojo implements Serializable {
 
     public String ContactPhoneNo2;
 
-    public float DistanceKM;
+    public String DistanceKM;
 
     public boolean IsBodyWash;
 

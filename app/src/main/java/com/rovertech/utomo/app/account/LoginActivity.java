@@ -35,6 +35,9 @@ import com.rovertech.utomo.app.account.model.SocialRequest;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.IntentConstant;
+import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 import java.security.MessageDigest;
@@ -56,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     //google
     private GoogleApiClient mGoogleApiClient;
+    private int fromLogin = 0;
 
     private void initSocial() {
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -67,7 +71,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         initSocial();
         setContentView(R.layout.activity_login_revised);
 
-        //Functions.fireIntent(this, LaunchActivity.class);
+        fromLogin = PrefUtils.getRedirectLogin(this);
+
         init();
 
         presenter = new AccountPresenterImpl(this, LoginActivity.this);
@@ -250,10 +255,26 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void navigateDashboard() {
-        Intent intent = new Intent(this, DrawerActivity.class);
-        intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+
+        if (PrefUtils.getUserFullProfileDetails(this).VehicleCount == 0) {
+            Intent addCarIntent = new Intent(this, AddCarActivity.class);
+            addCarIntent.putExtra(AppConstant.SKIP, true);
+            addCarIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(addCarIntent);
+
+        } else if (fromLogin == AppConstant.FROM_START) {
+            Intent intent = new Intent(this, DrawerActivity.class);
+            intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        } else {
+            Intent intent = new Intent(this, BookingActivity.class);
+            intent.putExtra(IntentConstant.BOOKING_PAGE, AppConstant.FROM_LOGIN);
+            startActivity(intent);
+            finish();
+        }
+
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
 
@@ -267,7 +288,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     @Override
     public void navigateSignUp() {
         finish();
-        Functions.fireIntent(this, SignUpActivity.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
 

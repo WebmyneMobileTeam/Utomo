@@ -14,8 +14,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.account.LoginActivity;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.IntentConstant;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.widget.FlowLayout;
@@ -24,7 +27,7 @@ import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
 /**
  * Created by sagartahelyani on 16-03-2016.
  */
-public class    CentreMainDetails extends LinearLayout {
+public class CentreMainDetails extends LinearLayout {
 
     private Context context;
     private LayoutInflater inflater;
@@ -108,9 +111,20 @@ public class    CentreMainDetails extends LinearLayout {
         btnBook.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, BookingActivity.class);
-                intent.putExtra(IntentConstant.FetchServiceCentreDetailPojo, centreDetailPojo);
-                Functions.fireIntent(context, intent);
+
+                PrefUtils.setCenterSelected(context, centreDetailPojo);
+
+                if (PrefUtils.isUserLoggedIn(context)) {
+                    Intent intent = new Intent(context, BookingActivity.class);
+                    intent.putExtra(IntentConstant.BOOKING_PAGE, AppConstant.FROM_SC_LIST);
+                    Functions.fireIntent(context, intent);
+
+                } else {
+                    PrefUtils.setRedirectLogin(context, AppConstant.FROM_SC);
+
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    Functions.fireIntent(context, intent);
+                }
             }
         });
     }

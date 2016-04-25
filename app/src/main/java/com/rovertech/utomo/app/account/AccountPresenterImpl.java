@@ -330,7 +330,7 @@ public class AccountPresenterImpl implements AccountPresenter {
             accountView.navigateDashboard();
     }
 
-    private void verifyOTP(String otp, String mobile, final String string, final ManiBasicLoginSignUp loginOutput) {
+    private void verifyOTP(String otp, String mobile, final String string, final ManiBasicLoginSignUp loginOutput, final OTPDialog dialog) {
 
         OtpVerifyService service = UtomoApplication.retrofit.create(OtpVerifyService.class);
         Call<ManiBasicLoginSignUp> call = service.verifyOTP(mobile, otp);
@@ -346,7 +346,6 @@ public class AccountPresenterImpl implements AccountPresenter {
                     ManiBasicLoginSignUp otpOutput = response.body();
 
                     if (otpOutput.OTPVerification.ResponseCode == 1) {
-
                         Functions.showToast(activity, "OTP Verification successful.");
 
                         if (string.equals(AppConstant.LOGIN)) {
@@ -369,7 +368,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
             @Override
             public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
-
+                Functions.showToast(activity, t.getMessage());
             }
         });
 
@@ -434,8 +433,6 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     @Override
     public void checkCredentials(String number, String pwd) {
-
-
 
 
         if (number.length() != 10) {
@@ -686,11 +683,11 @@ public class AccountPresenterImpl implements AccountPresenter {
     }
 
     private void otpAlert(final BasicLoginRequest loginRequest, final String string, String otp, final ManiBasicLoginSignUp loginOutput) {
-        OTPDialog dialog = new OTPDialog(activity, otp);
+        final OTPDialog dialog = new OTPDialog(activity, otp);
         dialog.setOnSubmitListener(new OTPDialog.onSubmitListener() {
             @Override
             public void onSubmit(String otp) {
-                verifyOTP(otp, loginRequest.Mobile, string, loginOutput);
+                verifyOTP(otp, loginRequest.Mobile, string, loginOutput, dialog);
             }
         });
         dialog.show();

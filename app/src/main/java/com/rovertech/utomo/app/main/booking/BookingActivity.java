@@ -22,6 +22,7 @@ import com.rovertech.utomo.app.bookings.BookingPresenter;
 import com.rovertech.utomo.app.bookings.BookingPresenterImpl;
 import com.rovertech.utomo.app.bookings.BookingView;
 import com.rovertech.utomo.app.bookings.model.BookingRequest;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
@@ -59,15 +60,13 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     // Address Section
     private CheckBox checkPickup, checkDropoff;
-    //private  CheckBox  checkIsPickUp,checkIsDrop;
-    private TextView txtSelectPickup, txtSelectDropoff, txtDropoffAddress, txtPickupAddress, txtAddress;
+    private TextView txtSelectPickup, txtSelectDropoff, txtDropoffAddress, txtPickupAddress, txtAddress, txtSelectCar;
 
     // Promo Section
     private CardView promoCardView, edtPromoCard;
     private RadioGroup radioGroup;
     // private RadioButton radioDefault, radioPromo;
     private EditText edtPromoCode;
-    //private TextView txtApply, txtPromo;
 
     private int ADDRESS_PICK_UP = 1;
     private int ADDRESS_DROP_OFF = 2;
@@ -78,10 +77,16 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     private LinearLayout addressHolder;
     private static final String bookingDateTimeFormate = "dd MMM, yyyy KK:mm a";
 
+    private String dealerShip = "";
+    private int redirectFrom = 0;
+    private boolean isCarSelected = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
+
+        redirectFrom = getIntent().getIntExtra(IntentConstant.BOOKING_PAGE, 0);
 
         init();
 
@@ -94,6 +99,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         initToolbar();
 
+        txtSelectCar = (TextView) findViewById(R.id.txtSelectCar);
         edtDescription = (EditText) findViewById(R.id.edtDescription);
         parentView = findViewById(android.R.id.content);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
@@ -145,6 +151,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         txtTime.setOnClickListener(this);
         //txtApply.setOnClickListener(this);
         btnBook.setOnClickListener(this);
+        txtSelectCar.setOnClickListener(this);
 
         txtSelectPickup.setOnClickListener(this);
         txtSelectDropoff.setOnClickListener(this);
@@ -216,27 +223,37 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     @Override
     public void setDetails() {
 
-        carPojo = PrefUtils.getCurrentCarSelected(this);
-        userProfileOutput = PrefUtils.getUserFullProfileDetails(this);
-        if (userProfileOutput != null) {
+        if (redirectFrom == AppConstant.FROM_SC_LIST) {
 
-            txtUsername.setText(String.format("%s", userProfileOutput.Name));
+            isCarSelected = true;
+            carPojo = PrefUtils.getCurrentCarSelected(this);
+            userProfileOutput = PrefUtils.getUserFullProfileDetails(this);
+
+            if (userProfileOutput != null) {
+                txtUsername.setText(String.format("%s", userProfileOutput.Name));
+                // txtUsername.setVisibility(View.VISIBLE);
+            }
+
+            if (carPojo != null) {
+                txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
+                txtCarNo.setText(String.format("%s", carPojo.VehicleNo));
+            }
+
+        } else {
+            isCarSelected = false;
+            txtUsername.setVisibility(View.GONE);
+            txtCarNo.setVisibility(View.GONE);
+            txtCarName.setVisibility(View.GONE);
+            txtSelectCar.setVisibility(View.VISIBLE);
         }
 
-        if (carPojo != null) {
-            txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
-            txtCarNo.setText(String.format("%s", carPojo.VehicleNo));
-            // Functions.LoadImage(imgCar, carPojo.CarImage, this);
-        }
-        Intent intent = getIntent();
-        centreDetailPojo = (FetchServiceCentreDetailPojo) intent.getSerializableExtra(IntentConstant.FetchServiceCentreDetailPojo);
+        centreDetailPojo = PrefUtils.getCurrentCenter(this);
+        dealerShip = centreDetailPojo.Dealership;
+
         if (centreDetailPojo != null) {
-
             txtTitle.setText(centreDetailPojo.ServiceCentreName);
             txtAddress.setText(centreDetailPojo.Address1);
-
         }
-
     }
 
     @Override
@@ -247,6 +264,17 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     @Override
     public void setTime(String strTime) {
         txtTime.setText(strTime);
+    }
+
+    @Override
+    public void setSelectedCar(CarPojo carPojo) {
+        this.carPojo = carPojo;
+        txtCarName.setVisibility(View.VISIBLE);
+        txtCarNo.setVisibility(View.VISIBLE);
+        txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
+        txtCarNo.setText(String.format("%s", carPojo.VehicleNo));
+        isCarSelected = true;
+
     }
 
     @Override
@@ -278,16 +306,25 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             case R.id.radioPromo:
                 edtPromoCard.setVisibility(View.VISIBLE);
                 break;
+
             case R.id.btnBook:
-                bookRequest();
+                if (isCarSelected)
+                    bookRequest();
+                else
+                    Functions.showToast(this, "Select car");
                 break;
+
             case R.id.btnPickUpAddressRemove:
                 removePickAddress();
                 break;
+
             case R.id.btnDropAddressRemove:
                 removeDropAddress();
                 break;
 
+            case R.id.txtSelectCar:
+                presenter.openCarList(this, centreDetailPojo.Dealership);
+                break;
 
         }
     }
@@ -439,7 +476,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             bookingRequest.IsService = checkService.isChecked();
 
-
             String bookingDateAndTime = txtDate.getText() + " " + txtTime.getText();
             boolean isValidDateTime = checkValidBookDateAndTime(bookingDateAndTime);
 
@@ -455,7 +491,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             bookingRequest.ServiceCentreID = centreDetailPojo.ServiceCentreID;
 
-            bookingRequest.UserID = userProfileOutput.UserID;
+            bookingRequest.UserID = PrefUtils.getUserID(this);
 
             bookingRequest.VehicleID = carPojo.VehicleID;
 

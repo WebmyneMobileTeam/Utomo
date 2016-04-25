@@ -7,6 +7,7 @@ public class AppConstant {
 
     public static String LOGGED_IN = "LOGGED_IN";
     public static String IS_SPLASH = "IS_SPLASH";
+    public static String IS_CAR_ADDED = "IS_CAR_ADDED";
 
     public static String LOGIN = "login";
     public static String SIGN_UP = "sign_up";
@@ -95,5 +96,13 @@ public class AppConstant {
 
 
     final public static String ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
+
+    // Redirect to Login Page
+    public static int FROM_START = 1;
+    public static int FROM_SC = 2;
+
+    // Redirect Booking Page
+    public static int FROM_LOGIN = 1;
+    public static int FROM_SC_LIST = 2;
 
 }

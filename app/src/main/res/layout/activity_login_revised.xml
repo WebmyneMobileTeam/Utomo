@@ -141,6 +141,7 @@
                     android:layout_height="?actionBarSize"
                     android:layout_margin="8dp"
                     android:hint="Password"
+                    android:text="123456"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:singleLine="true"

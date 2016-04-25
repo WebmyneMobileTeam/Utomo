@@ -9,6 +9,8 @@ public class UserProfileOutput implements Serializable {
 
     public int UserID;
 
+    public int VehicleCount;
+
     public String Name;
 
     public String EmailID;

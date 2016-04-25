@@ -24,6 +24,8 @@ import com.rovertech.utomo.app.account.model.SocialRequest;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.IntentConstant;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 import java.util.ArrayList;
@@ -41,10 +43,14 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private LinearLayout socialBar, cityLayout;
     private int cityId = 0;
 
+    private int fromLogin = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_revised);
+
+        fromLogin = PrefUtils.getRedirectLogin(this);
 
         init();
 
@@ -102,7 +108,6 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
                     presenter.fetchCity(SignUpActivity.this, s.toString());
             }
         });
-
 
 
         setTypeface();
@@ -196,7 +201,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     @Override
     public void navigateLogin() {
         finish();
-        Functions.fireIntent(this, LoginActivity.class);
+        Intent loginIntent = new Intent(SignUpActivity.this, LoginActivity.class);
+        startActivity(loginIntent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
 
@@ -204,7 +210,9 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     public void navigateAddCar() {
         Intent addCarIntent = new Intent(this, AddCarActivity.class);
         addCarIntent.putExtra(AppConstant.SKIP, true);
+        addCarIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(addCarIntent);
+        finish();
     }
 
     @Override

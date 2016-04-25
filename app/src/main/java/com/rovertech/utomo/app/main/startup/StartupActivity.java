@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.startup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import com.rovertech.utomo.app.account.LoginActivity;
 import com.rovertech.utomo.app.account.SignUpActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.IntentConstant;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.widget.linkedViewPager.MyPagerAdapter;
 import com.rovertech.utomo.app.widget.linkedViewPager.ViewPager;
 
@@ -66,7 +69,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
             public View makeView() {
                 TextView myText = new TextView(StartupActivity.this);
                 myText.setGravity(Gravity.CENTER);
-                myText.setTextSize(getResources().getDimension(R.dimen.VVS_TEXT));
+                myText.setTextSize(Functions.convertPixelsToDp(getResources().getDimension(R.dimen.M_TEXT), StartupActivity.this));
                 myText.setPadding(2, 2, 2, 2);
                 myText.setEllipsize(TextUtils.TruncateAt.END);
                 myText.setLines(2);
@@ -209,7 +212,9 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
     @Override
     public void normalLogin() {
-        Functions.fireIntent(StartupActivity.this, LoginActivity.class);
+        PrefUtils.setRedirectLogin(this, AppConstant.FROM_START);
+        Intent loginIntent = new Intent(StartupActivity.this, LoginActivity.class);
+        startActivity(loginIntent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
 

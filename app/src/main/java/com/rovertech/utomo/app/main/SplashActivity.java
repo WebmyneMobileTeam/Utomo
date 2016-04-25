@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
@@ -95,16 +96,35 @@ public class SplashActivity extends AppCompatActivity {
     private void navigate() {
 
         if (isLoggedIn) {
-            Intent intent = new Intent(SplashActivity.this, DrawerActivity.class);
-            intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
-            startActivity(intent);
-            overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
 
+            if (PrefUtils.isCarAdded(this)) {
+
+                if (PrefUtils.getUserFullProfileDetails(this).VehicleCount == 0)
+                    callAddCar();
+                else
+                    callDrawer();
+            } else {
+                callAddCar();
+            }
         } else {
             Functions.fireIntent(SplashActivity.this, StartupActivity.class);
         }
 
         finish();
+    }
+
+    private void callDrawer() {
+        Intent intent = new Intent(SplashActivity.this, DrawerActivity.class);
+        intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+    }
+
+    private void callAddCar() {
+        Intent intent = new Intent(SplashActivity.this, AddCarActivity.class);
+        intent.putExtra(AppConstant.SKIP, true);
+        startActivity(intent);
+        overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
     }
 
     private void init() {

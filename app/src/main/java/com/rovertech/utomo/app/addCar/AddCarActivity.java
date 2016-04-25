@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -30,6 +31,9 @@ import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
 import com.rovertech.utomo.app.addCar.model.Vehicle;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.IntentConstant;
+import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.Odometer;
@@ -210,14 +214,12 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         txtSkip.setVisibility(View.GONE);
-        toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
-//        if (isSkip) {
-//            txtSkip.setVisibility(View.VISIBLE);
-//            toolbar.setNavigationIcon(null);
-//        } else {
-//            txtSkip.setVisibility(View.GONE);
-//            toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
-//        }
+
+        if (isSkip) {
+            toolbar.setNavigationIcon(null);
+        } else {
+            toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
+        }
 
         setSupportActionBar(toolbar);
 
@@ -384,11 +386,21 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     @Override
     public void navigateToDashboard() {
-        Intent intent = new Intent(this, DrawerActivity.class);
-        intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+
+        if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_START) {
+            Intent intent = new Intent(this, DrawerActivity.class);
+            intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+
+        } else {
+            Intent intent = new Intent(this, BookingActivity.class);
+            intent.putExtra(IntentConstant.BOOKING_PAGE, AppConstant.FROM_LOGIN);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     @Override
@@ -401,11 +413,14 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void success() {
 
+        PrefUtils.setCarAdded(this, true);
+
         Functions.showToast(this, "Your car has been added successfully.");
-        if (isSkip)
+        if (isSkip) {
             navigateToDashboard();
-        else
+        } else {
             finish();
+        }
     }
 
     @Override
@@ -444,8 +459,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     @Override
     public void setCarDetails(CarPojo carPojo) {
-
-
         try {
             modelCardView.setVisibility(View.VISIBLE);
             yearCardView.setVisibility(View.VISIBLE);
@@ -453,7 +466,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             if (!TextUtils.isEmpty(mCarPojo.VehicleNo)) {
                 edtVehicleNo.setText(mCarPojo.VehicleNo);
             }
-
 
             if (!TextUtils.isEmpty(carPojo.LastServiceDate)) {
                 edtServiceDate.setText(carPojo.LastServiceDate);
@@ -517,6 +529,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void onBackPressed() {
         if (isSkip) {
+            Toast.makeText(AddCarActivity.this, "Add a car", Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }

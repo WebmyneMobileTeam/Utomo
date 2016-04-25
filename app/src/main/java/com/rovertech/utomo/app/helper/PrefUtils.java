@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.main.centreDetail.model.FeedBack;
+import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.lang.reflect.Type;
@@ -26,6 +27,9 @@ public class PrefUtils {
     public static String GCM_ID = "GCM_ID";
     public static String DEVICE_ID = "Device_ID";
     public static String CURRENT_CAR_SELECTED = "CURRENT_CAR_SELECTED";
+    public static String CURRENT_CENTER_SELECTED = "CURRENT_CENTER_SELECTED";
+
+    public static final String RedirectLogin = "RedirectLogin";
 
     public static void setSplash(Context ctx, boolean value) {
         Prefs.with(ctx).save(AppConstant.IS_SPLASH, value);
@@ -110,14 +114,10 @@ public class PrefUtils {
     }
 
     public static void setCurrentCarSelected(Context context, CarPojo carPojo) {
-
         if (carPojo != null) {
-
             String carPojoString = UtomoApplication.getInstance().getGson().toJson(carPojo);
             Prefs.with(context).save(CURRENT_CAR_SELECTED, carPojoString);
-
         }
-
     }
 
     public static CarPojo getCurrentCarSelected(Context context) {
@@ -132,6 +132,27 @@ public class PrefUtils {
 
         return carPojo;
     }
+
+    public static void setCenterSelected(Context context, FetchServiceCentreDetailPojo centerPojo) {
+        if (centerPojo != null) {
+            String carPojoString = UtomoApplication.getInstance().getGson().toJson(centerPojo);
+            Prefs.with(context).save(CURRENT_CENTER_SELECTED, carPojoString);
+        }
+    }
+
+    public static FetchServiceCentreDetailPojo getCurrentCenter(Context context) {
+
+        FetchServiceCentreDetailPojo centerPojo = new FetchServiceCentreDetailPojo();
+        try {
+            String carString = Prefs.with(context).getString(CURRENT_CENTER_SELECTED, "");
+            centerPojo = UtomoApplication.getInstance().getGson().fromJson(carString, FetchServiceCentreDetailPojo.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return centerPojo;
+    }
+
 
     public static void setGCMID(Activity activity, String gcm_id) {
         Prefs.with(activity).save(GCM_ID, gcm_id);
@@ -148,4 +169,21 @@ public class PrefUtils {
     public static void setDeviceId(Activity activity, String deviceId) {
         Prefs.with(activity).save(DEVICE_ID, deviceId);
     }
+
+    public static void setCarAdded(Context ctx, boolean b) {
+        Prefs.with(ctx).save(AppConstant.IS_CAR_ADDED, b);
+    }
+
+    public static boolean isCarAdded(Context ctx) {
+        return Prefs.with(ctx).getBoolean(AppConstant.IS_CAR_ADDED, false);
+    }
+
+    public static void setRedirectLogin(Context ctx, int value) {
+        Prefs.with(ctx).save(RedirectLogin, value);
+    }
+
+    public static int getRedirectLogin(Context ctx) {
+        return Prefs.with(ctx).getInt(RedirectLogin, 0);
+    }
+
 }

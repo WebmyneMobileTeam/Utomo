@@ -16,4 +16,6 @@ public interface BookingPresenter {
     void selectDate(Context context);
 
     void book(Context context,BookingRequest bookingRequest);
+
+    void openCarList(Context context, String dealership);
 }

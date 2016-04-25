@@ -28,6 +28,7 @@ public class ServiceCentreTile extends LinearLayout {
     private CardView cardLayout;
     LinearLayout.LayoutParams params;
     private LabelImageView offerAvailable;
+    private LinearLayout distanceLayout;
 
     public ServiceCentreTile(Context context, View view) {
         super(context);
@@ -55,6 +56,7 @@ public class ServiceCentreTile extends LinearLayout {
     }
 
     private void findViewById() {
+        distanceLayout = (LinearLayout) parentView.findViewById(R.id.distanceLayout);
         serviceTypeLayout = (FlowLayout) parentView.findViewById(R.id.serviceTypeLayout);
         serviceTypeLayout.setOrientation(HORIZONTAL);
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
@@ -103,10 +105,12 @@ public class ServiceCentreTile extends LinearLayout {
             serviceTypeLayout.addView(serviceChip, params);
         }
 
-        if (centerPojo.DistanceKM == 0) {
-            txtDistance.setVisibility(GONE);
+        if (centerPojo.DistanceKM == null || centerPojo.DistanceKM.equals("")) {
+            distanceLayout.setVisibility(GONE);
+
         } else {
-            txtDistance.setText(String.format("%.1f Km", centerPojo.DistanceKM));
+            distanceLayout.setVisibility(VISIBLE);
+            txtDistance.setText(String.format("%s", centerPojo.DistanceKM));
         }
 
         cardLayout.setOnClickListener(new OnClickListener() {
