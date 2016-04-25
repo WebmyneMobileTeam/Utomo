@@ -92,12 +92,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView iv = (ImageView) inflater.inflate(R.layout.iv_offer, null);
 
-       /* Animation mAnimation = new AlphaAnimation(1, 0);
-        mAnimation.setDuration(500);
-        mAnimation.setInterpolator(new LinearInterpolator());
-        mAnimation.setRepeatCount(Animation.INFINITE);
-        mAnimation.setRepeatMode(Animation.REVERSE);
-        iv.startAnimation(mAnimation);*/
         menu.findItem(R.id.action_offers).setActionView(iv);
 
         return super.onCreateOptionsMenu(menu);
