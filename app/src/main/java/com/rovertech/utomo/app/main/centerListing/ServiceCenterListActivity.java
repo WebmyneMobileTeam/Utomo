@@ -69,7 +69,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     // right drawer
     private Button btnReset, btnApply;
     private SwitchCompat switchBodyShop, switchPickup;
-    private boolean isBodyShop = true, isPickup = true;
+    private boolean isBodyShop = true, isPickup = true, isLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,13 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         Double userLatitude = getIntent().getDoubleExtra("lat", 0.0);
         Double userLongitude = getIntent().getDoubleExtra("lng", 0.0);
-        cityId = PrefUtils.getUserFullProfileDetails(this).CityID;
+
+        isLoggedIn = PrefUtils.isUserLoggedIn(this);
+        if (isLoggedIn) {
+            cityId = PrefUtils.getUserFullProfileDetails(this).CityID;
+        } else {
+            cityId = 0;
+        }
 
         if (userLatitude == 0.0 || userLongitude == 0.0) {
             type = AppConstant.BY_CITY;

@@ -77,7 +77,9 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
             request.Longitude = userLongitude;
         }
 
-        request.DealerShipName = PrefUtils.getCurrentCarSelected(context).Make;
+        if (PrefUtils.isUserLoggedIn(context))
+            request.DealerShipName = PrefUtils.getCurrentCarSelected(context).Make;
+
         request.LastServiceCentreID = centreId;
         request.IsBodyWash = isBodyShop;
         request.IsPickupDrop = isPickup;
@@ -85,11 +87,14 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
         Log.e("CentreListRequest", Functions.jsonString(request));
 
         FetchServiceCentreListService service = UtomoApplication.retrofit.create(FetchServiceCentreListService.class);
+
         Call<CentreListResponse> call = service.doFetchCentreList(request);
 
         call.enqueue(new Callback<CentreListResponse>() {
             @Override
             public void onResponse(Call<CentreListResponse> call, Response<CentreListResponse> response) {
+
+                Log.e("response", "comes");
 
                 if (response.body() == null) {
                     Functions.showToast(context, "Error occurred");

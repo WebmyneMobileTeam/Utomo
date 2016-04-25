@@ -5,8 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
-import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.widget.LocationFinder;
 
@@ -23,6 +23,7 @@ public class StartupPresenterImpl implements StartupPresenter {
 
     @Override
     public void skip(Context context) {
+
         LocationFinder finder = new LocationFinder(context);
 
         if (!finder.canGetLocation()) {
@@ -30,6 +31,7 @@ public class StartupPresenterImpl implements StartupPresenter {
 
         } else {
             Intent centreIntent = new Intent(context, ServiceCenterListActivity.class);
+            Log.e("lat-lng", finder.getLatitude() + "-" + finder.getLongitude());
             centreIntent.putExtra("lat", finder.getLatitude());
             centreIntent.putExtra("lng", finder.getLongitude());
             context.startActivity(centreIntent);
