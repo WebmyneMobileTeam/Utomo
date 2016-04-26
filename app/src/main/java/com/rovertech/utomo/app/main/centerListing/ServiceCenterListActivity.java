@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -16,12 +17,14 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,7 +49,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     private TextView txtCustomTitle, txtNoData;
     private MaterialAutoCompleteTextView edtCity;
-    private Button btnSearch;
+    private ImageView btnSearch;
     private LinearLayout searchLayout, listLayout, emptyLayout;
     private RelativeLayout contentLayout;
     private ServiceCentreLisPresenter presenter;
@@ -130,7 +133,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         contentLayout = (RelativeLayout) findViewById(R.id.contentLayout);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch = (ImageView) findViewById(R.id.btnSearch);
         txtNoData = (TextView) findViewById(R.id.txtNoData);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         txtFilterTitle = (TextView) findViewById(R.id.txtFilterTitle);
@@ -163,8 +166,33 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().length() > 0)
+                if (s.toString().length() > 0) {
+                    Drawable img = getResources().getDrawable( R.drawable.ic_action_navigation_close );
+                    edtCity.setCompoundDrawablesWithIntrinsicBounds( null , null, img, null);
                     presenter.fetchCity(ServiceCenterListActivity.this, s.toString());
+                } else if (s.toString().length() == 0) {
+                    edtCity.setCompoundDrawablesWithIntrinsicBounds( null , null, null, null);
+                }
+
+            }
+        });
+
+        edtCity.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (edtCity.getRight() - edtCity.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        edtCity.setText("");
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 
@@ -278,7 +306,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         switchBodyShop.setTypeface(Functions.getRegularFont(this));
         switchPickup.setTypeface(Functions.getRegularFont(this));
         txtNoData.setTypeface(Functions.getBoldFont(this));
-        btnSearch.setTypeface(Functions.getBoldFont(this));
+        //btnSearch.setTypeface(Functions.getBoldFont(this));
         txtFilterTitle.setTypeface(Functions.getBoldFont(this));
         btnApply.setTypeface(Functions.getBoldFont(this));
         btnReset.setTypeface(Functions.getBoldFont(this));
