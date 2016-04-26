@@ -141,13 +141,25 @@
                     android:layout_height="?actionBarSize"
                     android:layout_margin="8dp"
                     android:hint="Password"
-                    android:text="123456"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:singleLine="true"
+                    android:text="123456"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_password"
+                    widget:met_primaryColor="@color/editTextColor" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edtReferralCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="Referral Code"
+                    android:inputType="text"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_iconLeft="@drawable/ic_qr_code"
                     widget:met_primaryColor="@color/editTextColor" />
 
                 <Button

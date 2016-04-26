@@ -197,7 +197,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                                 }
                             }
 
-                            final CarListDialog dialog = new CarListDialog(context, carList);
+                            final CarListDialog dialog = new CarListDialog(context, carList, dealership);
                             dialog.setOnSubmitListener(new CarListDialog.onSubmitListener() {
                                 @Override
                                 public void onSubmit(CarPojo carPojo) {
@@ -207,6 +207,9 @@ public class BookingPresenterImpl implements BookingPresenter {
                                 }
                             });
                             dialog.show();
+
+                        } else {
+                            Functions.showToast(context, "You don't have any car");
                         }
 
                     } else {

@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private AccountPresenter presenter;
     private ImageView imgFb, imgGoogle;
     private Button btnLogin;
-    private MaterialEditText edtMobileNumber, edtPassword, edtName, edtEmail;
+    private MaterialEditText edtMobileNumber, edtPassword, edtName, edtEmail, edtReferralCode;
     private ProgressDialog progressDialog;
     private LinearLayout socialBar;
     private MaterialAutoCompleteTextView edtCity;
@@ -141,6 +141,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
         initToolbar();
 
+        edtReferralCode = (MaterialEditText) findViewById(R.id.edtReferralCode);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
         edtCity.setVisibility(View.GONE);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
@@ -162,6 +163,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
         edtEmail.setVisibility(View.GONE);
         edtName.setVisibility(View.GONE);
+        edtReferralCode.setVisibility(View.GONE);
         txtSignUp.setVisibility(View.VISIBLE);
         txtLogin.setVisibility(View.GONE);
         socialBar.setVisibility(View.VISIBLE);
@@ -280,13 +282,13 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void numberError() {
-
         Functions.showErrorAlert(this, "Invalid Mobile number", false);
 
     }
 
     @Override
     public void navigateSignUp() {
+        //   Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
         finish();
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);

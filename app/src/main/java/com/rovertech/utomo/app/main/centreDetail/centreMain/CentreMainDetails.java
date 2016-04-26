@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.LoginActivity;
@@ -121,7 +122,7 @@ public class CentreMainDetails extends LinearLayout {
 
                 } else {
                     PrefUtils.setRedirectLogin(context, AppConstant.FROM_SC);
-
+                   // Toast.makeText(context, "sd " + PrefUtils.getRedirectLogin(context), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     Functions.fireIntent(context, intent);
                 }

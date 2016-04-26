@@ -18,7 +18,7 @@ public interface AccountPresenter {
 
     void checkCredentials(String number, String password);
 
-    void checkCredentials(String number, String name, String email, String pwd, int cityId);
+    void checkCredentials(String number, String name, String email, String pwd, int cityId, String referralCode);
 
     void openSignUp();
 

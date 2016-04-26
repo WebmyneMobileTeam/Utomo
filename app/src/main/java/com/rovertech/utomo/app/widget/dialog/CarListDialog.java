@@ -25,21 +25,23 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
     View parentView;
     Context context;
 
-    private TextView txtTitle;
+    private TextView txtTitle, emptyTextView;
     private ImageView imgClose;
     private ListView carListView;
     ArrayList<CarPojo> carList;
 
     onSubmitListener onSubmitListener;
+    String dealership;
 
     public void setOnSubmitListener(CarListDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
 
-    public CarListDialog(Context context, ArrayList<CarPojo> carList) {
+    public CarListDialog(Context context, ArrayList<CarPojo> carList, String dealership) {
         super(context);
         this.carList = carList;
         this.context = context;
+        this.dealership = dealership;
     }
 
     @Override
@@ -49,21 +51,36 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
         dismissAnim(new SlideRightExit());
 
         parentView = View.inflate(context, R.layout.layout_car_list_dialog, null);
+
+        emptyTextView = (TextView) parentView.findViewById(R.id.emptyTextView);
+
         carListView = (ListView) parentView.findViewById(R.id.carListView);
+        emptyTextView.setText(String.format("You don't have any %s car. Please cancel this procedure.", dealership));
+        emptyTextView.setPadding(16, 16, 16, 16);
+        emptyTextView.setTypeface(Functions.getRegularFont(context));
+        carListView.setEmptyView(emptyTextView);
+
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
 
         setTypeface();
 
         CarListAdapter adapter = new CarListAdapter(context, carList);
-        carListView.setAdapter(adapter);
-        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (onSubmitListener != null)
-                    onSubmitListener.onSubmit(carList.get(position));
-            }
-        });
+
+     //   if (carList.size() > 0) {
+
+            carListView.setAdapter(adapter);
+            carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (onSubmitListener != null)
+                        onSubmitListener.onSubmit(carList.get(position));
+                }
+            });
+
+     //   }else{
+
+     //   }
 
         return parentView;
     }

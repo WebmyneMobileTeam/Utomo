@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -37,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private View parentView;
     private AccountPresenter presenter;
     private Button btnLogin;
-    private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword;
+    private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword, edtReferralCode;
     private MaterialAutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
     private LinearLayout socialBar, cityLayout;
@@ -61,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
         initToolbar();
 
+        edtReferralCode = (MaterialEditText) findViewById(R.id.edtReferralCode);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
         cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
         socialBar = (LinearLayout) findViewById(R.id.socialBar);
@@ -147,7 +149,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         switch (v.getId()) {
             case R.id.btnLogin:
                 presenter.checkCredentials(edtMobileNumber.getText().toString().trim(), edtName.getText().toString().trim(),
-                        edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), cityId);
+                        edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), cityId, edtReferralCode.getText().toString().trim());
                 break;
 
             case R.id.txtLogin:
@@ -208,7 +210,12 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void navigateAddCar() {
-        PrefUtils.setRedirectLogin(this,AppConstant.FROM_START);
+       // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+
+        PrefUtils.setRedirectLogin(this, PrefUtils.getRedirectLogin(this));
+
+      //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+
         Intent addCarIntent = new Intent(this, AddCarActivity.class);
         addCarIntent.putExtra(AppConstant.SKIP, true);
         addCarIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

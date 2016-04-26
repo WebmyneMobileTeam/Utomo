@@ -387,7 +387,12 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void navigateToDashboard() {
 
+        // TODO: 25-04-2016 AppConstant changes values
+
+      //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+
         if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_START) {
+
             Intent intent = new Intent(this, DrawerActivity.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -400,7 +405,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             startActivity(intent);
             finish();
         }
-
     }
 
     @Override
@@ -414,6 +418,8 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     public void success() {
 
         PrefUtils.setCarAdded(this, true);
+
+       // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
 
         Functions.showToast(this, "Your car has been added successfully.");
         if (isSkip) {

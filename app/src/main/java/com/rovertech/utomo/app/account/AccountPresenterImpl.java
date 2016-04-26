@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -346,20 +347,33 @@ public class AccountPresenterImpl implements AccountPresenter {
                     ManiBasicLoginSignUp otpOutput = response.body();
 
                     if (otpOutput.OTPVerification.ResponseCode == 1) {
+                        dialog.dismiss();
                         Functions.showToast(activity, "OTP Verification successful.");
 
-                        if (string.equals(AppConstant.LOGIN)) {
+                        new CountDownTimer(1500, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
 
-                            PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
-                            PrefUtils.setLoggedIn(activity, true);
-                            loginSuccess();
+                            }
 
-                        } else {
-                            PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
-                            PrefUtils.setLoggedIn(activity, true);
+                            @Override
+                            public void onFinish() {
+                                if (string.equals(AppConstant.LOGIN)) {
 
-                            signUpSuccess();
-                        }
+                                    PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
+                                    PrefUtils.setLoggedIn(activity, true);
+                                    loginSuccess();
+
+                                } else {
+                                    PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
+                                    PrefUtils.setLoggedIn(activity, true);
+
+                                    signUpSuccess();
+                                }
+
+                            }
+                        }.start();
+
                     } else {
                         Functions.showToast(activity, "OTP Verification Failed.");
                     }
@@ -369,6 +383,7 @@ public class AccountPresenterImpl implements AccountPresenter {
             @Override
             public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
                 Functions.showToast(activity, t.getMessage());
+                dialog.dismiss();
             }
         });
 
@@ -532,8 +547,7 @@ public class AccountPresenterImpl implements AccountPresenter {
     }
 
     @Override
-    public void checkCredentials(String number, String name, String email, String pwd, int cityId) {
-
+    public void checkCredentials(String number, String name, String email, String pwd, int cityId, String referralCode) {
 
         if (number.length() != 10) {
             setNumberError();
@@ -545,16 +559,12 @@ public class AccountPresenterImpl implements AccountPresenter {
             return;
 
         }
-        if (TextUtils.isEmpty(email)) {
+
+        if (!TextUtils.isEmpty(email) && !Functions.emailValidation(email)) {
+            setEmailError();
             return;
-
-        } else {
-            if (!Functions.emailValidation(email)) {
-
-                setEmailError();
-                return;
-            }
         }
+
         if (cityId == 0) {
             setCityError();
             return;
@@ -565,7 +575,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
         }
         setProgressBar();
-        doSignUp(number, name, email, pwd, cityId);
+        doSignUp(number, name, email, pwd, cityId, referralCode);
 
     }
 
@@ -576,7 +586,7 @@ public class AccountPresenterImpl implements AccountPresenter {
         }
     }
 
-    private void doSignUp(String number, String name, String email, String pwd, int cityId) {
+    private void doSignUp(String number, String name, String email, String pwd, int cityId, String referralCode) {
 
         final BasicLoginRequest loginRequest = new BasicLoginRequest();
         loginRequest.EmailID = email;
@@ -586,6 +596,7 @@ public class AccountPresenterImpl implements AccountPresenter {
         loginRequest.DeviceId = deviceId;
         loginRequest.isSignUp = true;
         loginRequest.CityID = cityId;
+        loginRequest.ReferralCode = referralCode;
 
         //get GCM
         try {

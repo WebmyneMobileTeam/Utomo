@@ -94,7 +94,6 @@ public class AppConstant {
     public static int MODE_DATE = 2;
     public static int MODE_PERFORMANCE = 3;
 
-
     final public static String ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
 
     // Redirect to Login Page

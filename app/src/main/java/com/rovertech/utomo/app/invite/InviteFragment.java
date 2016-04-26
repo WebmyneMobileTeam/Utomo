@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 /**
@@ -31,13 +32,14 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
 
 
     public static InviteFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         InviteFragment fragment = new InviteFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
 
         setTypeface();
 
+        txtCode.setText(String.format("%s", PrefUtils.getUserFullProfileDetails(getActivity()).MyReferCode));
         txtCode.setOnClickListener(this);
         btnInvite.setOnClickListener(this);
     }
