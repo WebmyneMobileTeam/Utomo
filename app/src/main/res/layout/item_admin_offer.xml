@@ -13,21 +13,22 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:orientation="horizontal">
+                >
 
                 <com.alexzh.circleimageview.CircleImageView
                     android:id="@+id/img"
                     android:layout_width="50dp"
                     android:layout_height="50sp"
+                    android:layout_alignParentLeft="true"
                     android:src="@drawable/car" />
 
                 <TextView
@@ -36,9 +37,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My Car"
+                    android:layout_toRightOf="@+id/img"
                     android:textColor="@color/colorPrimaryDark" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/txtOfferTitleCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:padding="8dp"
+                    android:text="AADXJ23"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/M_TEXT" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtOfferDesc"
@@ -47,57 +62,35 @@
                 android:layout_height="wrap_content"
                 android:text="Description:" />
 
+
             <TextView
                 android:id="@+id/txtOfferValidTo"
                 style="@style/BodyTextStyle4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:text="Valid Upto:" />
-
 
         </LinearLayout>
 
 
-        <android.support.v7.widget.CardView
-            android:layout_width="0sp"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/VS_TEXT"
-            android:layout_weight="1"
-            app:cardCornerRadius="@dimen/VVS_TEXT">
 
 
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <!-- <TextView
+                 android:id="@+id/txtUseOffer"
+                 style="@style/BodyTextStyle4dp"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
 
-                <TextView
-                    android:id="@+id/txtOfferTitleCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="AADXJ23"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/M_TEXT" />
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:text="Copy OfferCode"
+                 android:textColor="@color/colorPrimaryDark"
+                 android:textSize="@dimen/S_TEXT"
 
-                <TextView
-                    android:id="@+id/txtUseOffer"
-                    style="@style/BodyTextStyle4dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                 />-->
 
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Copy OfferCode"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/S_TEXT"
 
-                    />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 

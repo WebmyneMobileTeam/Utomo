@@ -103,9 +103,9 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             txtOfferTitleCode= (TextView) itemView.findViewById(R.id.txtOfferTitleCode);
             txtOfferDesc= (TextView) itemView.findViewById(R.id.txtOfferDesc);
             txtOfferValidTo= (TextView) itemView.findViewById(R.id.txtOfferValidTo);
-            txtUseOffer= (TextView) itemView.findViewById(R.id.txtUseOffer);
+            //txtUseOffer= (TextView) itemView.findViewById(R.id.txtUseOffer);
             img= (ImageView) itemView.findViewById(R.id.img);
-            txtUseOffer.setOnClickListener(this);
+       //     txtUseOffer.setOnClickListener(this);
 
         }
 
@@ -113,9 +113,9 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         public void onClick(View v) {
             switch (v.getId())
             {
-                case R.id.txtUseOffer:
+                /*case R.id.txtUseOffer:
                     setClipboard(txtOfferTitleCode.getText().toString());
-                    break;
+                    break;*/
 
                 default:
 
