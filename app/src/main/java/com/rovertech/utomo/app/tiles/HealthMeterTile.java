@@ -1,13 +1,16 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.liulishuo.magicprogresswidget.MagicProgressBar;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.widget.progress.ProgressLayout;
@@ -22,6 +25,7 @@ public class HealthMeterTile extends LinearLayout {
     private LayoutInflater inflater;
 
     private ProgressLayout progressLayout;
+    private ProgressBar progressBar;
     private TextView txtTitle, txtPercent;
 
     public HealthMeterTile(Context context) {
@@ -54,16 +58,16 @@ public class HealthMeterTile extends LinearLayout {
     private void findViewById() {
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtPercent = (TextView) parentView.findViewById(R.id.txtPercent);
-        progressLayout = (ProgressLayout) parentView.findViewById(R.id.progressLayout);
-        progressLayout.setCurrentProgress(40);
+
+        progressBar = (ProgressBar) parentView.findViewById(R.id.pbar);
 
     }
 
     public void setCarHealth(String carHealth) {
         txtPercent.setText(String.format("%s %s", carHealth, "%"));
-
         float f = Float.parseFloat(carHealth);
-        progressLayout.setCurrentProgress((int) f);
-        progressLayout.setLoadedColor(Functions.getColor(context, f));
+        progressBar.setProgress((int) f);
+        progressBar.setProgressDrawable(Functions.getHealthColor(context, (int) f));
+
     }
 }

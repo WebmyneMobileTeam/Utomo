@@ -37,7 +37,7 @@ public class BookingPresenterImpl implements BookingPresenter {
         final CurrentBookingAdapter currentBookingAdapter = new CurrentBookingAdapter(userBookingsPojos, viewMode);
         bookingView.setUpRecyclerVIew(currentBookingAdapter);
         BookingActivitiesAPI bookingActivitiesAPI = UtomoApplication.retrofit.create(BookingActivitiesAPI.class);
-        Call<UserBookingsResponse> userBookingsResponseCall = bookingActivitiesAPI.fetchUserBooking(70, viewMode);
+        Call<UserBookingsResponse> userBookingsResponseCall = bookingActivitiesAPI.fetchUserBooking(userID, viewMode);
         userBookingsResponseCall.enqueue(new Callback<UserBookingsResponse>() {
             @Override
             public void onResponse(Call<UserBookingsResponse> call, Response<UserBookingsResponse> response) {

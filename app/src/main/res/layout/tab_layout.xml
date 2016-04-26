@@ -24,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="?android:textColorSecondary"
             android:text="Hello"
+            android:textColor="?android:textColorSecondary"
             android:textSize="@dimen/N_TEXT" />
 
     </LinearLayout>

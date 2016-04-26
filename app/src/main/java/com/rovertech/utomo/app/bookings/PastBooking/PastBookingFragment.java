@@ -16,6 +16,7 @@ import com.rovertech.utomo.app.bookings.CurrentBooking.BookingPresenterImpl;
 import com.rovertech.utomo.app.bookings.CurrentBooking.BookingView;
 import com.rovertech.utomo.app.bookings.CurrentBooking.CurrentBookingAdapter;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 
 public class PastBookingFragment extends Fragment implements BookingView {
@@ -65,7 +66,7 @@ public class PastBookingFragment extends Fragment implements BookingView {
         if (currentBookingAdapter == null) {
             new Throwable("CurrentBookingAdapter should not be null");
         }
-        RecyclerView currentBookingRecyclerView = (RecyclerView) parentView.findViewById(R.id.currentBookingRecyclerView);
+        FamiliarRecyclerView currentBookingRecyclerView = (FamiliarRecyclerView) parentView.findViewById(R.id.currentBookingRecyclerView);
         currentBookingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         currentBookingRecyclerView.setAdapter(currentBookingAdapter);
 

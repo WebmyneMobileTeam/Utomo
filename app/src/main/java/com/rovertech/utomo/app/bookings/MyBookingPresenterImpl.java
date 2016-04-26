@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.bookings;
 
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 import com.rovertech.utomo.app.bookings.CurrentBooking.BookingFragment;
@@ -12,16 +13,18 @@ public class MyBookingPresenterImpl implements MyBookingPresenter {
 
 
     private MyBookingView myBookingFragment;
-    private FragmentManager context;
+    private FragmentManager fragmentManager;
+    private Context context;
 
-    public MyBookingPresenterImpl(FragmentManager ctx, MyBookingView myBookingFragment) {
+    public MyBookingPresenterImpl(FragmentManager fragmentManager, MyBookingView myBookingFragment, Context context) {
         this.myBookingFragment = myBookingFragment;
-        this.context = ctx;
+        this.fragmentManager = fragmentManager;
+        this.context = context;
     }
 
     @Override
     public void setUpViewPagerAndTabs() {
-        MyBookingAdapter myBookingAdapter = new MyBookingAdapter(context);
+        MyBookingAdapter myBookingAdapter = new MyBookingAdapter(fragmentManager, context);
         myBookingAdapter.add(BookingFragment.newInstance(), "Current Booking");
         myBookingAdapter.add(PastBookingFragment.newInstance(), "Past Booking");
         myBookingFragment.setUpViewPagerAndTabs(myBookingAdapter);

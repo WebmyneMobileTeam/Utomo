@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -202,7 +203,7 @@ public class Functions {
     }
 
     public static void showToast(Context context, String msg) {
-      //  showErrorAlert(context, msg, false);
+        //  showErrorAlert(context, msg, false);
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -375,7 +376,7 @@ public class Functions {
 
         int loadedColor = 0;
 
-        if (f < 10 && f >= 0) {
+        if (f <= 10) {
             loadedColor = ContextCompat.getColor(context, R.color.color10);
         } else if (f > 10 && f <= 40) {
             loadedColor = ContextCompat.getColor(context, R.color.color40);
@@ -408,5 +409,21 @@ public class Functions {
         }
 
         return status;
+    }
+
+    public static Drawable getHealthColor(Context context, int f) {
+        Drawable drawable;
+
+        if (f <= 10) {
+            drawable = ContextCompat.getDrawable(context, R.drawable.progress_drawable_10);
+        } else if (f > 10 && f <= 40) {
+            drawable = ContextCompat.getDrawable(context, R.drawable.progress_drawable_40);
+        } else if (f > 40 && f <= 70) {
+            drawable = ContextCompat.getDrawable(context, R.drawable.progress_drawable_70);
+        } else {
+            drawable = ContextCompat.getDrawable(context, R.drawable.progress_drawable_100);
+        }
+
+        return drawable;
     }
 }

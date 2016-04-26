@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.rovertech.utomo.app.R;
@@ -21,7 +22,7 @@ import java.util.Comparator;
 /**
  * Created by sagartahelyani on 10-03-2016.
  */
-public class PerformanceTile extends LinearLayout implements View.OnClickListener {
+public class PerformanceTile extends LinearLayout implements View.OnClickListener, PerformanceTileItem.onResetListener {
 
     Context context;
     private View parentView;
@@ -32,6 +33,13 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
     private LinearLayout expandClickLayout, initialLayout, remainsLayout;
     private ImageView imgArrow;
     private TextView txtMore;
+
+    private onPerformanceResetListener onPerformanceResetListener;
+
+    public void setOnPerformanceResetListener(PerformanceTile.onPerformanceResetListener onPerformanceResetListener) {
+        this.onPerformanceResetListener = onPerformanceResetListener;
+    }
+
 
     public PerformanceTile(Context context) {
         super(context);
@@ -101,12 +109,14 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
 
         for (int i = 0; i < 3; i++) {
             PerformanceTileItem item = new PerformanceTileItem(context);
+            item.setOnResetListener(this);
             item.setValue(lstPerformance.get(i));
             initialLayout.addView(item);
         }
 
         for (int j = 3; j < lstPerformance.size(); j++) {
             PerformanceTileItem item = new PerformanceTileItem(context);
+            item.setOnResetListener(this);
             item.setValue(lstPerformance.get(j));
             remainsLayout.addView(item);
         }
@@ -123,5 +133,15 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
                 doExpandCollapse();
                 break;
         }
+    }
+
+    @Override
+    public void onReset(int matricesId, String date) {
+        if (onPerformanceResetListener != null)
+            onPerformanceResetListener.onReset(matricesId, date);
+    }
+
+    public interface onPerformanceResetListener {
+        public void onReset(int matricesId, String date);
     }
 }

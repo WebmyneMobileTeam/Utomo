@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 /**
@@ -23,6 +24,7 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
     public @interface BookingViewMode {
 
     }
+
     public static final int CURRENTBOOKING = 1;
     public static final int PASTBOOKING = 2;
 
@@ -47,7 +49,7 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_booking, container, false);
         initView(parentView);
-        myBookingPresenter = new MyBookingPresenterImpl(getActivity().getSupportFragmentManager(), this);
+        myBookingPresenter = new MyBookingPresenterImpl(getActivity().getSupportFragmentManager(), this, getActivity());
         myBookingPresenter.setUpViewPagerAndTabs();
         return parentView;
     }
@@ -71,6 +73,12 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
         viewPager.setAdapter(myBookingAdapter);
         TabLayout tabLayout = (TabLayout) parentView.findViewById(R.id.myBookingTab);
         tabLayout.setupWithViewPager(viewPager);
+
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            if (tab != null)
+                tab.setCustomView(myBookingAdapter.getTabView(i));
+        }
 
     }
 }

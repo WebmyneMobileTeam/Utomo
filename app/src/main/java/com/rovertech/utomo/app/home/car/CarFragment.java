@@ -2,9 +2,9 @@ package com.rovertech.utomo.app.home.car;
 
 
 import android.app.ProgressDialog;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +61,7 @@ public class CarFragment extends Fragment implements CarView {
         init();
 
         presenter = new CarPresenterImpl(this);
-        presenter.fetchDashboard(getActivity(), carPojo, "", 0, "");
+        presenter.fetchDashboard(getActivity(), carPojo, "", 0, "", 0);
 
         return parentView;
     }
@@ -72,6 +72,7 @@ public class CarFragment extends Fragment implements CarView {
     }
 
     public static CarFragment newInstance(CarPojo carPojo) {
+
         Bundle args = new Bundle();
         args.putSerializable("car", carPojo);
         CarFragment fragment = new CarFragment();
@@ -93,7 +94,7 @@ public class CarFragment extends Fragment implements CarView {
         serviceDateTile.setOnDateSetListener(new ServiceDateTile.onDateSetListener() {
             @Override
             public void setDate(String date, int mode) {
-                presenter.fetchDashboard(getActivity(), carPojo, date, mode,"");
+                presenter.fetchDashboard(getActivity(), carPojo, date, mode, "", 0);
             }
         });
 
@@ -144,11 +145,33 @@ public class CarFragment extends Fragment implements CarView {
         odometerTile.setOnOdometerChangeListener(new OdometerTile.onOdometerChangeListener() {
             @Override
             public void onChange(String odometer) {
-                presenter.fetchDashboard(getActivity(), carPojo, "", AppConstant.MODE_ODOMETER, odometer);
+                presenter.fetchDashboard(getActivity(), carPojo, "", AppConstant.MODE_ODOMETER, odometer, 0);
             }
         });
 
         performanceTile.setPerformance(data.lstPerformance);
+        performanceTile.setOnPerformanceResetListener(new PerformanceTile.onPerformanceResetListener() {
+            @Override
+            public void onReset(final int matricesId, final String date) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        getActivity());
+                alertDialogBuilder.setTitle("Reset")
+                        .setMessage("Are you sure want to reset this performance matrices?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                presenter.fetchDashboard(getActivity(), carPojo, date, AppConstant.MODE_PERFORMANCE, "", matricesId);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
 
         if (data.lstReferTile.size() == 0) {
             sponsoredCenterSet.setVisibility(View.GONE);

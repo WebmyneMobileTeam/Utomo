@@ -39,15 +39,15 @@ public class ProfileActivity extends AppCompatActivity {
 
         parentView = findViewById(android.R.id.content);
 
-        viewPager = (ViewPager) parentView.findViewById(R.id.pager);
-        tabLayout = (TabLayout) parentView.findViewById(R.id.tab_layout);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         setupViewPager(viewPager);
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
 
-        adapter = new CustomAdapter(getSupportFragmentManager(), this, tabTitles);
+        adapter = new CustomAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewPager);

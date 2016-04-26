@@ -22,4 +22,6 @@ public class DashboardRequest implements Serializable {
     public double Lattitude;
 
     public double Longitude;
+
+    public String GeneralTypeDate;
 }

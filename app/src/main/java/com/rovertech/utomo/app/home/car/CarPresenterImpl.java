@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.car.model.DashboardRequest;
@@ -28,14 +29,20 @@ public class CarPresenterImpl implements CarPresenter {
     }
 
     @Override
-    public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode, String odometer) {
+    public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode, String odometer, int matricesID) {
         if (carView != null)
             carView.showProgress();
 
         DashboardRequest request = new DashboardRequest();
         request.UserID = PrefUtils.getUserID(context);
         request.VehicleID = carPojo.VehicleID;
-        request.ServiceDate = date;
+        request.MatrixID = matricesID;
+
+        if (mode == AppConstant.MODE_DATE)
+            request.ServiceDate = date;
+        else
+            request.GeneralTypeDate = date;
+
         request.Mode = mode;
         if (!odometer.isEmpty())
             request.OdometerReading = Float.parseFloat(odometer);

@@ -13,24 +13,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtNotification"
-                style="@style/TitleTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:gravity="center"
-                android:text="Notification Settings"
-                android:textSize="@dimen/M_TEXT" />
-
-            <include layout="@layout/item_line" />
-
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switchOffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:padding="16dp"
+                android:padding="8dp"
                 android:text="Offers"
                 android:textSize="@dimen/M_TEXT" />
 
@@ -38,8 +25,7 @@
                 android:id="@+id/switchBooking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:padding="16dp"
+                android:padding="8dp"
                 android:text="Booking Status"
                 android:textSize="@dimen/M_TEXT" />
 

@@ -5,7 +5,7 @@ package com.rovertech.utomo.app.bookings;
  */
 public interface MyBookingPresenter {
 
-        void setUpViewPagerAndTabs();
+    void setUpViewPagerAndTabs();
 
     void destroy();
 }

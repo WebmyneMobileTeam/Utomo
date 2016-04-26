@@ -21,7 +21,6 @@ public class SettingsFragment extends Fragment {
     private View parentView;
     private DrawerActivity activity;
 
-    private TextView txtNotification;
     private SwitchCompat switchOffer, switchBooking;
 
 
@@ -52,7 +51,6 @@ public class SettingsFragment extends Fragment {
 
         switchOffer = (SwitchCompat) parentView.findViewById(R.id.switchOffer);
         switchBooking = (SwitchCompat) parentView.findViewById(R.id.switchBooking);
-        txtNotification = (TextView) parentView.findViewById(R.id.txtNotification);
 
         setTypeface();
     }
@@ -60,7 +58,6 @@ public class SettingsFragment extends Fragment {
     private void setTypeface() {
         switchBooking.setTypeface(Functions.getRegularFont(getActivity()));
         switchOffer.setTypeface(Functions.getRegularFont(getActivity()));
-        txtNotification.setTypeface(Functions.getBoldFont(getActivity()));
     }
 
 }

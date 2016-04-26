@@ -1,8 +1,18 @@
 package com.rovertech.utomo.app.bookings;
 
+import android.content.Context;
+import android.graphics.PorterDuff;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.Functions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +22,15 @@ import java.util.List;
  */
 public class MyBookingAdapter extends FragmentStatePagerAdapter {
 
+    private Context context;
     private List<Fragment> fragments = new ArrayList<>();
     private List<String> strings = new ArrayList<>();
 
-    public MyBookingAdapter(FragmentManager fm) {
+    private int[] images = {R.drawable.ic_current_event, R.drawable.ic_action_past_event};
+
+    public MyBookingAdapter(FragmentManager fm, Context context) {
         super(fm);
+        this.context = context;
     }
 
 
@@ -38,5 +52,18 @@ public class MyBookingAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return fragments.size();
+    }
+
+    public View getTabView(int position) {
+        View v = LayoutInflater.from(context).inflate(R.layout.tab_layout, null);
+
+        TextView tv = (TextView) v.findViewById(R.id.tab_title);
+        tv.setText(String.format(" %s ", getPageTitle(position)));
+        tv.setTypeface(Functions.getBoldFont(context));
+        ImageView img = (ImageView) v.findViewById(R.id.tab_image);
+        img.setImageResource(images[position]);
+        img.setColorFilter(ContextCompat.getColor(context, R.color.half_black), PorterDuff.Mode.SRC_ATOP);
+
+        return v;
     }
 }

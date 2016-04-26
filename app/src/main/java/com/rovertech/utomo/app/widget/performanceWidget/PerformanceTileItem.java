@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.widget.performanceWidget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 
 import com.liulishuo.magicprogresswidget.MagicProgressBar;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.home.car.model.Performance;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.Calendar;
 
 /**
  * Created by sagartahelyani on 09-03-2016.
@@ -24,6 +29,14 @@ public class PerformanceTileItem extends LinearLayout {
     private TextView txtItemName, txtItemValue, txtReset, txtProgressStatus;
 
     private MagicProgressBar progressBar;
+
+    private onResetListener onResetListener;
+
+    private Performance performance;
+
+    public void setOnResetListener(PerformanceTileItem.onResetListener onResetListener) {
+        this.onResetListener = onResetListener;
+    }
 
     public PerformanceTileItem(Context context) {
         super(context);
@@ -60,6 +73,8 @@ public class PerformanceTileItem extends LinearLayout {
     }
 
     public void setValue(final Performance performance) {
+        this.performance = performance;
+
         txtItemName.setText(performance.CriteriaName);
 
         float f = Float.parseFloat(performance.PerformancePercentage);
@@ -76,11 +91,39 @@ public class PerformanceTileItem extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (performance.Type == 0) {
-                    Functions.showToast(context, "Reset");
+                    if (onResetListener != null)
+                        onResetListener.onReset(performance.CarPerformanceMatrixID, "");
                 } else {
-                    Functions.showToast(context, "Select date");
+                    selectDate();
                 }
             }
         });
     }
+
+    private void selectDate() {
+
+        Calendar now = Calendar.getInstance();
+
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        if (onResetListener != null)
+                            onResetListener.onReset(performance.CarPerformanceMatrixID, date);
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.setMaxDate(now);
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
+    }
+
+    public interface onResetListener {
+        public void onReset(int matricesId, String date);
+    }
+
+
 }

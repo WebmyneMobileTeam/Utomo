@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 
 public class BookingFragment extends Fragment implements BookingView {
@@ -62,7 +63,7 @@ public class BookingFragment extends Fragment implements BookingView {
             new Throwable("CurrentBookingAdapter should not be null");
         }
 
-        RecyclerView currentBookingRecyclerView = (RecyclerView) parentView.findViewById(R.id.currentBookingRecyclerView);
+        FamiliarRecyclerView currentBookingRecyclerView = (FamiliarRecyclerView) parentView.findViewById(R.id.currentBookingRecyclerView);
         currentBookingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         currentBookingRecyclerView.setAdapter(currentBookingAdapter);
 

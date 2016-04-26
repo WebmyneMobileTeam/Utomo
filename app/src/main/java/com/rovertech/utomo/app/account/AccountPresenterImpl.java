@@ -214,6 +214,8 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                     ManiBasicLoginSignUp output = response.body();
 
+                    Log.e("social_output", output.SocialLoginSignUp.toString());
+
                     if (output.SocialLoginSignUp.ResponseCode == 1) {
                         PrefUtils.setUserFullProfileDetails(activity, output.SocialLoginSignUp.Data.get(0));
                         PrefUtils.setLoggedIn(activity, true);

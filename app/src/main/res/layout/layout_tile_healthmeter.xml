@@ -6,14 +6,14 @@
     android:layout_margin="6dp"
     app:background="@color/white">
 
-    <com.rovertech.utomo.app.widget.progress.ProgressLayout
-        android:id="@+id/progressLayout"
+    <ProgressBar
+        android:id="@+id/pbar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        app:autoProgress="true"
-        app:emptyColor="@color/white"
-        app:loadedColor="@color/color40"
-        app:maxProgress="100" />
+        android:layout_height="match_parent"
+        android:maxHeight="42dp"
+        android:minHeight="42dp"
+        android:progressDrawable="@drawable/progress_drawable_10" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:padding="4dp"
             android:text="Car Health"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="@color/half_black"
             android:textSize="@dimen/N_TEXT" />
 
         <TextView
@@ -36,7 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="40%"
             android:textSize="@dimen/XL_TEXT" />
 
     </RelativeLayout>

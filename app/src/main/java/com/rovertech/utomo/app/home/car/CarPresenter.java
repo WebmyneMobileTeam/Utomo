@@ -9,5 +9,5 @@ import com.rovertech.utomo.app.profile.carlist.CarPojo;
  */
 public interface CarPresenter {
 
-    void fetchDashboard(Context context, CarPojo carPojo, String date, int mode, String odometer);
+    void fetchDashboard(Context context, CarPojo carPojo, String date, int mode, String odometer, int matricesID);
 }
