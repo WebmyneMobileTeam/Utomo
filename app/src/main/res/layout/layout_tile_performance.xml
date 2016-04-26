@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:clickable="false"
                 android:padding="4dp"
-                android:text="Performance Metrices"
+                android:text="Performance Metrics"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="@dimen/N_TEXT" />
 

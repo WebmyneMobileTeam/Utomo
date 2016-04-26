@@ -39,9 +39,11 @@
                         android:layout_weight="1"
                         android:hint="Enter City"
                         android:singleLine="true"
+                        android:drawableTint="@color/colorAccent"
+                        android:drawableTintMode="src_atop"
+                        android:drawableRight="@drawable/ic_action_search"
                         widget:met_baseColor="@color/editTextColor"
                         widget:met_floatingLabel="highlight"
-                        widget:met_iconLeft="@drawable/ic_map"
                         widget:met_primaryColor="@color/editTextColor" />
 
                     <Button

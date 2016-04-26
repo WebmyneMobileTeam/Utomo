@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ public class CurrentServiceTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtBookingDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
+    private TextView txtTitle, txtBookingDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
     private ImageView imgCenter;
     private CardView currentCardView;
 
@@ -62,13 +63,15 @@ public class CurrentServiceTile extends LinearLayout {
 
     private void setTypeface() {
         txtBookingDate.setTypeface(Functions.getThinFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context));
         txtCenterName.setTypeface(Functions.getRegularFont(context));
-        txtServiceStatus.setTypeface(Functions.getLightFont(context));
+        txtServiceStatus.setTypeface(Functions.getLightFont(context), Typeface.BOLD);
     }
 
     private void findViewById() {
 
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
+        txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
         txtServiceStatus = (TextView) parentView.findViewById(R.id.txtServiceStatus);
@@ -120,9 +123,9 @@ public class CurrentServiceTile extends LinearLayout {
 
         bookingId = data.BookingID;
 
-        Functions.loadRoundImage(imgCenter, data.SCImageName, context);
+        Functions.LoadImage(imgCenter, data.SCImageName, context);
         txtCenterName.setText(data.ServiceCentreName);
-        txtBookingDate.setText(String.format("Booking on: %s", data.CreatedDate));
+        txtBookingDate.setText(String.format("Booked on: %s", data.CreatedDate));
         txtServiceStatus.setText(String.format("Current Service Status: %s", data.Status));
         txtReviews.setText(String.format("%d %s", data.ReviewCount, "Reviews"));
     }

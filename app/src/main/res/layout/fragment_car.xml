@@ -5,6 +5,8 @@
     android:background="#d8d8d8"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_request_booking" />
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"

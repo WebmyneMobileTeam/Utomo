@@ -10,6 +10,9 @@
     <dimen name="splash_textsize">36sp</dimen>
     <dimen name="BUTTON_HEIGHT">40dp</dimen>
 
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="detail_backdrop_height">256dp</dimen>
     <dimen name="EXPANDABLE_MARGIN_END">64dp</dimen>

@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.home.car;
 
 
 import android.app.ProgressDialog;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
 import com.rovertech.utomo.app.helper.AppConstant;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
@@ -43,6 +46,8 @@ public class CarFragment extends Fragment implements CarView {
     private PerformanceTile performanceTile;
     private SponsoredCenterSet sponsoredCenterSet;
 
+    private TextView txtRequestBooking, txtRequestBookingTitle;
+
     public CarFragment() {
         // Required empty public constructor
     }
@@ -67,7 +72,6 @@ public class CarFragment extends Fragment implements CarView {
     }
 
     public static CarFragment newInstance(CarPojo carPojo) {
-
         Bundle args = new Bundle();
         args.putSerializable("car", carPojo);
         CarFragment fragment = new CarFragment();
@@ -96,6 +100,11 @@ public class CarFragment extends Fragment implements CarView {
         odometerTile = (OdometerTile) parentView.findViewById(R.id.odometerTile);
         performanceTile = (PerformanceTile) parentView.findViewById(R.id.performanceTile);
         sponsoredCenterSet = (SponsoredCenterSet) parentView.findViewById(R.id.sponsoredCenterSet);
+
+        txtRequestBooking = (TextView) parentView.findViewById(R.id.txtRequestBooking);
+        txtRequestBookingTitle = (TextView) parentView.findViewById(R.id.txtRequestBookingTitle);
+        txtRequestBooking.setPaintFlags(txtRequestBooking.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        txtRequestBookingTitle.setTypeface(Functions.getBoldFont(getActivity()));
 
         carPojo = (CarPojo) getArguments().getSerializable("car");
     }
