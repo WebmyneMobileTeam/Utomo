@@ -86,6 +86,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
     }
 
     private void init() {
+
+        
         activity = (DrawerActivity) getActivity();
 
         //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
