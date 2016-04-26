@@ -72,7 +72,7 @@ public class CarItemTile extends LinearLayout {
         this.carPojo = carPojo;
         txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
         txtVehicleNo.setText(carPojo.VehicleNo);
-        txtOdometerValue.setText(String.format("%s", carPojo.TravelledKM));
+        txtOdometerValue.setText(String.format("%s", carPojo.TravelledKM +" KM"));
 
         if (carPojo.CarImage == null || carPojo.CarImage.equals("")) {
             imgCar.setImageResource(R.drawable.car);
