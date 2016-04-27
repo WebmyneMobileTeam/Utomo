@@ -78,7 +78,7 @@ public class ServiceCentreTile extends LinearLayout {
         txtCentreName.setText(centerPojo.ServiceCentreName);
 
         if (centerPojo.Rating != 0)
-            txtRating.setText(String.format("%.1f", centerPojo.Rating));
+            txtRating.setText(String.format("%.1f / 5", centerPojo.Rating));
         else
             txtRating.setVisibility(GONE);
 
