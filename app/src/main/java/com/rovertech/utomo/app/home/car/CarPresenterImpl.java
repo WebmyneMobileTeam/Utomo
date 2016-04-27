@@ -28,6 +28,8 @@ public class CarPresenterImpl implements CarPresenter {
         this.carView = carView;
     }
 
+
+
     @Override
     public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode, String odometer, int matricesID) {
         if (carView != null)
@@ -88,6 +90,11 @@ public class CarPresenterImpl implements CarPresenter {
             }
         });
 
+    }
+
+    @Override
+    public void openCenterListing() {
+        carView.navigateCenterListActivity();
     }
 
     private void getLocation(LocationFinder locationFinder) {

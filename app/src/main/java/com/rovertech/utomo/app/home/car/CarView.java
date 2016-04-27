@@ -13,4 +13,6 @@ public interface CarView {
     void hideProgress();
 
     void setDashboard(DashboardData dashboardResponse);
+
+    void navigateCenterListActivity();
 }
