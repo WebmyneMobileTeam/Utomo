@@ -11,6 +11,8 @@
         <item name="material_drawer_primary_text">@color/half_black</item>
         <item name="material_drawer_selected_text">@color/purple</item>
         <item name="material_drawer_primary_icon">@color/half_black</item>
+        <item name="android:windowBackground">@drawable/main_grad</item>
+
     </style>
 
     <style name="MyTextStyle" parent="android:Widget.TextView">
@@ -104,11 +106,11 @@
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/tab_max_width</item>
-        <item name="tabIndicatorColor">@color/theme_purple_accent</item>
-        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicatorHeight">1dp</item>
         <item name="tabPaddingStart">0dp</item>
         <item name="tabPaddingEnd">0dp</item>
-        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="android:dividerHeight">0dp</item>
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <!--<item name="tabSelectedTextColor">@color/gplus</item>-->
     </style>
@@ -116,8 +118,8 @@
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?android:textColorSecondary</item>
-        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="MyTileTextStyle" parent="android:Widget.TextView">

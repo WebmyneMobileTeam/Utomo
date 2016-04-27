@@ -9,6 +9,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -17,7 +18,7 @@
                 android:id="@+id/switchOffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="12dp"
                 android:text="Offers"
                 android:textSize="@dimen/M_TEXT" />
 
@@ -25,7 +26,7 @@
                 android:id="@+id/switchBooking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:padding="12dp"
                 android:text="Booking Status"
                 android:textSize="@dimen/M_TEXT" />
 

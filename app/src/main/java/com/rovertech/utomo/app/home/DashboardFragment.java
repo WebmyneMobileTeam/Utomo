@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -123,7 +124,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     @Override
     public void setCarList(ArrayList<CarPojo> data) {
-        fab.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.GONE);
         txtNoCar.setVisibility(View.GONE);
 
         //  pagerLayout.setVisibility(View.VISIBLE);
@@ -240,7 +241,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
             TextView tv = (TextView) v.findViewById(R.id.tab_title);
             tv.setText(String.format(" %s %s ", data.get(position).Make, data.get(position).Model));
-            tv.setTypeface(Functions.getBoldFont(context));
+            tv.setTypeface(Functions.getTabHostFont(context), Typeface.BOLD);
             ImageView img = (ImageView) v.findViewById(R.id.tab_image);
 
             if (data.get(position).CurrentBooking) {

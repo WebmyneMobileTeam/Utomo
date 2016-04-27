@@ -2,10 +2,14 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/main_grad"
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
+        android:id="@+id/appbarDrawer"
+        app:elevation="0dp"
+        android:background="@android:color/transparent"
         android:layout_height="wrap_content">
 
         <include layout="@layout/app_bar2" />
@@ -13,6 +17,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

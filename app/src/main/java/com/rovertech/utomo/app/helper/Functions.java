@@ -139,6 +139,11 @@ public class Functions {
         return tf;
     }
 
+    public static Typeface getTabHostFont(Context _context) {
+        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "OpenSans-Regular.ttf");
+        return tf;
+    }
+
     public static String jsonString(Object obj) {
         return "" + new GsonBuilder().create().toJson(obj).toString();
     }

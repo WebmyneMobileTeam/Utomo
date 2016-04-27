@@ -25,19 +25,19 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Hello"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="@color/white"
             android:textSize="@dimen/N_TEXT" />
 
     </LinearLayout>
 
 
-    <!-- Tab divider -->
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#bdbcbcbc" />
+    <!--&lt;!&ndash; Tab divider &ndash;&gt;-->
+    <!--<View-->
+        <!--android:layout_width="1dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:background="#bdbcbcbc" />-->
 
 </RelativeLayout>
