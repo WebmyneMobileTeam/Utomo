@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
 import com.rovertech.utomo.app.offers.model.OfferItem;
@@ -55,7 +56,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         switch (viewType) {
 
             default:
-                holder = new NotificationViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_offer, parent, false));
+                holder = new NotificationViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_offer1, parent, false));
                 break;
         }
 
@@ -65,12 +66,14 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
     @Override
     public void onBindViewHolder(NotificationViewHolder holder, int position) {
 
-    holder.txtOfferTitle.setText(itemList.get(position).OfferName);
+        holder.txtOfferTitle.setText("Title : "+itemList.get(position).OfferName);
         holder.txtOfferTitleCode.setText(itemList.get(position).OfferCode);
-        holder.txtOfferDesc.setText(itemList.get(position).Description);
+       // holder.txtOfferTitle.setText("Title : "+itemList.get(position).Description);
         holder.txtOfferValidTo.setText("Valid Upto : "+ itemList.get(position).ValidTo);
-
-        Glide.with(c)
+        
+        setTypeFace();
+                
+       /* Glide.with(c)
                 .load(itemList.get(position).OfferImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<String, GlideDrawable>() {
@@ -85,7 +88,15 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
                         return false;
                     }
                 })
-                .into(holder.img);
+                .into(holder.img);*/
+    }
+
+    private void setTypeFace() {
+        holder.txtOfferTitle1.setTypeface(Functions.getRegularFont(c));
+        holder.txtOfferTitleCode.setTypeface(Functions.getRegularFont(c));
+        holder.txtOfferTitle.setTypeface(Functions.getRegularFont(c));
+        holder.txtOfferValidTo.setTypeface(Functions.getRegularFont(c));
+        holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c));
     }
 
     @Override
@@ -95,15 +106,15 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     public static class NotificationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView txtOfferTitle,txtOfferTitleCode,txtOfferDesc,txtOfferValidTo,txtUseOffer;
+        private TextView txtOfferTitle,txtOfferTitleCode,txtOfferTitle1,txtOfferValidTo,txtOfferDiscount;
         private ImageView img;
         public NotificationViewHolder(View itemView) {
             super(itemView);
-            txtOfferTitle= (TextView) itemView.findViewById(R.id.txtOfferTitle);
+            txtOfferTitle1= (TextView) itemView.findViewById(R.id.txtOfferTitle1);
             txtOfferTitleCode= (TextView) itemView.findViewById(R.id.txtOfferTitleCode);
-            txtOfferDesc= (TextView) itemView.findViewById(R.id.txtOfferDesc);
+            txtOfferTitle= (TextView) itemView.findViewById(R.id.txtOfferTitle);
             txtOfferValidTo= (TextView) itemView.findViewById(R.id.txtOfferValidTo);
-            //txtUseOffer= (TextView) itemView.findViewById(R.id.txtUseOffer);
+            txtOfferDiscount= (TextView) itemView.findViewById(R.id.txtOfferDiscount);
             img= (ImageView) itemView.findViewById(R.id.img);
        //     txtUseOffer.setOnClickListener(this);
 
