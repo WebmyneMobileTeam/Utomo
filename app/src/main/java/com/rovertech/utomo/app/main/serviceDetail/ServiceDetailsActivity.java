@@ -2,13 +2,18 @@ package com.rovertech.utomo.app.main.serviceDetail;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,14 +33,14 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private LinearLayout bottomCall, bottomDirection, bottomReview, bottomCancelReq, bottomAccept, bottomReject;
     private ServicePresenter presenter;
     private CoordinatorLayout main_content;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private AppBarLayout appBarLayout;
+  //  private CollapsingToolbarLayout collapsingToolbarLayout;
+  //  private AppBarLayout appBarLayout;
     private Button btnInvoice;
 
     private int bookingId;
     private ProgressDialog progressDialog;
 
-    private ServiceHeaderDetails headerDetails;
+  //  private ServiceHeaderDetails headerDetails;
     private ServiceMainDetails mainDetails;
     private UserBookingData userBookingData;
 
@@ -68,36 +73,38 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         txtReviews = (TextView) findViewById(R.id.txtReviews);
 
         main_content = (CoordinatorLayout) findViewById(R.id.main_content);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setCollapsedTitleTypeface(Functions.getBoldFont(this));
-        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+//        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        collapsingToolbarLayout.setCollapsedTitleTypeface(Functions.getBoldFont(this));
+//        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+//
+//        collapsingToolbarLayout.setExpandedTitleTypeface(Functions.getBoldFont(this));
 
-        collapsingToolbarLayout.setExpandedTitleTypeface(Functions.getBoldFont(this));
-
-        headerDetails = (ServiceHeaderDetails) findViewById(R.id.headerDetails);
+     //   headerDetails = (ServiceHeaderDetails) findViewById(R.id.headerDetails);
         mainDetails = (ServiceMainDetails) findViewById(R.id.mainDetails);
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+      //  appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                /*if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
-                    isShow = true;
-
-                } else if (isShow) {
-                    collapsingToolbarLayout.setTitle("");
-                    isShow = false;
-                }*/
-            }
-        });
+//        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+//            boolean isShow = false;
+//            int scrollRange = -1;
+//
+//            @Override
+//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//                if (scrollRange == -1) {
+//                    scrollRange = appBarLayout.getTotalScrollRange();
+//                }
+////                if (scrollRange + verticalOffset == 0) {
+////                   // collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
+////
+////                    isShow = true;
+////
+////                } else if (isShow) {
+////                   // collapsingToolbarLayout.setTitle("");
+////
+////                    isShow = false;
+////                }
+//            }
+//        });
 
         parentView = findViewById(android.R.id.content);
         bottomCall = (LinearLayout) findViewById(R.id.bottomCall);
@@ -193,9 +200,13 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         int statusID = userBookingData.BookingStatusID;
 
-        collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
-        headerDetails.setHeaderDetails(userBookingData);
+        //collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
+      // headerDetails.setHeaderDetails(userBookingData);
         mainDetails.setMainDetails(userBookingData);
+        toolbar.setTitle(userBookingData.ServiceCentreName);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        toolbar.setSubtitle(userBookingData.Status);
+        toolbar.setSubtitleTextColor(ContextCompat.getColor(this, R.color.color70));
 
         main_content.setVisibility(View.VISIBLE);
 
