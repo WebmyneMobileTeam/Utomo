@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.serviceDetail.serviceHeader;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,9 +50,9 @@ public class ServiceHeaderDetails extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtCentreName.setTypeface(Functions.getBoldFont(context));
-        txtRating.setTypeface(Functions.getBoldFont(context));
-        txtReviews.setTypeface(Functions.getBoldFont(context));
+        txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtRating.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtReviews.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     public void setHeaderDetails(UserBookingData userBookingData) {

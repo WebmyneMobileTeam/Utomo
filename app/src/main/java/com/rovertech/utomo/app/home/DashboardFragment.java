@@ -93,7 +93,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
         //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
         txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);
-        txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
+        txtNoCar.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
         viewPager = (ViewPager) parentView.findViewById(R.id.pager);
         tabLayout = (TabLayout) parentView.findViewById(R.id.tab_layout);
         fab = (FloatingActionButton) parentView.findViewById(R.id.fab);

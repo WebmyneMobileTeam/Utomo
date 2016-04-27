@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -181,13 +182,13 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     }
 
     private void setTypeface() {
-        txtOr.setTypeface(Functions.getBoldFont(this));
-        btnLogin.setTypeface(Functions.getBoldFont(this));
-        txtSignUp.setTypeface(Functions.getBoldFont(this));
-        txtLogin.setTypeface(Functions.getBoldFont(this));
-        txtTc.setTypeface(Functions.getBoldFont(this));
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
-        txtForget.setTypeface(Functions.getBoldFont(this));
+        txtOr.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnLogin.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtSignUp.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtLogin.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtTc.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtForget.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
     }
 
     private void initToolbar() {

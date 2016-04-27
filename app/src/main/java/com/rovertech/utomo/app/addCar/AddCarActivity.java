@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.IntDef;
@@ -197,14 +198,14 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     }
 
     private void setTypeface() {
-        btnAdd.setTypeface(Functions.getBoldFont(this));
+        btnAdd.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         edtVehicleNo.setTypeface(Functions.getRegularFont(this));
         edtServiceDate.setTypeface(Functions.getRegularFont(this));
         edtPUC.setTypeface(Functions.getRegularFont(this));
         edtInsuranceDate.setTypeface(Functions.getRegularFont(this));
         edtPermitsDate.setTypeface(Functions.getRegularFont(this));
         edtKms.setTypeface(Functions.getRegularFont(this));
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
     }
 
     private void initToolbar() {

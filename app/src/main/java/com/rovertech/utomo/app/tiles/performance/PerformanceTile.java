@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles.performance;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,8 +64,8 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtMore.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtMore.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     private void findViewById() {

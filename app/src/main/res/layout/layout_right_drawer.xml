@@ -16,10 +16,11 @@
             android:id="@+id/txtFilterTitle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
+            android:background="@color/purple"
             android:gravity="center"
             android:text="Filter Service Centres"
             android:textAllCaps="false"
-            android:textColor="@color/purple"
+            android:textColor="@color/white"
             android:textSize="@dimen/toolbar_textsize" />
 
         <include layout="@layout/item_line" />
@@ -37,9 +38,9 @@
                 android:layout_marginLeft="16dp"
                 android:checked="true"
                 android:padding="8dp"
-                android:theme="@style/SwitchStyle"
                 android:text="Body Shop"
-                android:textSize="@dimen/M_TEXT" />
+                android:textSize="@dimen/M_TEXT"
+                android:theme="@style/SwitchStyle" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switchPickup"
@@ -48,9 +49,9 @@
                 android:layout_marginLeft="16dp"
                 android:checked="true"
                 android:padding="8dp"
-                android:theme="@style/SwitchStyle"
                 android:text="Pickup-Drop off"
-                android:textSize="@dimen/M_TEXT" />
+                android:textSize="@dimen/M_TEXT"
+                android:theme="@style/SwitchStyle" />
 
         </LinearLayout>
 
@@ -69,7 +70,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Reset" />
+            android:background="@color/button_bg"
+            android:text="Reset"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnApply"
@@ -77,7 +80,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Apply" />
+            android:background="@color/button_bg"
+            android:text="Apply"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>

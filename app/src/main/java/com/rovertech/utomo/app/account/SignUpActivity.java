@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.account;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -116,14 +117,14 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     }
 
     private void setTypeface() {
-        txtOr.setTypeface(Functions.getBoldFont(this));
-        btnLogin.setTypeface(Functions.getBoldFont(this));
+        txtOr.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnLogin.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         txtSignUp.setTypeface(Functions.getRegularFont(this));
         edtCity.setTypeface(Functions.getRegularFont(this));
-        txtLogin.setTypeface(Functions.getBoldFont(this));
-        txtTc.setTypeface(Functions.getBoldFont(this));
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
-        txtForget.setTypeface(Functions.getBoldFont(this));
+        txtLogin.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtTc.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtForget.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
     }
 
     private void initToolbar() {

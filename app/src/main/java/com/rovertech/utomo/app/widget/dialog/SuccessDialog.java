@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
@@ -57,9 +58,9 @@ public class SuccessDialog extends BaseDialog implements View.OnClickListener {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtView.setTypeface(Functions.getBoldFont(context));
-        btnOk.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtView.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        btnOk.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     @Override

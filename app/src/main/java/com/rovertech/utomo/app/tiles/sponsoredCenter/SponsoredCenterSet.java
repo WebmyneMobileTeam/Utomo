@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles.sponsoredCenter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class SponsoredCenterSet extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     private void findViewById() {

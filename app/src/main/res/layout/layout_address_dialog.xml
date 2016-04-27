@@ -68,9 +68,10 @@
                 android:paddingEnd="@dimen/spacing_double"
                 android:paddingStart="@dimen/spacing_double"
                 android:textSize="@dimen/L_TEXT"
-                widget:met_baseColor="@color/editTextColor"
+                widget:met_baseColor="@color/black"
                 widget:met_floatingLabel="highlight"
-                widget:met_primaryColor="@color/editTextColor" />
+                android:textColorHint="@color/black"
+                widget:met_primaryColor="@color/black" />
 
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -83,9 +84,10 @@
                 android:minHeight="?android:attr/actionBarSize"
                 android:paddingEnd="@dimen/spacing_double"
                 android:paddingStart="@dimen/spacing_double"
-                widget:met_baseColor="@color/editTextColor"
+                widget:met_baseColor="@color/black"
                 widget:met_floatingLabel="highlight"
-                widget:met_primaryColor="@color/editTextColor" />
+                android:textColorHint="@color/black"
+                widget:met_primaryColor="@color/black" />
 
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -98,9 +100,10 @@
                 android:minHeight="?android:attr/actionBarSize"
                 android:paddingEnd="@dimen/spacing_double"
                 android:paddingStart="@dimen/spacing_double"
-                widget:met_baseColor="@color/editTextColor"
+                widget:met_baseColor="@color/black"
                 widget:met_floatingLabel="highlight"
-                widget:met_primaryColor="@color/editTextColor" />
+                android:textColorHint="@color/black"
+                widget:met_primaryColor="@color/black"  />
 
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -114,10 +117,10 @@
                 android:minHeight="?android:attr/actionBarSize"
                 android:paddingEnd="@dimen/spacing_double"
                 android:paddingStart="@dimen/spacing_double"
-                widget:met_baseColor="@color/editTextColor"
+                widget:met_baseColor="@color/black"
                 widget:met_floatingLabel="highlight"
-                widget:met_primaryColor="@color/editTextColor" />
-
+                android:textColorHint="@color/black"
+                widget:met_primaryColor="@color/black"  />
 
         </LinearLayout>
 

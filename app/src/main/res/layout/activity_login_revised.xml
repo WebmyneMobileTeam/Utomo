@@ -4,7 +4,7 @@
     xmlns:widget="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@android:color/transparent"
     android:focusableInTouchMode="true"
     tools:context=".account.LoginActivity">
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/loginBar"
             android:layout_margin="8dp"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
             <ImageView
@@ -59,6 +59,7 @@
             android:gravity="center"
             android:text="Or"
             android:textAllCaps="true"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <ScrollView
@@ -86,7 +87,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_phone"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtName"
@@ -100,7 +102,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_account"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtEmail"
@@ -113,7 +116,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_email"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <LinearLayout
                     android:id="@+id/cityLayout"
@@ -132,7 +136,8 @@
                         widget:met_baseColor="@color/editTextColor"
                         widget:met_floatingLabel="highlight"
                         widget:met_iconLeft="@drawable/ic_map"
-                        widget:met_primaryColor="@color/editTextColor" />
+                        widget:met_primaryColor="@color/editTextColor"
+                        widget:met_textColorHint="@color/editTextHintColor" />
                 </LinearLayout>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -148,7 +153,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_password"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtReferralCode"
@@ -160,7 +166,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_qr_code"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -176,6 +183,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="Forget Password?"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/N_TEXT" />
 
                 <TextView
@@ -185,6 +193,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="New User? Sign Up"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/N_TEXT" />
 
                 <TextView
@@ -194,6 +203,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center"
                     android:text="Already User? Login"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/N_TEXT" />
 
             </LinearLayout>
@@ -208,6 +218,7 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:text="Terms &amp; Condition"
+        android:textColor="@color/white"
         android:textSize="@dimen/N_TEXT" />
 
 </RelativeLayout>

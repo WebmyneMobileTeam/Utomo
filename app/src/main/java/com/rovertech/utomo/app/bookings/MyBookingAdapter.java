@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.bookings;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -59,7 +60,7 @@ public class MyBookingAdapter extends FragmentStatePagerAdapter {
 
         TextView tv = (TextView) v.findViewById(R.id.tab_title);
         tv.setText(String.format(" %s ", getPageTitle(position)));
-        tv.setTypeface(Functions.getBoldFont(context));
+        tv.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         ImageView img = (ImageView) v.findViewById(R.id.tab_image);
         img.setImageResource(images[position]);
         img.setColorFilter(ContextCompat.getColor(context, R.color.white), PorterDuff.Mode.SRC_ATOP);

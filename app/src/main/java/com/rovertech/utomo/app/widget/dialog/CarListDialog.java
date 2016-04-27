@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -86,7 +87,7 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     @Override

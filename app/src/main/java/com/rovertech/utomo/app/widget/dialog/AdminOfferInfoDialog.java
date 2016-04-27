@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -91,8 +92,8 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtTitle1.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtTitle1.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     @Override

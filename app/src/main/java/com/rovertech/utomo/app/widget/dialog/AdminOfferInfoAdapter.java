@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class AdminOfferInfoAdapter extends BaseAdapter {
 
         holder.txtDetail.setText(String.format("%d %s off on %s", offerArrayList.get(position).AdminOfferValue,
                 offerArrayList.get(position).AmountType,offerArrayList.get(position).OfferCategoryName));
-        holder.txtDetail.setTypeface(Functions.getBoldFont(context));
+        holder.txtDetail.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         //String.format(getString(R.string.all), 3.12, 2)
         //String.format("Amount: %.2f  for %d days ",  var1, var2);
         holder.txtCarNo.setVisibility(View.GONE);

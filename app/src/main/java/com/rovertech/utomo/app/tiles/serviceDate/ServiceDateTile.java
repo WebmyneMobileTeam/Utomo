@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.tiles.serviceDate;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -58,9 +59,9 @@ public class ServiceDateTile extends LinearLayout implements View.OnClickListene
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtServiceDate.setTypeface(Functions.getRegularFont(context));
-        txtChangeDate.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtServiceDate.setTypeface(Functions.getRegularFont(context), Typeface.BOLD);
+        txtChangeDate.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     private void findViewById() {

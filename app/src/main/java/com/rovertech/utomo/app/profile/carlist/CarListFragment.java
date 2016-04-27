@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.profile.carlist;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -102,11 +103,11 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
         recyclerView = (RecyclerView) parentView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        btnAddCar.setTypeface(Functions.getBoldFont(getActivity()));
+        btnAddCar.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
 
         txtEmpty.setText(Html.fromHtml("<u>Add Car</u>"));
-        txtEmpty.setTypeface(Functions.getBoldFont(getActivity()));
-        txtNoCar.setTypeface(Functions.getBoldFont(getActivity()));
+        txtEmpty.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
+        txtNoCar.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
 
     }
 

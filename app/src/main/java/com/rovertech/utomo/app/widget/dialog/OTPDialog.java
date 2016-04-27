@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,10 +61,10 @@ public class OTPDialog extends BaseDialog implements View.OnClickListener {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
-        txtNote.setTypeface(Functions.getBoldFont(context));
-        btnVerify.setTypeface(Functions.getBoldFont(context));
-        edtOTP.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtNote.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        btnVerify.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        edtOTP.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     @Override

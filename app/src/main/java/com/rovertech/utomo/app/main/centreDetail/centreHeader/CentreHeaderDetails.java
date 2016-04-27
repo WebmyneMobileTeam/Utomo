@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centreDetail.centreHeader;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -86,8 +87,8 @@ public class CentreHeaderDetails extends LinearLayout {
 
     private void setTypeface() {
         txtReviews.setTypeface(Functions.getRegularFont(context));
-        txtDistance.setTypeface(Functions.getBoldFont(context));
-        txtCentreName.setTypeface(Functions.getBoldFont(context));
+        txtDistance.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
     }
 

@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.util.AttributeSet;
@@ -62,11 +63,11 @@ public class PastServiceTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtBookingDate.setTypeface(Functions.getRegularFont(context));
-        txtCenterName.setTypeface(Functions.getBoldFont(context));
+        txtCenterName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtRating.setTypeface(Functions.getRegularFont(context));
-        txtRepeat.setTypeface(Functions.getBoldFont(context));
+        txtRepeat.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtReviews.setTypeface(Functions.getRegularFont(context));
     }
 

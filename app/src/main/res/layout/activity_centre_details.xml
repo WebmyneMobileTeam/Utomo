@@ -6,14 +6,12 @@
     android:orientation="vertical"
     tools:context=".profile.ProfileActivity">
 
-
     <LinearLayout
         android:id="@+id/mainHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/app_bar"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <include layout="@layout/app_bar" />
 
@@ -25,8 +23,7 @@
         <com.rovertech.utomo.app.main.centreDetail.centreMain.CentreMainDetails
             android:id="@+id/centreMainDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

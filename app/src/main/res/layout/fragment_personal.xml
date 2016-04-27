@@ -2,12 +2,12 @@
     xmlns:widget="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical">
 
         <ScrollView
@@ -56,7 +56,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_phone"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtEmail"
@@ -64,12 +65,12 @@
                     android:layout_height="?actionBarSize"
                     android:enabled="false"
                     android:hint="Email"
-
                     android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_email"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtName"
@@ -80,31 +81,32 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_account"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtDOB"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="Date of Birth"
-
                     android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_action_today"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edtAddress"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="Address"
-
                     android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_pin_drop"
-                    widget:met_primaryColor="@color/editTextColor" />
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
 
                 <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
@@ -116,8 +118,8 @@
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_map"
-                    widget:met_primaryColor="@color/editTextColor" />
-
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
             </LinearLayout>
 

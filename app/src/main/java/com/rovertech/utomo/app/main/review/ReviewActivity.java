@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.review;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -68,9 +69,9 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setTypeface() {
-        txtRecommend.setTypeface(Functions.getBoldFont(this));
+        txtRecommend.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         edtComment.setTypeface(Functions.getRegularFont(this));
-        btnSubmit.setTypeface(Functions.getBoldFont(this));
+        btnSubmit.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         radioYes.setTypeface(Functions.getRegularFont(this));
         radioNo.setTypeface(Functions.getRegularFont(this));
     }
@@ -96,7 +97,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("Reviews");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

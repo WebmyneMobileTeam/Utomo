@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.widget.performanceWidget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -69,7 +70,7 @@ public class PerformanceTileItem extends LinearLayout {
         txtProgressStatus.setTypeface(Functions.getRegularFont(context));
         txtItemName.setTypeface(Functions.getRegularFont(context));
         txtItemValue.setTypeface(Functions.getRegularFont(context));
-        txtReset.setTypeface(Functions.getBoldFont(context));
+        txtReset.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     public void setValue(final Performance performance) {

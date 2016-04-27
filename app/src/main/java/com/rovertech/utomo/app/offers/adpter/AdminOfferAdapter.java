@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.offers.adpter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -114,10 +115,10 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     private void setTypeFace() {
         holder.txtOfferTitle1.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferTitleCode.setTypeface(Functions.getBoldFont(c));
+        holder.txtOfferTitleCode.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
         holder.txtOfferTitle.setTypeface(Functions.getRegularFont(c));
         holder.txtOfferValidTo.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c));
+        holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
     }
 
     @Override

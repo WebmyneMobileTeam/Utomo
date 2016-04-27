@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,10 +49,10 @@ public class ServiceCentreTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtCentreName.setTypeface(Functions.getBoldFont(context));
-        txtRating.setTypeface(Functions.getRegularFont(context));
-        txtReviews.setTypeface(Functions.getRegularFont(context));
-        txtDistance.setTypeface(Functions.getRegularFont(context));
+        txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtRating.setTypeface(Functions.getRegularFont(context), Typeface.BOLD);
+        txtReviews.setTypeface(Functions.getRegularFont(context), Typeface.BOLD);
+        txtDistance.setTypeface(Functions.getRegularFont(context), Typeface.BOLD);
 
     }
 

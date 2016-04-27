@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
@@ -195,7 +196,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         setHeaderTitle("Dashboard");

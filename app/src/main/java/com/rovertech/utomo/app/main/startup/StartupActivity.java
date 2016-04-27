@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.main.startup;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -75,7 +76,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                 myText.setLines(2);
                 myText.setText(AppConstant.startupTexts[0]);
                 myText.setTypeface(Functions.getRegularFont(StartupActivity.this));
-                myText.setTextColor(Color.BLACK);
+                myText.setTextColor(Color.WHITE);
                 return myText;
             }
         });
@@ -97,9 +98,9 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     }
 
     private void setTypeface() {
-        txtSkip.setTypeface(Functions.getBoldFont(this));
-        btnLogin.setTypeface(Functions.getBoldFont(this));
-        btnSignUp.setTypeface(Functions.getBoldFont(this));
+        txtSkip.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnLogin.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnSignUp.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
     }
 
     private void initPager() {
