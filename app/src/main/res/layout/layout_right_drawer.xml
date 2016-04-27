@@ -37,6 +37,7 @@
                 android:layout_marginLeft="16dp"
                 android:checked="true"
                 android:padding="8dp"
+                android:theme="@style/SwitchStyle"
                 android:text="Body Shop"
                 android:textSize="@dimen/M_TEXT" />
 
@@ -47,6 +48,7 @@
                 android:layout_marginLeft="16dp"
                 android:checked="true"
                 android:padding="8dp"
+                android:theme="@style/SwitchStyle"
                 android:text="Pickup-Drop off"
                 android:textSize="@dimen/M_TEXT" />
 

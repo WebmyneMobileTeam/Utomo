@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -167,11 +166,10 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 0) {
-                    Drawable img = getResources().getDrawable( R.drawable.ic_action_navigation_close );
-                    edtCity.setCompoundDrawablesWithIntrinsicBounds( null , null, img, null);
+                    edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_navigation_close, 0);
                     presenter.fetchCity(ServiceCenterListActivity.this, s.toString());
                 } else if (s.toString().length() == 0) {
-                    edtCity.setCompoundDrawablesWithIntrinsicBounds( null , null, null, null);
+                    edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 }
 
             }
@@ -184,12 +182,15 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
                 try {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        if (event.getRawX() >= (edtCity.getRight() - edtCity.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                            edtCity.setText("");
-                            return true;
+                        if (edtCity.getText().length() > 0) {
+                            if (event.getRawX() >= (edtCity.getRight() - edtCity.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                                edtCity.setText("");
+                                return true;
+                            }
                         }
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
                 return false;
             }
         });

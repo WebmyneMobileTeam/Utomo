@@ -168,4 +168,9 @@
         <item name="android:textSize">@dimen/XXL_TEXT</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="SwitchStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlActivated">@color/button_bg</item>
+        <item name="colorSwitchThumbNormal">@color/half_black</item>
+    </style>
 </resources>

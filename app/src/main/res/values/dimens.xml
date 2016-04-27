@@ -28,6 +28,10 @@
     <dimen name="XL_TEXT">20sp</dimen>
     <dimen name="XXL_TEXT">22sp</dimen>
 
+
+    <dimen name="SIZE_30">30dp</dimen>
+
+
     <dimen name="EDIT_TEXT_SIZE">18sp</dimen>
 
     <dimen name="edittext_padding">12dp</dimen>
