@@ -12,7 +12,6 @@
         android:orientation="horizontal">
 
         <LinearLayout
-
             android:id="@+id/bottomCall"
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
@@ -32,9 +31,9 @@
                 android:id="@+id/txtCall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="Call"
-                android:textColor="@color/half_black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -58,9 +57,9 @@
                 android:id="@+id/txtMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="Directions"
-                android:textColor="@color/half_black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -92,9 +91,9 @@
                 android:id="@+id/txtReviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="Review"
-                android:textColor="@color/half_black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -119,9 +118,9 @@
                 android:id="@+id/txtCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="Cancel Booking"
-                android:textColor="@color/half_black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -153,9 +152,9 @@
                 android:id="@+id/txtAccept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="Accept"
-                android:textColor="@color/half_black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -180,9 +179,9 @@
                 android:id="@+id/txtReject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:text="Reject"
-                android:textColor="@color/half_black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 

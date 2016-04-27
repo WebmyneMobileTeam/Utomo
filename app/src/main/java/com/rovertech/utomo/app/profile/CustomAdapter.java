@@ -62,7 +62,7 @@ public class CustomAdapter extends FragmentStatePagerAdapter {
         tv.setTypeface(Functions.getBoldFont(context));
         ImageView img = (ImageView) v.findViewById(R.id.tab_image);
         img.setImageResource(tabIcons[position]);
-        img.setColorFilter(ContextCompat.getColor(context, R.color.half_black), PorterDuff.Mode.SRC_ATOP);
+        img.setColorFilter(ContextCompat.getColor(context, R.color.white), PorterDuff.Mode.SRC_ATOP);
 
         return v;
     }

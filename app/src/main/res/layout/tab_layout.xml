@@ -33,11 +33,11 @@
 
     <!--&lt;!&ndash; Tab divider &ndash;&gt;-->
     <!--<View-->
-        <!--android:layout_width="1dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:background="#bdbcbcbc" />-->
+    <!--android:layout_width="1dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:background="#bdbcbcbc" />-->
 
 </RelativeLayout>

@@ -10,12 +10,13 @@
         android:paddingBottom="24dp">
 
         <TextView
-            android:padding="16dp"
             android:id="@+id/txtCurrentStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Current Status: Pending" />
+            android:padding="16dp"
+            android:text="Current Status: Pending"
+            android:textColor="@color/white" />
 
         <include layout="@layout/layout_booking_status" />
 
