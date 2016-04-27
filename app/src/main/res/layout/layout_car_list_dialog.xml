@@ -28,6 +28,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
 
+
             <ImageView
                 android:id="@+id/imgClose"
                 android:layout_width="wrap_content"
@@ -39,6 +40,16 @@
                 android:tint="@color/white" />
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtTitle1"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="123"
+            android:padding="8dp"
+            android:textSize="@dimen/M_TEXT"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
 
         <ListView
             android:id="@+id/carListView"

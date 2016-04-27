@@ -9,7 +9,7 @@ public class OfferCategory implements Serializable {
 
     public String AmountType;
 
-    public int AmountTypeID;
+    public int AmountTypeID,AdminOfferValue,SCOfferValue;
 
     public int AvailOfferCategoryID;
 
