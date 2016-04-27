@@ -31,7 +31,7 @@ public class CentreReviewsActivity extends AppCompatActivity implements CentreRe
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        toolbar.setNavigationIcon(R.drawable.ic_action_navigation_arrow_back);
+        toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("Reviews");
@@ -44,7 +44,6 @@ public class CentreReviewsActivity extends AppCompatActivity implements CentreRe
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
-
 
         mCentrePresenter.setUpRecyclerView(this);
 

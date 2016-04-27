@@ -40,6 +40,7 @@
                         android:hint="Enter City"
                         android:singleLine="true"
                         widget:met_baseColor="@color/editTextColor"
+                        widget:met_floatingLabel="highlight"
                         widget:met_primaryColor="@color/editTextColor" />
 
                     <ImageView
@@ -53,6 +54,12 @@
                         android:background="@drawable/search_btn_bg"
                         android:tint="@color/white"
                         android:src="@drawable/ic_action_search"/>
+                    <!--<Button
+                        android:id="@+id/btnSearch"
+                        style="@style/MyButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="Search" />-->
 
                 </LinearLayout>
 

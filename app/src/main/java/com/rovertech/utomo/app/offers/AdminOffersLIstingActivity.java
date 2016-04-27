@@ -30,11 +30,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminOffersLIstingActivity extends AppCompatActivity implements OfferView{
+public class AdminOffersLIstingActivity extends AppCompatActivity implements OfferView {
 
     private Toolbar toolbar;
     private TextView txtCustomTitle;
-    private ArrayList<OfferPojo> itemList=new ArrayList<>();
+    private ArrayList<OfferPojo> itemList = new ArrayList<>();
     private AdminOfferPresenter mAdminOfferPresenter;
     private ProgressDialog dialog;
 
@@ -42,13 +42,12 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_offers_listing);
-        dialog=new ProgressDialog(this);
+        dialog = new ProgressDialog(this);
         dialog.setTitle("Please wait....");
-        mAdminOfferPresenter=new AdminOfferPresenterImpl(this);
+        mAdminOfferPresenter = new AdminOfferPresenterImpl(this);
         mAdminOfferPresenter.init();
 
     }
-
 
     @Override
     public void init() {
@@ -83,11 +82,11 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
     public void setUpRecyclerView() {
 
         FamiliarRecyclerView OfferFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
-       // OfferFamiliarRecyclerView.setHasFixedSize(true);
+        // OfferFamiliarRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         OfferFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
-        Log.d("Itemlist", "Size= "+ itemList.size() +"|| "+ itemList.toString());
-        RecyclerView.Adapter adminOfferAdapter =new AdminOfferAdapter(this,itemList);
+        Log.d("Itemlist", "Size= " + itemList.size() + "|| " + itemList.toString());
+        RecyclerView.Adapter adminOfferAdapter = new AdminOfferAdapter(this, itemList);
         OfferFamiliarRecyclerView.setAdapter(adminOfferAdapter);
         OfferFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
 
@@ -150,8 +149,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
             public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
                 if (response.body().FetchAdminOffer.ResponseCode == 1) {
 
-                    for( int i=0;i<response.body().FetchAdminOffer.Data.size();i++)
-                    {
+                    for (int i = 0; i < response.body().FetchAdminOffer.Data.size(); i++) {
                         itemList = response.body().FetchAdminOffer.Data.get(i).getAllOffersList();
                         HideProgressDialog();
                         setUpRecyclerView();
@@ -161,7 +159,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
 
             @Override
             public void onFailure(Call<AdminOfferResp> call, Throwable t) {
-                Log.e("error",t.toString());
+                Log.e("error", t.toString());
             }
         });
 

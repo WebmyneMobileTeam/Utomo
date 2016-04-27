@@ -33,7 +33,7 @@ public class CentreMainDetails extends LinearLayout {
     private Context context;
     private LayoutInflater inflater;
     private View parentView;
-    private TextView txtCentreName, txtCentreAddress, txtCentreInfo, txtStartPrice;
+    private TextView txtCentreName, txtCentreAddress, txtCentreInfo;
     private Button btnBook;
     private RatingBar ratingBar;
     private FlowLayout serviceFlowLayout;
@@ -58,7 +58,6 @@ public class CentreMainDetails extends LinearLayout {
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
         txtCentreAddress = (TextView) parentView.findViewById(R.id.txtCentreAddress);
         txtCentreInfo = (TextView) parentView.findViewById(R.id.txtCentreInfo);
-        txtStartPrice = (TextView) parentView.findViewById(R.id.txtStartPrice);
         btnBook = (Button) parentView.findViewById(R.id.btnBook);
         ratingBar = (RatingBar) parentView.findViewById(R.id.ratingBar);
         serviceFlowLayout = (FlowLayout) parentView.findViewById(R.id.serviceFlowLayout);
@@ -66,25 +65,16 @@ public class CentreMainDetails extends LinearLayout {
 
         setTypeface();
 
-        txtStartPrice.setText(String.format("From %s200", context.getResources().getString(R.string.Rs)));
-
         serviceFlowLayout.removeAllViews();
         serviceFlowLayout.invalidate();
 
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-       /* for (int i = 0; i < 4; i++) {
-            ServiceChip serviceChip = new ServiceChip(context);
-            serviceFlowLayout.addView(serviceChip, params);
-        }*/
-
 
     }
 
     private void setTypeface() {
         txtCentreAddress.setTypeface(Functions.getRegularFont(context));
         txtCentreInfo.setTypeface(Functions.getRegularFont(context));
-        txtStartPrice.setTypeface(Functions.getBoldFont(context));
         txtCentreName.setTypeface(Functions.getBoldFont(context));
         btnBook.setTypeface(Functions.getBoldFont(context));
 

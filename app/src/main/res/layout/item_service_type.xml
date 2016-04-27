@@ -9,9 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
+        android:orientation="vertical"
+        android:padding="4dp">
+        
         <TextView
             android:id="@+id/txtTypeService"
             style="@style/TitleTextStyle"
@@ -37,21 +37,21 @@
             android:text="Body Wash"
             android:textColor="@color/TextBody" />
 
-      <!--  <CheckBox
-            android:id="@+id/checkIsPickUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pick"
-            android:textColor="@color/TextBody" />
+        <!--  <CheckBox
+              android:id="@+id/checkIsPickUp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="Pick"
+              android:textColor="@color/TextBody" />
 
-        <CheckBox
-            android:id="@+id/checkIsDrop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Drop "
-            android:textColor="@color/TextBody" />-->
+          <CheckBox
+              android:id="@+id/checkIsDrop"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="Drop "
+              android:textColor="@color/TextBody" />-->
 
 
     </LinearLayout>

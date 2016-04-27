@@ -10,6 +10,6 @@
 
     <solid android:color="@color/button_bg" />
 
-    <corners android:radius="48dp" />
+    <corners android:radius="96dp" />
 
 </shape>

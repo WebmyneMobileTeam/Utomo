@@ -4,17 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.review.ReviewActivity;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
@@ -24,14 +24,13 @@ import com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails
 public class ServiceDetailsActivity extends AppCompatActivity implements ServiceView, View.OnClickListener {
 
     private Toolbar toolbar;
-    private View parentView, bottomSheet;
-    private BottomSheetBehavior behavior;
-    private FloatingActionButton fab;
-    private LinearLayout bottomCall, bottomDirection, bottomReview, bottomCancelReq;
+    private View parentView;
+    private LinearLayout bottomCall, bottomDirection, bottomReview, bottomCancelReq, bottomAccept, bottomReject;
     private ServicePresenter presenter;
     private CoordinatorLayout main_content;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout appBarLayout;
+    private Button btnInvoice;
 
     private int bookingId;
     private ProgressDialog progressDialog;
@@ -56,30 +55,13 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         presenter = new ServicePresenterImpl(this);
 
         presenter.fetchBookingDetails(ServiceDetailsActivity.this, bookingId);
-
-        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(View bottomSheet, int newState) {
-                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    fab.setVisibility(View.VISIBLE);
-                    isBottomSheetExpanded = true;
-                } else {
-                    fab.setVisibility(View.VISIBLE);
-                    isBottomSheetExpanded = false;
-                }
-            }
-
-            @Override
-            public void onSlide(View bottomSheet, float slideOffset) {
-
-            }
-        });
     }
 
     private void init() {
 
         initToolbar();
 
+        btnInvoice = (Button) findViewById(R.id.btnInvoice);
         txtCancel = (TextView) findViewById(R.id.txtCancel);
         txtCall = (TextView) findViewById(R.id.txtCall);
         txtMap = (TextView) findViewById(R.id.txtMap);
@@ -118,13 +100,12 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         });
 
         parentView = findViewById(android.R.id.content);
-        bottomSheet = findViewById(R.id.bottom_sheet);
-        behavior = BottomSheetBehavior.from(bottomSheet);
         bottomCall = (LinearLayout) findViewById(R.id.bottomCall);
         bottomDirection = (LinearLayout) findViewById(R.id.bottomDirection);
         bottomCancelReq = (LinearLayout) findViewById(R.id.bottomCancelReq);
+        bottomAccept = (LinearLayout) findViewById(R.id.bottomAccept);
+        bottomReject = (LinearLayout) findViewById(R.id.bottomReject);
         bottomReview = (LinearLayout) findViewById(R.id.bottomReview);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         clickListener();
 
@@ -142,9 +123,9 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         bottomCall.setOnClickListener(this);
         bottomDirection.setOnClickListener(this);
         bottomReview.setOnClickListener(this);
-        bottomSheet.setOnClickListener(this);
         bottomCancelReq.setOnClickListener(this);
-        fab.setOnClickListener(this);
+        bottomAccept.setOnClickListener(this);
+        bottomReject.setOnClickListener(this);
     }
 
     private void initToolbar() {
@@ -181,20 +162,14 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 startActivity(reviewIntent);
                 break;
 
-            case R.id.bottom_sheet:
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                break;
-
-            case R.id.fab:
-                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-               /* if (isBottomSheetExpanded)
-                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                else
-                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);*/
-                break;
-
             case R.id.bottomCancelReq:
                 presenter.cancelBooking(this, userBookingData.BookingID);
+                break;
+
+            case R.id.bottomAccept:
+                break;
+
+            case R.id.bottomReject:
                 break;
         }
     }
@@ -216,17 +191,70 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         this.userBookingData = userBookingData;
 
+        int statusID = userBookingData.BookingStatusID;
+
         collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
         headerDetails.setHeaderDetails(userBookingData);
         mainDetails.setMainDetails(userBookingData);
 
         main_content.setVisibility(View.VISIBLE);
 
-        if (userBookingData.BookingStatusID == 1) {
-            bottomCancelReq.setVisibility(View.VISIBLE);
+        bottomCall.setVisibility(View.VISIBLE);
+        bottomDirection.setVisibility(View.VISIBLE);
+
+        if (statusID == AppConstant.SCHEDULE) {
+            bottomAccept.setVisibility(View.VISIBLE);
+            bottomReject.setVisibility(View.VISIBLE);
         } else {
-            bottomCancelReq.setVisibility(View.GONE);
+            bottomAccept.setVisibility(View.GONE);
+            bottomReject.setVisibility(View.GONE);
         }
 
+        if (statusID == AppConstant.INVOICED) {
+            btnInvoice.setVisibility(View.VISIBLE);
+        } else {
+            btnInvoice.setVisibility(View.GONE);
+        }
+
+        if (statusID == AppConstant.PENDING) {
+            bottomCancelReq.setVisibility(View.VISIBLE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.SCHEDULE) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.ACCEPTED) {
+            bottomCancelReq.setVisibility(View.VISIBLE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.PICKED) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.JOB_CARD_DONE) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.SERVICE_COMPLETED) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.INVOICED) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.PAYMENT_DONE) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+
+        } else if (statusID == AppConstant.CAR_DELIVERED) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.VISIBLE);
+
+        } else if (statusID == AppConstant.CANCELLED) {
+            bottomCancelReq.setVisibility(View.GONE);
+            bottomReview.setVisibility(View.GONE);
+        }
     }
 }

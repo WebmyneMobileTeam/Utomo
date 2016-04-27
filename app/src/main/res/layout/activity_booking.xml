@@ -29,7 +29,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <include layout="@layout/item_booking_centerdetails" />
 
             <include layout="@layout/item_my_car" />
@@ -42,8 +41,6 @@
 
             <include layout="@layout/item_booking_description" />
 
-            <!--<include layout="@layout/item_promo_code" />-->
-
             <Button
                 android:id="@+id/btnBook"
                 style="@style/MyButtonStyle"
@@ -52,6 +49,7 @@
                 android:layout_margin="@dimen/booking_card_margin"
 
                 android:text="Book" />
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

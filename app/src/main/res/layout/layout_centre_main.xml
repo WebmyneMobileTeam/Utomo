@@ -22,7 +22,7 @@
                     style="@style/TitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="@string/dummy1"
                     android:textSize="@dimen/L_TEXT" />
 
                 <RatingBar
@@ -30,9 +30,11 @@
                     style="@android:style/Widget.Holo.Light.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/txtCentreName"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:numStars="5"
                     android:stepSize="0.5" />
@@ -44,9 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:textColor="@color/md_grey_800"
-
-                android:textSize="@dimen/M_TEXT" />
+                android:textColor="@color/md_grey_800" />
 
             <TextView
                 android:id="@+id/txtCentreAddress"
@@ -54,49 +54,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal"
-                android:padding="8dp"
-                android:weightSum="3">
-
+                android:padding="8dp">
 
                 <com.rovertech.utomo.app.widget.FlowLayout
                     android:id="@+id/serviceFlowLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="2"
-                    android:gravity="start|top"></com.rovertech.utomo.app.widget.FlowLayout>
-
-                <LinearLayout
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:gravity="start|top" />
 
-                    <TextView
-                        android:id="@+id/txtStartPrice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="From Rs.200"
-                        android:textSize="@dimen/L_TEXT"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
+                <Button
+                    android:id="@+id/btnBook"
+                    style="@style/MyButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:text="Book Now" />
 
-                    <Button
-                        android:id="@+id/btnBook"
-                        style="@style/MyButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:text="Book Now" />
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

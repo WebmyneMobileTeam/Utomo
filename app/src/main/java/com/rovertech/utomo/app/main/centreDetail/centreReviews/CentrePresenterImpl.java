@@ -29,7 +29,7 @@ public class CentrePresenterImpl implements CentrePresenter {
     @Override
     public void setUpRecyclerView(Context context) {
         List<FeedBack> lstFeedBack = PrefUtils.getFeedBack(context);
-        CentreReviewAdapter centreReviewAdapter = new CentreReviewAdapter(lstFeedBack);
+        CentreReviewAdapter centreReviewAdapter = new CentreReviewAdapter(lstFeedBack, context);
         mCentreReviewsView.setUpRecyclerView(centreReviewAdapter);
 
     }

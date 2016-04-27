@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".profile.ProfileActivity">
-    <include layout="@layout/app_bar" />
 
+    <include layout="@layout/app_bar" />
 
     <TextView
         android:id="@+id/emptyNotifications"
@@ -18,15 +18,12 @@
         android:text="No Admin Offer" />
 
     <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-        android:scrollbars="vertical"
         android:id="@+id/notificationsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        app:frv_isEmptyViewKeepShowHeadOrFooter="true"
-        app:frv_emptyView="@id/emptyNotifications">
-
-    </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
-
+        android:scrollbars="vertical"
+        app:frv_emptyView="@id/emptyNotifications"
+        app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
 
 </RelativeLayout>

@@ -1,10 +1,10 @@
 package com.rovertech.utomo.app.main.centreDetail.centreReviews;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -19,9 +19,11 @@ import java.util.List;
 public class CentreReviewAdapter extends RecyclerView.Adapter<CentreReviewAdapter.CentreReviewHolder> {
 
     private List<FeedBack> lstFeedBack;
+    private Context context;
 
-    public CentreReviewAdapter(List<FeedBack> lstFeedBack) {
+    public CentreReviewAdapter(List<FeedBack> lstFeedBack, Context context) {
         this.lstFeedBack = lstFeedBack;
+        this.context = context;
     }
 
     @Override
@@ -35,28 +37,31 @@ public class CentreReviewAdapter extends RecyclerView.Adapter<CentreReviewAdapte
         FeedBack feedBack = lstFeedBack.get(position);
         holder.reviewerName.setText(feedBack.ClientName);
         holder.reviewerDesciptions.setText(feedBack.FeedBackMessage);
-        holder.reviewRating.setRating(feedBack.Rating);
         holder.reviewerDate.setText(Functions.displayOnlyDate(feedBack.FeedBackDate));
+        holder.txtRating.setText(String.format("%.1f/5", feedBack.Rating));
 
     }
-
 
     @Override
     public int getItemCount() {
         return lstFeedBack.size();
     }
 
-    public static class CentreReviewHolder extends RecyclerView.ViewHolder {
+    public class CentreReviewHolder extends RecyclerView.ViewHolder {
 
-        TextView reviewerName, reviewerDesciptions, reviewerDate;
-        RatingBar reviewRating;
+        TextView reviewerName, reviewerDesciptions, reviewerDate, txtRating;
 
         public CentreReviewHolder(View itemView) {
             super(itemView);
             reviewerName = (TextView) itemView.findViewById(R.id.reviewerName);
             reviewerDesciptions = (TextView) itemView.findViewById(R.id.reviewerDesciptions);
             reviewerDate = (TextView) itemView.findViewById(R.id.reviewerDate);
-            reviewRating = (RatingBar) itemView.findViewById(R.id.reviewRating);
+            txtRating = (TextView) itemView.findViewById(R.id.txtRating);
+
+            reviewerName.setTypeface(Functions.getBoldFont(context));
+            reviewerDesciptions.setTypeface(Functions.getRegularFont(context));
+            reviewerDate.setTypeface(Functions.getRegularFont(context));
+            txtRating.setTypeface(Functions.getRegularFont(context));
 
         }
     }

@@ -121,7 +121,6 @@ public class CentreHeaderDetails extends LinearLayout {
         imgOffer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Functions.fireIntent(context, CentreOfferActivity.class);
 
             }
