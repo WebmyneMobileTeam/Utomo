@@ -180,18 +180,16 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         edtCity.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
                 final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
 
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (edtCity.getRight() - edtCity.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        edtCity.setText("");
-                        return true;
+                try {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        if (event.getRawX() >= (edtCity.getRight() - edtCity.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            edtCity.setText("");
+                            return true;
+                        }
                     }
-                }
+                } catch (Exception e) {}
                 return false;
             }
         });
