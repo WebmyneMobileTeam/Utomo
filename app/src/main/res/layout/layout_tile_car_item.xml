@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-
-    android:background="@color/white"
     app:cardPreventCornerOverlap="false">
 
     <LinearLayout
@@ -72,8 +70,9 @@
             <ImageView
                 android:id="@+id/imgCar"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="140dp"
                 android:layout_marginTop="5sp"
+                android:padding="8dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/car" />
 

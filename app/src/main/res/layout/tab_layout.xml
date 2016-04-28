@@ -17,7 +17,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:src="@drawable/wrench"
-            android:tint="@color/theme_purple_accent" />
+            android:tint="@color/white" />
 
         <TextView
             android:id="@+id/tab_title"
@@ -29,15 +29,5 @@
             android:textSize="@dimen/N_TEXT" />
 
     </LinearLayout>
-
-
-    <!--&lt;!&ndash; Tab divider &ndash;&gt;-->
-    <!--<View-->
-    <!--android:layout_width="1dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:background="#bdbcbcbc" />-->
 
 </RelativeLayout>
