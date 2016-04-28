@@ -25,7 +25,7 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_call"
-                android:tint="@color/black" />
+                android:tint="@color/white" />
 
             <TextView
                 android:id="@+id/txtCall"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Call"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_directions"
-                android:tint="@color/black" />
+                android:tint="@color/white" />
 
             <TextView
                 android:id="@+id/txtMap"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Directions"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -85,7 +85,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_star_rate"
-                android:tint="@color/black" />
+                android:tint="@color/white" />
 
             <TextView
                 android:id="@+id/txtReviews"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Review"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -111,7 +111,7 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_action_close"
-                android:tint="@color/black"
+                android:tint="@color/white"
                 android:tintMode="src_atop" />
 
             <TextView
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Cancel Booking"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -146,7 +146,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_done_black_24dp"
-                android:tint="@color/black" />
+                android:tint="@color/white" />
 
             <TextView
                 android:id="@+id/txtAccept"
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Accept"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 
@@ -172,7 +172,7 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_action_close"
-                android:tint="@color/black"
+                android:tint="@color/white"
                 android:tintMode="src_atop" />
 
             <TextView
@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Reject"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/M_TEXT" />
         </LinearLayout>
 

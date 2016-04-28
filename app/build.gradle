@@ -111,8 +111,5 @@ dependencies {
     // progress bar
     compile 'com.liulishuo.magicprogresswidget:library:1.0.8'
 
-    // about us page
-    compile 'com.github.medyo:android-about-page:1.0.2'
-
 }
 apply plugin: 'com.google.gms.google-services'
