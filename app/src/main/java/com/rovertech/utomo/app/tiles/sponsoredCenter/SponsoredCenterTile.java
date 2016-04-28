@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.tiles.sponsoredCenter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -58,7 +59,7 @@ public class SponsoredCenterTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtCenterName.setTypeface(Functions.getBoldFont(context));
+        txtCenterName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtExpertise.setTypeface(Functions.getRegularFont(context));
     }
 

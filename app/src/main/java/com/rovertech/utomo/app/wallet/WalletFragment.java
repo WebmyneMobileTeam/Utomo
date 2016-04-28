@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.wallet;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -61,7 +62,7 @@ public class WalletFragment extends Fragment {
 
     private void setTypeface() {
         txtWallet.setTypeface(Functions.getRegularFont(getActivity()));
-        txtInvite.setTypeface(Functions.getBoldFont(getActivity()));
+        txtInvite.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
         txtWalletTitle.setTypeface(Functions.getRegularFont(getActivity()));
     }
 }

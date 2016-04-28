@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,7 +137,7 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     private void findViewById() {
@@ -147,9 +148,9 @@ public class OdometerTile extends LinearLayout implements OdometerView, View.OnC
         txtCancel = (TextView) parentView.findViewById(R.id.txtCancel);
         odometer = (Odometer) parentView.findViewById(R.id.odometer);
 
-        txtReset.setTypeface(Functions.getBoldFont(context));
-        txtDone.setTypeface(Functions.getBoldFont(context));
-        txtCancel.setTypeface(Functions.getBoldFont(context));
+        txtReset.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtDone.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtCancel.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
         txtReset.setOnClickListener(this);
         txtDone.setOnClickListener(this);

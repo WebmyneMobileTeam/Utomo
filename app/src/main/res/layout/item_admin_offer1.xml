@@ -49,12 +49,12 @@
 
         <TextView
             android:id="@+id/txtOfferDiscount"
-            android:padding="8dp"
+            android:padding="4dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/XXL_TEXT"
-            android:text="UPTO RS 500 OFF " />
+            android:textSize="@dimen/XL_TEXT"
+            android:text="UPTO ₹ 500 OFF " />
 
         <TextView
             android:id="@+id/txtOfferTitle"
@@ -77,7 +77,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/img1"
+        android:id="@+id/imgInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_action_info"

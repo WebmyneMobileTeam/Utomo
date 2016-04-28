@@ -63,7 +63,7 @@ public class CurrentServiceTile extends LinearLayout {
 
     private void setTypeface() {
         txtBookingDate.setTypeface(Functions.getThinFont(context));
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtCenterName.setTypeface(Functions.getRegularFont(context));
         txtServiceStatus.setTypeface(Functions.getLightFont(context), Typeface.BOLD);
     }

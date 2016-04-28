@@ -3,10 +3,9 @@ package com.rovertech.utomo.app.home.car;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.graphics.Paint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -115,7 +114,8 @@ public class CarFragment extends Fragment implements CarView {
         txtRequestBooking = (TextView) parentView.findViewById(R.id.txtRequestBooking);
         txtRequestBookingTitle = (TextView) parentView.findViewById(R.id.txtRequestBookingTitle);
         txtRequestBooking.setPaintFlags(txtRequestBooking.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        txtRequestBookingTitle.setTypeface(Functions.getBoldFont(getActivity()));
+        txtRequestBooking.setTypeface(Functions.getRegularFont(getActivity()));
+        txtRequestBookingTitle.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
 
         carPojo = (CarPojo) getArguments().getSerializable("car");
 

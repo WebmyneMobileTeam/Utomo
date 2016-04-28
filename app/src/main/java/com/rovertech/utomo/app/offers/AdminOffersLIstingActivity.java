@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.offers;
 
 import android.app.ProgressDialog;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -101,7 +102,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
 
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         txtCustomTitle.setText("Admin Offers");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

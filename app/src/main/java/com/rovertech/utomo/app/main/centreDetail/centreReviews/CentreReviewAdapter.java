@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centreDetail.centreReviews;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,7 @@ public class CentreReviewAdapter extends RecyclerView.Adapter<CentreReviewAdapte
             reviewerDate = (TextView) itemView.findViewById(R.id.reviewerDate);
             txtRating = (TextView) itemView.findViewById(R.id.txtRating);
 
-            reviewerName.setTypeface(Functions.getBoldFont(context));
+            reviewerName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
             reviewerDesciptions.setTypeface(Functions.getRegularFont(context));
             reviewerDate.setTypeface(Functions.getRegularFont(context));
             txtRating.setTypeface(Functions.getRegularFont(context));

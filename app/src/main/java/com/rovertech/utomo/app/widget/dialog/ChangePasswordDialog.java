@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
 
@@ -52,7 +53,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     private void setTypeface() {
         edtPassword.setTypeface(Functions.getRegularFont(context));
         edtRePassword.setTypeface(Functions.getRegularFont(context));
-        btnSubmit.setTypeface(Functions.getBoldFont(context));
+        btnSubmit.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     @Override

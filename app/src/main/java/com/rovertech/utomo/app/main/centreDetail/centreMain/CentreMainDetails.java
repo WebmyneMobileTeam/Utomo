@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.main.centreDetail.centreMain;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -75,8 +76,8 @@ public class CentreMainDetails extends LinearLayout {
     private void setTypeface() {
         txtCentreAddress.setTypeface(Functions.getRegularFont(context));
         txtCentreInfo.setTypeface(Functions.getRegularFont(context));
-        txtCentreName.setTypeface(Functions.getBoldFont(context));
-        btnBook.setTypeface(Functions.getBoldFont(context));
+        txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        btnBook.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
         LayerDrawable ratingDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
         ratingDrawable.getDrawable(2).setColorFilter(ContextCompat.getColor(context, R.color.yellow), PorterDuff.Mode.SRC_ATOP);

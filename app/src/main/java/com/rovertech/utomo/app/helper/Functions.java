@@ -120,23 +120,23 @@ public class Functions {
     }
 
     public static Typeface getThinFont(Context _context) {
-        Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.thin.ttf");
-        return tf;
+        //Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.thin.ttf");
+        return getTabHostFont( _context);
     }
 
     public static Typeface getRegularFont(Context _context) {
         Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.regular.ttf");
-        return tf;
+        return getTabHostFont(_context);
     }
 
     public static Typeface getLightFont(Context _context) {
         Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.light.ttf");
-        return tf;
+        return getTabHostFont(_context);
     }
 
     public static Typeface getBoldFont(Context _context) {
         Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.bold.ttf");
-        return tf;
+        return getTabHostFont(_context);
     }
 
     public static Typeface getTabHostFont(Context _context) {

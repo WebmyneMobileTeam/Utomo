@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.booking;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -60,7 +61,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     // Address Section
     private CheckBox checkPickup, checkDropoff;
-    private TextView txtSelectPickup, txtSelectDropoff, txtDropoffAddress, txtPickupAddress, txtAddress, txtSelectCar;
+    private TextView txtSelectPickup, txtSelectDropoff, txtDropoffAddress, txtPickupAddress, txtAddress, txtSelectCar, txtCenterTitle,
+            txtTypeService, txtMyCar, txtPickupTitle, txtDropoffTitle, txtDescriptionTitle;
 
     // Promo Section
     private CardView promoCardView, edtPromoCard;
@@ -145,7 +147,12 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         // radioPromo = (RadioButton) findViewById(R.id.radioPromo);
         edtPromoCode = (EditText) findViewById(R.id.edtPromoCode);
         //txtApply = (TextView) findViewById(R.id.txtApply);
-        // txtPromo = (TextView) findViewById(R.id.txtPromo);
+        txtCenterTitle = (TextView) findViewById(R.id.txtCenterTitle);
+        txtMyCar = (TextView) findViewById(R.id.txtMyCar);
+        txtPickupTitle = (TextView) findViewById(R.id.txtPickupTitle);
+        txtDropoffTitle = (TextView) findViewById(R.id.txtDropoffTitle);
+        txtDescriptionTitle = (TextView) findViewById(R.id.txtDescriptionTitle);
+        txtTypeService = (TextView) findViewById(R.id.txtTypeService);
 
         txtDate.setOnClickListener(this);
         txtTime.setOnClickListener(this);
@@ -176,20 +183,31 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     }
 
     private void setTypeface() {
-        btnBook.setTypeface(Functions.getBoldFont(this));
-        //txtPromo.setTypeface(Functions.getRegularFont(this));
+        btnBook.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtMyCar.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtSelectCar.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtCenterTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtTypeService.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtPickupTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtDropoffTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnPickUpAddressAdd.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnDropAddressAdd.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnPickUpAddressRemove.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnDropAddressRemove.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtDescriptionTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+
         edtDescription.setTypeface(Functions.getRegularFont(this));
         edtPromoCode.setTypeface(Functions.getRegularFont(this));
         //  radioDefault.setTypeface(Functions.getRegularFont(this));
         //  radioPromo.setTypeface(Functions.getRegularFont(this));
         //txtApply.setTypeface(Functions.getRegularFont(this));
-        txtTitle.setTypeface(Functions.getBoldFont(this));
-        //txtAddress.setTypeface(Functions.getRegularFont(this));
-        txtUsername.setTypeface(Functions.getBoldFont(this));
+        txtTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtAddress.setTypeface(Functions.getRegularFont(this));
+        txtUsername.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         txtCarName.setTypeface(Functions.getRegularFont(this));
         txtCarNo.setTypeface(Functions.getRegularFont(this));
-        txtDate.setTypeface(Functions.getRegularFont(this));
-        txtTime.setTypeface(Functions.getRegularFont(this));
+        txtDate.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
+        txtTime.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
         txtSchedule.setTypeface(Functions.getRegularFont(this));
         checkService.setTypeface(Functions.getRegularFont(this));
         checkBodyWash.setTypeface(Functions.getRegularFont(this));
@@ -209,7 +227,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("Schedule Booking");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +348,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     }
 
     private void pickAddressSet() {
-
 
         AddressDialog addressDialog = new AddressDialog(this, ADDRESS_PICK_UP);
         addressDialog.setOnSubmitListener(new AddressDialog.onSubmitListener() {

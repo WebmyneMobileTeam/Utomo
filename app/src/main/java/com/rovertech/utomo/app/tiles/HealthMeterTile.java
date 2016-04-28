@@ -51,7 +51,7 @@ public class HealthMeterTile extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtPercent.setTypeface(Typeface.createFromAsset(context.getAssets(), "digit_font.ttf"), Typeface.BOLD);
     }
 

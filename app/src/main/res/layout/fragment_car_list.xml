@@ -46,6 +46,8 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_margin="4dp"
+        android:background="#F6FAEF"
+        android:textColor="@color/black"
         android:text="Add Car" />
 
 

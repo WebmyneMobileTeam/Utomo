@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.profile;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -70,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("My Profile");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

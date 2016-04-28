@@ -12,8 +12,8 @@
     <color name="black">#000000</color>
     <color name="half_black">#4c4c4c</color>
 
-    <color name="editTextColor">@color/black</color>
-    <color name="editTextHintColor">@color/half_black</color>
+    <color name="editTextColor">@color/white</color>
+    <color name="editTextHintColor">@color/off_white</color>
 
     <!--<color name="purple">#512DA8</color>-->
     <color name="purple">#8E24AA</color>

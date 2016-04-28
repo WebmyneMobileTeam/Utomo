@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.offers.adpter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +19,15 @@ import com.bumptech.glide.request.target.Target;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
+import com.rovertech.utomo.app.offers.model.OfferCategory;
 import com.rovertech.utomo.app.offers.model.OfferItem;
 import com.rovertech.utomo.app.offers.model.OfferPojo;
+import com.rovertech.utomo.app.profile.carlist.CarPojo;
+import com.rovertech.utomo.app.widget.dialog.AdminOfferInfoDialog;
+import com.rovertech.utomo.app.widget.dialog.CarListDialog;
 
 import java.util.ArrayList;
 
@@ -36,7 +42,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     private static  Context c;
     private NotificationViewHolder holder = null;
-    private ArrayList<OfferPojo> itemList;
+    private static ArrayList<OfferPojo> itemList;
 
     public AdminOfferAdapter(Context c,ArrayList<OfferPojo> itemList) {
         this.itemList = itemList;
@@ -64,13 +70,29 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
     }
 
     @Override
-    public void onBindViewHolder(NotificationViewHolder holder, int position) {
+    public void onBindViewHolder(NotificationViewHolder holder, final int position) {
 
-        holder.txtOfferTitle.setText("Title : "+itemList.get(position).OfferName);
+        holder.txtOfferTitle.setText("Offer Name : "+itemList.get(position).OfferName);
         holder.txtOfferTitleCode.setText(itemList.get(position).OfferCode);
        // holder.txtOfferTitle.setText("Title : "+itemList.get(position).Description);
-        holder.txtOfferValidTo.setText("Valid Upto : "+ itemList.get(position).ValidTo);
-        
+        holder.txtOfferValidTo.setText("Valid From "+ itemList.get(position).ValidFrom +" To "+itemList.get(position).ValidTo );
+        holder.imgInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final ArrayList<OfferCategory> category=itemList.get(position).lstAvailOffersCategory;
+                final AdminOfferInfoDialog dialog=new AdminOfferInfoDialog(c,category,"admin",itemList.get(position).Description);
+                dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
+                    @Override
+                    public void onSubmit(OfferCategory offerCategory) {
+                        dialog.dismiss();
+                    }
+
+                });
+                dialog.show();
+
+            }
+        });
         setTypeFace();
                 
        /* Glide.with(c)
@@ -93,10 +115,10 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     private void setTypeFace() {
         holder.txtOfferTitle1.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferTitleCode.setTypeface(Functions.getRegularFont(c));
+        holder.txtOfferTitleCode.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
         holder.txtOfferTitle.setTypeface(Functions.getRegularFont(c));
         holder.txtOfferValidTo.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c));
+        holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
     }
 
     @Override
@@ -104,10 +126,10 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         return itemList.size();
     }
 
-    public static class NotificationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class NotificationViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txtOfferTitle,txtOfferTitleCode,txtOfferTitle1,txtOfferValidTo,txtOfferDiscount;
-        private ImageView img;
+        private ImageView img,imgInfo;
         public NotificationViewHolder(View itemView) {
             super(itemView);
             txtOfferTitle1= (TextView) itemView.findViewById(R.id.txtOfferTitle1);
@@ -116,55 +138,14 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             txtOfferValidTo= (TextView) itemView.findViewById(R.id.txtOfferValidTo);
             txtOfferDiscount= (TextView) itemView.findViewById(R.id.txtOfferDiscount);
             img= (ImageView) itemView.findViewById(R.id.img);
-       //     txtUseOffer.setOnClickListener(this);
+            imgInfo= (ImageView) itemView.findViewById(R.id.imgInfo);
+
 
         }
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId())
-            {
-                /*case R.id.txtUseOffer:
-                    setClipboard(txtOfferTitleCode.getText().toString());
-                    break;*/
 
-                default:
 
-                    break;
-            }
-        }
 
-        private void setClipboard(String text) {
-            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboard.setText(text);
-            } else {
-                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
-                android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
-                clipboard.setPrimaryClip(clip);
-            }
-            Toast.makeText(c,"your code is copied successufully",Toast.LENGTH_SHORT).show();
-            paste();
-        }
-
-        public void paste() {
-            int sdk = android.os.Build.VERSION.SDK_INT;
-            if (sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
-                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
-                if (clipboard.getText() != null) {
-                    Log.d("copies text", clipboard.getText() + "");
-
-                    // txtNotes.getText().insert(txtNotes.getSelectionStart(), clipboard.getText());
-                }
-            } else {
-                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) c.getSystemService(Context.CLIPBOARD_SERVICE);
-                android.content.ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
-                if (item.getText() != null) {
-                    //txtNotes.getText().insert(txtNotes.getSelectionStart(), item.getText());
-                    Log.d("copies text", item.getText() + "");
-                }
-            }
-        }
     }
 
 

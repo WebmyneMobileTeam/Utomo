@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.invite;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -67,9 +68,9 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
     }
 
     private void setTypeface() {
-        txtCode.setTypeface(Functions.getBoldFont(getActivity()));
-        txtDesc.setTypeface(Functions.getBoldFont(getActivity()));
-        btnInvite.setTypeface(Functions.getBoldFont(getActivity()));
+        txtCode.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
+        txtDesc.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
+        btnInvite.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
     }
 
     @Override

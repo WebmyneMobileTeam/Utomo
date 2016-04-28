@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.notification;
 
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,7 +64,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         txtCustomTitle.setText("Notifications");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

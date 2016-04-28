@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centreDetail;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,7 +62,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("Service Centre Details");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

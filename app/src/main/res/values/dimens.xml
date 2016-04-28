@@ -30,6 +30,7 @@
 
 
     <dimen name="SIZE_30">30dp</dimen>
+    <dimen name="SIZE_36">36dp</dimen>
 
 
     <dimen name="EDIT_TEXT_SIZE">18sp</dimen>

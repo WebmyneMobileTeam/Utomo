@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -100,8 +101,8 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         edtDOB.setTypeface(Functions.getRegularFont(getActivity()));
         edtAddress.setTypeface(Functions.getRegularFont(getActivity()));
         edtCity.setTypeface(Functions.getRegularFont(getActivity()));
-        txtChangePassword.setTypeface(Functions.getBoldFont(getActivity()));
-        txtUpdate.setTypeface(Functions.getBoldFont(getActivity()));
+        txtChangePassword.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
+        txtUpdate.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
     }
 
     private void init() {

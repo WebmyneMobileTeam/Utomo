@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.serviceDetail.serviceMain;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,9 +55,9 @@ public class ServiceMainDetails extends LinearLayout {
         txtBookingDate.setTypeface(Functions.getRegularFont(context));
         txtDeliveryDate.setTypeface(Functions.getRegularFont(context));
         txtServiceDetails.setTypeface(Functions.getRegularFont(context));
-        txtBookingTitle.setTypeface(Functions.getBoldFont(context));
-        txtServiceTitle.setTypeface(Functions.getBoldFont(context));
-        txtCurrentStatus.setTypeface(Functions.getBoldFont(context));
+        txtBookingTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtServiceTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtCurrentStatus.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     public void setMainDetails(UserBookingData userBookingData) {

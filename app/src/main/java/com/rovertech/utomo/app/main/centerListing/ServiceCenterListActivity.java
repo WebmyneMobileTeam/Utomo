@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
@@ -304,11 +305,11 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         edtCity.setTypeface(Functions.getRegularFont(this));
         switchBodyShop.setTypeface(Functions.getRegularFont(this));
         switchPickup.setTypeface(Functions.getRegularFont(this));
-        txtNoData.setTypeface(Functions.getBoldFont(this));
+        txtNoData.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         //btnSearch.setTypeface(Functions.getBoldFont(this));
-        txtFilterTitle.setTypeface(Functions.getBoldFont(this));
-        btnApply.setTypeface(Functions.getBoldFont(this));
-        btnReset.setTypeface(Functions.getBoldFont(this));
+        txtFilterTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnApply.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnReset.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
     }
 
     private void initToolbar() {
@@ -325,7 +326,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             txtCustomTitle.setText(String.format("%s", "Nearby Centres"));
         }
 
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

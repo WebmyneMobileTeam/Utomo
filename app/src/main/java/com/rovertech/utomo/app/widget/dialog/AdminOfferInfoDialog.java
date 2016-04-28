@@ -13,7 +13,8 @@ import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.offers.adpter.*;
+import com.rovertech.utomo.app.offers.model.OfferCategory;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.util.ArrayList;
@@ -21,28 +22,29 @@ import java.util.ArrayList;
 /**
  * Created by sagartahelyani on 17-03-2016.
  */
-public class CarListDialog extends BaseDialog implements View.OnClickListener {
+public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickListener {
 
     View parentView;
     Context context;
 
-    private TextView txtTitle, emptyTextView;
+    private TextView txtTitle,txtTitle1, emptyTextView;
     private ImageView imgClose;
     private ListView carListView;
-    ArrayList<CarPojo> carList;
+    ArrayList<OfferCategory> offerList;
 
     onSubmitListener onSubmitListener;
-    String dealership;
+    String type,title;
 
-    public void setOnSubmitListener(CarListDialog.onSubmitListener onSubmitListener) {
+    public void setOnSubmitListener(AdminOfferInfoDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
 
-    public CarListDialog(Context context, ArrayList<CarPojo> carList, String dealership) {
+    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, String type, String title) {
         super(context);
-        this.carList = carList;
+        this.offerList = offerlist;
         this.context = context;
-        this.dealership = dealership;
+        this.type = type;
+        this.title = title;
     }
 
     @Override
@@ -56,17 +58,20 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
         emptyTextView = (TextView) parentView.findViewById(R.id.emptyTextView);
 
         carListView = (ListView) parentView.findViewById(R.id.carListView);
-        emptyTextView.setText(String.format("You don't have any %s car. Please cancel this procedure.", dealership));
+        emptyTextView.setText("You don't have any detail. Please cancel this procedure.");
         emptyTextView.setPadding(16, 16, 16, 16);
         emptyTextView.setTypeface(Functions.getRegularFont(context));
         carListView.setEmptyView(emptyTextView);
 
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
+        txtTitle1 = (TextView) parentView.findViewById(R.id.txtTitle1);
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
 
+        txtTitle1.setVisibility(View.VISIBLE);
+        txtTitle1.setText(title);
         setTypeface();
 
-        CarListAdapter adapter = new CarListAdapter(context, carList);
+        AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerList);
 
      //   if (carList.size() > 0) {
 
@@ -75,7 +80,7 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     if (onSubmitListener != null)
-                        onSubmitListener.onSubmit(carList.get(position));
+                        onSubmitListener.onSubmit(offerList.get(position));
                 }
             });
 
@@ -88,11 +93,12 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtTitle1.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     @Override
     public void setUiBeforShow() {
-        txtTitle.setText("My Cars");
+        txtTitle.setText("Info");
 
         setCancelable(false);
 
@@ -115,6 +121,6 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
     }
 
     public interface onSubmitListener {
-        void onSubmit(CarPojo carPojo);
+        void onSubmit(OfferCategory offerCategory);
     }
 }

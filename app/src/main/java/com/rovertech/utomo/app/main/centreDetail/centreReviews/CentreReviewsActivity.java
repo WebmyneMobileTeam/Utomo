@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.centreDetail.centreReviews;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +36,7 @@ public class CentreReviewsActivity extends AppCompatActivity implements CentreRe
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("Reviews");
-        txtCustomTitle.setTypeface(Functions.getBoldFont(this));
+        txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

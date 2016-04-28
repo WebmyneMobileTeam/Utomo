@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -85,9 +86,9 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
     }
 
     private void setTypeface() {
-        txtTitle.setTypeface(Functions.getBoldFont(context));
+        txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         edtAddress.setTypeface(Functions.getRegularFont(context));
-        btnOk.setTypeface(Functions.getBoldFont(context));
+        btnOk.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         checkSame.setTypeface(Functions.getRegularFont(context));
     }
 
