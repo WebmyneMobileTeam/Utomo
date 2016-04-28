@@ -40,7 +40,7 @@
     <dimen name="elevation_header">4dp</dimen>
     <dimen name="default_elevation">2dp</dimen>
     <dimen name="margin_horizontal_line">8dp</dimen>
-    <dimen name="booking_card_margin">8dp</dimen>
+    <dimen name="booking_card_margin">16dp</dimen>
     <dimen name="notifications_margin">4dp</dimen>
 
     <dimen name="odometer_width">74dp</dimen>

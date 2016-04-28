@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.main.serviceDetail.serviceMain;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ public class ServiceMainDetails extends LinearLayout {
     private LayoutInflater inflater;
     private View parentView;
 
-    private TextView txtCurrentStatus, txtBookingDate, txtDeliveryDate, txtServiceDetails, txtBookingTitle, txtServiceTitle;
+    private TextView txtBookingDate, txtDeliveryDate, txtServiceDetails, txtBookingTitle, txtServiceTitle;
 
     public ServiceMainDetails(Context context) {
         super(context);
@@ -39,7 +38,7 @@ public class ServiceMainDetails extends LinearLayout {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         parentView = inflater.inflate(R.layout.layout_service_main, this, true);
 
-        txtCurrentStatus = (TextView) parentView.findViewById(R.id.txtCurrentStatus);
+
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
         txtDeliveryDate = (TextView) parentView.findViewById(R.id.txtDeliveryDate);
         txtServiceDetails = (TextView) parentView.findViewById(R.id.txtServiceDetails);
@@ -55,9 +54,9 @@ public class ServiceMainDetails extends LinearLayout {
         txtBookingDate.setTypeface(Functions.getRegularFont(context));
         txtDeliveryDate.setTypeface(Functions.getRegularFont(context));
         txtServiceDetails.setTypeface(Functions.getRegularFont(context));
-        txtBookingTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
-        txtServiceTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
-        txtCurrentStatus.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtBookingTitle.setTypeface(Functions.getBoldFont(context));
+        txtServiceTitle.setTypeface(Functions.getBoldFont(context));
+
     }
 
     public void setMainDetails(UserBookingData userBookingData) {
