@@ -123,6 +123,8 @@ public class BookingPresenterImpl implements BookingPresenter {
             @Override
             public void onResponse(Call<RequestForBooking> call, Response<RequestForBooking> response) {
 
+                Log.e("res", response.body().toString());
+
                 if (response.isSuccess()) {
 
                     RequestForBookingResponse requestForBooking = response.body().RequestForBooking;

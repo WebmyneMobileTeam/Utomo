@@ -42,15 +42,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/booking_card_margin"
-
                     android:text="Book" />
 
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
-
     </LinearLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

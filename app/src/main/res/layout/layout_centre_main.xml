@@ -73,14 +73,6 @@
                     android:layout_weight="1"
                     android:gravity="start|top" />
 
-                <Button
-                    android:id="@+id/btnBook"
-                    style="@style/MyButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:background="@drawable/main_grad"
-                    android:textColor="@color/white"
-                    android:text="Book Now" />
-
             </LinearLayout>
 
         </LinearLayout>

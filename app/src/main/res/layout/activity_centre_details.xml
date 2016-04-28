@@ -10,7 +10,6 @@
         android:id="@+id/mainHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/app_bar"
         android:orientation="vertical">
 
         <include layout="@layout/app_bar" />
@@ -24,6 +23,13 @@
             android:id="@+id/centreMainDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnBook"
+            style="@style/MyButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:text="Book Now" />
 
     </LinearLayout>
 

@@ -3,12 +3,9 @@ package com.rovertech.utomo.app.main.drawer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,12 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -42,10 +35,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.about.AboutFragment;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
-import com.rovertech.utomo.app.bookings.BookingRequestAPI;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
-import com.rovertech.utomo.app.bookings.model.RequestForBooking;
-import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.BadgeHelper;
 import com.rovertech.utomo.app.helper.Functions;
@@ -54,13 +44,10 @@ import com.rovertech.utomo.app.home.DashboardFragment;
 import com.rovertech.utomo.app.invite.InviteFragment;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
-import com.rovertech.utomo.app.offers.model.FetchAdminOffer;
 import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,9 +66,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private MenuItem offerItem;
     private String fragmentValue;
     private Menu mainMenu;
-    private int size=0;
-
-
+    private int size = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +89,10 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         mainMenu = menu;
         offerItem = mainMenu.findItem(R.id.action_offers);
 
-        if(size>=1)
-        { offerItem.setVisible(true);}
+        if (size >= 1) {
+            offerItem.setVisible(true);
+        }
 
-        
         badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
         presenter.setNotificationBadge(badgeHelper);
 
@@ -117,7 +102,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-               // Log.d("m click?","action_offers click");
+                // Log.d("m click?","action_offers click");
                 presenter.openOffersPage(DrawerActivity.this);
                 return false;
             }
@@ -168,7 +153,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
     private void callOfferApi() {
 
-       // Log.d("Resp","Inside Call");
+        // Log.d("Resp","Inside Call");
 
         AdminOfferRequestAPI api = UtomoApplication.retrofit.create(AdminOfferRequestAPI.class);
         Call<AdminOfferResp> call = api.adminOfferApi();
@@ -177,13 +162,16 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             @Override
             public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
                 if (response.body().FetchAdminOffer.ResponseCode == 1) {
-                    size=response.body().FetchAdminOffer.Data.size();
+                    size = response.body().FetchAdminOffer.Data.size();
+                    if (size >= 1) {
+                        offerItem.setVisible(true);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<AdminOfferResp> call, Throwable t) {
-                Log.e("error",t.toString());
+                Log.e("error", t.toString());
             }
         });
 

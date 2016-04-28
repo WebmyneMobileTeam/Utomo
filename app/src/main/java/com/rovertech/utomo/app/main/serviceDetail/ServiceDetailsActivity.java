@@ -2,18 +2,12 @@ package com.rovertech.utomo.app.main.serviceDetail;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +17,6 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.review.ReviewActivity;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
-import com.rovertech.utomo.app.main.serviceDetail.serviceHeader.ServiceHeaderDetails;
 import com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails;
 
 public class ServiceDetailsActivity extends AppCompatActivity implements ServiceView, View.OnClickListener {
@@ -169,12 +162,10 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         int statusID = userBookingData.BookingStatusID;
 
-        //collapsingToolbarLayout.setTitle(userBookingData.ServiceCentreName);
-        // headerDetails.setHeaderDetails(userBookingData);
         mainDetails.setMainDetails(userBookingData);
         toolbar.setTitle(userBookingData.ServiceCentreName);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
-        toolbar.setSubtitle(String.format("Status : %s",userBookingData.Status));
+        toolbar.setSubtitle(String.format("Status : %s", userBookingData.Status));
         toolbar.setSubtitleTextColor(ContextCompat.getColor(this, R.color.color70));
 
         main_content.setVisibility(View.VISIBLE);

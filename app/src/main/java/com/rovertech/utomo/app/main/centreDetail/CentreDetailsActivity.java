@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.account.LoginActivity;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.IntentConstant;
+import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.centreDetail.centreHeader.CentreHeaderDetails;
 import com.rovertech.utomo.app.main.centreDetail.centreMain.CentreMainDetails;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
@@ -27,7 +33,8 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     private CentreMainDetails centreMainDetails;
     private CentreHeaderDetails centreHeaderDetails;
     private ProgressBar mProgressBar;
-    private float distance=0.0f;
+    private float distance = 0.0f;
+    private Button btnBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,9 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         parentView = findViewById(android.R.id.content);
         centreMainDetails = (CentreMainDetails) findViewById(R.id.centreMainDetails);
         centreHeaderDetails = (CentreHeaderDetails) findViewById(R.id.centreHeaderDetails);
+
+        btnBook = (Button) findViewById(R.id.btnBook);
+
         mainHolder = (LinearLayout) findViewById(R.id.mainHolder);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
@@ -74,9 +84,28 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     }
 
     @Override
-    public void setDetails(FetchServiceCentreDetailPojo centreDetailPojo) {
-        centreHeaderDetails.setDetails(centreDetailPojo,distance);
+    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
+        centreHeaderDetails.setDetails(centreDetailPojo, distance);
         centreMainDetails.setDetails(centreDetailPojo);
+
+        btnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PrefUtils.setCenterSelected(CentreDetailsActivity.this, centreDetailPojo);
+
+                if (PrefUtils.isUserLoggedIn(CentreDetailsActivity.this)) {
+                    Intent intent = new Intent(CentreDetailsActivity.this, BookingActivity.class);
+                    intent.putExtra(IntentConstant.BOOKING_PAGE, AppConstant.FROM_SC_LIST);
+                    Functions.fireIntent(CentreDetailsActivity.this, intent);
+
+                } else {
+                    PrefUtils.setRedirectLogin(CentreDetailsActivity.this, AppConstant.FROM_SC);
+                    // Toast.makeText(context, "sd " + PrefUtils.getRedirectLogin(context), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CentreDetailsActivity.this, LoginActivity.class);
+                    Functions.fireIntent(CentreDetailsActivity.this, intent);
+                }
+            }
+        });
     }
 
     @Override

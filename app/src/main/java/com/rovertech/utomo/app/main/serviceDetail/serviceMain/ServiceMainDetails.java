@@ -61,8 +61,6 @@ public class ServiceMainDetails extends LinearLayout {
 
     public void setMainDetails(UserBookingData userBookingData) {
 
-        txtCurrentStatus.setText(String.format("Current Status: %s", userBookingData.Status));
-
         txtBookingDate.setText(String.format("Booking On: %s", userBookingData.CreatedDate));
 
         if (userBookingData.IsCarDelivered)

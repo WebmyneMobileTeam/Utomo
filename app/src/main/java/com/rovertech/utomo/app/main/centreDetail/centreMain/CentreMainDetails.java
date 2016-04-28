@@ -59,7 +59,7 @@ public class CentreMainDetails extends LinearLayout {
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
         txtCentreAddress = (TextView) parentView.findViewById(R.id.txtCentreAddress);
         txtCentreInfo = (TextView) parentView.findViewById(R.id.txtCentreInfo);
-        btnBook = (Button) parentView.findViewById(R.id.btnBook);
+        //btnBook = (Button) parentView.findViewById(R.id.btnBook);
         ratingBar = (RatingBar) parentView.findViewById(R.id.ratingBar);
         serviceFlowLayout = (FlowLayout) parentView.findViewById(R.id.serviceFlowLayout);
         serviceFlowLayout.setOrientation(HORIZONTAL);
@@ -77,7 +77,7 @@ public class CentreMainDetails extends LinearLayout {
         txtCentreAddress.setTypeface(Functions.getRegularFont(context));
         txtCentreInfo.setTypeface(Functions.getRegularFont(context));
         txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
-        btnBook.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        //btnBook.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
         LayerDrawable ratingDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
         ratingDrawable.getDrawable(2).setColorFilter(ContextCompat.getColor(context, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
@@ -100,7 +100,7 @@ public class CentreMainDetails extends LinearLayout {
             serviceFlowLayout.addView(serviceChip, params);
         }
 
-        btnBook.setOnClickListener(new OnClickListener() {
+      /*  btnBook.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -118,7 +118,7 @@ public class CentreMainDetails extends LinearLayout {
                     Functions.fireIntent(context, intent);
                 }
             }
-        });
+        });*/
     }
 
 }
