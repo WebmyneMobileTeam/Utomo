@@ -96,7 +96,6 @@
                         android:id="@+id/serviceTypeLayout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:layout_weight="1"
                         android:gravity="start|top">
 
@@ -106,8 +105,7 @@
                         android:id="@+id/bottomBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical|end"
                         android:orientation="horizontal"
                         android:padding="4dp">
 
@@ -127,8 +125,8 @@
                             android:layout_height="wrap_content"
                             android:padding="4dp"
                             android:text="1 Reviews"
-                            android:textSize="@dimen/S_TEXT"
-                            android:textColor="@color/half_black" />
+                            android:textColor="@color/half_black"
+                            android:textSize="@dimen/S_TEXT" />
 
                     </LinearLayout>
 

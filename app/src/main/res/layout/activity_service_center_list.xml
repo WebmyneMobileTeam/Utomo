@@ -58,7 +58,6 @@
 
                 </LinearLayout>
 
-
                 <RelativeLayout
                     android:id="@+id/contentLayout"
                     android:layout_width="match_parent"
@@ -95,7 +94,9 @@
                         android:drawablePadding="8dp"
                         android:drawableTop="@drawable/oops"
                         android:gravity="center"
-                        android:text="No Service Centre found." />
+                        android:text="No Service Centre found."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/L_TEXT" />
 
                 </LinearLayout>
 

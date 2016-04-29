@@ -41,8 +41,8 @@ public class StartupPresenterImpl implements StartupPresenter {
     private void gpsAlert(final Context context) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("GPS Disabled");
-        alert.setMessage("We can't able to fetch your location. Please Turn on your GPS from Settings.");
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setMessage("We can't able to trace your location. Please turn on your Location Service from Settings.");
+        alert.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);

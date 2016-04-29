@@ -1,6 +1,8 @@
 package com.rovertech.utomo.app.main.centreDetail;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +57,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
 
         mainHolder = (LinearLayout) findViewById(R.id.mainHolder);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        mProgressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         centreDetailsPresnter = new CentreDetailsPresnterImpl(this);
 
         Intent intent = getIntent();

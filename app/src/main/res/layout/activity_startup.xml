@@ -77,8 +77,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:background="@color/button_bg"
-                    android:textColor="@color/white"
-                    android:text="Login" />
+                    android:text="Login"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/btnSignUp"
@@ -86,8 +86,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:background="@color/button_bg"
-                    android:textColor="@color/white"
-                    android:text="Sign Up" />
+                    android:text="Sign Up"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -100,11 +100,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="8dp"
-        android:padding="8dp"
+        android:padding="16dp"
         android:text="Skip Login"
         android:textColor="@color/white"
-        android:textSize="@dimen/N_TEXT"
-        android:textStyle="bold" />
+        android:textSize="@dimen/M_TEXT" />
 
 </RelativeLayout>

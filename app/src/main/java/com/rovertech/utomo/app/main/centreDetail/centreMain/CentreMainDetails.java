@@ -34,9 +34,8 @@ public class CentreMainDetails extends LinearLayout {
     private Context context;
     private LayoutInflater inflater;
     private View parentView;
-    private TextView txtCentreName, txtCentreAddress, txtCentreInfo;
+    private TextView txtCentreName, txtCentreAddress, txtCentreInfo, txtRating;
     private Button btnBook;
-    private RatingBar ratingBar;
     private FlowLayout serviceFlowLayout;
     LinearLayout.LayoutParams params;
 
@@ -60,7 +59,7 @@ public class CentreMainDetails extends LinearLayout {
         txtCentreAddress = (TextView) parentView.findViewById(R.id.txtCentreAddress);
         txtCentreInfo = (TextView) parentView.findViewById(R.id.txtCentreInfo);
         //btnBook = (Button) parentView.findViewById(R.id.btnBook);
-        ratingBar = (RatingBar) parentView.findViewById(R.id.ratingBar);
+        txtRating = (TextView) parentView.findViewById(R.id.txtRating);
         serviceFlowLayout = (FlowLayout) parentView.findViewById(R.id.serviceFlowLayout);
         serviceFlowLayout.setOrientation(HORIZONTAL);
 
@@ -79,15 +78,20 @@ public class CentreMainDetails extends LinearLayout {
         txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         //btnBook.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
-        LayerDrawable ratingDrawable = (LayerDrawable) ratingBar.getProgressDrawable();
-        ratingDrawable.getDrawable(2).setColorFilter(ContextCompat.getColor(context, R.color.yellow), PorterDuff.Mode.SRC_ATOP);
+        txtRating.setTypeface(Functions.getRegularFont(context));
+
     }
 
     public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
 
         txtCentreAddress.setText(String.format("%s", centreDetailPojo.Address1));
         txtCentreName.setText(String.format("%s", centreDetailPojo.ServiceCentreName));
-        ratingBar.setRating(centreDetailPojo.Rating);
+
+        if (centreDetailPojo.Rating != 0)
+            txtRating.setText(String.format("%.1f/5", centreDetailPojo.Rating));
+        else
+            txtRating.setVisibility(GONE);
+
         txtCentreInfo.setText(String.format("%s", centreDetailPojo.Expertise));
 
         if (centreDetailPojo.IsBodyWash) {

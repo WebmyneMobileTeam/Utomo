@@ -262,6 +262,9 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         mFooterLoadMoreView = View.inflate(this, R.layout.footer_view_load_more, null);
         mFooterLoadMoreView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
+        TextView tv_text = (TextView) mFooterLoadMoreView.findViewById(R.id.tv_text);
+        tv_text.setTypeface(Functions.getRegularFont(this));
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mSwipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.color10,
                 R.color.color40,
