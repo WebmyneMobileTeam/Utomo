@@ -33,7 +33,6 @@ public class BadgeHelper {
             TextView textView = (TextView) menuItem.getActionView().findViewById(R.id.menu_badge);
             img.setImageDrawable(menuItem.getIcon());
             textView.setVisibility(View.GONE);
-
         }
         try {
 

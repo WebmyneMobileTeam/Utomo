@@ -37,6 +37,8 @@ public class AppConstant {
     final public static String INSERT_VEHICLE_DETAILS = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
     final public static String UPDATE_VEHICLE_DETAILS = BASE_URL + "UserActivities.svc/json/UpdateVehicleDetails";
     final public static String FETCH_ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
+    final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/{USERID}";
+
 
     // Booking
     final public static String USER_BOOKINGS = "BookingActivities.svc/json/UserBookings/";
@@ -94,7 +96,6 @@ public class AppConstant {
     public static int MODE_DATE = 2;
     public static int MODE_PERFORMANCE = 3;
 
-    final public static String ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
 
     // Redirect to Login Page
     public static int FROM_START = 1;

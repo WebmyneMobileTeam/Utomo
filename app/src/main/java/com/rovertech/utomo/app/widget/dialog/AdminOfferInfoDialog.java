@@ -1,7 +1,9 @@
 package com.rovertech.utomo.app.widget.dialog;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.rovertech.utomo.app.offers.model.OfferCategory;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sagartahelyani on 17-03-2016.
@@ -27,13 +30,13 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
     View parentView;
     Context context;
 
-    private TextView txtTitle,txtTitle1, emptyTextView;
+    private TextView txtTitle, txtTitle1, emptyTextView;
     private ImageView imgClose;
     private ListView carListView;
     ArrayList<OfferCategory> offerList;
 
     onSubmitListener onSubmitListener;
-    String type,title;
+    String type, title;
 
     public void setOnSubmitListener(AdminOfferInfoDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
@@ -71,22 +74,23 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         txtTitle1.setText(title);
         setTypeface();
 
-        AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerList);
 
-     //   if (carList.size() > 0) {
 
-            carListView.setAdapter(adapter);
-            carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (onSubmitListener != null)
-                        onSubmitListener.onSubmit(offerList.get(position));
-                }
-            });
+        //   if (carList.size() > 0) {
 
-     //   }else{
+        new MyAsyncTask().execute();
 
-     //   }
+        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (onSubmitListener != null)
+                    onSubmitListener.onSubmit(offerList.get(position));
+            }
+        });
+
+        //   }else{
+
+        //   }
 
         return parentView;
     }
@@ -122,5 +126,37 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
 
     public interface onSubmitListener {
         void onSubmit(OfferCategory offerCategory);
+    }
+
+
+    class MyAsyncTask extends AsyncTask<String, Integer, ArrayList<OfferCategory>> {
+
+        private final ProgressDialog dialog = new ProgressDialog(context);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("please wait...");
+            dialog.show();
+        }
+
+
+        @Override
+        protected ArrayList<OfferCategory> doInBackground(String... params) {
+            ArrayList<OfferCategory> result = new ArrayList<OfferCategory>();
+            result=offerList;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<OfferCategory> offerCategories) {
+            super.onPostExecute(offerCategories);
+            dialog.dismiss();
+
+            AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerCategories);
+            adapter.setItemList(offerCategories);
+            adapter.notifyDataSetChanged();
+            carListView.setAdapter(adapter);
+        }
     }
 }

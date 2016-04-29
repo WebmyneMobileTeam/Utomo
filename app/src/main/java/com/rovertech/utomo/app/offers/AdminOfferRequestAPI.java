@@ -1,4 +1,4 @@
-package com.rovertech.utomo.app.main.drawer;
+package com.rovertech.utomo.app.offers;
 
 import com.rovertech.utomo.app.bookings.model.BookingRequest;
 import com.rovertech.utomo.app.bookings.model.RequestForBooking;
@@ -16,7 +16,7 @@ import retrofit2.http.POST;
  */
 public interface AdminOfferRequestAPI {
 
-    @GET(AppConstant.ADMIN_OFFER)
+    @GET(AppConstant.FETCH_ADMIN_OFFER)
     Call<AdminOfferResp> adminOfferApi();
 
 

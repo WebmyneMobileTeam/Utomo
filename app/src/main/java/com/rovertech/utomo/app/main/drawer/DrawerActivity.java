@@ -43,6 +43,9 @@ import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.DashboardFragment;
 import com.rovertech.utomo.app.invite.InviteFragment;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
+import com.rovertech.utomo.app.main.notification.NotificationRequestAPI;
+import com.rovertech.utomo.app.main.notification.model.NotificationResp;
+import com.rovertech.utomo.app.offers.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
 import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
@@ -63,10 +66,11 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private DrawerPresenter presenter;
     private View parentView;
     private BadgeHelper badgeHelper;
-    private MenuItem offerItem;
+    private MenuItem offerItem, notificationItem;
     private String fragmentValue;
     private Menu mainMenu;
-    private int size = 0;
+    private static int OfferSize = 0;
+    private static int NotificationSize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +92,17 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
         mainMenu = menu;
         offerItem = mainMenu.findItem(R.id.action_offers);
-
-        if (size >= 1) {
-            offerItem.setVisible(true);
+        notificationItem = mainMenu.findItem(R.id.action_notification);
+        if (OfferSize >= 1) {
+            showOfferIcon();
         }
 
-        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
-        presenter.setNotificationBadge(badgeHelper);
+        if (NotificationSize >= 1) {
+            notificationItem.setVisible(true);
+        }
+
+        /*badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
+        presenter.setNotificationBadge(badgeHelper);*/
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView iv = (ImageView) inflater.inflate(R.layout.iv_offer, null);
@@ -140,6 +148,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             initDrawer();
 
             callOfferApi();
+            callNotificationApi();
 
             if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
                 presenter.openDashboard();
@@ -161,11 +170,20 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         call.enqueue(new Callback<AdminOfferResp>() {
             @Override
             public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
-                if (response.body().FetchAdminOffer.ResponseCode == 1) {
-                    size = response.body().FetchAdminOffer.Data.size();
-                    if (size >= 1) {
-                        offerItem.setVisible(true);
+                try {
+
+                    if (response.body().FetchAdminOffer.ResponseCode == 1) {
+                        OfferSize = response.body().FetchAdminOffer.Data.size();
+                        if (offerItem != null && OfferSize >= 1) {
+                            showOfferIcon();
+                        }
                     }
+                    else
+                    {
+                        hideOfferIcon();
+                    }
+                } catch (Exception e) {
+                    Log.e("excaption", e.toString());
                 }
             }
 
@@ -174,7 +192,43 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
                 Log.e("error", t.toString());
             }
         });
+    }
 
+    private void callNotificationApi() {
+
+        // Log.d("Resp","Inside Call");
+
+        int userID = PrefUtils.getUserID(this);
+
+        NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
+        Call<NotificationResp> call = api.notificationApi(userID);
+
+        call.enqueue(new Callback<NotificationResp>() {
+            @Override
+            public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
+                try {
+
+                    Log.d("resp",response.body().toString());
+                    if (response.body().FetchNotification.ResponseCode == 1) {
+                        NotificationSize = response.body().FetchNotification.Data.size();
+                        if (notificationItem != null && NotificationSize >= 1) {
+                            notificationItem.setVisible(true);
+                        }
+                    }
+                    else
+                    {
+                        notificationItem.setVisible(false);
+                    }
+                } catch (Exception e) {
+                    Log.e("excaption", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResp> call, Throwable t) {
+                Log.e("error", t.toString());
+            }
+        });
     }
 
     public void setHeaderTitle(String title) {
@@ -327,7 +381,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     @Override
     public void getLocation(LocationFinder finder) {
         Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
-
     }
 
     @Override

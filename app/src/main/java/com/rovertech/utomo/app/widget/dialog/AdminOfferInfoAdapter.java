@@ -73,6 +73,10 @@ public class AdminOfferInfoAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void setItemList(ArrayList<OfferCategory> itemList) {
+        this.offerArrayList = itemList;
+    }
+
     public class ViewHolder {
         public TextView txtDetail, txtCarNo;
 

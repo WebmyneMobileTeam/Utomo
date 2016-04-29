@@ -5,7 +5,9 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/booking_card_margin"
     android:layout_marginRight="@dimen/booking_card_margin"
-    android:layout_marginTop="@dimen/booking_card_margin">
+    android:layout_marginTop="@dimen/margin_horizontal_line"
+    android:layout_marginBottom="@dimen/margin_horizontal_line"
+    >
 
 
     <LinearLayout
