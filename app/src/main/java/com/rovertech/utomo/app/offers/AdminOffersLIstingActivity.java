@@ -16,6 +16,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.offers.adpter.AdminOfferAdapter;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
 import com.rovertech.utomo.app.offers.model.OfferPojo;
@@ -120,21 +121,6 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
     protected void onDestroy() {
         super.onDestroy();
         //mNotificationPresenter.destroy();
-    }
-
-    private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-
-        private final int mVerticalSpaceHeight;
-
-        public VerticalSpaceItemDecoration(int mVerticalSpaceHeight) {
-            this.mVerticalSpaceHeight = mVerticalSpaceHeight;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                                   RecyclerView.State state) {
-            outRect.bottom = mVerticalSpaceHeight;
-        }
     }
 
     private void callOfferApi() {

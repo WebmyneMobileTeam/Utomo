@@ -76,7 +76,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             }
         });
         setTypeFace();
-                
+
        /* Glide.with(c)
                 .load(itemList.get(position).OfferImage)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

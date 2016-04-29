@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.invoice.InvoiceActivity;
 import com.rovertech.utomo.app.main.review.ReviewActivity;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 import com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails;
@@ -95,6 +96,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         bottomCancelReq.setOnClickListener(this);
         bottomAccept.setOnClickListener(this);
         bottomReject.setOnClickListener(this);
+        btnInvoice.setOnClickListener(this);
     }
 
     private void initToolbar() {
@@ -140,6 +142,12 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
             case R.id.bottomReject:
                 break;
+            case R.id.btnInvoice:
+                Intent invoiceIntent = new Intent(ServiceDetailsActivity.this, InvoiceActivity.class);
+                invoiceIntent.putExtra("bookingId", bookingId);
+                startActivity(invoiceIntent);
+                break;
+
         }
     }
 

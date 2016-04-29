@@ -106,4 +106,7 @@ public class AppConstant {
     public static int FROM_LOGIN = 1;
     public static int FROM_SC_LIST = 2;
 
+    //Payment
+    final public static String FETCH_TRANSACTION_PAYMENT_DETAILS = "TransactionsProcess.svc/json/PaymentProcess/{BOOKINGID}";
+
 }
