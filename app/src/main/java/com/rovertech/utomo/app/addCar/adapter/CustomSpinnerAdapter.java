@@ -51,35 +51,28 @@ public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter 
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = convertView;
 
-        view = layoutInflater.inflate(dropdownView, parent, false);
+        convertView = layoutInflater.inflate(dropdownView, parent, false);
 
-        TextView txt = (TextView) view.findViewById(R.id.textView);
+        TextView txt = (TextView) convertView.findViewById(R.id.textView);
         txt.setTypeface(Functions.getRegularFont(context));
         txt.setText(values.get(position));
-        txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "position " + ((TextView) v).getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        return view;
+
+        return convertView;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = convertView;
 
-        view = layoutInflater.inflate(mainView, parent, false);
+        convertView = layoutInflater.inflate(mainView, parent, false);
 
-        TextView txt = (TextView) view.findViewById(R.id.textView);
+        TextView txt = (TextView) convertView.findViewById(R.id.textView);
         txt.setTypeface(Functions.getRegularFont(context));
         txt.setText(values.get(position));
 
-        return view;
+        return convertView;
     }
 
 }
