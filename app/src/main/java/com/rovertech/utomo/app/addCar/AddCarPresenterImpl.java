@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.addCar.adapter.CustomSpinnerAdapter;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
 import com.rovertech.utomo.app.addCar.model.AddCarRequest;
 import com.rovertech.utomo.app.addCar.model.MakeModel;
@@ -156,7 +157,9 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                             makeList.add(makeModel.FetchMake.Data.get(i).Make);
                         }
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, makeList);
+
+                    CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(context, R.layout.spinner_layout_transperent,
+                            R.layout.spinner_dropview_layout, makeList);
                     addcarView.setMakeAdapter(adapter);
                     addcarView.hideMakeProgress();
 
@@ -199,7 +202,8 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                             yearList.add(yearModel.FetchYear.Data.get(i).Year);
                         }
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, yearList);
+                    CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(context, R.layout.spinner_layout_transperent,
+                            R.layout.spinner_dropview_layout, yearList);
                     addcarView.setYearAdapter(adapter);
                     addcarView.hideYearProgress();
 
@@ -241,8 +245,8 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                         }
                     }
 
-                    VehicleAdapter adapter = new VehicleAdapter(context, R.layout.layout_adapter_item, modelList);
-                    //ArrayAdapter<Vehicle> adapter = new ArrayAdapter<Vehicle>(context, android.R.layout.simple_list_item_1, modelList);
+                    VehicleAdapter adapter = new VehicleAdapter(context, R.layout.spinner_layout_transperent,
+                            R.layout.spinner_dropview_layout, modelList);
                     addcarView.setModelAdapter(adapter);
                     addcarView.hideModelProgress();
 

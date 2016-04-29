@@ -13,13 +13,15 @@ public class UserBookingData {
 
     public String ContactNo;
 
-    public String CreatedDate;
+    public String PreferredDateTime;
 
     public String DeliveredDate;
 
     public String Description;
 
     public boolean IsCarDelivered;
+
+    public String RescheduledDateTime;
 
     public double Lattitude;
 

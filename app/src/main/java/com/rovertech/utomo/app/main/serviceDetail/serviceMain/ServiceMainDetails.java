@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 
@@ -61,12 +62,21 @@ public class ServiceMainDetails extends LinearLayout {
 
     public void setMainDetails(UserBookingData userBookingData) {
 
-        txtBookingDate.setText(String.format("Booking On: %s", userBookingData.CreatedDate));
+        txtBookingDate.setText(String.format("Booking On: %s", userBookingData.PreferredDateTime));
 
-        if (userBookingData.IsCarDelivered)
-            txtDeliveryDate.setText(String.format("Delivered On: %s", userBookingData.DeliveredDate));
-        else
+        if (userBookingData.BookingStatusID == AppConstant.SCHEDULE) {
+            txtDeliveryDate.setVisibility(VISIBLE);
+            txtDeliveryDate.setText(String.format("Reschedule Date from Service center On: %s", userBookingData.RescheduledDateTime));
+        } else {
             txtDeliveryDate.setVisibility(GONE);
+        }
+
+        if (userBookingData.IsCarDelivered) {
+            txtDeliveryDate.setVisibility(VISIBLE);
+            txtDeliveryDate.setText(String.format("Delivered On: %s", userBookingData.DeliveredDate));
+        } else {
+            txtDeliveryDate.setVisibility(GONE);
+        }
 
         if (userBookingData.Description.equals(""))
             txtServiceDetails.setText("No Description");

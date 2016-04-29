@@ -16,18 +16,19 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.addCar.adapter.CustomSpinnerAdapter;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
 import com.rovertech.utomo.app.addCar.model.Vehicle;
 import com.rovertech.utomo.app.helper.AppConstant;
@@ -55,14 +56,16 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     private AddCarPresenter presenter;
     private Odometer odometer;
 
-    private AppCompatSpinner makeSpinner, yearSpinner, modelSpinner;
+    private AppCompatSpinner yearSpinner, modelSpinner;
+    private Spinner makeSpinner;
     private ProgressBar makeProgressBar, yearProgressBar, modelProgressBar;
     private String selectedMake = "", selectedYear = "", selectedModel = "", selectModelYear = "";
 
     private LinearLayout yearCardView, modelCardView;
     private ProgressDialog progressDialog;
-    private ArrayAdapter<String> makeAdapter, yearAdapter;
     private VehicleAdapter modelAdapter;
+
+    private CustomSpinnerAdapter makeAdapter, yearAdapter;
 
     private boolean isSkip;
     private int vehicleId = 0;
@@ -120,22 +123,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         edtServiceDate.setOnClickListener(this);
         txtSkip.setOnClickListener(this);
 
-        makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    selectedMake = parent.getSelectedItem().toString();
-                    presenter.fetchYears(selectedMake, AddCarActivity.this);
-                    Log.e("selectedMake", selectedMake);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -180,7 +167,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         yearProgressBar = (ProgressBar) findViewById(R.id.yearProgressBar);
         makeProgressBar = (ProgressBar) findViewById(R.id.makeProgressBar);
         yearSpinner = (AppCompatSpinner) findViewById(R.id.yearSpinner);
-        makeSpinner = (AppCompatSpinner) findViewById(R.id.makeSpinner);
+        makeSpinner = (Spinner) findViewById(R.id.makeSpinner);
         parentView = findViewById(android.R.id.content);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
@@ -318,9 +305,24 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     }
 
     @Override
-    public void setMakeAdapter(ArrayAdapter<String> adapter) {
+    public void setMakeAdapter(CustomSpinnerAdapter adapter) {
         this.makeAdapter = adapter;
         makeSpinner.setAdapter(adapter);
+        makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    selectedMake = parent.getSelectedItem().toString();
+                    presenter.fetchYears(selectedMake, AddCarActivity.this);
+                    Log.e("selectedMake", selectedMake);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -354,7 +356,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     }
 
     @Override
-    public void setYearAdapter(ArrayAdapter<String> adapter) {
+    public void setYearAdapter(CustomSpinnerAdapter adapter) {
         yearCardView.setVisibility(View.VISIBLE);
         yearSpinner.setAdapter(adapter);
         yearAdapter = adapter;
@@ -365,8 +367,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         modelCardView.setVisibility(View.VISIBLE);
         modelSpinner.setAdapter(adapter);
         modelAdapter = adapter;
-
-
     }
 
     @Override
@@ -390,7 +390,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         // TODO: 25-04-2016 AppConstant changes values
 
-      //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
 
         if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_START) {
 
@@ -420,7 +420,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         PrefUtils.setCarAdded(this, true);
 
-       // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
 
         Functions.showToast(this, "Your car has been added successfully.");
         if (isSkip) {

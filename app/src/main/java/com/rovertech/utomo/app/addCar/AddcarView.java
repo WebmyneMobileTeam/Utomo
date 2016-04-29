@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.addCar;
 import android.graphics.Bitmap;
 import android.widget.ArrayAdapter;
 
+import com.rovertech.utomo.app.addCar.adapter.CustomSpinnerAdapter;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
@@ -17,7 +18,7 @@ public interface AddcarView {
 
     void setPUCDate(String convertedDate);
 
-    void setMakeAdapter(ArrayAdapter<String> adapter);
+    void setMakeAdapter(CustomSpinnerAdapter adapter);
 
     void showMakeProgress();
 
@@ -31,7 +32,7 @@ public interface AddcarView {
 
     void hideModelProgress();
 
-    void setYearAdapter(ArrayAdapter<String> adapter);
+    void setYearAdapter(CustomSpinnerAdapter adapter);
 
     void setModelAdapter(VehicleAdapter adapter);
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.model.Vehicle;
+import com.rovertech.utomo.app.helper.Functions;
 
 import java.util.ArrayList;
 
@@ -17,43 +18,57 @@ import java.util.ArrayList;
  */
 public class VehicleAdapter extends ArrayAdapter<Vehicle> {
 
-    private Context context;
-    private int resource;
+    LayoutInflater layoutInflater;
+    int mainView, dropdownView;
     private ArrayList<Vehicle> modelList;
-    private LayoutInflater inflater;
+    private Context context;
 
-    public VehicleAdapter(Context context, int resource, ArrayList<Vehicle> modelList) {
-        super(context, resource, modelList);
+    public VehicleAdapter(Context context, int mainView, int dropdownView, ArrayList<Vehicle> modelList) {
+        super(context, mainView, mainView, modelList);
         this.context = context;
-        this.resource = resource;
+        this.mainView = mainView;
+        this.dropdownView = dropdownView;
         this.modelList = modelList;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        return getCustomView(position, convertView, parent);
+        convertView = layoutInflater.inflate(mainView, parent, false);
+
+        TextView txt = (TextView) convertView.findViewById(R.id.textView);
+        txt.setTypeface(Functions.getRegularFont(context));
+        txt.setText(modelList.get(position).Model);
+
+        return convertView;
 
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
 
-        return getCustomView(position, convertView, parent);
-    }
+        convertView = layoutInflater.inflate(dropdownView, parent, false);
 
-    private View getCustomView(int position, View convertView, ViewGroup parent) {
+        TextView txt = (TextView) convertView.findViewById(R.id.textView);
+        txt.setTypeface(Functions.getRegularFont(context));
+        txt.setText(modelList.get(position).Model);
 
-        View row = inflater.inflate(resource, parent, false);
-        TextView textView = (TextView) row.findViewById(R.id.textView);
-        textView.setText(modelList.get(position).Model);
-
-        return row;
+        return convertView;
     }
 
     @Override
     public int getCount() {
         return modelList.size();
+    }
+
+    @Override
+    public Vehicle getItem(int position) {
+        return modelList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return (long) position;
     }
 }
