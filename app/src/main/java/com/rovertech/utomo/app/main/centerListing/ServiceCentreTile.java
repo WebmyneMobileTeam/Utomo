@@ -102,7 +102,7 @@ public class ServiceCentreTile extends LinearLayout {
         }
 
         if (centerPojo.IsPickupDrop) {
-            ServiceChip serviceChip = new ServiceChip(context, "Pickup-Drop off");
+            ServiceChip serviceChip = new ServiceChip(context, "Pick Drop");
             serviceTypeLayout.addView(serviceChip, params);
         }
 

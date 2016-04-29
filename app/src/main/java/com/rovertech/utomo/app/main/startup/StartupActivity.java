@@ -76,7 +76,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                 myText.setLines(2);
                 myText.setText(AppConstant.startupTexts[0]);
                 myText.setTypeface(Functions.getRegularFont(StartupActivity.this));
-                myText.setTextColor(Color.WHITE);
+                myText.setTextColor(Color.BLACK);
                 return myText;
             }
         });

@@ -30,7 +30,7 @@ public interface DrawerPresenter {
 
     void rateUs(Context context);
 
-    void setNotificationBadge(BadgeHelper badgeHelper);
+    void setNotificationBadge(BadgeHelper badgeHelper, int notificationSize);
 
     void openNotification(Context context);
 

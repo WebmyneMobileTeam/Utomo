@@ -96,7 +96,7 @@ public class CentreMainDetails extends LinearLayout {
         }
 
         if (centreDetailPojo.IsPickupDrop) {
-            ServiceChip serviceChip = new ServiceChip(context, "Pickup-Drop off");
+            ServiceChip serviceChip = new ServiceChip(context, "Pick Drop");
             serviceFlowLayout.addView(serviceChip, params);
         }
 

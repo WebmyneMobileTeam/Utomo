@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (PrefUtils.isSplash(this)) {
             navigate();
-            return;
+            //return;
         }
 
         setContentView(R.layout.activity_splash);

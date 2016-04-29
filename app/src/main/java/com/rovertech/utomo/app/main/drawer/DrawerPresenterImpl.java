@@ -103,9 +103,9 @@ public class DrawerPresenterImpl implements DrawerPresenter {
     }
 
     @Override
-    public void setNotificationBadge(BadgeHelper badgeHelper) {
+    public void setNotificationBadge(BadgeHelper badgeHelper, int notificationSize) {
         // Call WS for getting notification
-        badgeHelper.displayBadge(6);
+        badgeHelper.displayBadge(notificationSize);
     }
 
     @Override
