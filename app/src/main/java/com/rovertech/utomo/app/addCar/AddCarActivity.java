@@ -307,10 +307,12 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void setMakeAdapter(CustomSpinnerAdapter adapter) {
         this.makeAdapter = adapter;
-        makeSpinner.setAdapter(adapter);
+        makeSpinner.setAdapter(makeAdapter);
+
         makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("makeAdapter", String.valueOf(position));
                 if (position != 0) {
                     selectedMake = parent.getSelectedItem().toString();
                     presenter.fetchYears(selectedMake, AddCarActivity.this);

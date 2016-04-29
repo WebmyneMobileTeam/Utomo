@@ -157,7 +157,6 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                             makeList.add(makeModel.FetchMake.Data.get(i).Make);
                         }
                     }
-
                     CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(context, R.layout.spinner_layout_transperent,
                             R.layout.spinner_dropview_layout, makeList);
                     addcarView.setMakeAdapter(adapter);
