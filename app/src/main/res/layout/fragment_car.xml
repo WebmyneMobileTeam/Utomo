@@ -1,54 +1,60 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
-
-    <include layout="@layout/layout_request_booking" />
-
+    android:layout_height="match_parent">
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/mainContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
 
-            <com.rovertech.utomo.app.tiles.CurrentServiceTile
-                android:id="@+id/currentServiceTile"
+        <include layout="@layout/layout_request_booking" />
+
+
+            <LinearLayout
+                android:id="@+id/mainContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <com.rovertech.utomo.app.tiles.HealthMeterTile
-                android:id="@+id/healthMeterTile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <com.rovertech.utomo.app.tiles.CurrentServiceTile
+                    android:id="@+id/currentServiceTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <com.rovertech.utomo.app.tiles.serviceDate.ServiceDateTile
-                android:id="@+id/serviceDateTile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <com.rovertech.utomo.app.tiles.HealthMeterTile
+                    android:id="@+id/healthMeterTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <com.rovertech.utomo.app.tiles.odometer.OdometerTile
-                android:id="@+id/odometerTile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <com.rovertech.utomo.app.tiles.serviceDate.ServiceDateTile
+                    android:id="@+id/serviceDateTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <com.rovertech.utomo.app.tiles.performance.PerformanceTile
-                android:id="@+id/performanceTile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <com.rovertech.utomo.app.tiles.odometer.OdometerTile
+                    android:id="@+id/odometerTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterSet
-                android:id="@+id/sponsoredCenterSet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <com.rovertech.utomo.app.tiles.performance.PerformanceTile
+                    android:id="@+id/performanceTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                <com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterSet
+                    android:id="@+id/sponsoredCenterSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
+            </LinearLayout>
+
+
+
+    </LinearLayout>
     </ScrollView>
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

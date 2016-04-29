@@ -217,7 +217,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
                     }
                     else
                     {
-                        notificationItem.setVisible(false);
+                        notificationItem.setVisible(true);
                     }
                 } catch (Exception e) {
                     Log.e("excaption", e.toString());
