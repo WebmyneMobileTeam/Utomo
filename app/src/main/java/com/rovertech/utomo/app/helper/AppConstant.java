@@ -37,7 +37,8 @@ public class AppConstant {
     final public static String INSERT_VEHICLE_DETAILS = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
     final public static String UPDATE_VEHICLE_DETAILS = BASE_URL + "UserActivities.svc/json/UpdateVehicleDetails";
     final public static String FETCH_ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
-    final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/{USERID}";
+  //  final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/{USERID}";
+    final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/6";
 
 
     // Booking

@@ -198,29 +198,26 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
         // Log.d("Resp","Inside Call");
 
-        int userID = PrefUtils.getUserID(this);
+        //int userID = PrefUtils.getUserID(this);
 
         NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
-        Call<NotificationResp> call = api.notificationApi(userID);
+        Call<NotificationResp> call = api.notificationApi();
 
         call.enqueue(new Callback<NotificationResp>() {
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
                 try {
 
-                    Log.d("resp",response.body().toString());
+                    Log.d("resp",response.body().FetchNotification.ResponseMessage);
                     if (response.body().FetchNotification.ResponseCode == 1) {
                         NotificationSize = response.body().FetchNotification.Data.size();
                         if (notificationItem != null && NotificationSize >= 1) {
                             notificationItem.setVisible(true);
                         }
                     }
-                    else
-                    {
-                        notificationItem.setVisible(true);
-                    }
+
                 } catch (Exception e) {
-                    Log.e("excaption", e.toString());
+                    Log.e("exception", e.toString());
                 }
             }
 
