@@ -66,11 +66,11 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     private DrawerPresenter presenter;
     private View parentView;
     private BadgeHelper badgeHelper;
-    private MenuItem offerItem, notificationItem;
+    private MenuItem offerItem;
     private String fragmentValue;
     private Menu mainMenu;
     private static int OfferSize = 0;
-    private static int NotificationSize = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +92,12 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
         mainMenu = menu;
         offerItem = mainMenu.findItem(R.id.action_offers);
-        notificationItem = mainMenu.findItem(R.id.action_notification);
+
         if (OfferSize >= 1) {
             showOfferIcon();
         }
 
-        if (NotificationSize >= 1) {
-            notificationItem.setVisible(true);
-        }
+
 
         /*badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
         presenter.setNotificationBadge(badgeHelper);*/
@@ -148,7 +146,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             initDrawer();
 
             callOfferApi();
-            callNotificationApi();
 
             if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
                 presenter.openDashboard();
@@ -194,39 +191,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         });
     }
 
-    private void callNotificationApi() {
 
-        // Log.d("Resp","Inside Call");
-
-        //int userID = PrefUtils.getUserID(this);
-
-        NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
-        Call<NotificationResp> call = api.notificationApi();
-
-        call.enqueue(new Callback<NotificationResp>() {
-            @Override
-            public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
-                try {
-
-                    Log.d("resp",response.body().FetchNotification.ResponseMessage);
-                    if (response.body().FetchNotification.ResponseCode == 1) {
-                        NotificationSize = response.body().FetchNotification.Data.size();
-                        if (notificationItem != null && NotificationSize >= 1) {
-                            notificationItem.setVisible(true);
-                        }
-                    }
-
-                } catch (Exception e) {
-                    Log.e("exception", e.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NotificationResp> call, Throwable t) {
-                Log.e("error", t.toString());
-            }
-        });
-    }
 
     public void setHeaderTitle(String title) {
         txtCustomTitle.setText(title);

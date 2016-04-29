@@ -7,12 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.notification.model.NotificationResp;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationActivity extends AppCompatActivity implements NotificationView {
 
@@ -30,12 +38,18 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         mNotificationPresenter.init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int userID = PrefUtils.getUserID(this);
+        mNotificationPresenter.CallNotificationApi(userID);
+
+    }
 
     @Override
     public void init() {
         parentView = findViewById(android.R.id.content);
-        mNotificationPresenter.setUpRecyclerView();
-
+       // mNotificationPresenter.setUpRecyclerView();
     }
 
     @Override
@@ -101,4 +115,6 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             outRect.bottom = mVerticalSpaceHeight;
         }
     }
+
+
 }

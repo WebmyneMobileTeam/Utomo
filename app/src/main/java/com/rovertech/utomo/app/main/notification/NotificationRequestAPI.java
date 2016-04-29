@@ -13,7 +13,7 @@ import retrofit2.http.Path;
  */
 public interface NotificationRequestAPI {
 
-    /*String USERID = "UserID";
+   /* String USERID = "UserID";
 
     @GET(AppConstant.FETCH_NOTIFICATION + "{" + USERID + "}")
     Call<NotificationResp> notificationApi(@Path(USERID) int userID);*/

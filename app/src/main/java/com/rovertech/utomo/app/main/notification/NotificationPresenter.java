@@ -11,5 +11,6 @@ public interface NotificationPresenter {
 
     void setUpRecyclerView();
 
+    void CallNotificationApi(int uid);
 
 }

@@ -7,6 +7,7 @@
     android:layout_marginRight="@dimen/booking_card_margin"
     android:layout_marginTop="@dimen/margin_horizontal_line"
     android:layout_marginBottom="@dimen/margin_horizontal_line"
+    app:cardCornerRadius="4dp"
     >
 
 
