@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
@@ -56,6 +59,8 @@ public class CarFragment extends Fragment implements CarView {
     private SponsoredCenterSet sponsoredCenterSet;
 
     private TextView txtRequestBooking, txtRequestBookingTitle;
+
+    private SwipeRefreshLayout swipe_car_refresh;
 
     public CarFragment() {
         // Required empty public constructor
@@ -129,17 +134,33 @@ public class CarFragment extends Fragment implements CarView {
                 }
             }
         });
+
+        swipe_car_refresh = (SwipeRefreshLayout)parentView.findViewById(R.id.swipe_refresh_car);
+
+        swipe_car_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.fetchDashboard(getActivity(), carPojo, "", 0, "", 0);
+            }
+        });
     }
 
     @Override
     public void showProgress() {
-        progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
+        if(swipe_car_refresh.isRefreshing()){
+
+        }else{
+            progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
+        }
+
     }
 
     @Override
     public void hideProgress() {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
+
+        swipe_car_refresh.setRefreshing(false);
     }
 
     @Override
