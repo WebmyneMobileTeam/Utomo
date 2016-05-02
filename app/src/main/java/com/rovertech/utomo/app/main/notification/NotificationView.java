@@ -11,5 +11,9 @@ public interface NotificationView {
 
     void setUpRecyclerView(NotificationAdapter notificationAdapter);
 
+    void onMethodCallback();
 
+    void showProgreessDialog();
+
+    void hideProgreessDialog();
 }

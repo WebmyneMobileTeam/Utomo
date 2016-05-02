@@ -5,6 +5,7 @@ package com.rovertech.utomo.app.main.notification.model;
  */
 public class NotificationItem {
 
+    public String BookingID;
     public String Description;
     public int NotificationID;
     public String PreferedDateTime;
@@ -16,6 +17,14 @@ public class NotificationItem {
 
     public String getDescription() {
         return Description;
+    }
+
+    public String getBookingID() {
+        return BookingID;
+    }
+
+    public void setBookingID(String bookingID) {
+        BookingID = bookingID;
     }
 
     public void setDescription(String description) {

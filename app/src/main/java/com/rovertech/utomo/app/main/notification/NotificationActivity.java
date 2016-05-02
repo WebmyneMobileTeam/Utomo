@@ -1,8 +1,11 @@
 package com.rovertech.utomo.app.main.notification;
 
+import android.app.ProgressDialog;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,28 +30,43 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private Toolbar toolbar;
     private TextView txtCustomTitle;
     private View parentView;
-
+    private ProgressDialog dialog;
     private NotificationPresenter mNotificationPresenter;
+    private int userID;
+    private RecyclerView notificationsFamiliarRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-        mNotificationPresenter = new NotificationPresenterImpl(this);
+        userID = PrefUtils.getUserID(this);
+        mNotificationPresenter = new NotificationPresenterImpl(this.getApplicationContext(),this);
         mNotificationPresenter.init();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        int userID = PrefUtils.getUserID(this);
-        mNotificationPresenter.CallNotificationApi(userID);
+        
+        mNotificationPresenter.CallNotificationApi(userID,0);
 
     }
 
     @Override
     public void init() {
         parentView = findViewById(android.R.id.content);
+        dialog=new ProgressDialog(this);
+        dialog.setMessage("Please wait");
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
+        
        // mNotificationPresenter.setUpRecyclerView();
     }
 
@@ -60,13 +78,45 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     @Override
     public void setUpRecyclerView(NotificationAdapter notificationAdapter) {
 
-        FamiliarRecyclerView notificationsFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
+        notificationsFamiliarRecyclerView = (RecyclerView) findViewById(R.id.notificationsRecyclerView);
         notificationsFamiliarRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         notificationsFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
         notificationsFamiliarRecyclerView.setAdapter(notificationAdapter);
         notificationsFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
+        notificationsFamiliarRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                mSwipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
 
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onMethodCallback() {
+        // do something
+        //Log.d("m click>","Yes");
+
+    }
+
+    @Override
+    public void showProgreessDialog() {
+        dialog.show();
+    }
+
+    @Override
+    public void hideProgreessDialog() {
+        dialog.hide();
     }
 
     private void initToolbar() {
@@ -116,5 +166,13 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         }
     }
 
+    void refreshItems() {
+        // Load items
+        // ...
+        mNotificationPresenter.CallNotificationApi(userID,1);
+        mSwipeRefreshLayout.setRefreshing(false);
 
+    }
+
+    
 }

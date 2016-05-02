@@ -97,10 +97,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             showOfferIcon();
         }
 
-
-
-        /*badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
-        presenter.setNotificationBadge(badgeHelper);*/
+        badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
+        presenter.setNotificationBadge(badgeHelper,6);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView iv = (ImageView) inflater.inflate(R.layout.iv_offer, null);

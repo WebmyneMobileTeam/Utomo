@@ -36,18 +36,19 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
     ArrayList<OfferCategory> offerList;
 
     onSubmitListener onSubmitListener;
-    String type, title;
+    String type, title,desc;
 
     public void setOnSubmitListener(AdminOfferInfoDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
 
-    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, String type, String title) {
+    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, String type, String title,String desc) {
         super(context);
         this.offerList = offerlist;
         this.context = context;
         this.type = type;
         this.title = title;
+        this.desc=desc;
     }
 
     @Override
@@ -71,7 +72,7 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
 
         txtTitle1.setVisibility(View.VISIBLE);
-        txtTitle1.setText(title);
+        txtTitle1.setText(desc);
         setTypeface();
 
 
@@ -102,7 +103,7 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
 
     @Override
     public void setUiBeforShow() {
-        txtTitle.setText("Info");
+        txtTitle.setText(title);
 
         setCancelable(false);
 

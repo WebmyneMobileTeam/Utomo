@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".profile.ProfileActivity">
 
-    <include layout="@layout/app_bar" />
-
-
-    <TextView
-        android:id="@+id/emptyNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="No Notifications" />
-
-    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-        android:scrollbars="vertical"
-        android:id="@+id/notificationsRecyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        app:frv_isEmptyViewKeepShowHeadOrFooter="true"
-        app:frv_emptyView="@id/emptyNotifications">
+        android:layout_height="match_parent">
 
-    </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
+        <include layout="@layout/app_bar" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/emptyNotifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="No Notifications" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/notificationsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:scrollbars="vertical"
+            app:frv_emptyView="@id/emptyNotifications"
+            app:frv_isEmptyViewKeepShowHeadOrFooter="true">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.notification;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
@@ -18,9 +19,14 @@ import retrofit2.Response;
  */
 public class NotificationPresenterImpl implements NotificationPresenter {
 
+    private final Context c;
     private NotificationView mNotificationView;
-    private ArrayList<NotificationItem> notificationItems = new ArrayList<>();
-    public NotificationPresenterImpl(NotificationView notificationView) {
+
+    private ArrayList<NotificationItem> notificationItems ;
+    private NotificationAdapter notificationAdapter;
+
+    public NotificationPresenterImpl(Context c, NotificationView notificationView) {
+        this.c = c;
         this.mNotificationView = notificationView;
     }
 
@@ -39,35 +45,36 @@ public class NotificationPresenterImpl implements NotificationPresenter {
 
     @Override
     public void setUpRecyclerView() {
-
-        for(int i=0;i<notificationItems.size();i++)
-        {
-            Log.d("item",notificationItems.get(i).toString());
-        }
-        NotificationAdapter notificationAdapter = new NotificationAdapter();
+        notificationAdapter = new NotificationAdapter(c, mNotificationView, notificationItems);
         mNotificationView.setUpRecyclerView(notificationAdapter);
-
+        mNotificationView.hideProgreessDialog();
     }
 
+
     @Override
-    public void CallNotificationApi(int userid) {
+    public void CallNotificationApi(int userid, final int type) {
 
         // Log.d("Resp","Inside Call");
         //int userID = PrefUtils.getUserID(this);
+        mNotificationView.showProgreessDialog();
 
         NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
-        Call<NotificationResp> call = api.notificationApi();
+        Call<NotificationResp> call = api.notificationApi(userid);
 
         call.enqueue(new Callback<NotificationResp>() {
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
                 try {
-
-
+                    notificationItems=new ArrayList<>();
                     if (response.body().FetchNotification.ResponseCode == 1) {
-                        Log.d("resp",response.body().FetchNotification.toString());
-                        notificationItems=response.body().FetchNotification.Data;
-                        setUpRecyclerView();
+                        //  Log.d("resp",response.body().FetchNotification.toString());
+                        notificationItems = response.body().FetchNotification.Data;
+                        if (type == 0) {
+                            setUpRecyclerView();
+                        } else {
+
+                            NotiFyAdpter();
+                        }
                     }
 
                 } catch (Exception e) {
@@ -80,5 +87,16 @@ public class NotificationPresenterImpl implements NotificationPresenter {
                 Log.e("error", t.toString());
             }
         });
+    }
+
+    @Override
+    public void NotiFyAdpter() {
+        notificationAdapter.clear();
+        // ...the data has come back, add new items to your adapter...
+        notificationAdapter.addAll(notificationItems);
+
+
+       /* notificationAdapter.upDateEntries(notificationItems);
+        notificationAdapter.notifyDataSetChanged();*/
     }
 }

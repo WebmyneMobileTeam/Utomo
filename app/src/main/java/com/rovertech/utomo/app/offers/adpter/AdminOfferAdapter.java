@@ -63,7 +63,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             public void onClick(View v) {
 
                 final ArrayList<OfferCategory> category=itemList.get(position).lstAvailOffersCategory;
-                final AdminOfferInfoDialog dialog=new AdminOfferInfoDialog(c,category,"admin",itemList.get(position).Description);
+                final AdminOfferInfoDialog dialog=new AdminOfferInfoDialog(c,category,"admin",itemList.get(position).OfferName,itemList.get(position).Description);
                 dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
                     @Override
                     public void onSubmit(OfferCategory offerCategory) {
