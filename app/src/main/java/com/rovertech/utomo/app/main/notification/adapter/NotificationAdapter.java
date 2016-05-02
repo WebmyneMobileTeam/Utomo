@@ -1,5 +1,6 @@
-package com.rovertech.utomo.app.main.notification;
+package com.rovertech.utomo.app.main.notification.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -9,60 +10,52 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.main.notification.model.NotificationItem;
-import com.rovertech.utomo.app.main.notification.model.RescheduleBookingRequest;
-import com.rovertech.utomo.app.main.notification.model.RescheduleResp;
+import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterPresenter;
+import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterPresenterImpl;
+import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterView;
+import com.rovertech.utomo.app.main.notification.presenter.NotificationView;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by raghavthakkar on 21-04-2016.
  */
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> implements NotificationAdapterView {
 
 
     private final Context c;
     public ArrayList<NotificationItem> notificationItems;
     private NotificationView mAdapterCallback;
+    private NotificationAdapterPresenter presenter;
+    private ProgressDialog progressDialog;
 
     public NotificationAdapter(Context c, NotificationView mNotificationView, ArrayList<NotificationItem> notificationItems) {
-        this.c=c;
+        this.c = c;
         this.notificationItems = notificationItems;
-        this.mAdapterCallback=mNotificationView;
-       /* try {
-            this.mAdapterCallback = ((NotificationView) c);
-        } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NotificationView.");
-        }*/
+        this.mAdapterCallback = mNotificationView;
+        this.presenter = new NotificationAdapterPresenterImpl(c, this);
+        this.progressDialog = new ProgressDialog(c);
+        this.progressDialog.setMessage("Please wait...");
     }
 
 
     @Override
     public int getItemViewType(int position) {
-
         return position;
     }
 
     @Override
     public NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         NotificationViewHolder notificationViewHolder = null;
         notificationViewHolder = new NotificationViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification_accept_reject, parent, false));
-
         return notificationViewHolder;
     }
 
     @Override
     public void onBindViewHolder(NotificationViewHolder holder, final int position) {
-
         if (notificationItems.get(position).ServicecentreName != null) {
             holder.txtNotificationTitle.setText(Html.fromHtml(notificationItems.get(position).ServicecentreName));
         }
@@ -77,63 +70,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.llAccp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("m click","Accept" + notificationItems.get(position).BookingID + " || " +notificationItems.get(position).NotificationID);
-                    callRescheduleBookingApi(notificationItems.get(position).BookingID,notificationItems.get(position).NotificationID,true);
+                    Log.d("m click", "Accept" + notificationItems.get(position).BookingID + " || " + notificationItems.get(position).NotificationID);
+                    presenter.callRescheduleBookingApi(notificationItems.get(position).BookingID, notificationItems.get(position).NotificationID, true);
                 }
             });
+
             holder.llReject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("m click","Reject");
-                    callRescheduleBookingApi(notificationItems.get(position).BookingID,notificationItems.get(position).NotificationID,false);
+                    Log.d("m click", "Reject");
+                    presenter.callRescheduleBookingApi(notificationItems.get(position).BookingID, notificationItems.get(position).NotificationID, false);
                 }
             });
         }
-    }
-
-    private void callRescheduleBookingApi(String bookingID, int notificationID, final boolean b) {
-        try {
-            RescheduleBookingRequest request = new RescheduleBookingRequest(Integer.parseInt(bookingID), notificationID, b);
-            RescheduleBookingApi apiCall = UtomoApplication.retrofit.create(RescheduleBookingApi.class);
-            Call<RescheduleResp> call = apiCall.RescheduleBooking(request);
-            call.enqueue(new Callback<RescheduleResp>() {
-                @Override
-                public void onResponse(Call<RescheduleResp> call, Response<RescheduleResp> response) {
-                    if (response.body().RescheduleBookingResponce.ResponseCode == 1) {
-                        if(b)
-                        {
-                        Toast.makeText(c,"Your Booking Reschedule Successfully",Toast.LENGTH_LONG).show();}
-                        else
-                        {
-                            Toast.makeText(c,"Your Booking Reschedule Rejected",Toast.LENGTH_LONG).show();
-                        }
-                    }else
-                    {
-                        if(b) {
-                            Toast.makeText(c, "Your Booking Reschedule Rejected", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(c, "Your Booking Reschedule Successfully", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    try {
-                        mAdapterCallback.onMethodCallback();
-
-                    } catch (ClassCastException exception) {
-                        exception.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<RescheduleResp> call, Throwable t) {
-
-                }
-            });
-        }catch (Exception e)
-        {
-
-        }
-
     }
 
     public void clear() {
@@ -158,10 +107,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return notificationItems.size();
     }
 
-    public static class NotificationViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public void showProgressDialog() {
+        progressDialog.show();
+    }
 
+    @Override
+    public void hideProgressDialog() {
+        progressDialog.hide();
+    }
+
+    @Override
+    public void onAcceptReject(boolean isSuccess, String message) {
+        mAdapterCallback.onAcceptRejectCallback(message);
+    }
+
+    public static class NotificationViewHolder extends RecyclerView.ViewHolder {
         private TextView txtNotificationTitle, txtNotificationDesc, txtNotificationsTimestamp, txtReject, txtAccept;
-        private LinearLayout llAccpRej,llAccp,llReject;
+        private LinearLayout llAccpRej, llAccp, llReject;
 
         public NotificationViewHolder(View itemView) {
             super(itemView);

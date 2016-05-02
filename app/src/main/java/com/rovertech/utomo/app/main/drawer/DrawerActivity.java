@@ -43,8 +43,6 @@ import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.DashboardFragment;
 import com.rovertech.utomo.app.invite.InviteFragment;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
-import com.rovertech.utomo.app.main.notification.NotificationRequestAPI;
-import com.rovertech.utomo.app.main.notification.model.NotificationResp;
 import com.rovertech.utomo.app.offers.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
 import com.rovertech.utomo.app.profile.ProfileActivity;

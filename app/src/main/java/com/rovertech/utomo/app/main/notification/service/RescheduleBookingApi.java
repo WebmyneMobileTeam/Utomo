@@ -1,4 +1,4 @@
-package com.rovertech.utomo.app.main.notification;
+package com.rovertech.utomo.app.main.notification.service;
 
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.main.notification.model.RescheduleBookingRequest;

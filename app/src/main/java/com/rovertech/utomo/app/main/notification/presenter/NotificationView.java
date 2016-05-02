@@ -1,19 +1,15 @@
-package com.rovertech.utomo.app.main.notification;
+package com.rovertech.utomo.app.main.notification.presenter;
+
+import com.rovertech.utomo.app.main.notification.adapter.NotificationAdapter;
 
 /**
  * Created by raghavthakkar on 21-04-2016.
  */
 public interface NotificationView {
-
     void init();
-
     void initToolBar();
-
     void setUpRecyclerView(NotificationAdapter notificationAdapter);
-
-    void onMethodCallback();
-
+    void onAcceptRejectCallback(String message);
     void showProgreessDialog();
-
     void hideProgreessDialog();
 }

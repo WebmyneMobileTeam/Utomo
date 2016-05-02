@@ -1,10 +1,12 @@
-package com.rovertech.utomo.app.main.notification;
+package com.rovertech.utomo.app.main.notification.presenter;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
-import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.notification.adapter.NotificationAdapter;
+import com.rovertech.utomo.app.main.notification.service.NotificationRequestAPI;
 import com.rovertech.utomo.app.main.notification.model.NotificationItem;
 import com.rovertech.utomo.app.main.notification.model.NotificationResp;
 
@@ -21,8 +23,7 @@ public class NotificationPresenterImpl implements NotificationPresenter {
 
     private final Context c;
     private NotificationView mNotificationView;
-
-    private ArrayList<NotificationItem> notificationItems ;
+    private ArrayList<NotificationItem> notificationItems = new ArrayList<>();
     private NotificationAdapter notificationAdapter;
 
     public NotificationPresenterImpl(Context c, NotificationView notificationView) {
@@ -47,15 +48,12 @@ public class NotificationPresenterImpl implements NotificationPresenter {
     public void setUpRecyclerView() {
         notificationAdapter = new NotificationAdapter(c, mNotificationView, notificationItems);
         mNotificationView.setUpRecyclerView(notificationAdapter);
-        mNotificationView.hideProgreessDialog();
+
     }
 
 
     @Override
-    public void CallNotificationApi(int userid, final int type) {
-
-        // Log.d("Resp","Inside Call");
-        //int userID = PrefUtils.getUserID(this);
+    public void callNotificationApi(int userid, final int type) {
         mNotificationView.showProgreessDialog();
 
         NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
@@ -64,19 +62,14 @@ public class NotificationPresenterImpl implements NotificationPresenter {
         call.enqueue(new Callback<NotificationResp>() {
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
+                mNotificationView.hideProgreessDialog();
                 try {
-                    notificationItems=new ArrayList<>();
+                    notificationItems = new ArrayList<>();
+                    Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
-                        //  Log.d("resp",response.body().FetchNotification.toString());
                         notificationItems = response.body().FetchNotification.Data;
-                        if (type == 0) {
-                            setUpRecyclerView();
-                        } else {
-
-                            NotiFyAdpter();
-                        }
+                        notifyAdapter();
                     }
-
                 } catch (Exception e) {
                     Log.e("exception", e.toString());
                 }
@@ -85,12 +78,12 @@ public class NotificationPresenterImpl implements NotificationPresenter {
             @Override
             public void onFailure(Call<NotificationResp> call, Throwable t) {
                 Log.e("error", t.toString());
+                mNotificationView.hideProgreessDialog();
             }
         });
     }
 
-    @Override
-    public void NotiFyAdpter() {
+    public void notifyAdapter() {
         notificationAdapter.clear();
         // ...the data has come back, add new items to your adapter...
         notificationAdapter.addAll(notificationItems);

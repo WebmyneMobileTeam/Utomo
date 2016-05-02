@@ -77,7 +77,6 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             }
         });
 
-
         discountTitle = (TextView) findViewById(R.id.discountTitle);
         discountTitle.setTypeface(Functions.getRegularFont(this));
         txtTotalAmount = (TextView) findViewById(R.id.txtTotalAmount);

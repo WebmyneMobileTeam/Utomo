@@ -1,15 +1,6 @@
 package com.rovertech.utomo.app.offers;
 
-import android.util.Log;
-
-import com.rovertech.utomo.app.main.notification.NotificationAdapter;
-import com.rovertech.utomo.app.main.notification.NotificationView;
-import com.rovertech.utomo.app.offers.adpter.AdminOfferAdapter;
-import com.rovertech.utomo.app.offers.model.OfferItem;
-import com.rovertech.utomo.app.offers.model.OfferPojo;
 import com.rovertech.utomo.app.offers.model.OfferView;
-
-import java.util.ArrayList;
 
 /**
  * Created by raghavthakkar on 21-04-2016.

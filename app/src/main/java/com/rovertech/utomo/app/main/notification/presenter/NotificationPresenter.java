@@ -1,4 +1,4 @@
-package com.rovertech.utomo.app.main.notification;
+package com.rovertech.utomo.app.main.notification.presenter;
 
 /**
  * Created by raghavthakkar on 21-04-2016.
@@ -11,9 +11,5 @@ public interface NotificationPresenter {
 
     void setUpRecyclerView();
 
-    void CallNotificationApi(int uid,int type);
-
-    void NotiFyAdpter();
-
-
+    void callNotificationApi(int uid, int type);
 }
