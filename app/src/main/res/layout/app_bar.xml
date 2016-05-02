@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:text="Title"
+        android:text=""
         android:textColor="@color/white"
         android:ellipsize="end"
         android:textSize="@dimen/toolbar_textsize"

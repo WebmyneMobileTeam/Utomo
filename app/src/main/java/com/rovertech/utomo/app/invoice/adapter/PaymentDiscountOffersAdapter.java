@@ -33,6 +33,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
     private List<String> serviceJobList = new ArrayList<>();
     private List<PaymentDistinctDiscountModel> filteredDiscounts = new ArrayList<>();
     private boolean[] checkedState;
+    private OnOfferSelectedListener onOfferSelectedListener;
 
 
     public PaymentDiscountOffersAdapter(Context ctx, List<PaymentOfferDiscountList> itemList, List<String> jobsList,
@@ -78,14 +79,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
         holder.imgInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, filteredDiscounts, "admin", itemList.get(position).OfferName);
-            /*dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
-                @Override
-                public void onSubmit(OfferCategory offerCategory) {
-                    dialog.dismiss();
-                }
-
-            });*/
+            final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, filteredDiscounts, itemList.get(position).OfferName);
             dialog.show();
             }
         });
@@ -93,7 +87,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Log.e("isOfferSelected", "" + Functions.jsonString(itemList.get(position).lstDistinctDiscount));
+                    onOfferSelectedListener.onOfferSelected(itemList.get(position).lstDistinctDiscount);
                     holder.isOfferSelected.setChecked(true);
                     for (int i = 0; i < checkedState.length; i++) {
                         if (i != position)
@@ -104,8 +98,6 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
                 }
             }
         });
-
-
     }
 
     private void setTypeFace() {
@@ -132,4 +124,10 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
             isOfferSelected = (RadioButton) itemView.findViewById(R.id.isOfferSelected);
         }
     }
+
+    public interface OnOfferSelectedListener {
+        void onOfferSelected(List<PaymentDistinctDiscountModel> discountOfferItems);
+    }
+
+    public void setOnOfferSelectedListener(OnOfferSelectedListener _obj) {this.onOfferSelectedListener = _obj;}
 }

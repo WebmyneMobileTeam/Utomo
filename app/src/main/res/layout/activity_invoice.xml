@@ -49,7 +49,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/button_bg"
                         android:text="Total Amount: " />
 
                     <TextView
@@ -58,7 +57,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/button_bg"
                         android:gravity="right"
                         android:text="10000" />
 
@@ -68,6 +66,13 @@
 
                 <LinearLayout
                     android:id="@+id/linearServiceDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearOfferDiscountsDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -87,6 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:text="Total Payable Amount: " />
 
@@ -97,6 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
+                        android:textColor="@color/purple"
                         android:textStyle="bold"
                         android:text="10000" />
 
@@ -112,6 +119,7 @@
         android:id="@+id/btnContinuePayment"
         android:layout_alignParentBottom="true"
         style="@style/MyButtonStyle"
+        android:drawableRight="@drawable/ic_hardware_keyboard_arrow_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/booking_card_margin"
@@ -141,6 +149,29 @@
         android:layout_marginTop="@dimen/margin_8"
         android:scrollbars="vertical"
         app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="8dp"
+            android:drawableTop="@drawable/oops"
+            android:gravity="center"
+            android:text="Oops! Something went wrong while processing payment transcript."
+            android:textColor="@color/white"
+            android:textSize="@dimen/N_TEXT" />
 
     </LinearLayout>
 </RelativeLayout>
