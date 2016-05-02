@@ -81,6 +81,9 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
         //inflate service details
         List<PaymentJobCardDetailsModel> serviceJobsList = paymentProcessResponse.PaymentProcess.Data.get(0).lstJobCardDeatils;
+        List<String> jobsList  = new ArrayList<>();
+        List<PaymentDistinctDiscountModel> filteredDiscounts  = new ArrayList<>();
+
         linearServiceDetails.removeAllViews();
 
         for (int i = 0; i < serviceJobsList.size(); i++) {
@@ -89,15 +92,23 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
 
             txtServiceAmount.setText(String.valueOf(serviceJobsList.get(i).NetAmount));
-            txtServiceName.setText(String.valueOf(serviceJobsList.get(i).Diagnosis));
-
+            txtServiceName.setText(serviceJobsList.get(i).Diagnosis);
+            jobsList.add(serviceJobsList.get(i).Diagnosis);
             linearServiceDetails.addView(view);
         }
 
         // show available offers
         List<PaymentOfferDiscountList> discountOffersList = paymentProcessResponse.PaymentProcess.Data.get(0).lstOfferDiscount;
 
-        discountOffersAdapter = new PaymentDiscountOffersAdapter(this, discountOffersList);
+        for(int i=0 ; i < discountOffersList.size(); i++) {
+            for(int j=0; j< serviceJobsList.size(); j++) {
+                if(discountOffersList.get(i).lstDistinctDiscount.get(i).ServiceName.equals(serviceJobsList.get(j))){
+                    filteredDiscounts.add(discountOffersList.get(i).lstDistinctDiscount.get(i));
+                }
+            }
+        }
+
+        discountOffersAdapter = new PaymentDiscountOffersAdapter(this, discountOffersList, jobsList, filteredDiscounts);
         adminOffersRecyclerView.setAdapter(discountOffersAdapter);
     }
 }

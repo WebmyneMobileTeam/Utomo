@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.invoice.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,9 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.invoice.model.PaymentDistinctDiscountModel;
 import com.rovertech.utomo.app.invoice.model.PaymentOfferDiscountList;
-import com.rovertech.utomo.app.offers.model.OfferPojo;
+import com.rovertech.utomo.app.offers.model.OfferCategory;
+import com.rovertech.utomo.app.widget.dialog.AdminOfferInfoDialog;
+import com.rovertech.utomo.app.widget.dialog.PaymentDiscountOfferInfoDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,17 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
     private Context mContext;
     private DiscountOffersViewHolder holder = null;
     private List<PaymentOfferDiscountList> itemList;
+    private List<String> serviceJobList = new ArrayList<>();
+    private List<PaymentDistinctDiscountModel> filteredDiscounts = new ArrayList<>();
     private boolean[] checkedState;
 
-    public PaymentDiscountOffersAdapter(Context ctx, List<PaymentOfferDiscountList> itemList) {
+
+    public PaymentDiscountOffersAdapter(Context ctx, List<PaymentOfferDiscountList> itemList, List<String> jobsList,
+                                        List<PaymentDistinctDiscountModel> filteredDiscounts) {
         this.itemList = itemList;
         this.mContext = ctx;
+        this.serviceJobList = jobsList;
+        this.filteredDiscounts = filteredDiscounts;
         checkedState = new boolean[itemList.size()];
         for (int i = 0; i < checkedState.length; i++) {
             checkedState[i] = false;
@@ -59,6 +66,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
     public void onBindViewHolder(final DiscountOffersViewHolder holder, final int position) {
         setTypeFace();
 
+
         if (checkedState[position]) {
             holder.isOfferSelected.setChecked(true);
         } else {
@@ -70,16 +78,15 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
         holder.imgInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            /*final ArrayList<OfferCategory> category = itemList.get(position).lstAvailOffersCategory;
-            final AdminOfferInfoDialog dialog = new AdminOfferInfoDialog(mContext, category, "admin", itemList.get(position).Description);
-            dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
+            final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, filteredDiscounts, "admin", itemList.get(position).OfferName);
+            /*dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
                 @Override
                 public void onSubmit(OfferCategory offerCategory) {
                     dialog.dismiss();
                 }
 
-            });
-            dialog.show();*/
+            });*/
+            dialog.show();
             }
         });
         holder.isOfferSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
