@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
@@ -21,7 +22,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     Context context;
 
     private IconEditText edtPassword, edtRePassword;
-    private Button btnSubmit;
+    private TextView btnSubmit;
 
     onSubmitListener onSubmitListener;
 
@@ -43,7 +44,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
         parentView = View.inflate(context, R.layout.layout_change_pwd, null);
         edtPassword = (IconEditText) parentView.findViewById(R.id.edtPassword);
         edtRePassword = (IconEditText) parentView.findViewById(R.id.edtRePassword);
-        btnSubmit = (Button) parentView.findViewById(R.id.btnSubmit);
+        btnSubmit = (TextView) parentView.findViewById(R.id.btnSubmit);
 
         setTypeface();
 

@@ -67,21 +67,19 @@
                         android:id="@+id/distanceLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical">
+                        android:layout_gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_car_location"
-                            android:tint="?android:textColorSecondary" />
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_distance"
+                            android:tint="@color/color100" />
 
                         <TextView
                             android:id="@+id/txtDistance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1.2Km"
-                            android:textColor="?android:textColorSecondary"
+                            style="@style/MyTextStyleLabel"
+                            android:layout_marginLeft="4dp"
+                            android:textColor="@color/color100"
                             android:textSize="@dimen/S_TEXT" />
                     </LinearLayout>
 
@@ -123,7 +121,7 @@
                             android:id="@+id/txtReviews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="4dp"
+                            android:paddingLeft="4dp"
                             android:text="1 Reviews"
                             android:textColor="@color/half_black"
                             android:textSize="@dimen/S_TEXT" />

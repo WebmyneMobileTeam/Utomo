@@ -1,27 +1,17 @@
 package com.rovertech.utomo.app.main.centreDetail.centreMain;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.LayerDrawable;
-import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.account.LoginActivity;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.IntentConstant;
-import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.widget.FlowLayout;
 import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
@@ -34,7 +24,7 @@ public class CentreMainDetails extends LinearLayout {
     private Context context;
     private LayoutInflater inflater;
     private View parentView;
-    private TextView txtCentreName, txtCentreAddress, txtCentreInfo, txtRating;
+    private TextView txtCentreDealerShip, txtCentreAddress, txtCentreInfo, txtCentreEmail, txtCentreWebsite, txtRating;
     private Button btnBook;
     private FlowLayout serviceFlowLayout;
     LinearLayout.LayoutParams params;
@@ -55,10 +45,11 @@ public class CentreMainDetails extends LinearLayout {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         parentView = inflater.inflate(R.layout.layout_centre_main, this, true);
 
-        txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
+        txtCentreDealerShip = (TextView) parentView.findViewById(R.id.txtCentreDealerShip);
+        txtCentreWebsite = (TextView) parentView.findViewById(R.id.txtCentreWebsite);
         txtCentreAddress = (TextView) parentView.findViewById(R.id.txtCentreAddress);
         txtCentreInfo = (TextView) parentView.findViewById(R.id.txtCentreInfo);
-        //btnBook = (Button) parentView.findViewById(R.id.btnBook);
+        txtCentreEmail = (TextView) parentView.findViewById(R.id.txtCentreEmail);
         txtRating = (TextView) parentView.findViewById(R.id.txtRating);
         serviceFlowLayout = (FlowLayout) parentView.findViewById(R.id.serviceFlowLayout);
         serviceFlowLayout.setOrientation(HORIZONTAL);
@@ -75,7 +66,9 @@ public class CentreMainDetails extends LinearLayout {
     private void setTypeface() {
         txtCentreAddress.setTypeface(Functions.getRegularFont(context));
         txtCentreInfo.setTypeface(Functions.getRegularFont(context));
-        txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        txtCentreEmail.setTypeface(Functions.getRegularFont(context));
+        txtCentreWebsite.setTypeface(Functions.getRegularFont(context));
+        txtCentreDealerShip.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         //btnBook.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
         txtRating.setTypeface(Functions.getRegularFont(context));
@@ -85,7 +78,7 @@ public class CentreMainDetails extends LinearLayout {
     public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
 
         txtCentreAddress.setText(String.format("%s", centreDetailPojo.Address1));
-        txtCentreName.setText(String.format("%s", centreDetailPojo.ServiceCentreName));
+        txtCentreDealerShip.setText(String.format("Dealership : %s", centreDetailPojo.Dealership));
 
         if (centreDetailPojo.Rating != 0)
             txtRating.setText(String.format("%.1f/5", centreDetailPojo.Rating));
@@ -93,6 +86,28 @@ public class CentreMainDetails extends LinearLayout {
             txtRating.setVisibility(GONE);
 
         txtCentreInfo.setText(String.format("%s", centreDetailPojo.Expertise));
+
+        if (TextUtils.isEmpty(centreDetailPojo.Expertise)) {
+            txtCentreInfo.setVisibility(GONE);
+        } else {
+            txtCentreInfo.setVisibility(VISIBLE);
+            txtCentreInfo.setText(String.format("%s", centreDetailPojo.Expertise));
+        }
+
+        if (TextUtils.isEmpty(centreDetailPojo.ContactEmail)) {
+            txtCentreEmail.setVisibility(GONE);
+        } else {
+            txtCentreEmail.setVisibility(VISIBLE);
+            txtCentreEmail.setText(String.format("%s", centreDetailPojo.ContactEmail));
+        }
+
+        if (TextUtils.isEmpty(centreDetailPojo.Website)) {
+            txtCentreWebsite.setVisibility(GONE);
+        } else {
+            txtCentreWebsite.setVisibility(VISIBLE);
+            txtCentreWebsite.setText(String.format("%s", centreDetailPojo.Website));
+        }
+
 
         if (centreDetailPojo.IsBodyWash) {
             ServiceChip serviceChip = new ServiceChip(context, "Body Shop");

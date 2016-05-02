@@ -56,8 +56,8 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     private AddCarPresenter presenter;
     private Odometer odometer;
 
-    private AppCompatSpinner yearSpinner, modelSpinner;
-    private Spinner makeSpinner;
+    private AppCompatSpinner yearSpinner, modelSpinner, makeSpinner;
+
     private ProgressBar makeProgressBar, yearProgressBar, modelProgressBar;
     private String selectedMake = "", selectedYear = "", selectedModel = "", selectModelYear = "";
 
@@ -167,7 +167,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         yearProgressBar = (ProgressBar) findViewById(R.id.yearProgressBar);
         makeProgressBar = (ProgressBar) findViewById(R.id.makeProgressBar);
         yearSpinner = (AppCompatSpinner) findViewById(R.id.yearSpinner);
-        makeSpinner = (Spinner) findViewById(R.id.makeSpinner);
+        makeSpinner = (AppCompatSpinner) findViewById(R.id.makeSpinner);
         parentView = findViewById(android.R.id.content);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);

@@ -24,7 +24,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtCentreName"
+                    android:id="@+id/txtCentreDealerShip"
                     style="@style/TitleTextStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -58,6 +58,25 @@
                 style="@style/BodyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtCentreEmail"
+                style="@style/BodyTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="email"
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtCentreWebsite"
+                style="@style/BodyTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical" />
 
             <LinearLayout
                 android:layout_width="match_parent"

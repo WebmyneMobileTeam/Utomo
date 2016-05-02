@@ -13,7 +13,6 @@ import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.util.ArrayList;
@@ -62,26 +61,22 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
         carListView.setEmptyView(emptyTextView);
 
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
+        txtTitle.setText(String.format("%s", dealership));
+
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
 
         setTypeface();
 
         CarListAdapter adapter = new CarListAdapter(context, carList);
 
-     //   if (carList.size() > 0) {
-
-            carListView.setAdapter(adapter);
-            carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (onSubmitListener != null)
-                        onSubmitListener.onSubmit(carList.get(position));
-                }
-            });
-
-     //   }else{
-
-     //   }
+        carListView.setAdapter(adapter);
+        carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (onSubmitListener != null)
+                    onSubmitListener.onSubmit(carList.get(position));
+            }
+        });
 
         return parentView;
     }
@@ -92,7 +87,7 @@ public class CarListDialog extends BaseDialog implements View.OnClickListener {
 
     @Override
     public void setUiBeforShow() {
-        txtTitle.setText("My Cars");
+        txtTitle.setText(String.format("%s", dealership));
 
         setCancelable(false);
 

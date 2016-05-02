@@ -25,7 +25,7 @@ public class SuccessDialog extends BaseDialog implements View.OnClickListener {
     View parentView;
     String string;
     private TextView txtTitle, txtView;
-    private Button btnOk;
+    private TextView btnOk;
     private onSubmitListener onSubmitListener;
 
     public void setOnSubmitListener(SuccessDialog.onSubmitListener onSubmitListener) {
@@ -48,7 +48,7 @@ public class SuccessDialog extends BaseDialog implements View.OnClickListener {
 
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtView = (TextView) parentView.findViewById(R.id.txtView);
-        btnOk = (Button) parentView.findViewById(R.id.btnOk);
+        btnOk = (TextView) parentView.findViewById(R.id.btnOk);
 
         txtView.setText(string);
 

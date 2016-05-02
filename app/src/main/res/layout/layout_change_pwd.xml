@@ -30,9 +30,10 @@
             widget:iconSrc="@drawable/ic_password"
             widget:inputType="password" />
 
-        <Button
+        <TextView
             android:id="@+id/btnSubmit"
             style="@style/MyButtonStyle"
+            android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit" />

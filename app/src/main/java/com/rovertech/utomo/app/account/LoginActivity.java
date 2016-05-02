@@ -10,6 +10,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -166,8 +167,13 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         edtEmail.setVisibility(View.GONE);
         edtName.setVisibility(View.GONE);
         edtReferralCode.setVisibility(View.GONE);
+
         txtSignUp.setVisibility(View.VISIBLE);
+        txtSignUp.setText(Html.fromHtml("<u>New User? Sign Up</u>"));
+
         txtLogin.setVisibility(View.GONE);
+        txtLogin.setText(Html.fromHtml("<u>Already User? Login</u>"));
+
         socialBar.setVisibility(View.VISIBLE);
         txtOr.setVisibility(View.VISIBLE);
 

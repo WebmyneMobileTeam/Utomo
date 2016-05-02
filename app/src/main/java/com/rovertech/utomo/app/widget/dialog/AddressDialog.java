@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -29,7 +28,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
     private ImageView imgClose;
     private MaterialEditText edtAddress, edtArea, edtCity, edtZipCode;
     private CheckBox checkSame;
-    private Button btnOk;
+    private TextView btnOk;
     private int addressType = 0;
     private boolean isSame;
     private BookingRequest bookingRequest;
@@ -64,7 +63,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         edtArea = (MaterialEditText) parentView.findViewById(R.id.edtArea);
         edtCity = (MaterialEditText) parentView.findViewById(R.id.edtCity);
         edtZipCode = (MaterialEditText) parentView.findViewById(R.id.edtZipCode);
-        btnOk = (Button) parentView.findViewById(R.id.btnOk);
+        btnOk = (TextView) parentView.findViewById(R.id.btnOk);
         checkSame = (CheckBox) parentView.findViewById(R.id.checkSame);
 
         setTypeface();
@@ -97,10 +96,10 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
         if (addressType == 1) {
             txtTitle.setText("Pick-up Address");
-            checkSame.setVisibility(View.GONE);
+            checkSame.setVisibility(View.VISIBLE);
         } else {
             txtTitle.setText("Drop-off Address");
-            checkSame.setVisibility(View.VISIBLE);
+            checkSame.setVisibility(View.GONE);
         }
 
         setCancelable(false);
@@ -167,7 +166,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
                         Functions.toStr(edtAddress)
                         , Functions.toStr(edtArea)
                         , Functions.toStr(edtCity)
-                        , Functions.toStr(edtZipCode), false);
+                        , Functions.toStr(edtZipCode), isSame);
             }
             dismiss();
         }
@@ -175,7 +174,6 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
     private void selectPickAddress() {
         validCheckAddress();
-
     }
 
     public interface onSubmitListener {

@@ -24,8 +24,15 @@
                 android:id="@+id/imageSelectLayout"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@color/off_white"
-                android:elevation="4dp">
+                android:background="@android:color/transparent">
+
+                <ImageView
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_centerInParent="true"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_small_camera"
+                    android:tint="@color/white" />
 
                 <ImageView
                     android:id="@+id/imageCar"
@@ -41,7 +48,7 @@
                     android:layout_alignParentRight="true"
                     android:padding="16dp"
                     android:src="@drawable/ic_edit"
-                    android:tint="@color/black" />
+                    android:tint="@color/white" />
 
             </RelativeLayout>
 
@@ -66,12 +73,17 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <Spinner
+                <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/makeSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/edittext_padding"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:background="@null"
+                    widget:met_baseColor="@color/editTextColor"
+                    widget:met_floatingLabel="highlight"
+                    widget:met_primaryColor="@color/editTextColor"
+                    widget:met_textColorHint="@color/editTextHintColor" />
 
                 <ProgressBar
                     android:id="@+id/makeProgressBar"
@@ -81,25 +93,22 @@
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/yearCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="48dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone">
-
 
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/yearSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/edittext_padding"
                     android:layout_marginRight="@dimen/edittext_padding"
                     android:layout_weight="1"
-                    android:entries="@array/spinner_loading_array"
+                    android:background="@null"
                     android:overlapAnchor="false" />
 
                 <ProgressBar
@@ -109,25 +118,22 @@
                     android:layout_marginRight="8dp" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/modelCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="48dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone">
-
 
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/modelSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/edittext_padding"
                     android:layout_marginRight="@dimen/edittext_padding"
                     android:layout_weight="1"
-                    android:entries="@array/spinner_loading_array"
+                    android:background="@null"
                     android:overlapAnchor="false" />
 
                 <ProgressBar

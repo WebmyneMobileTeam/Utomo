@@ -13,8 +13,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:overScrollMode="never"
-            android:layout_height="240dp" />
+            android:layout_height="240dp"
+            android:overScrollMode="never" />
 
         <ImageView
             android:id="@+id/imgLeft"
@@ -42,17 +42,7 @@
             android:textSize="@dimen/M_TEXT"
             android:visibility="gone" />
 
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/txtReviews"
-            style="@style/MyTextStyleLabel"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Reviews" />
-
         <LinearLayout
-
             android:id="@+id/distanceHolder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,16 +51,17 @@
             android:layout_marginTop="8dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_car_location"
-                android:tint="@color/yellow" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_distance"
+                android:tint="@color/color70" />
 
             <TextView
                 android:id="@+id/txtDistance"
                 style="@style/MyTextStyleLabel"
-
-                android:textColor="@color/yellow" />
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/color70"
+                android:textSize="@dimen/S_TEXT" />
 
         </LinearLayout>
 

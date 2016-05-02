@@ -35,7 +35,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     private CentreMainDetails centreMainDetails;
     private CentreHeaderDetails centreHeaderDetails;
     private ProgressBar mProgressBar;
-    private float distance = 0.0f;
+    private String distance = "";
     private Button btnBook;
 
     @Override
@@ -62,8 +62,10 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
 
         Intent intent = getIntent();
         int serviceCenterId = intent.getExtras().getInt("centreId");
-        distance = intent.getFloatExtra("DistanceKM", 0.0f);
+        distance = intent.getStringExtra("DistanceKM");
         centreDetailsPresnter.fetchServiceCenterDetails(serviceCenterId);
+
+        initToolbar();
     }
 
     @Override
@@ -88,6 +90,8 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
 
     @Override
     public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo) {
+
+        txtCustomTitle.setText(String.format("%s", centreDetailPojo.ServiceCentreName));
         centreHeaderDetails.setDetails(centreDetailPojo, distance);
         centreMainDetails.setDetails(centreDetailPojo);
 

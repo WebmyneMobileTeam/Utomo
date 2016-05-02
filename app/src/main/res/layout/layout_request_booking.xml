@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:padding="4dp"
-            android:text="Request Booking"
+            android:text="Request New Booking"
             android:textColor="?android:textColorSecondary"
             android:textSize="@dimen/N_TEXT"
             android:visibility="visible" />

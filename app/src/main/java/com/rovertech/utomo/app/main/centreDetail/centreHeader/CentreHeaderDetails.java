@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.main.centreDetail.centreHeader;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class CentreHeaderDetails extends LinearLayout {
     private ViewPager viewPager;
     private ImageAdapter adapter;
     private List<String> images = new ArrayList<>();
-    private TextView txtReviews, txtDistance, txtCentreName;
+    private TextView txtDistance, txtCentreName;
     private ImageView imgLeft, imgRight, imgOffer, imgCall, imgStar, imgLocation;
     private LinearLayout distanceHolder;
 
@@ -57,7 +58,6 @@ public class CentreHeaderDetails extends LinearLayout {
         viewPager = (ViewPager) parentView.findViewById(R.id.viewPager);
         initPager();
 
-        txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
         txtDistance = (TextView) parentView.findViewById(R.id.txtDistance);
         txtCentreName = (TextView) parentView.findViewById(R.id.txtCentreName);
         imgLeft = (ImageView) parentView.findViewById(R.id.imgLeft);
@@ -86,7 +86,6 @@ public class CentreHeaderDetails extends LinearLayout {
     }
 
     private void setTypeface() {
-        txtReviews.setTypeface(Functions.getRegularFont(context));
         txtDistance.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtCentreName.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
@@ -97,7 +96,7 @@ public class CentreHeaderDetails extends LinearLayout {
         viewPager.setAdapter(adapter);
     }
 
-    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo, float distance) {
+    public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo, String distance) {
 
         Log.e("Received Image", UtomoApplication.getInstance().getGson().toJson(centreDetailPojo));
         if (centreDetailPojo.lstServiceCentreImage.size() > 0) {
@@ -157,14 +156,13 @@ public class CentreHeaderDetails extends LinearLayout {
             }
         });
 
-        if (distance == 0) {
+        if (TextUtils.isEmpty(distance)) {
             distanceHolder.setVisibility(GONE);
 
         } else {
             distanceHolder.setVisibility(VISIBLE);
-            txtReviews.setText(String.format("%.1f Km", distance));
+            txtDistance.setText(String.format("%s", distance));
         }
-
 
     }
 }

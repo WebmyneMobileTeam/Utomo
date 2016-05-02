@@ -1,6 +1,5 @@
 package com.rovertech.utomo.app.main.booking;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -33,7 +31,7 @@ import com.rovertech.utomo.app.widget.dialog.AddressDialog;
 
 import java.text.SimpleDateFormat;
 
-public class BookingActivity extends AppCompatActivity implements BookingView, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class BookingActivity extends AppCompatActivity implements BookingView, View.OnClickListener {
 
     private Toolbar toolbar;
     private TextView txtCustomTitle;
@@ -55,20 +53,17 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     private TextView txtUsername, txtCarName, txtCarNo;
 
     // Schedule Section
-    private TextView txtSchedule;
     private TextView txtDate, txtTime;
     private CheckBox checkService, checkBodyWash;
 
     // Address Section
-    private CheckBox checkPickup, checkDropoff;
-    private TextView txtSelectPickup, txtSelectDropoff, txtDropoffAddress, txtPickupAddress, txtAddress, txtSelectCar, txtCenterTitle,
-            txtTypeService, txtMyCar, txtPickupTitle, txtDropoffTitle, txtDescriptionTitle;
+    private TextView txtDropoffAddress, txtPickupAddress, txtAddress, txtSelectCar,
+            txtPickupTitle, txtDropoffTitle;
 
     // Promo Section
     private CardView promoCardView, edtPromoCard;
     private RadioGroup radioGroup;
     // private RadioButton radioDefault, radioPromo;
-    private EditText edtPromoCode;
 
     private int ADDRESS_PICK_UP = 1;
     private int ADDRESS_DROP_OFF = 2;
@@ -121,17 +116,12 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         txtDate = (TextView) findViewById(R.id.txtDate);
         txtTime = (TextView) findViewById(R.id.txtTime);
-        txtSchedule = (TextView) findViewById(R.id.txtSchedule);
         checkService = (CheckBox) findViewById(R.id.checkService);
         checkBodyWash = (CheckBox) findViewById(R.id.checkBodyWash);
-        checkPickup = (CheckBox) findViewById(R.id.checkPickup);
-        checkDropoff = (CheckBox) findViewById(R.id.checkDropoff);
 
 
         //checkIsPickUp = (CheckBox) findViewById(R.id.checkIsPickUp);
         //checkIsDrop = (CheckBox) findViewById(R.id.checkIsDrop);
-        txtSelectPickup = (TextView) findViewById(R.id.txtSelectPickup);
-        txtSelectDropoff = (TextView) findViewById(R.id.txtSelectDropoff);
         txtPickupAddress = (TextView) findViewById(R.id.txtPickupAddress);
         txtDropoffAddress = (TextView) findViewById(R.id.txtDropoffAddress);
 
@@ -145,23 +135,15 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         // radioDefault = (RadioButton) findViewById(R.id.radioDefault);
         // radioPromo = (RadioButton) findViewById(R.id.radioPromo);
-        edtPromoCode = (EditText) findViewById(R.id.edtPromoCode);
         //txtApply = (TextView) findViewById(R.id.txtApply);
-        txtCenterTitle = (TextView) findViewById(R.id.txtCenterTitle);
-        txtMyCar = (TextView) findViewById(R.id.txtMyCar);
         txtPickupTitle = (TextView) findViewById(R.id.txtPickupTitle);
         txtDropoffTitle = (TextView) findViewById(R.id.txtDropoffTitle);
-        txtDescriptionTitle = (TextView) findViewById(R.id.txtDescriptionTitle);
-        txtTypeService = (TextView) findViewById(R.id.txtTypeService);
 
         txtDate.setOnClickListener(this);
         txtTime.setOnClickListener(this);
         //txtApply.setOnClickListener(this);
         btnBook.setOnClickListener(this);
         txtSelectCar.setOnClickListener(this);
-
-        txtSelectPickup.setOnClickListener(this);
-        txtSelectDropoff.setOnClickListener(this);
 
         btnPickUpAddressAdd.setOnClickListener(this);
         btnDropAddressAdd.setOnClickListener(this);
@@ -170,53 +152,49 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         btnDropAddressRemove.setOnClickListener(this);
 
-        checkPickup.setOnCheckedChangeListener(this);
-        checkDropoff.setOnCheckedChangeListener(this);
         /*checkIsPickUp.setOnCheckedChangeListener(this);
         checkIsDrop.setOnCheckedChangeListener(this);*/
 
         // radioDefault.setOnClickListener(this);
         // radioPromo.setOnClickListener(this);
-        //setTypeface();
+
+        setTypeface();
+
         bookingRequest = new BookingRequest();
 
     }
 
     private void setTypeface() {
-        btnBook.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtMyCar.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtSelectCar.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtCenterTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtTypeService.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtPickupTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtDropoffTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        btnPickUpAddressAdd.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        btnDropAddressAdd.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        btnPickUpAddressRemove.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        btnDropAddressRemove.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtDescriptionTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-
-        edtDescription.setTypeface(Functions.getRegularFont(this));
-        edtPromoCode.setTypeface(Functions.getRegularFont(this));
-        //  radioDefault.setTypeface(Functions.getRegularFont(this));
-        //  radioPromo.setTypeface(Functions.getRegularFont(this));
-        //txtApply.setTypeface(Functions.getRegularFont(this));
         txtTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
         txtAddress.setTypeface(Functions.getRegularFont(this));
-        txtUsername.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtCarName.setTypeface(Functions.getRegularFont(this));
+
+        txtCarName.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
         txtCarNo.setTypeface(Functions.getRegularFont(this));
+
         txtDate.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
         txtTime.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
-        txtSchedule.setTypeface(Functions.getRegularFont(this));
-        checkService.setTypeface(Functions.getRegularFont(this));
-        checkBodyWash.setTypeface(Functions.getRegularFont(this));
-        checkPickup.setTypeface(Functions.getRegularFont(this));
-        checkDropoff.setTypeface(Functions.getRegularFont(this));
-        txtSelectPickup.setTypeface(Functions.getRegularFont(this));
-        txtSelectDropoff.setTypeface(Functions.getRegularFont(this));
+
+        checkService.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
+        checkBodyWash.setTypeface(Functions.getRegularFont(this), Typeface.BOLD);
+
+        txtPickupTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtDropoffTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        btnPickUpAddressAdd.setTypeface(Functions.getBoldFont(this));
+        btnDropAddressAdd.setTypeface(Functions.getBoldFont(this));
+        btnPickUpAddressRemove.setTypeface(Functions.getBoldFont(this));
+        btnDropAddressRemove.setTypeface(Functions.getBoldFont(this));
+
         txtPickupAddress.setTypeface(Functions.getRegularFont(this));
         txtDropoffAddress.setTypeface(Functions.getRegularFont(this));
+
+        btnBook.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+
+        txtSelectCar.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+
+        edtDescription.setTypeface(Functions.getRegularFont(this));
+
+        txtUsername.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+
     }
 
     private void initToolbar() {
@@ -226,7 +204,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
 
-        txtCustomTitle.setText("Schedule Booking");
+        txtCustomTitle.setText("Booking");
         txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -354,15 +332,28 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             @Override
             public void onSubmit(String address, String area, String city, String zipCode, boolean isSame) {
                 txtPickupAddress.setVisibility(View.VISIBLE);
-                String addressString = String.format("%s ,%s \n%s %s", address, area, city, zipCode);
+                String addressString = String.format("%s, %s, %s, %s", address, area, city, zipCode);
+
                 txtPickupAddress.setText(addressString);
                 bookingRequest.PickAddress = address;
                 bookingRequest.PickArea = area;
                 bookingRequest.PickCity = city;
                 bookingRequest.PickZipCode = zipCode;
                 btnPickUpAddressAdd.setText(getString(R.string.item_booking_edit));
-            }
 
+                if (isSame) {
+                    txtDropoffAddress.setVisibility(View.VISIBLE);
+                    txtDropoffAddress.setText(addressString);
+                    bookingRequest.DropAddress = address;
+                    bookingRequest.DropArea = area;
+                    bookingRequest.DropCity = city;
+                    bookingRequest.DropZipCode = zipCode;
+                    btnDropAddressAdd.setText(getString(R.string.item_booking_edit));
+
+                } else {
+                    txtDropoffAddress.setVisibility(View.INVISIBLE);
+                }
+            }
 
         });
         addressDialog.show();
@@ -390,7 +381,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                     bookingRequest.PickZipCode = zipCode;
                 } else {
                     txtDropoffAddress.setVisibility(View.VISIBLE);
-                    String addressString = String.format("%s ,%s \n%s %s", address, area, city, zipCode);
+                    String addressString = String.format("%s, %s, %s, %s", address, area, city, zipCode);
                     txtDropoffAddress.setText(addressString);
                     bookingRequest.DropAddress = address;
                     bookingRequest.DropArea = area;
@@ -425,39 +416,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         bookingRequest.DropZipCode = "";
 
     }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        switch (buttonView.getId()) {
-
-            case R.id.checkPickup:
-                if (isChecked) {
-                    txtSelectPickup.setVisibility(View.VISIBLE);
-                    if (txtPickupAddress.getText().toString().length() != 0)
-                        txtPickupAddress.setVisibility(View.VISIBLE);
-
-                } else {
-                    txtSelectPickup.setVisibility(View.GONE);
-                    txtPickupAddress.setVisibility(View.GONE);
-                }
-                break;
-
-            case R.id.checkDropoff:
-                if (isChecked) {
-                    txtSelectDropoff.setVisibility(View.VISIBLE);
-                    if (txtDropoffAddress.getText().toString().length() != 0)
-                        txtDropoffAddress.setVisibility(View.VISIBLE);
-
-                } else {
-                    txtDropoffAddress.setVisibility(View.GONE);
-                    txtSelectDropoff.setVisibility(View.GONE);
-                }
-                break;
-
-        }
-    }
-
 
     public void bookRequest() {
 

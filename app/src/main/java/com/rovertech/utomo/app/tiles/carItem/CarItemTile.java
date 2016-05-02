@@ -75,7 +75,7 @@ public class CarItemTile extends LinearLayout {
         txtVehicleNo.setText(carPojo.VehicleNo);
         txtOdometerValue.setText(String.format("%s", carPojo.TravelledKM +" KM"));
 
-        if (carPojo.CarImage == null || carPojo.CarImage.equals("")) {
+        /*if (carPojo.CarImage == null || carPojo.CarImage.equals("")) {
             imgCar.setImageResource(R.drawable.car);
         } else {
             Glide.with(context).load(carPojo.CarImage).asBitmap().centerCrop().into(new SimpleTarget<Bitmap>() {
@@ -103,7 +103,7 @@ public class CarItemTile extends LinearLayout {
 
                 }
             });
-        }
+        }*/
 
     }
 

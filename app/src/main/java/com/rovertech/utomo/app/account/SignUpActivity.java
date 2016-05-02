@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -84,9 +85,14 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         edtEmail.setVisibility(View.VISIBLE);
         edtName.setVisibility(View.VISIBLE);
         edtCity.setVisibility(View.VISIBLE);
-        txtLogin.setVisibility(View.VISIBLE);
         edtCity.setVisibility(View.VISIBLE);
+
         txtSignUp.setVisibility(View.GONE);
+        txtSignUp.setText(Html.fromHtml("<u>New User? Sign Up</u>"));
+
+        txtLogin.setVisibility(View.VISIBLE);
+        txtLogin.setText(Html.fromHtml("<u>Already User? Login</u>"));
+
         txtForget.setVisibility(View.GONE);
         socialBar.setVisibility(View.GONE);
         txtOr.setVisibility(View.GONE);

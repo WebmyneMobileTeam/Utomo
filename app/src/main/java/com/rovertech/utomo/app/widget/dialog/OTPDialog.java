@@ -3,7 +3,6 @@ package com.rovertech.utomo.app.widget.dialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +24,7 @@ public class OTPDialog extends BaseDialog implements View.OnClickListener {
     private TextView txtTitle, txtNote;
     private ImageView imgClose;
     private EditText edtOTP;
-    private Button btnVerify;
+    private TextView btnVerify;
     private String otp;
 
     onSubmitListener onSubmitListener;
@@ -51,7 +50,7 @@ public class OTPDialog extends BaseDialog implements View.OnClickListener {
         txtNote = (TextView) parentView.findViewById(R.id.txtNote);
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
         edtOTP = (EditText) parentView.findViewById(R.id.edtOTP);
-        btnVerify = (Button) parentView.findViewById(R.id.btnVerify);
+        btnVerify = (TextView) parentView.findViewById(R.id.btnVerify);
 
         edtOTP.setText(otp);
 

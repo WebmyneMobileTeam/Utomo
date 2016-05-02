@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/textView"
-    style="@style/MyEditTextStyle"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:lines="1"
-    android:text="kdnfdfn"
-    android:clickable="false"
-    android:textColor="@color/white" />
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:drawableRight="@drawable/ic_arrow"
+        android:lines="1"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp"
+        android:text="Select Make"
+        android:textColor="@color/white"
+        android:textSize="@dimen/M_TEXT" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/editTextHintColor" />
+
+</LinearLayout>
