@@ -3,7 +3,6 @@ package com.rovertech.utomo.app.widget.performanceWidget;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.liulishuo.magicprogresswidget.MagicProgressBar;
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.home.car.model.Performance;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -93,7 +91,7 @@ public class PerformanceTileItem extends LinearLayout {
             public void onClick(View v) {
                 if (performance.Type == 0) {
                     if (onResetListener != null)
-                        onResetListener.onReset(performance.CarPerformanceMatrixID, "");
+                        onResetListener.onReset(performance.CarPerformanceMatrixID, "", performance.CriteriaName);
                 } else {
                     selectDate();
                 }
@@ -111,7 +109,7 @@ public class PerformanceTileItem extends LinearLayout {
                     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
                         String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
                         if (onResetListener != null)
-                            onResetListener.onReset(performance.CarPerformanceMatrixID, date);
+                            onResetListener.onReset(performance.CarPerformanceMatrixID, date, performance.CriteriaName);
                     }
                 },
                 now.get(Calendar.YEAR),
@@ -123,7 +121,7 @@ public class PerformanceTileItem extends LinearLayout {
     }
 
     public interface onResetListener {
-        public void onReset(int matricesId, String date);
+        void onReset(int matricesId, String date, String matricesName);
     }
 
 

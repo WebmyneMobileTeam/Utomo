@@ -29,13 +29,13 @@
                     android:tint="#40000000" />
 
                 <com.rovertech.utomo.app.widget.labelView.LabelImageView
-                    android:id="@+id/offerAvailable"
+                    android:id="@+id/sponsoredLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     app:label_backgroundColor="@color/button_bg"
                     app:label_orientation="RIGHT_TOP"
-                    app:label_text="Offer"
+                    app:label_text="@string/sponsored"
                     app:label_textColor="@color/black"
                     app:label_textSize="@dimen/S_TEXT"
                     app:label_typeface="custombold.otf" />
@@ -107,10 +107,19 @@
                         android:orientation="horizontal"
                         android:padding="4dp">
 
+                        <ImageView
+                            android:id="@+id/imgOffer"
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/ic_offer"
+                            android:layout_gravity="right"
+                            android:tint="@color/button_bg"
+                            android:layout_height="wrap_content" />
+
                         <TextView
                             android:id="@+id/txtRating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
                             android:background="@drawable/review_border_new"
                             android:padding="4dp"
                             android:text="4.5/5"

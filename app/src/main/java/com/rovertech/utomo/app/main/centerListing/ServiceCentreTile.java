@@ -28,8 +28,13 @@ public class ServiceCentreTile extends LinearLayout {
     private ImageView imgCenter;
     private CardView cardLayout;
     LinearLayout.LayoutParams params;
-    private LabelImageView offerAvailable;
+    private LabelImageView sponsoredLabelView;
+    private ImageView imgOffer;
     private LinearLayout distanceLayout;
+
+    public ServiceCentreTile(Context context) {
+        super(context);
+    }
 
     public ServiceCentreTile(Context context, View view) {
         super(context);
@@ -39,9 +44,7 @@ public class ServiceCentreTile extends LinearLayout {
     }
 
     private void init() {
-
         findViewById();
-
         setTypeface();
 
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -57,6 +60,7 @@ public class ServiceCentreTile extends LinearLayout {
     }
 
     private void findViewById() {
+        imgOffer = (ImageView) parentView.findViewById(R.id.imgOffer);
         distanceLayout = (LinearLayout) parentView.findViewById(R.id.distanceLayout);
         serviceTypeLayout = (FlowLayout) parentView.findViewById(R.id.serviceTypeLayout);
         serviceTypeLayout.setOrientation(HORIZONTAL);
@@ -66,10 +70,10 @@ public class ServiceCentreTile extends LinearLayout {
         txtReviews = (TextView) parentView.findViewById(R.id.txtReviews);
         txtDistance = (TextView) parentView.findViewById(R.id.txtDistance);
         cardLayout = (CardView) parentView.findViewById(R.id.cardLayout);
-        offerAvailable = (LabelImageView) parentView.findViewById(R.id.offerAvailable);
+        sponsoredLabelView = (LabelImageView) parentView.findViewById(R.id.sponsoredLabelView);
     }
 
-    public void setDetails(final ServiceCenterPojo centerPojo) {
+    public void setDetails(final ServiceCenterPojo centerPojo, boolean isRecommended) {
 
         Functions.LoadImage(imgCenter, centerPojo.ServiceCentreImage, context);
 
@@ -91,9 +95,9 @@ public class ServiceCentreTile extends LinearLayout {
         }
 
         if (centerPojo.IsOfferAvaill) {
-            offerAvailable.setVisibility(VISIBLE);
+            imgOffer.setVisibility(VISIBLE);
         } else {
-            offerAvailable.setVisibility(GONE);
+            imgOffer.setVisibility(GONE);
         }
 
         if (centerPojo.IsBodyWash) {
@@ -112,6 +116,12 @@ public class ServiceCentreTile extends LinearLayout {
         } else {
             distanceLayout.setVisibility(VISIBLE);
             txtDistance.setText(String.format("%s", centerPojo.DistanceKM));
+        }
+
+        if (isRecommended) {
+            sponsoredLabelView.setVisibility(VISIBLE);
+        } else {
+            sponsoredLabelView.setVisibility(GONE);
         }
 
         cardLayout.setOnClickListener(new OnClickListener() {

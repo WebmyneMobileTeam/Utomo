@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -56,7 +55,6 @@ public class DashboardFragment extends Fragment implements DashboardView {
     private DashboardPresenter presenter;
     private ProgressDialog progressDialog;
     private TextView txtNoCar;
-    private LinearLayout pagerLayout;
     private FloatingActionButton fab;
 
     public DashboardFragment() {
@@ -70,7 +68,6 @@ public class DashboardFragment extends Fragment implements DashboardView {
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-
         init();
 
         presenter = new DashboardPresenterImpl(this);
@@ -80,15 +77,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
         return parentView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
     private void init() {
 
-        
         activity = (DrawerActivity) getActivity();
 
         //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
@@ -136,10 +126,11 @@ public class DashboardFragment extends Fragment implements DashboardView {
         adapter = new CarFragmentPagerAdapter(getActivity().getSupportFragmentManager(), getActivity(), data);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(0);
+
         viewPager.setOffscreenPageLimit(0);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
+
             if (i == 0) {
                 PrefUtils.setCurrentCarSelected(getActivity(), data.get(0));
             }
@@ -157,6 +148,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
             public void onPageSelected(int position) {
 
                 PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
+                PrefUtils.setCurrentPosition(getActivity(), position);
             }
 
             @Override
@@ -164,6 +156,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
             }
         });
+
+        viewPager.setCurrentItem(PrefUtils.getCurrentPosition(getActivity()));
     }
 
     @Override

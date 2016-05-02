@@ -28,6 +28,7 @@ public class PrefUtils {
     public static String DEVICE_ID = "Device_ID";
     public static String CURRENT_CAR_SELECTED = "CURRENT_CAR_SELECTED";
     public static String CURRENT_CENTER_SELECTED = "CURRENT_CENTER_SELECTED";
+    public static String PAGER_POSITION = "PAGER_POSITION";
 
     public static final String RedirectLogin = "RedirectLogin";
 
@@ -111,6 +112,14 @@ public class PrefUtils {
 
         }
         return feedBackList;
+    }
+
+    public static void setCurrentPosition(Context context, int position) {
+        Prefs.with(context).save(PAGER_POSITION, position);
+    }
+
+    public static int getCurrentPosition(Context ctx) {
+        return Prefs.with(ctx).getInt(PAGER_POSITION, 0);
     }
 
     public static void setCurrentCarSelected(Context context, CarPojo carPojo) {

@@ -18,10 +18,12 @@ public class ServiceCentreListAdapter extends RecyclerView.Adapter<ServiceCentre
 
     Context context;
     List<ServiceCenterPojo> centerArrayList;
+    boolean isRecommended = false;
 
-    public ServiceCentreListAdapter(Context context, List<ServiceCenterPojo> centerArrayList) {
+    public ServiceCentreListAdapter(Context context, List<ServiceCenterPojo> centerArrayList, boolean isRecommended) {
         this.context = context;
         this.centerArrayList = centerArrayList;
+        this.isRecommended = isRecommended;
     }
 
     public void setCentreList(List<ServiceCenterPojo> centerArrayList) {
@@ -43,7 +45,7 @@ public class ServiceCentreListAdapter extends RecyclerView.Adapter<ServiceCentre
 
         ServiceCenterPojo centerPojo = centerArrayList.get(position);
         if (centerPojo != null)
-            holder.serviceCentreTile.setDetails(centerPojo);
+            holder.serviceCentreTile.setDetails(centerPojo, isRecommended);
 
     }
 

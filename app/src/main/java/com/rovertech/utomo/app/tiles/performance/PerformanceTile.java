@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.rovertech.utomo.app.R;
@@ -137,12 +136,12 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
     }
 
     @Override
-    public void onReset(int matricesId, String date) {
+    public void onReset(int matricesId, String date, String matricesName) {
         if (onPerformanceResetListener != null)
-            onPerformanceResetListener.onReset(matricesId, date);
+            onPerformanceResetListener.onReset(matricesId, date, matricesName);
     }
 
     public interface onPerformanceResetListener {
-        public void onReset(int matricesId, String date);
+        void onReset(int matricesId, String date, String matricesName);
     }
 }

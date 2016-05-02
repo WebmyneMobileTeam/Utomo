@@ -98,7 +98,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         }
 
         badgeHelper = new BadgeHelper(this, menu.findItem(R.id.action_notification), ActionItemBadge.BadgeStyles.GREY);
-        presenter.setNotificationBadge(badgeHelper,6);
+        presenter.setNotificationBadge(badgeHelper, 6);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView iv = (ImageView) inflater.inflate(R.layout.iv_offer, null);
@@ -172,9 +172,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
                         if (offerItem != null && OfferSize >= 1) {
                             showOfferIcon();
                         }
-                    }
-                    else
-                    {
+                    } else {
                         hideOfferIcon();
                     }
                 } catch (Exception e) {
@@ -188,7 +186,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             }
         });
     }
-
 
 
     public void setHeaderTitle(String title) {
@@ -269,6 +266,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
                         if (identifier == 0) {
                             presenter.openDashboard();
+                            PrefUtils.setCurrentPosition(DrawerActivity.this, 0);
 
                         } else if (identifier == 1) {
                             presenter.openWallet();
@@ -392,5 +390,11 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
             }
         });
         alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        PrefUtils.setCurrentPosition(this, 0);
     }
 }

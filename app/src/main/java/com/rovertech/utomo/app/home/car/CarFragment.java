@@ -135,7 +135,7 @@ public class CarFragment extends Fragment implements CarView {
             }
         });
 
-        swipe_car_refresh = (SwipeRefreshLayout)parentView.findViewById(R.id.swipe_refresh_car);
+        swipe_car_refresh = (SwipeRefreshLayout) parentView.findViewById(R.id.swipe_refresh_car);
 
         swipe_car_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -147,9 +147,9 @@ public class CarFragment extends Fragment implements CarView {
 
     @Override
     public void showProgress() {
-        if(swipe_car_refresh.isRefreshing()){
+        if (swipe_car_refresh.isRefreshing()) {
 
-        }else{
+        } else {
             progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
         }
 
@@ -194,11 +194,11 @@ public class CarFragment extends Fragment implements CarView {
         performanceTile.setPerformance(data.lstPerformance);
         performanceTile.setOnPerformanceResetListener(new PerformanceTile.onPerformanceResetListener() {
             @Override
-            public void onReset(final int matricesId, final String date) {
+            public void onReset(final int matricesId, final String date, String matricesName) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         getActivity());
                 alertDialogBuilder.setTitle("Reset")
-                        .setMessage("Are you sure want to reset this performance matrices?")
+                        .setMessage(String.format("Are you sure want to reset %s metric?", matricesName))
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {

@@ -101,7 +101,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         presenter.setLocation(userLatitude, userLongitude, cityId);
 
         centerList = new ArrayList<>();
-        adapter = new ServiceCentreListAdapter(ServiceCenterListActivity.this, centerList);
+        adapter = new ServiceCentreListAdapter(ServiceCenterListActivity.this, centerList, false);
         recyclerView.setAdapter(adapter);
 
         presenter.fetchCentreList(lastCentreId, this, type, isBodyShop, isPickup);
@@ -229,6 +229,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private void actionListeners() {
         fab.setOnClickListener(this);
         btnApply.setOnClickListener(this);
+        btnReset.setOnClickListener(this);
 
         switchBodyShop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -371,10 +372,12 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                 break;
 
             case R.id.btnReset:
+                switchBodyShop.setChecked(true);
+                switchPickup.setChecked(true);
                 drawerLayout.closeDrawer(Gravity.RIGHT);
                 lastCentreId = 0;
                 centerList = new ArrayList<>();
-                presenter.fetchCentreList(lastCentreId, this, type, false, false);
+                presenter.fetchCentreList(lastCentreId, this, type, true, true);
                 break;
         }
     }
@@ -428,14 +431,12 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     @Override
     public void showMapContainer() {
-
         mapContainer.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_list_white);
     }
 
     @Override
     public void hideMapContainer() {
-
         mapContainer.setVisibility(View.GONE);
     }
 

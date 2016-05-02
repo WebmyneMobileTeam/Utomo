@@ -9,10 +9,10 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switchOffer"
@@ -20,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="Offers"
-                android:textSize="@dimen/M_TEXT" />
+                android:textSize="@dimen/M_TEXT"
+                android:theme="@style/SwitchStyle" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switchBooking"
@@ -28,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="Booking Status"
-                android:textSize="@dimen/M_TEXT" />
+                android:textSize="@dimen/M_TEXT"
+                android:theme="@style/SwitchStyle" />
 
         </LinearLayout>
 

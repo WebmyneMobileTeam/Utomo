@@ -43,6 +43,6 @@ public class DashboardData implements Serializable {
 
     public ArrayList<Performance> lstPerformance;
 
-    public ArrayList<SponsoredCenter> lstReferTile;
+    public ArrayList<ServiceCenterPojo> lstReferTile;
 
 }
