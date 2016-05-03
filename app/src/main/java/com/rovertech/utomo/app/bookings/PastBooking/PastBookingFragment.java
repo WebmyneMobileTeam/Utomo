@@ -1,10 +1,11 @@
 package com.rovertech.utomo.app.bookings.PastBooking;
 
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,6 @@ public class PastBookingFragment extends Fragment implements BookingView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-
         parentView = inflater.inflate(R.layout.fragment_current_booking, container, false);
         initView(parentView);
         bookingPresenter = new BookingPresenterImpl(this);
@@ -58,6 +58,7 @@ public class PastBookingFragment extends Fragment implements BookingView {
     @Override
     public void initView(View view) {
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override

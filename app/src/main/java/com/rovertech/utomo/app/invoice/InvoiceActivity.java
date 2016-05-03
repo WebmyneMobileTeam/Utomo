@@ -93,7 +93,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
         presenter = new InvoicePresenterImpl(InvoiceActivity.this, this);
         bookinId = getIntent().getIntExtra("bookingId", 0);
-        presenter.getTransactionProcessDetails(bookinId);
+        presenter.getTransactionProcessDetails(9);
     }
 
     @Override

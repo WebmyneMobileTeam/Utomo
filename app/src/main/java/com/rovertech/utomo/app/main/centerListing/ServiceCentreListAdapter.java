@@ -46,9 +46,7 @@ public class ServiceCentreListAdapter extends RecyclerView.Adapter<ServiceCentre
         ServiceCenterPojo centerPojo = centerArrayList.get(position);
         if (centerPojo != null)
             holder.serviceCentreTile.setDetails(centerPojo, isRecommended);
-
     }
-
 
     @Override
     public int getItemCount() {

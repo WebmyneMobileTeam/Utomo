@@ -229,4 +229,58 @@ public class BookingPresenterImpl implements BookingPresenter {
         });
 
     }
+
+    @Override
+    public void fetchCarList(final Context context, final String dealership) {
+
+        final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading.", "Please Wait..", false, false);
+
+        final ArrayList<CarPojo> carList = new ArrayList<>();
+        FetchVehicleRequest request = new FetchVehicleRequest(context);
+        Log.e("req", Functions.jsonString(request));
+
+        FetchVehicleListService service = UtomoApplication.retrofit.create(FetchVehicleListService.class);
+        Call<VehicleListResponse> responseCall = service.doFetchVehicleList(request);
+        responseCall.enqueue(new Callback<VehicleListResponse>() {
+            @Override
+            public void onResponse(Call<VehicleListResponse> call, Response<VehicleListResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.body() == null) {
+                    Functions.showToast(context, "Error occurred.");
+                } else {
+                    Log.e("res", Functions.jsonString(response.body()));
+
+                    VehicleListResponse vehicleListResponse = response.body();
+                    if (vehicleListResponse.FetchVehicleList.ResponseCode == 1) {
+
+                        if (vehicleListResponse.FetchVehicleList.Data.size() > 0) {
+
+                            for (CarPojo carPojo : vehicleListResponse.FetchVehicleList.Data) {
+
+                                if (carPojo.Make.equals(dealership)) {
+                                    carList.add(carPojo);
+                                }
+                            }
+                            bookingView.setCarList(carList);
+
+                        } else {
+                            Functions.showToast(context, "You don't have any car");
+                        }
+
+                    } else {
+                        Functions.showToast(context, vehicleListResponse.FetchVehicleList.ResponseMessage);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<VehicleListResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Functions.showToast(context, t.getMessage());
+
+            }
+        });
+
+    }
 }

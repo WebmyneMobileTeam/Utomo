@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_horizontal_line"
         android:layout_marginRight="@dimen/margin_horizontal_line"
-        android:textSize="@dimen/M_TEXT"/>
-
+        android:textSize="@dimen/M_TEXT" />
 
 
 </LinearLayout>

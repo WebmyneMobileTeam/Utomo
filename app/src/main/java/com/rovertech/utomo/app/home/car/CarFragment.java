@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
@@ -128,7 +126,7 @@ public class CarFragment extends Fragment implements CarView {
             @Override
             public void onClick(View v) {
                 if (PrefUtils.getCurrentCarSelected(getActivity()).CurrentBooking) {
-                    Functions.showErrorAlert(getActivity(), "Cant' Book", AppConstant.ALREADY_BOOK);
+                    Functions.showErrorAlert(getActivity(), "Can't Book", AppConstant.ALREADY_BOOK);
                 } else {
                     presenter.openCenterListing();
                 }

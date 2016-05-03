@@ -25,7 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="145dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/slider3"
+                    android:src="@drawable/service_center"
                     android:tint="#40000000" />
 
                 <com.rovertech.utomo.app.widget.labelView.LabelImageView
@@ -38,7 +38,7 @@
                     app:label_text="@string/sponsored"
                     app:label_textColor="@color/black"
                     app:label_textSize="@dimen/S_TEXT"
-                    app:label_typeface="custombold.otf" />
+                    app:label_typeface="OpenSans-Regular.ttf" />
 
             </FrameLayout>
 

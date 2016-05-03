@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,6 +31,7 @@ import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.dialog.AddressDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class BookingActivity extends AppCompatActivity implements BookingView, View.OnClickListener {
 
@@ -77,6 +79,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     private String dealerShip = "";
     private int redirectFrom = 0;
     private boolean isCarSelected = false;
+
+    private ArrayList<CarPojo> carList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,6 +223,9 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     @Override
     public void setDetails() {
 
+        centreDetailPojo = PrefUtils.getCurrentCenter(this);
+        dealerShip = centreDetailPojo.Dealership;
+
         if (redirectFrom == AppConstant.FROM_SC_LIST) {
 
             isCarSelected = true;
@@ -236,20 +243,13 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             }
 
         } else {
-            isCarSelected = false;
-            txtUsername.setVisibility(View.GONE);
-            txtCarNo.setVisibility(View.GONE);
-            txtCarName.setVisibility(View.GONE);
-            txtSelectCar.setVisibility(View.VISIBLE);
+            carList = new ArrayList<>();
+            presenter.fetchCarList(this, centreDetailPojo.Dealership);
         }
 
-        centreDetailPojo = PrefUtils.getCurrentCenter(this);
-        dealerShip = centreDetailPojo.Dealership;
+        txtTitle.setText(centreDetailPojo.ServiceCentreName);
+        txtAddress.setText(centreDetailPojo.Address1);
 
-        if (centreDetailPojo != null) {
-            txtTitle.setText(centreDetailPojo.ServiceCentreName);
-            txtAddress.setText(centreDetailPojo.Address1);
-        }
     }
 
     @Override
@@ -271,6 +271,33 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         txtCarNo.setText(String.format("%s", carPojo.VehicleNo));
         isCarSelected = true;
 
+    }
+
+    @Override
+    public void setCarList(ArrayList<CarPojo> carList) {
+        this.carList = carList;
+
+        if (carList.size() > 0) {
+            carPojo = carList.get(0);
+
+            Log.e("car", Functions.jsonString(carList.get(0)));
+
+            isCarSelected = true;
+            txtUsername.setVisibility(View.GONE);
+            txtCarNo.setVisibility(View.VISIBLE);
+            txtCarName.setVisibility(View.VISIBLE);
+            txtSelectCar.setVisibility(View.VISIBLE);
+
+            txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
+            txtCarNo.setText(String.format("%s", carPojo.VehicleNo));
+
+        } else {
+            isCarSelected = false;
+            txtUsername.setVisibility(View.GONE);
+            txtCarNo.setVisibility(View.GONE);
+            txtCarName.setVisibility(View.GONE);
+            txtSelectCar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -305,7 +332,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             case R.id.btnBook:
                 if (isCarSelected)
-                    bookRequest();
+                    if (carPojo.CurrentBooking) {
+                        Functions.showErrorAlert(BookingActivity.this, "Can't Book", AppConstant.ALREADY_BOOK);
+                    } else {
+                        bookRequest();
+                    }
                 else
                     Functions.showToast(this, "Select car");
                 break;

@@ -154,6 +154,6 @@
 
     <string name="ruppee">\u20B9</string>
     <string name="no_transactions">No Latest Transactions</string>
-
+    <string name="view_all">View All Transactions</string>
 
 </resources>

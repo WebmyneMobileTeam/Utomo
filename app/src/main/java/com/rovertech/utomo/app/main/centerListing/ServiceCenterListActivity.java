@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -39,6 +40,8 @@ import com.rovertech.utomo.app.account.model.City;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerViewOnScrollListener;
 
@@ -153,6 +156,13 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         initRecycler();
 
+        if (type == AppConstant.BY_CITY) {
+            edtCity.setText(String.format("%s", PrefUtils.getUserFullProfileDetails(this).CityName));
+            edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
+        } else if (type == AppConstant.BY_LAT_LNG) {
+            edtCity.setText("");
+        }
+
         edtCity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -167,7 +177,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 0) {
-                    edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_navigation_close, 0);
+                    edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
                     presenter.fetchCity(ServiceCenterListActivity.this, s.toString());
                 } else if (s.toString().length() == 0) {
                     edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -462,5 +472,16 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         listLayout.setVisibility(View.GONE);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (PrefUtils.isUserLoggedIn(this)) {
+            Intent intent = new Intent(this, DrawerActivity.class);
+            intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            finish();
+        }
+    }
 }
