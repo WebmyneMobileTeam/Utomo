@@ -41,6 +41,7 @@ public class AppConstant {
     final public static String FETCH_ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
     final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/";
     final public static String RESCHEDUAL_BOOKING = BASE_URL + "BookingActivities.svc/json/RescheduleBookingResponce";
+    final public static String FETCH_SC_OFFER = BASE_URL + "UserActivities.svc/json/FetchServiceCentreOffer/";
     //final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/59";
 
 

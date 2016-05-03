@@ -5,17 +5,25 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.helper.BadgeHelper;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.notification.NotificationActivity;
 import com.rovertech.utomo.app.main.startup.StartupActivity;
+import com.rovertech.utomo.app.offers.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.AdminOffersLIstingActivity;
+import com.rovertech.utomo.app.offers.model.AdminOfferResp;
 import com.rovertech.utomo.app.widget.LocationFinder;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by sagartahelyani on 07-03-2016.
@@ -136,4 +144,6 @@ public class DrawerPresenterImpl implements DrawerPresenter {
         //Functions.showErrorAlert(context, "GPS Disabled", "Could not able to fetch your location. Please enable your GPS");
         Toast.makeText(context, "Could not able to fetch your location. Please enable your GPS", Toast.LENGTH_SHORT).show();
     }
+
+
 }

@@ -25,17 +25,17 @@ public class BadgeHelper {
     }
 
     public void displayBadge(int count) {
-        if (count > 0) {
-            ActionItemBadge.update(context, menuItem, menuItem.getIcon(), badgeStyles, count);
 
-        } else {
-            ImageView img = (ImageView) menuItem.getActionView().findViewById(R.id.menu_badge_icon);
-            TextView textView = (TextView) menuItem.getActionView().findViewById(R.id.menu_badge);
-            img.setImageDrawable(menuItem.getIcon());
-            textView.setVisibility(View.GONE);
-        }
         try {
+            if (count > 0) {
+                ActionItemBadge.update(context, menuItem, menuItem.getIcon(), badgeStyles, count);
 
+            } else {
+                ImageView img = (ImageView) menuItem.getActionView().findViewById(R.id.menu_badge_icon);
+                TextView textView = (TextView) menuItem.getActionView().findViewById(R.id.menu_badge);
+                img.setImageDrawable(menuItem.getIcon());
+                textView.setVisibility(View.GONE);
+            }
 
         } catch (Exception e) {
 

@@ -68,15 +68,13 @@
                     android:id="@+id/linearServiceDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linearOfferDiscountsDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                </LinearLayout>
+                    android:orientation="vertical"></LinearLayout>
 
                 <include layout="@layout/item_line" />
 
@@ -142,13 +140,13 @@
             android:textColor="@color/white"
             android:text="Avail Discounts From One of Our Offers!" />
 
-    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-        android:id="@+id/adminOffersRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_8"
-        android:scrollbars="vertical"
-        app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
+        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
+            android:id="@+id/adminOffersRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:scrollbars="vertical"
+            app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
 
     </LinearLayout>
 

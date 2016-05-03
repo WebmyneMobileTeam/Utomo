@@ -15,4 +15,5 @@ public interface OfferView {
 
     void HideProgressDialog();
 
+    void setUpRecyclerView(AdminOfferAdapter adminOfferAdapter);
 }

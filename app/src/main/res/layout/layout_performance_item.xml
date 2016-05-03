@@ -41,7 +41,7 @@
             app:mpb_fill_color="@color/color40"
             app:mpb_background_color="@color/off_white"
             app:mpc_stroke_width="32dp"
-            app:mpb_flat="true"/>
+            app:mpb_flat="true" />
 
     </LinearLayout>
 

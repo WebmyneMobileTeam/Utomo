@@ -54,15 +54,13 @@ public class NotificationPresenterImpl implements NotificationPresenter {
 
     @Override
     public void callNotificationApi(int userid, final int type) {
-        mNotificationView.showProgreessDialog();
-
         NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
         Call<NotificationResp> call = api.notificationApi(userid);
 
         call.enqueue(new Callback<NotificationResp>() {
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
-                mNotificationView.hideProgreessDialog();
+
                 try {
                     notificationItems = new ArrayList<>();
                     Log.e("onResponse", Functions.jsonString(response.body()));
@@ -78,7 +76,6 @@ public class NotificationPresenterImpl implements NotificationPresenter {
             @Override
             public void onFailure(Call<NotificationResp> call, Throwable t) {
                 Log.e("error", t.toString());
-                mNotificationView.hideProgreessDialog();
             }
         });
     }

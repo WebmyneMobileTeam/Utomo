@@ -83,6 +83,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 }
             });
         }
+        else
+        {
+            holder.llAccpRej.setVisibility(View.GONE);
+        }
     }
 
     public void clear() {
@@ -92,7 +96,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     // Add a list of items
     public void addAll(ArrayList<NotificationItem> entries) {
-        notificationItems.addAll(entries);
+       // notificationItems.addAll(entries);
+        notificationItems = entries;
         notifyDataSetChanged();
     }
 

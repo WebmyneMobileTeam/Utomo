@@ -41,11 +41,9 @@
                 android:layout_height="wrap_content"
                 android:text="AADXJ23"
                 android:layout_alignParentRight="true"
-                style="@style/BodyTextStyle"
-                />
+                style="@style/BodyTextStyle" />
 
         </RelativeLayout>
-
 
 
         <TextView

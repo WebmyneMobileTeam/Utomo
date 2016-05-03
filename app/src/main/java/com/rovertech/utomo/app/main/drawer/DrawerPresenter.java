@@ -38,5 +38,4 @@ public interface DrawerPresenter {
 
     void openOffersPage(Context context);
 
-
 }

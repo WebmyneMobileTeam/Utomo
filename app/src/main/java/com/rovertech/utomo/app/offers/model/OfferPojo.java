@@ -14,6 +14,8 @@ public class OfferPojo implements Serializable {
 
     public String Description;
 
+    public String OfferType;
+
     public String OfferCode;
 
     public String OfferImage;

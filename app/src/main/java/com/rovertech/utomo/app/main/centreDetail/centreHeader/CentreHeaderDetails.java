@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centreDetail.centreHeader;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 import com.rovertech.utomo.app.main.centreDetail.ImageAdapter;
 import com.rovertech.utomo.app.main.centreDetail.centreReviews.CentreReviewsActivity;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
@@ -101,7 +103,6 @@ public class CentreHeaderDetails extends LinearLayout {
         Log.e("Received Image", UtomoApplication.getInstance().getGson().toJson(centreDetailPojo));
         if (centreDetailPojo.lstServiceCentreImage.size() > 0) {
 
-
             if (centreDetailPojo.lstServiceCentreImage.size() == 1) {
 
                 imgLeft.setVisibility(GONE);
@@ -121,8 +122,10 @@ public class CentreHeaderDetails extends LinearLayout {
         imgOffer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.fireIntent(context, CentreOfferActivity.class);
-
+               // Functions.fireIntent(context, CentreOfferActivity.class);
+                Intent intent = new Intent(context, CentreOfferActivity.class);
+                intent.putExtra("centreId", centreDetailPojo.ServiceCentreID);
+                context.startActivity(intent);
             }
         });
 

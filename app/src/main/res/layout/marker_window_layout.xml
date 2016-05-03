@@ -44,16 +44,16 @@
                 android:textColor="@color/black" />
 
             <!--<TextView-->
-                <!--android:id="@+id/txtViewDetails"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:layout_toRightOf="@+id/imageView"-->
-                <!--android:clickable="true"-->
-                <!--android:gravity="center"-->
-                <!--android:padding="4dp"-->
-                <!--android:text="Click to view details" />-->
+            <!--android:id="@+id/txtViewDetails"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_toRightOf="@+id/imageView"-->
+            <!--android:clickable="true"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="4dp"-->
+            <!--android:text="Click to view details" />-->
 
 
         </LinearLayout>

@@ -27,26 +27,27 @@ import java.util.List;
  */
 public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickListener {
 
-    View parentView;
-    Context context;
+    private View parentView;
+    private Context context;
 
     private TextView txtTitle, txtTitle1, emptyTextView;
     private ImageView imgClose;
     private ListView carListView;
     ArrayList<OfferCategory> offerList;
 
-    onSubmitListener onSubmitListener;
-    String type, title,desc;
+    private onSubmitListener onSubmitListener;
+    private String type, title,desc;
+    boolean adminFlag;
 
     public void setOnSubmitListener(AdminOfferInfoDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
 
-    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, String type, String title,String desc) {
+    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, boolean adminFlag, String title,String desc) {
         super(context);
         this.offerList = offerlist;
         this.context = context;
-        this.type = type;
+        this.adminFlag = adminFlag;
         this.title = title;
         this.desc=desc;
     }
@@ -154,7 +155,7 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
             super.onPostExecute(offerCategories);
             dialog.dismiss();
 
-            AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerCategories);
+            AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerCategories,adminFlag);
             adapter.setItemList(offerCategories);
             adapter.notifyDataSetChanged();
             carListView.setAdapter(adapter);

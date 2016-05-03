@@ -21,6 +21,7 @@ import com.rovertech.utomo.app.main.notification.adapter.NotificationAdapter;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationPresenter;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationPresenterImpl;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationView;
+import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 public class NotificationActivity extends AppCompatActivity implements NotificationView {
 
@@ -30,7 +31,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     private ProgressDialog dialog;
     private NotificationPresenter mNotificationPresenter;
     private int userID;
-    private RecyclerView notificationsFamiliarRecyclerView;
+    private FamiliarRecyclerView notificationsFamiliarRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -52,8 +53,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     @Override
     public void init() {
         parentView = findViewById(android.R.id.content);
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Please wait");
+
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,7 +73,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
 
     @Override
     public void setUpRecyclerView(NotificationAdapter notificationAdapter) {
-        notificationsFamiliarRecyclerView = (RecyclerView) findViewById(R.id.notificationsRecyclerView);
+        notificationsFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
         notificationsFamiliarRecyclerView.setHasFixedSize(true);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         notificationsFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
@@ -101,15 +101,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         refreshItems();
     }
 
-    @Override
-    public void showProgreessDialog() {
-        dialog.show();
-    }
 
-    @Override
-    public void hideProgreessDialog() {
-        dialog.hide();
-    }
 
     private void initToolbar() {
 

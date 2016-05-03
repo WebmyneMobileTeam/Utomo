@@ -34,13 +34,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
 
-           <TextView
-               android:id="@+id/txtView"
-               style="@style/MyTextStyle"
-               android:layout_width="match_parent"
-               android:text="@string/success"
-               android:textAllCaps="false"
-               android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtView"
+                style="@style/MyTextStyle"
+                android:layout_width="match_parent"
+                android:text="@string/success"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content" />
 
         </android.support.v7.widget.CardView>
 

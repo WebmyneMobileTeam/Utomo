@@ -33,7 +33,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
 
     private Toolbar toolbar;
     private TextView txtCustomTitle;
-    private ArrayList<OfferPojo> itemList = new ArrayList<>();
+
     private AdminOfferPresenter mAdminOfferPresenter;
     private ProgressDialog dialog;
 
@@ -43,7 +43,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
         setContentView(R.layout.activity_admin_offers_listing);
         dialog = new ProgressDialog(this);
         dialog.setTitle("Please wait....");
-        mAdminOfferPresenter = new AdminOfferPresenterImpl(this);
+        mAdminOfferPresenter = new AdminOfferPresenterImpl(this,this);
         mAdminOfferPresenter.init();
 
     }
@@ -56,7 +56,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
             Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);
 
         } else {
-            callOfferApi();
+            mAdminOfferPresenter.callOfferApi();
 
         }
 
@@ -77,19 +77,17 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
         dialog.dismiss();
     }
 
-
-    public void setUpRecyclerView() {
-
+    @Override
+    public void setUpRecyclerView(AdminOfferAdapter adminOfferAdapter) {
         FamiliarRecyclerView OfferFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
         // OfferFamiliarRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         OfferFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
-        Log.d("Itemlist", "Size= " + itemList.size() + "|| " + itemList.toString());
-        RecyclerView.Adapter adminOfferAdapter = new AdminOfferAdapter(this, itemList);
+        //Log.d("Itemlist", "Size= " + itemList.size() + "|| " + itemList.toString());
         OfferFamiliarRecyclerView.setAdapter(adminOfferAdapter);
         OfferFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
-
     }
+
 
     private void initToolbar() {
 
@@ -123,31 +121,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
         //mNotificationPresenter.destroy();
     }
 
-    private void callOfferApi() {
 
-        AdminOfferRequestAPI api = UtomoApplication.retrofit.create(AdminOfferRequestAPI.class);
-        Call<AdminOfferResp> call = api.adminOfferApi();
-
-        call.enqueue(new Callback<AdminOfferResp>() {
-            @Override
-            public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
-                if (response.body().FetchAdminOffer.ResponseCode == 1) {
-
-                    for (int i = 0; i < response.body().FetchAdminOffer.Data.size(); i++) {
-                        itemList = response.body().FetchAdminOffer.Data.get(i).getAllOffersList();
-                        HideProgressDialog();
-                        setUpRecyclerView();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AdminOfferResp> call, Throwable t) {
-                Log.e("error", t.toString());
-            }
-        });
-
-    }
 
 
 }

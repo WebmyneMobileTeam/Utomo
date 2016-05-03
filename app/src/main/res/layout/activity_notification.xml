@@ -23,7 +23,7 @@
             android:visibility="gone"
             android:text="No Notifications" />
 
-        <android.support.v7.widget.RecyclerView
+        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
             android:id="@+id/notificationsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,6 +32,6 @@
             app:frv_emptyView="@id/emptyNotifications"
             app:frv_isEmptyViewKeepShowHeadOrFooter="true">
 
-        </android.support.v7.widget.RecyclerView>
+        </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
