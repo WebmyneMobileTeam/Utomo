@@ -92,33 +92,41 @@ public class CurrentServiceTile extends LinearLayout {
             txtReviews.setVisibility(GONE);
             txtRating.setVisibility(GONE);
             txtServiceStatus.setVisibility(VISIBLE);
+            txtTitle.setVisibility(GONE);
+
 
         } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
             txtReviews.setVisibility(VISIBLE);
             txtRating.setVisibility(VISIBLE);
-            txtServiceStatus.setVisibility(GONE);
+            txtServiceStatus.setVisibility(VISIBLE);
+            txtTitle.setText(String.format("%s", "Current Car Service"));
+            txtTitle.setVisibility(GONE);
         }
 
         bookingId = userBookingsPojo.BookingID;
 
         txtCenterName.setText(userBookingsPojo.SCName);
         Functions.loadRoundImage(imgCenter, userBookingsPojo.SCImageName, context);
-        txtBookingDate.setText(String.format("Booking on: %s", Functions.displayOnlyDate(userBookingsPojo.CreatedDate)));
+        txtBookingDate.setText(String.format("Booking on: %s", Functions.displayOnlyDate(userBookingsPojo.PreferendDateTime)));
         txtServiceStatus.setText(String.format("Current Service Status: %s", userBookingsPojo.Status));
 
     }
 
     public void setDetails(DashboardData data, @MyBookingFragment.BookingViewMode int bookingViewMode) {
 
+        txtTitle.setVisibility(VISIBLE);
+
         if (bookingViewMode == MyBookingFragment.CURRENTBOOKING) {
             txtReviews.setVisibility(GONE);
             txtRating.setVisibility(GONE);
             txtServiceStatus.setVisibility(VISIBLE);
+            txtTitle.setText(String.format("%s", "Service Running"));
 
         } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
             txtReviews.setVisibility(VISIBLE);
             txtRating.setVisibility(VISIBLE);
             txtServiceStatus.setVisibility(GONE);
+            txtTitle.setText(String.format("%s", "Past Service"));
         }
 
         bookingId = data.BookingID;

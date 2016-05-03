@@ -75,6 +75,8 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_acrtivity);
 
+        PrefUtils.setCurrentPosition(this, 0);
+
         fragmentValue = getIntent().getStringExtra(AppConstant.FRAGMENT_VALUE);
         presenter = new DrawerPresenterImpl(this);
 
@@ -134,6 +136,10 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (drawer != null && drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        }
 
         if (!Functions.isConnected(this)) {
             Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);

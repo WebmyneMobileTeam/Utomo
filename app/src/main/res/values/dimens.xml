@@ -27,7 +27,7 @@
     <dimen name="L_TEXT">18sp</dimen>
     <dimen name="XL_TEXT">20sp</dimen>
     <dimen name="XXL_TEXT">22sp</dimen>
-
+    <dimen name="wallet_text">28sp</dimen>
 
     <dimen name="SIZE_30">30dp</dimen>
     <dimen name="SIZE_36">36dp</dimen>

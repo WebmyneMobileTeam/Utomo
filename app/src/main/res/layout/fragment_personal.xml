@@ -97,6 +97,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:hint="Date of Birth"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:singleLine="true"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"

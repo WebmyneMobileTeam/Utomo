@@ -13,6 +13,8 @@ public class UserBookingsPojo {
 
     public String CreatedDate;
 
+    public String PreferendDateTime;
+
     public String Description;
 
     public String SCImageName;
