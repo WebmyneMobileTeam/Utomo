@@ -93,7 +93,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
         presenter = new InvoicePresenterImpl(InvoiceActivity.this, this);
         bookinId = getIntent().getIntExtra("bookingId", 0);
-        presenter.getTransactionProcessDetails(9);
+        presenter.getTransactionProcessDetails(bookinId);
     }
 
     @Override
@@ -131,61 +131,76 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             final List<PaymentDistinctDiscountModel> filteredDiscounts = new ArrayList<>();
             final List<PaymentDistinctDiscountModel> allDiscountModels = new ArrayList<>();
 
-
             linearServiceDetails.removeAllViews();
 
-            for (int i = 0; i < serviceJobsList.size(); i++) {
-                View view = LayoutInflater.from(this).inflate(R.layout.payment_service_item, null);
-                TextView txtServiceName = (TextView) view.findViewById(R.id.txtServiceName);
-                TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
-
-                txtServiceAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(serviceJobsList.get(i).NetAmount));
-                txtServiceName.setText(serviceJobsList.get(i).Diagnosis);
-                jobsList.add(serviceJobsList.get(i).Diagnosis);
-                linearServiceDetails.addView(view);
-            }
-
-            // show available offers
-            final List<PaymentOfferDiscountList> discountOffersList = paymentProcessResponse.PaymentProcess.Data.get(0).lstOfferDiscount;
-
-            for (int i = 0; i < discountOffersList.size(); i++) {
-                for (int j = 0; j < serviceJobsList.size(); j++) {
-                    allDiscountModels.add(discountOffersList.get(i).lstDistinctDiscount.get(j));
-                }
-            }
-
-            discountOffersAdapter = new PaymentDiscountOffersAdapter(this, discountOffersList, jobsList, allDiscountModels);
-            adminOffersRecyclerView.setAdapter(discountOffersAdapter);
-            discountOffersAdapter.setOnOfferSelectedListener(new PaymentDiscountOffersAdapter.OnOfferSelectedListener() {
-                @Override
-                public void onOfferSelected(List<PaymentDistinctDiscountModel> discountOfferItems) {
-                    for (int j = 0; j < discountOfferItems.size(); j++) {
-                        for (int i = 0; i < jobsList.size(); i++) {
-                            if (discountOfferItems.get(j).ServiceName.equals(jobsList.get(i))) {
-                                filteredDiscounts.add(discountOffersList.get(0).lstDistinctDiscount.get(i));
-                            }
-                        }
-                    }
-                    Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
-
-                    long totalDiscount = 0;
-                    linearOfferDiscountsDetails.removeAllViews();
-                    for (int i = 0; i < filteredDiscounts.size(); i++) {
-                        totalDiscount += Long.parseLong(filteredDiscounts.get(i).DiscountAmount);
-                    }
-
-                    View view = LayoutInflater.from(InvoiceActivity.this).inflate(R.layout.payment_service_item, null);
+            if( !serviceJobsList.isEmpty()) { // show service details only if service details available
+                for (int i = 0; i < serviceJobsList.size(); i++) {
+                    View view = LayoutInflater.from(this).inflate(R.layout.payment_service_item, null);
                     TextView txtServiceName = (TextView) view.findViewById(R.id.txtServiceName);
                     TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
 
-                    txtServiceAmount.setText(" - " + getString(R.string.ruppee) + " " + totalDiscount);
-                    txtServiceName.setText("Discounted Amount");
-                    txtServiceAmount.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
-                    txtServiceName.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
-                    linearOfferDiscountsDetails.addView(view);
-                    txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount - totalDiscount));
+                    txtServiceAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(serviceJobsList.get(i).NetAmount));
+                    txtServiceName.setText(serviceJobsList.get(i).Diagnosis);
+                    jobsList.add(serviceJobsList.get(i).Diagnosis);
+                    linearServiceDetails.addView(view);
                 }
-            });
+
+                // show available offers
+                final List<PaymentOfferDiscountList> discountOffersList = paymentProcessResponse.PaymentProcess.Data.get(0).lstOfferDiscount;
+
+                if( !discountOffersList.isEmpty()) {
+                    for (int i = 0; i < discountOffersList.size(); i++) {
+                        for (int j = 0; j < serviceJobsList.size(); j++) {
+                            allDiscountModels.add(discountOffersList.get(i).lstDistinctDiscount.get(j));
+                        }
+                    }
+
+                    discountOffersAdapter = new PaymentDiscountOffersAdapter(this, discountOffersList, jobsList, allDiscountModels);
+                    adminOffersRecyclerView.setAdapter(discountOffersAdapter);
+                    discountOffersAdapter.setOnOfferSelectedListener(new PaymentDiscountOffersAdapter.OnOfferSelectedListener() {
+                        @Override
+                        public void onOfferSelected(List<PaymentDistinctDiscountModel> discountOfferItems) {
+                            for (int j = 0; j < discountOfferItems.size(); j++) {
+                                for (int i = 0; i < jobsList.size(); i++) {
+                                    if (discountOfferItems.get(j).ServiceName.equals(jobsList.get(i))) {
+                                        filteredDiscounts.add(discountOffersList.get(0).lstDistinctDiscount.get(i));
+                                    }
+                                }
+                                if (discountOfferItems.get(j).ServiceName.equals("Invoice")) {
+                                    filteredDiscounts.add(discountOfferItems.get(j));
+                                }
+                            }
+                            Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
+
+                            long totalDiscount = 0;
+                            linearOfferDiscountsDetails.removeAllViews();
+                            for (int i = 0; i < filteredDiscounts.size(); i++) {
+                                totalDiscount += Long.parseLong(filteredDiscounts.get(i).DiscountAmount);
+                            }
+
+                            View view = LayoutInflater.from(InvoiceActivity.this).inflate(R.layout.payment_service_item, null);
+                            TextView txtServiceName = (TextView) view.findViewById(R.id.txtServiceName);
+                            TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
+
+                            txtServiceAmount.setText(" - " + getString(R.string.ruppee) + " " + totalDiscount);
+                            txtServiceName.setText("Discounted Amount");
+                            txtServiceAmount.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
+                            txtServiceName.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
+                            linearOfferDiscountsDetails.addView(view);
+                            txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount - totalDiscount));
+                        }
+                    });
+                } else {
+                    adminOffersRecyclerView.setVisibility(View.GONE);
+                    discountTitle.setVisibility(View.GONE);
+                }
+            } else {
+                serviceDetailsCardView.setVisibility(View.GONE);
+                adminOffersRecyclerView.setVisibility(View.GONE);
+                discountTitle.setVisibility(View.GONE);
+                btnContinuePayment.setVisibility(View.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

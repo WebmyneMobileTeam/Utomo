@@ -79,7 +79,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
         holder.imgInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, filteredDiscounts, itemList.get(position).OfferName);
+            final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, itemList.get(position).lstDistinctDiscount, itemList.get(position).OfferName);
             dialog.show();
             }
         });
