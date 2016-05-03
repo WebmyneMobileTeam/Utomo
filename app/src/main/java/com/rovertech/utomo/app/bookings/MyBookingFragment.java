@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +29,7 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
     public static final int CURRENTBOOKING = 1;
     public static final int PASTBOOKING = 2;
 
-    private DrawerActivity activity;
+    private DrawerActivityRevised activity;
     private MyBookingPresenter myBookingPresenter;
     private View parentView;
 
@@ -57,7 +58,7 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
 
     @Override
     public void initView(View view) {
-        activity = (DrawerActivity) getActivity();
+        activity = (DrawerActivityRevised) getActivity();
         //other view to init
 
     }

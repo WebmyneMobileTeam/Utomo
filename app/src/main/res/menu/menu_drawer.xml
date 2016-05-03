@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawer_dashboard"
+            android:checked="true"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Dashboard" />
+
+        <item
+            android:id="@+id/drawer_wallet"
+            android:icon="@drawable/ic_wallet"
+            android:title="Wallet" />
+
+        <item
+            android:id="@+id/drawer_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+
+        <item
+            android:id="@+id/drawer_booking"
+            android:icon="@drawable/ic_booking"
+            android:title="My Bookings" />
+
+        <item
+            android:id="@+id/drawer_invite"
+            android:icon="@drawable/ic_money"
+            android:title="Invite &amp; Earn" />
+
+        <item
+            android:id="@+id/drawer_about"
+            android:icon="@drawable/ic_about"
+            android:title="About Us" />
+
+        <item
+            android:id="@+id/drawer_rate"
+            android:icon="@drawable/ic_rate_us"
+            android:title="Rate Us" />
+
+        <item
+            android:id="@+id/drawer_share"
+            android:icon="@drawable/ic_share"
+            android:title="Share App" />
+
+    </group>
+</menu>

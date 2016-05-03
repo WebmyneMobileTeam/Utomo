@@ -14,6 +14,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +22,7 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 public class InviteFragment extends Fragment implements InviteView, View.OnClickListener {
 
     private View parentView;
-    private DrawerActivity activity;
+    private DrawerActivityRevised activity;
 
     private TextView txtCode, txtDesc;
     private Button btnInvite;
@@ -54,7 +55,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
     }
 
     private void init() {
-        activity = (DrawerActivity) getActivity();
+        activity = (DrawerActivityRevised) getActivity();
 
         txtCode = (TextView) parentView.findViewById(R.id.txtCode);
         txtDesc = (TextView) parentView.findViewById(R.id.txtDesc);

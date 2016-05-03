@@ -18,6 +18,7 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.main.startup.StartupActivity;
 
 /**
@@ -117,7 +118,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void callDrawer() {
-        Intent intent = new Intent(SplashActivity.this, DrawerActivity.class);
+        Intent intent = new Intent(SplashActivity.this, DrawerActivityRevised.class);
         intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
         startActivity(intent);
         overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);

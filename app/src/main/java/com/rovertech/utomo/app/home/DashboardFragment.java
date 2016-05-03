@@ -37,6 +37,7 @@ import com.rovertech.utomo.app.home.presenter.DashboardPresenterImpl;
 import com.rovertech.utomo.app.home.presenter.DashboardView;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.LocationFinder;
 
@@ -48,7 +49,7 @@ import java.util.ArrayList;
 public class DashboardFragment extends Fragment implements DashboardView {
 
     private View parentView;
-    private DrawerActivity activity;
+    private DrawerActivityRevised activity;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CarFragmentPagerAdapter adapter;
@@ -79,7 +80,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     private void init() {
 
-        activity = (DrawerActivity) getActivity();
+        activity = (DrawerActivityRevised) getActivity();
 
         //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
         txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);

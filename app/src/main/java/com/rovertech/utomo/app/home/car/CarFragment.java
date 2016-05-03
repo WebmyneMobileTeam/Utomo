@@ -27,6 +27,7 @@ import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.tiles.CurrentServiceTile;
 import com.rovertech.utomo.app.tiles.HealthMeterTile;
@@ -42,7 +43,7 @@ import com.rovertech.utomo.app.widget.LocationFinder;
 public class CarFragment extends Fragment implements CarView {
 
     private View parentView;
-    private DrawerActivity activity;
+    private DrawerActivityRevised activity;
     private CarPresenter presenter;
     private CarPojo carPojo;
     private ProgressDialog progressDialog;
@@ -93,7 +94,7 @@ public class CarFragment extends Fragment implements CarView {
     }
 
     private void init() {
-        activity = (DrawerActivity) getActivity();
+        activity = (DrawerActivityRevised) getActivity();
         mainContent = (LinearLayout) parentView.findViewById(R.id.mainContent);
         mainContent.setVisibility(View.GONE);
 

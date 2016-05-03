@@ -139,7 +139,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".invoice.InvoiceActivity" />
-        <activity android:name=".wallet.WalletHistoryActivity"></activity>
+        <activity android:name=".wallet.WalletHistoryActivity" />
+        <activity android:name=".main.drawer.DrawerActivityRevised"></activity>
     </application>
 
 </manifest>

@@ -192,4 +192,9 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="list_item_appearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/half_black</item>
+    </style>
+
 </resources>

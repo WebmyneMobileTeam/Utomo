@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +20,7 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 public class SettingsFragment extends Fragment {
 
     private View parentView;
-    private DrawerActivity activity;
+    private DrawerActivityRevised activity;
 
     private SwitchCompat switchOffer, switchBooking;
 
@@ -47,7 +48,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void init() {
-        activity = (DrawerActivity) getActivity();
+        activity = (DrawerActivityRevised) getActivity();
 
         switchOffer = (SwitchCompat) parentView.findViewById(R.id.switchOffer);
         switchBooking = (SwitchCompat) parentView.findViewById(R.id.switchBooking);
