@@ -38,7 +38,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         userID = PrefUtils.getUserID(this);
-        mNotificationPresenter = new NotificationPresenterImpl(this.getApplicationContext(), this);
+        mNotificationPresenter = new NotificationPresenterImpl(this, this);
         mNotificationPresenter.init();
         mNotificationPresenter.setUpRecyclerView();
     }
