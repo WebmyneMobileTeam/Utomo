@@ -3,12 +3,20 @@ package com.rovertech.utomo.app.wallet;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.wallet.adpter.WalletAdapter;
+import com.rovertech.utomo.app.wallet.model.WalletPojo;
+import com.rovertech.utomo.app.widget.DividerItemDecoration;
+import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
+
+import java.util.ArrayList;
 
 public class WalletHistoryActivity extends AppCompatActivity {
 
@@ -22,9 +30,29 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
     private void init() {
         initToolbar();
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+
+        ArrayList<WalletPojo> walletArrayList = new ArrayList<>();
+
+        FamiliarRecyclerView recyclerView = (FamiliarRecyclerView) findViewById(R.id.recyclerView);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        walletArrayList.addAll(PrefUtils.getWallet(this).Data);
+
+        WalletAdapter adapter = new WalletAdapter(this, walletArrayList);
+        recyclerView.setAdapter(adapter);
+      //  recyclerView.addItemDecoration(new DividerItemDecoration(this));
+
     }
 
     private void initToolbar() {
+
         TextView txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");

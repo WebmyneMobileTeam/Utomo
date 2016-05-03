@@ -79,6 +79,24 @@ public class WalletFragment extends Fragment implements WalletView {
         setTypeface();
 
         initRecyclerView();
+
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateWalletHistory();
+            }
+        });
+
+        txtViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateWalletHistory();
+            }
+        });
+    }
+
+    private void navigateWalletHistory() {
+        presenter.openWalletHistory(walletArrayList);
     }
 
     private void initRecyclerView() {
@@ -91,7 +109,7 @@ public class WalletFragment extends Fragment implements WalletView {
 
         adapter = new WalletAdapter(getActivity(), walletArrayList);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+       // recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
 
         presenter.fetchWalletHistory();
 
@@ -110,6 +128,9 @@ public class WalletFragment extends Fragment implements WalletView {
 
     @Override
     public void setHistory(ArrayList<WalletPojo> walletList) {
-        adapter.setWalletArrayList(walletList);
+        walletArrayList.addAll(walletList);
+        walletArrayList.addAll(walletList);
+        walletArrayList.addAll(walletList);
+        adapter.setWalletArrayList(walletArrayList);
     }
 }

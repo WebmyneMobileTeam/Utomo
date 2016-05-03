@@ -11,6 +11,7 @@ import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.main.centreDetail.model.FeedBack;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
+import com.rovertech.utomo.app.wallet.model.GetClientWalletHistory;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class PrefUtils {
     public static String CURRENT_CAR_SELECTED = "CURRENT_CAR_SELECTED";
     public static String CURRENT_CENTER_SELECTED = "CURRENT_CENTER_SELECTED";
     public static String PAGER_POSITION = "PAGER_POSITION";
+
+    public static String WALLET_HISTORY = "WALLET_HISTORY";
 
     public static final String RedirectLogin = "RedirectLogin";
 
@@ -193,6 +196,26 @@ public class PrefUtils {
 
     public static int getRedirectLogin(Context ctx) {
         return Prefs.with(ctx).getInt(RedirectLogin, 0);
+    }
+
+    public static void setWallet(Context context, GetClientWalletHistory getClientWallateHistory) {
+        if (getClientWallateHistory != null) {
+            String carPojoString = UtomoApplication.getInstance().getGson().toJson(getClientWallateHistory);
+            Prefs.with(context).save(WALLET_HISTORY, carPojoString);
+        }
+    }
+
+    public static GetClientWalletHistory getWallet(Context context) {
+
+        GetClientWalletHistory walletHistory = new GetClientWalletHistory();
+        try {
+            String carString = Prefs.with(context).getString(WALLET_HISTORY, "");
+            walletHistory = UtomoApplication.getInstance().getGson().fromJson(carString, GetClientWalletHistory.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return walletHistory;
     }
 
 }

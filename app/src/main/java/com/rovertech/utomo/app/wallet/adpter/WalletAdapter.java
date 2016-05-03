@@ -32,7 +32,7 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.CustomView
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.wallet_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.wallet_item_another, parent, false);
         CustomViewHolder customViewHolder = new CustomViewHolder(v);
 
         return customViewHolder;

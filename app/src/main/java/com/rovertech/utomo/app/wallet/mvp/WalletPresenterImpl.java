@@ -2,12 +2,14 @@ package com.rovertech.utomo.app.wallet.mvp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.wallet.WalletHistoryActivity;
 import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.wallet.model.WalletResponse;
 import com.rovertech.utomo.app.wallet.service.WalletServiceApi;
@@ -58,6 +60,9 @@ public class WalletPresenterImpl implements WalletPresenter {
                     if (walletResponse.GetClientWallateHistory.ResponseCode == 1) {
                         ArrayList<WalletPojo> walletList = new ArrayList<>();
                         walletList.addAll(walletResponse.GetClientWallateHistory.Data);
+
+                        PrefUtils.setWallet(context, walletResponse.GetClientWallateHistory);
+
                         walletView.setHistory(walletList);
 
                     } else {
@@ -78,5 +83,12 @@ public class WalletPresenterImpl implements WalletPresenter {
             }
 
         });
+    }
+
+    @Override
+    public void openWalletHistory(ArrayList<WalletPojo> walletArrayList) {
+        Intent walletIntent = new Intent(context, WalletHistoryActivity.class);
+        walletIntent.putExtra("wallet", walletArrayList);
+        context.startActivity(walletIntent);
     }
 }
