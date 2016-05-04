@@ -3,27 +3,21 @@ package com.rovertech.utomo.app.main.drawer;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.helper.BadgeHelper;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.notification.NotificationActivity;
 import com.rovertech.utomo.app.main.startup.StartupActivity;
-import com.rovertech.utomo.app.offers.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.AdminOffersLIstingActivity;
-import com.rovertech.utomo.app.offers.model.AdminOfferResp;
 import com.rovertech.utomo.app.widget.LocationFinder;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by sagartahelyani on 07-03-2016.
@@ -67,14 +61,30 @@ public class DrawerPresenterImpl implements DrawerPresenter {
     }
 
     @Override
-    public void logOut(Context context) {
-        UserProfileOutput profileOutput = new UserProfileOutput();
-        PrefUtils.setLoggedIn(context, false);
-        PrefUtils.setUserFullProfileDetails(context, profileOutput);
+    public void logOut(final Context context) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+        alertDialogBuilder.setTitle("Logout")
+                .setMessage("Are you sure want to logout?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        UserProfileOutput profileOutput = new UserProfileOutput();
+                        PrefUtils.setLoggedIn(context, false);
+                        PrefUtils.setUserFullProfileDetails(context, profileOutput);
 
-        Intent startupIntent = new Intent(context, StartupActivity.class);
-        startupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(startupIntent);
+                        Intent startupIntent = new Intent(context, StartupActivity.class);
+                        startupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(startupIntent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override

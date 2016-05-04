@@ -12,4 +12,6 @@ public interface ServiceView {
     void hideProgress();
 
     void setBookingDetails(UserBookingData userBookingData);
+
+    void showMessage(String message);
 }

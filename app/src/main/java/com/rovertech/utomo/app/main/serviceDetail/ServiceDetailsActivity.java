@@ -49,9 +49,9 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         init();
 
-        presenter = new ServicePresenterImpl(this);
+        presenter = new ServicePresenterImpl(this, this);
 
-        presenter.fetchBookingDetails(ServiceDetailsActivity.this, bookingId);
+        presenter.fetchBookingDetails(bookingId);
     }
 
     private void init() {
@@ -67,7 +67,6 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         main_content = (CoordinatorLayout) findViewById(R.id.main_content);
 
         mainDetails = (ServiceMainDetails) findViewById(R.id.mainDetails);
-
 
         parentView = findViewById(android.R.id.content);
         bottomCall = (LinearLayout) findViewById(R.id.bottomCall);
@@ -134,14 +133,17 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 break;
 
             case R.id.bottomCancelReq:
-                presenter.cancelBooking(this, userBookingData.BookingID);
+                presenter.cancelBooking(userBookingData.BookingID);
                 break;
 
             case R.id.bottomAccept:
+                presenter.rescheduleBooking(true, userBookingData);
                 break;
 
             case R.id.bottomReject:
+                presenter.rescheduleBooking(false, userBookingData);
                 break;
+
             case R.id.btnInvoice:
                 Intent invoiceIntent = new Intent(ServiceDetailsActivity.this, InvoiceActivity.class);
                 invoiceIntent.putExtra("bookingId", bookingId);
@@ -235,5 +237,11 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
             bottomCancelReq.setVisibility(View.GONE);
             bottomReview.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Functions.showToast(this, message);
+        finish();
     }
 }

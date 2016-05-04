@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.main.notification.model.RescheduleBookingRequest;
+import com.rovertech.utomo.app.main.notification.model.RescheduleResp;
+import com.rovertech.utomo.app.main.notification.service.RescheduleBookingApi;
 import com.rovertech.utomo.app.main.serviceDetail.model.CancelBookingOutput;
+import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingDetailsResponse;
 import com.rovertech.utomo.app.main.serviceDetail.service.BookingDetailService;
 import com.rovertech.utomo.app.main.serviceDetail.service.CancelBookingService;
 
-import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeoutException;
 
@@ -26,14 +30,17 @@ import retrofit2.Response;
  */
 public class ServicePresenterImpl implements ServicePresenter {
 
-    ServiceView serviceView;
+    private ServiceView serviceView;
+    private Context context;
+    String message;
 
-    public ServicePresenterImpl(ServiceView serviceView) {
+    public ServicePresenterImpl(Context context, ServiceView serviceView) {
         this.serviceView = serviceView;
+        this.context = context;
     }
 
     @Override
-    public void fetchBookingDetails(final Context context, int bookingId) {
+    public void fetchBookingDetails(int bookingId) {
 
         if (serviceView != null)
             serviceView.showProgress();
@@ -74,7 +81,7 @@ public class ServicePresenterImpl implements ServicePresenter {
     }
 
     @Override
-    public void cancelBooking(final Context context, final int bookingID) {
+    public void cancelBooking(final int bookingID) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 context);
         alertDialogBuilder.setTitle("Cancel Booking")
@@ -82,7 +89,7 @@ public class ServicePresenterImpl implements ServicePresenter {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        doCancelBooking(context, bookingID);
+                        doCancelBooking(bookingID);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -94,7 +101,39 @@ public class ServicePresenterImpl implements ServicePresenter {
         alertDialog.show();
     }
 
-    private void doCancelBooking(final Context context, int bookingID) {
+    @Override
+    public void rescheduleBooking(final boolean b, final UserBookingData userBookingData) {
+        String title, msg;
+
+        if (b) {
+            title = "Accept Reschedule Request";
+            msg = "Are you sure want to accept this reschedule booking request?";
+        } else {
+            title = "Reject Reschedule Request";
+            msg = "Are you sure want to reject this reschedule booking request?";
+        }
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+        alertDialogBuilder.setTitle(title)
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        doReschedule(userBookingData, b);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+    }
+
+    private void doCancelBooking(int bookingID) {
         CancelBookingService service = UtomoApplication.retrofit.create(CancelBookingService.class);
         Call<CancelBookingOutput> call = service.doCancel(bookingID);
         call.enqueue(new Callback<CancelBookingOutput>() {
@@ -123,6 +162,49 @@ public class ServicePresenterImpl implements ServicePresenter {
                 } else {
                     Functions.showToast(context, t.toString());
                 }
+            }
+        });
+    }
+
+    private void doReschedule(UserBookingData userBookingData, final boolean isAccept) {
+
+        serviceView.showProgress();
+
+        RescheduleBookingRequest request = new RescheduleBookingRequest(userBookingData.BookingID, userBookingData.NotificationID, isAccept);
+        RescheduleBookingApi apiCall = UtomoApplication.retrofit.create(RescheduleBookingApi.class);
+        Call<RescheduleResp> call = apiCall.RescheduleBooking(request);
+
+        call.enqueue(new Callback<RescheduleResp>() {
+            @Override
+            public void onResponse(Call<RescheduleResp> call, Response<RescheduleResp> response) {
+
+                serviceView.hideProgress();
+
+                Log.e("reschedule_res", Functions.jsonString(response.body()));
+
+                if (response.body().RescheduleBookingResponce.ResponseCode == 1) {
+
+                    if (isAccept) {
+
+                        message = "Your Booking Rescheduled Successfully";
+                    } else {
+
+                        message = "Your Booking Reschedule Rejected Successfully";
+                    }
+
+                } else {
+
+                    message = "Unable To Process Your Request. Please try again later.";
+                }
+                serviceView.showMessage(message);
+            }
+
+            @Override
+            public void onFailure(Call<RescheduleResp> call, Throwable t) {
+                serviceView.hideProgress();
+
+                message = "Unable To Process Your Request. Please try again later.";
+                serviceView.showMessage(message);
             }
         });
     }

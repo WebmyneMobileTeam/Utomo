@@ -90,7 +90,7 @@ public class Odometer extends LinearLayout {
                     .maxValue(9)
                     .defaultValue(0)
                     .separatorColor(Color.TRANSPARENT)
-                    .textColor(ContextCompat.getColor(context, R.color.theme_purple_accent))
+                    .textColor(ContextCompat.getColor(context, R.color.white))
                     .textSize(16)
                     .enableFocusability(true)
                     .wrapSelectorWheel(true)
@@ -147,8 +147,6 @@ public class Odometer extends LinearLayout {
     }
 
     public void setValue(String odometerReading) {
-
-
 
 
         if (!TextUtils.isEmpty(odometerReading)) {

@@ -27,6 +27,8 @@ public class UserBookingData {
 
     public double Longitude;
 
+    public int NotificationID;
+
     public String Rating;
 
     public String ReviewCount;
