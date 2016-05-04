@@ -46,7 +46,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        parentView = inflater.inflate(R.layout.fragment_invite, container, false);
+        parentView = inflater.inflate(R.layout.fragment_invite1, container, false);
         init();
 
         presenter = new InvitePresenterImpl(this);
@@ -58,7 +58,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
         activity = (DrawerActivityRevised) getActivity();
 
         txtCode = (TextView) parentView.findViewById(R.id.txtCode);
-        txtDesc = (TextView) parentView.findViewById(R.id.txtDesc);
+       // txtDesc = (TextView) parentView.findViewById(R.id.txtDesc);
         btnInvite = (Button) parentView.findViewById(R.id.btnInvite);
 
         setTypeface();
@@ -70,7 +70,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
 
     private void setTypeface() {
         txtCode.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
-        txtDesc.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
+//        txtDesc.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
         btnInvite.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
     }
 
