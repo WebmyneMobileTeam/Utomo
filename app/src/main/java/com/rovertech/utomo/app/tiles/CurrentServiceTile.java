@@ -106,7 +106,7 @@ public class CurrentServiceTile extends LinearLayout {
         bookingId = userBookingsPojo.BookingID;
 
         txtCenterName.setText(userBookingsPojo.SCName);
-        Functions.loadRoundImage(imgCenter, userBookingsPojo.SCImageName, context);
+        Functions.LoadImage(imgCenter, userBookingsPojo.SCImageName, context);
         txtBookingDate.setText(String.format("Booking on: %s", Functions.displayOnlyDate(userBookingsPojo.PreferendDateTime)));
         txtServiceStatus.setText(String.format("Current Service Status: %s", userBookingsPojo.Status));
 

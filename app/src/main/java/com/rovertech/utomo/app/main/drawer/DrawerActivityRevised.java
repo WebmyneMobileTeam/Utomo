@@ -23,11 +23,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
-import com.mikepenz.materialdrawer.Drawer;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.about.AboutFragment;
@@ -44,6 +44,7 @@ import com.rovertech.utomo.app.main.notification.model.NotificationResp;
 import com.rovertech.utomo.app.main.notification.service.NotificationRequestAPI;
 import com.rovertech.utomo.app.offers.AdminOfferRequestAPI;
 import com.rovertech.utomo.app.offers.model.AdminOfferResp;
+import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
@@ -59,16 +60,10 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     private NavigationView navigationView;
 
     private Toolbar toolbar;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
-    private Drawer drawer;
-    private TextView txtCustomTitle, txtUsername;
+    private TextView txtCustomTitle, txtName;
     private DrawerPresenter presenter;
-    private View parentView;
     private BadgeHelper badgeHelper;
     private MenuItem offerItem;
-    private String fragmentValue;
-    private Menu mainMenu;
     private int OfferSize = 0, notificationSize = 0;
 
     private UserProfileOutput profile;
@@ -80,13 +75,13 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
         PrefUtils.setCurrentPosition(this, 0);
 
-        fragmentValue = getIntent().getStringExtra(AppConstant.FRAGMENT_VALUE);
+        profile = PrefUtils.getUserFullProfileDetails(this);
+        Log.e("profile", Functions.jsonString(profile));
+
+        String fragmentValue = getIntent().getStringExtra(AppConstant.FRAGMENT_VALUE);
         presenter = new DrawerPresenterImpl(this);
 
         init();
-
-        profile = PrefUtils.getUserFullProfileDetails(this);
-        Log.e("profile", Functions.jsonString(profile));
 
         presenter.openDashboard();
     }
@@ -95,8 +90,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer_menu, menu);
 
-        mainMenu = menu;
-        offerItem = mainMenu.findItem(R.id.action_offers);
+        offerItem = menu.findItem(R.id.action_offers);
 
         if (OfferSize >= 1) {
             showOfferIcon();
@@ -123,34 +117,62 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
     private void init() {
 
-        parentView = findViewById(android.R.id.content);
+        View parentView = findViewById(android.R.id.content);
 
-        txtUsername = (TextView) findViewById(R.id.txtUsername);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         initToolbar();
+
+        initDrawer();
 
     }
 
     private void initDrawer() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                Functions.hideKeyPad(DrawerActivityRevised.this, drawerView);
 
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                Functions.hideKeyPad(DrawerActivityRevised.this, drawerView);
             }
         };
+
         drawerLayout.setDrawerListener(drawerToggle);
+
+        View headerLayout = navigationView.getHeaderView(0);
+
+        txtName = (TextView) headerLayout.findViewById(R.id.txtName);
+        txtName.setText(String.format("%s", profile.Name));
+        txtName.setTypeface(Functions.getRegularFont(this));
+
+        TextView txtLogout = (TextView) headerLayout.findViewById(R.id.txtLogout);
+        txtLogout.setTypeface(Functions.getRegularFont(this));
+        txtLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.logOut(DrawerActivityRevised.this);
+            }
+        });
+
+        TextView txtProfile = (TextView) headerLayout.findViewById(R.id.txtProfile);
+        txtProfile.setTypeface(Functions.getRegularFont(this));
+        txtProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.fireIntent(DrawerActivityRevised.this, ProfileActivity.class);
+                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+            }
+        });
+
+        ImageView profilePic = (ImageView) headerLayout.findViewById(R.id.profilePic);
+        Functions.loadRoundImage(profilePic, profile.ProfileImg, this);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -163,8 +185,18 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
                 return true;
             }
         });
+    }
 
-        //txtUsername.setText(profile.Name);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void setDrawerClick(int itemId) {
@@ -224,27 +256,21 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     protected void onResume() {
         super.onResume();
 
-        if (drawer != null && drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
-        }
-
         if (!Functions.isConnected(this)) {
             Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);
 
         } else {
 
-            initDrawer();
-
             callOfferApi();
 
             callNotificationApi(PrefUtils.getUserID(this));
 
-            if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
+           /* if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
                 presenter.openDashboard();
 
             } else if (fragmentValue.equals(AppConstant.MY_BOOKING_FRAGMENT)) {
                 presenter.openMyBookings();
-            }
+            }*/
         }
 
     }
@@ -342,8 +368,8 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
     private void initFragment(Fragment fragment, String title) {
         setHeaderTitle(title);
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
     }
@@ -418,17 +444,5 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     public void onBackPressed() {
         super.onBackPressed();
         PrefUtils.setCurrentPosition(this, 0);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
     }
 }

@@ -20,7 +20,6 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 public class SettingsFragment extends Fragment {
 
     private View parentView;
-    private DrawerActivityRevised activity;
 
     private SwitchCompat switchOffer, switchBooking;
 
@@ -48,7 +47,6 @@ public class SettingsFragment extends Fragment {
     }
 
     private void init() {
-        activity = (DrawerActivityRevised) getActivity();
 
         switchOffer = (SwitchCompat) parentView.findViewById(R.id.switchOffer);
         switchBooking = (SwitchCompat) parentView.findViewById(R.id.switchBooking);

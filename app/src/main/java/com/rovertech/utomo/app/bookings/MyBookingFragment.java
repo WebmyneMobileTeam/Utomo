@@ -29,7 +29,6 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
     public static final int CURRENTBOOKING = 1;
     public static final int PASTBOOKING = 2;
 
-    private DrawerActivityRevised activity;
     private MyBookingPresenter myBookingPresenter;
     private View parentView;
 
@@ -58,7 +57,6 @@ public class MyBookingFragment extends Fragment implements MyBookingView {
 
     @Override
     public void initView(View view) {
-        activity = (DrawerActivityRevised) getActivity();
         //other view to init
 
     }

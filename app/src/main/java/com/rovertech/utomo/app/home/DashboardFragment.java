@@ -49,7 +49,6 @@ import java.util.ArrayList;
 public class DashboardFragment extends Fragment implements DashboardView {
 
     private View parentView;
-    private DrawerActivityRevised activity;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CarFragmentPagerAdapter adapter;
@@ -79,8 +78,6 @@ public class DashboardFragment extends Fragment implements DashboardView {
     }
 
     private void init() {
-
-        activity = (DrawerActivityRevised) getActivity();
 
         //  pagerLayout = (LinearLayout) parentView.findViewById(R.id.pagerLayout);
         txtNoCar = (TextView) parentView.findViewById(R.id.txtNoCar);

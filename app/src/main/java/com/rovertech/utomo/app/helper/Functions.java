@@ -97,7 +97,6 @@ public class Functions {
                     RoundedBitmapDrawable circularBitmapDrawable =
                             RoundedBitmapDrawableFactory.create(context.getResources(), resource);
                     circularBitmapDrawable.setCircular(true);
-                    circularBitmapDrawable.setCornerRadius(convertDpToPixel(8, context));
                     imageView.setImageDrawable(circularBitmapDrawable);
                 }
             });

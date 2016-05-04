@@ -22,7 +22,6 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 public class InviteFragment extends Fragment implements InviteView, View.OnClickListener {
 
     private View parentView;
-    private DrawerActivityRevised activity;
 
     private TextView txtCode, txtDesc;
     private Button btnInvite;
@@ -55,8 +54,6 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
     }
 
     private void init() {
-        activity = (DrawerActivityRevised) getActivity();
-
         txtCode = (TextView) parentView.findViewById(R.id.txtCode);
        // txtDesc = (TextView) parentView.findViewById(R.id.txtDesc);
         btnInvite = (Button) parentView.findViewById(R.id.btnInvite);

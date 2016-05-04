@@ -129,8 +129,6 @@ public class WalletFragment extends Fragment implements WalletView {
     @Override
     public void setHistory(ArrayList<WalletPojo> walletList) {
         walletArrayList.addAll(walletList);
-        walletArrayList.addAll(walletList);
-        walletArrayList.addAll(walletList);
         adapter.setWalletArrayList(walletArrayList);
     }
 }

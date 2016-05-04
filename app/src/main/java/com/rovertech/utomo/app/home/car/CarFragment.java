@@ -43,7 +43,6 @@ import com.rovertech.utomo.app.widget.LocationFinder;
 public class CarFragment extends Fragment implements CarView {
 
     private View parentView;
-    private DrawerActivityRevised activity;
     private CarPresenter presenter;
     private CarPojo carPojo;
     private ProgressDialog progressDialog;
@@ -94,7 +93,6 @@ public class CarFragment extends Fragment implements CarView {
     }
 
     private void init() {
-        activity = (DrawerActivityRevised) getActivity();
         mainContent = (LinearLayout) parentView.findViewById(R.id.mainContent);
         mainContent.setVisibility(View.GONE);
 
