@@ -120,6 +120,7 @@ public class ServicePresenterImpl implements ServicePresenter {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
                         doReschedule(userBookingData, b);
                     }
                 })

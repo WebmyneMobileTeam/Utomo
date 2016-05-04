@@ -1,7 +1,5 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
-import android.content.Context;
-
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 
 /**

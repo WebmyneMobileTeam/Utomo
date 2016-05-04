@@ -242,6 +242,6 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     @Override
     public void showMessage(String message) {
         Functions.showToast(this, message);
-        finish();
+        presenter.fetchBookingDetails(bookingId);
     }
 }
