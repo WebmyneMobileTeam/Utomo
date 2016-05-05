@@ -4,15 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <!-- <ImageView
+    <ImageView
         android:id="@+id/img1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/b1" />-->
+
+        android:background="@drawable/invitenearn" />
 
     <LinearLayout
-
+        android:layout_below="@+id/img1"
         android:id="@+id/amountLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

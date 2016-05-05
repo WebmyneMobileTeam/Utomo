@@ -55,7 +55,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
 
     private void init() {
         txtCode = (TextView) parentView.findViewById(R.id.txtCode);
-       // txtDesc = (TextView) parentView.findViewById(R.id.txtDesc);
+        txtDesc = (TextView) parentView.findViewById(R.id.txtWalletRs);
         btnInvite = (Button) parentView.findViewById(R.id.btnInvite);
 
         setTypeface();
@@ -67,7 +67,7 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
 
     private void setTypeface() {
         txtCode.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
-//        txtDesc.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
+        txtDesc.setTypeface(Functions.getRegularFont(getActivity()), Typeface.NORMAL);
         btnInvite.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
     }
 
