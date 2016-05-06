@@ -3,6 +3,7 @@ package com.rovertech.utomo.app.bookings.PastBooking;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.CurrentBooking.BookingPresenter;
@@ -17,6 +19,7 @@ import com.rovertech.utomo.app.bookings.CurrentBooking.BookingPresenterImpl;
 import com.rovertech.utomo.app.bookings.CurrentBooking.BookingView;
 import com.rovertech.utomo.app.bookings.CurrentBooking.CurrentBookingAdapter;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 
@@ -25,6 +28,7 @@ public class PastBookingFragment extends Fragment implements BookingView {
     private View parentView;
     private BookingPresenter bookingPresenter;
     private ProgressBar progressBar;
+    private TextView emptyTextView;
 
     public PastBookingFragment() {
 
@@ -58,6 +62,9 @@ public class PastBookingFragment extends Fragment implements BookingView {
     @Override
     public void initView(View view) {
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
+        emptyTextView.setText("No Past Booking");
+        emptyTextView.setTypeface(Functions.getRegularFont(getActivity()), Typeface.BOLD);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
     }
 

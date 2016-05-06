@@ -3,17 +3,19 @@ package com.rovertech.utomo.app.bookings.CurrentBooking;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 
@@ -22,11 +24,11 @@ public class BookingFragment extends Fragment implements BookingView {
     private View parentView;
     private BookingPresenter bookingPresenter;
     private ProgressBar progressBar;
+    private TextView emptyTextView;
 
     public BookingFragment() {
 
     }
-
 
     public static BookingFragment newInstance() {
         BookingFragment fragment = new BookingFragment();
@@ -55,6 +57,9 @@ public class BookingFragment extends Fragment implements BookingView {
     public void initView(View view) {
 
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        emptyTextView = (TextView) view.findViewById(R.id.emptyTextView);
+        emptyTextView.setText("No Current Booking");
+        emptyTextView.setTypeface(Functions.getRegularFont(getActivity()), Typeface.BOLD);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
     }

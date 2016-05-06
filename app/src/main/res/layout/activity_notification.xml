@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".profile.ProfileActivity">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <include layout="@layout/app_bar" />
+
+    <TextView
+        android:id="@+id/emptyNotifications"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="No Notifications"
+        android:textColor="@color/white"
+        android:textSize="@dimen/M_TEXT" />
 
-        <include layout="@layout/app_bar" />
+    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
+        android:id="@+id/notificationsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:scrollbars="vertical"
+        app:frv_emptyView="@id/emptyNotifications"
+        app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
 
-        <TextView
-            android:id="@+id/emptyNotifications"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:text="No Notifications" />
-
-        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-            android:id="@+id/notificationsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:scrollbars="vertical"
-            app:frv_emptyView="@id/emptyNotifications"
-            app:frv_isEmptyViewKeepShowHeadOrFooter="true">
-
-        </com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView>
-    </RelativeLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

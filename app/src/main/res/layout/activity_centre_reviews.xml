@@ -15,6 +15,8 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:text="No reviews found."
+        android:textColor="@color/white"
+        android:textSize="@dimen/M_TEXT"
         android:visibility="gone" />
 
     <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"

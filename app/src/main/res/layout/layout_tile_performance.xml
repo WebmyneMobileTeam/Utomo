@@ -54,7 +54,7 @@
         </LinearLayout>
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-            android:id="@+id/expandLayout"
+            android:id="@+id/expandPerformanceLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"

@@ -38,11 +38,18 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginRight="8dp"
+                android:visibility="gone"
                 android:clickable="false"
                 android:src="@drawable/ic_arrow"
                 android:tint="@color/trans_blue" />
 
         </LinearLayout>
+
+        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null" />
 
         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
             android:id="@+id/expandLayout"
@@ -50,15 +57,9 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             app:ael_duration="500"
+            android:visibility="gone"
             app:ael_interpolator="linear"
             app:ael_orientation="vertical">
-
-
-            <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null" />
 
         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 

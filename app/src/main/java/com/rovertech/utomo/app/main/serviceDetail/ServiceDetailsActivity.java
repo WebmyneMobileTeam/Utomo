@@ -1,10 +1,12 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.invoice.InvoiceActivity;
 import com.rovertech.utomo.app.main.review.ReviewActivity;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
@@ -243,5 +246,23 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     public void showMessage(String message) {
         Functions.showToast(this, message);
         presenter.fetchBookingDetails(bookingId);
+    }
+
+    @Override
+    public void cancelDone() {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+        alertDialogBuilder.setTitle("Done")
+                .setMessage("Your Booking has been cancelled successfully.")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        finish();
+                        PrefUtils.setRefreshDashboard(ServiceDetailsActivity.this, true);
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

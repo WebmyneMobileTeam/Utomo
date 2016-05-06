@@ -20,71 +20,65 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="Odometer Reading"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="@color/half_black"
             android:textSize="@dimen/N_TEXT" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
+            android:layout_height="wrap_content">
 
             <com.rovertech.utomo.app.widget.Odometer
                 android:id="@+id/odometer"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 custom:slots="6" />
 
-            <TextView
-                android:id="@+id/txtReset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:text="Reset"
-                android:textColor="@color/half_black" />
-
             <LinearLayout
-                android:id="@+id/changeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txtDone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="8dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="2dp"
                     android:text="Apply"
+                    android:textColor="@color/half_black"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/txtReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="Reset"
                     android:textColor="@color/half_black" />
 
                 <TextView
                     android:id="@+id/txtCancel"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="2dp"
                     android:text="Cancel"
-                    android:textColor="@color/half_black" />
+                    android:textColor="@color/half_black"
+                    android:visibility="invisible" />
 
             </LinearLayout>
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -150,7 +150,7 @@
                 android:layout_marginTop="8dp"
                 android:clickable="true"
                 android:focusable="false"
-                android:hint="Add service Date"
+                android:hint="Last service Date"
                 android:longClickable="false"
                 widget:met_baseColor="@color/editTextColor"
                 widget:met_floatingLabel="highlight"

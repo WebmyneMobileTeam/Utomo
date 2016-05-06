@@ -27,9 +27,9 @@ public class CarItemTile extends LinearLayout {
     private View parentView;
     private CardView carCardView;
 
-    private TextView txtCarName, txtVehicleNo, txtOdometerValue;
+    private TextView txtCarName, txtVehicleNo, txtOdometerValue, txtEdit, txtDelete;
     private ImageView imgCar;
-    private ImageView txtDelete;
+    private ImageView imgDelete;
 
 
     private CarPojo carPojo;
@@ -61,22 +61,25 @@ public class CarItemTile extends LinearLayout {
     }
 
     private void findViewById() {
-        txtDelete = (ImageView) parentView.findViewById(R.id.txtDelete);
+        imgDelete = (ImageView) parentView.findViewById(R.id.imgDelete);
         carCardView = (CardView) parentView.findViewById(R.id.carCardView);
         txtCarName = (TextView) parentView.findViewById(R.id.txtCarName);
         imgCar = (ImageView) parentView.findViewById(R.id.imgCar);
         txtVehicleNo = (TextView) parentView.findViewById(R.id.txtVehicleNo);
         txtOdometerValue = (TextView) parentView.findViewById(R.id.txtOdometerValue);
-
+        txtEdit = (TextView) parentView.findViewById(R.id.txtEdit);
+        txtDelete = (TextView) parentView.findViewById(R.id.txtDelete);
+        txtEdit.setTypeface(Functions.getRegularFont(context));
+        txtDelete.setTypeface(Functions.getRegularFont(context));
     }
 
     public void setDetails(final CarPojo carPojo) {
         this.carPojo = carPojo;
         txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
         txtVehicleNo.setText(carPojo.VehicleNo);
-        txtOdometerValue.setText(String.format("%s", carPojo.TravelledKM +" KM"));
+        txtOdometerValue.setText(String.format("%s", carPojo.TravelledKM + " KM"));
 
-        /*if (carPojo.CarImage == null || carPojo.CarImage.equals("")) {
+        if (carPojo.CarImage == null || carPojo.CarImage.equals("")) {
             imgCar.setImageResource(R.drawable.car);
         } else {
             Glide.with(context).load(carPojo.CarImage).asBitmap().centerCrop().into(new SimpleTarget<Bitmap>() {
@@ -104,7 +107,7 @@ public class CarItemTile extends LinearLayout {
 
                 }
             });
-        }*/
+        }
 
     }
 

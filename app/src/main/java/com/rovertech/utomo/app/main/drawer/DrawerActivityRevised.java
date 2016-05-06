@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -264,13 +263,12 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
             callOfferApi();
 
             callNotificationApi(PrefUtils.getUserID(this));
+        }
 
-           /* if (fragmentValue.equals(AppConstant.HOME_FRAGMENT)) {
-                presenter.openDashboard();
-
-            } else if (fragmentValue.equals(AppConstant.MY_BOOKING_FRAGMENT)) {
-                presenter.openMyBookings();
-            }*/
+        Log.e("isRefresh", PrefUtils.isRefreshDashboard(this) + "");
+        if (PrefUtils.isRefreshDashboard(this)) {
+            PrefUtils.setRefreshDashboard(this, false);
+            presenter.openDashboard();
         }
 
     }

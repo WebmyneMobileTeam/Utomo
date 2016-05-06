@@ -78,7 +78,7 @@ public class ServiceCentreTileItem extends LinearLayout {
         txtRating.setText(centerPojo.ServiceCentreID + "");
         //txtReviews.setText(centerPojo.centreReviewCount + " Reviews");
 
-        if (centerPojo.IsOfferAvaill) {
+        if (centerPojo.IsOfferAvail) {
             txtOffers.setVisibility(VISIBLE);
         } else {
             txtOffers.setVisibility(GONE);

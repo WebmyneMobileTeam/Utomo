@@ -37,6 +37,7 @@ import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.Odometer;
 
@@ -396,7 +397,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_START) {
 
-            Intent intent = new Intent(this, DrawerActivity.class);
+            Intent intent = new Intent(this, DrawerActivityRevised.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

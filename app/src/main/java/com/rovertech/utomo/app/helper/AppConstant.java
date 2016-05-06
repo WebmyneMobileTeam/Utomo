@@ -9,6 +9,7 @@ public class AppConstant {
     public static String IS_SPLASH = "IS_SPLASH";
     public static String IS_CAR_ADDED = "IS_CAR_ADDED";
 
+    public static String REFRESH_DASHBOARD = "REFRESH_DASHBOARD";
     public static String LOGIN = "login";
     public static String SIGN_UP = "sign_up";
 

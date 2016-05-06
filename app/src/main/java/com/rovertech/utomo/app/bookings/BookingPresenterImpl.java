@@ -19,7 +19,7 @@ import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
 import com.rovertech.utomo.app.profile.carlist.model.VehicleListResponse;
@@ -55,11 +55,9 @@ public class BookingPresenterImpl implements BookingPresenter {
     public void selectTime(Context context) {
 
         Calendar calendar = Calendar.getInstance();
-
         TimePickerDialog dialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hours, int minutes) {
-
                 getSelectedTime(hours, minutes);
 
             }
@@ -137,7 +135,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                Intent intent = new Intent(context, DrawerActivity.class);
+                                Intent intent = new Intent(context, DrawerActivityRevised.class);
                                 intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(intent);

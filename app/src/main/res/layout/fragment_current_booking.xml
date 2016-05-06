@@ -6,7 +6,11 @@
         android:id="@+id/emptyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:text="No Current Booking"
+        android:textColor="@color/white"
+        android:textSize="@dimen/M_TEXT"
+        android:visibility="gone" />
 
     <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:frv_emptyView="@id/emptyTextView"
-
         tools:context=".bookings.CurrentBooking.BookingFragment" />
 
     <ProgressBar

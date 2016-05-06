@@ -420,7 +420,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                     bookingRequest.DropZipCode = zipCode;
                 }
                 btnDropAddressAdd.setText(getString(R.string.item_booking_edit));
-
             }
 
         });

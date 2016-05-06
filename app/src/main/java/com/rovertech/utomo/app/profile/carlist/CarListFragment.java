@@ -145,7 +145,7 @@ public class CarListFragment extends Fragment implements CarFragmentView, View.O
 
     @Override
     public void showProgress() {
-        progressDialog = ProgressDialog.show(getActivity(), "Loading your vehicles", "Please wait..", false);
+        progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
     }
 
     @Override

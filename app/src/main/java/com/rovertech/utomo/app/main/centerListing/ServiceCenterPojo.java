@@ -17,7 +17,7 @@ public class ServiceCenterPojo implements Serializable {
 
     public boolean IsBodyWash;
 
-    public boolean IsOfferAvaill;
+    public boolean IsOfferAvail;
 
     public boolean IsPickupDrop;
 
@@ -40,7 +40,7 @@ public class ServiceCenterPojo implements Serializable {
         this.ContactPhoneNo1 = "";
         this.ContactPhoneNo2 = "";
         this.IsBodyWash = false;
-        this.IsOfferAvaill = false;
+        this.IsOfferAvail = false;
         this.IsPickupDrop = false;
         this.Rating = 0.0;
         this.ReviewCounter = 0;

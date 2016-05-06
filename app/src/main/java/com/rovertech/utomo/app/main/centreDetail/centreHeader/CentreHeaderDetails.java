@@ -58,6 +58,7 @@ public class CentreHeaderDetails extends LinearLayout {
         parentView = inflater.inflate(R.layout.layout_centre_header, this, true);
 
         viewPager = (ViewPager) parentView.findViewById(R.id.viewPager);
+
         initPager();
 
         txtDistance = (TextView) parentView.findViewById(R.id.txtDistance);
@@ -122,7 +123,7 @@ public class CentreHeaderDetails extends LinearLayout {
         imgOffer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Functions.fireIntent(context, CentreOfferActivity.class);
+                // Functions.fireIntent(context, CentreOfferActivity.class);
                 Intent intent = new Intent(context, CentreOfferActivity.class);
                 intent.putExtra("centreId", centreDetailPojo.ServiceCentreID);
                 context.startActivity(intent);

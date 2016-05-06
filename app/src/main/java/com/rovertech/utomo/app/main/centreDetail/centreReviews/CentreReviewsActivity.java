@@ -14,7 +14,7 @@ import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 public class CentreReviewsActivity extends AppCompatActivity implements CentreReviewsView {
 
-
+    private TextView tv_empty;
     private CentrePresenter mCentrePresenter;
 
     @Override
@@ -47,6 +47,9 @@ public class CentreReviewsActivity extends AppCompatActivity implements CentreRe
         });
 
         mCentrePresenter.setUpRecyclerView(this);
+
+        tv_empty = (TextView) findViewById(R.id.tv_empty);
+        tv_empty.setTypeface(Functions.getRegularFont(this));
 
     }
 

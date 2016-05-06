@@ -1,6 +1,5 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -135,19 +134,24 @@ public class ServicePresenterImpl implements ServicePresenter {
     }
 
     private void doCancelBooking(int bookingID) {
+
+        if (serviceView != null)
+            serviceView.showProgress();
+
         CancelBookingService service = UtomoApplication.retrofit.create(CancelBookingService.class);
         Call<CancelBookingOutput> call = service.doCancel(bookingID);
         call.enqueue(new Callback<CancelBookingOutput>() {
             @Override
             public void onResponse(Call<CancelBookingOutput> call, Response<CancelBookingOutput> response) {
+                if (serviceView != null)
+                    serviceView.hideProgress();
 
                 if (response.body() == null) {
                     Functions.showToast(context, "Error occurred");
                 } else {
                     CancelBookingOutput output = response.body();
                     if (output.CancleBooking.ResponseCode == 1) {
-                        Functions.showToast(context, "Booking cancel successfully.");
-                        ((Activity) context).finish();
+                        serviceView.cancelDone();
                     } else {
                         Functions.showToast(context, output.CancleBooking.ResponseMessage);
                     }
@@ -156,6 +160,9 @@ public class ServicePresenterImpl implements ServicePresenter {
 
             @Override
             public void onFailure(Call<CancelBookingOutput> call, Throwable t) {
+                if (serviceView != null)
+                    serviceView.hideProgress();
+
                 if (t.getCause() instanceof TimeoutException) {
                     Functions.showToast(context, AppConstant.TIMEOUTERRROR);
                 } else if (t.getCause() instanceof UnknownHostException) {

@@ -29,7 +29,6 @@ public class CarPresenterImpl implements CarPresenter {
     }
 
 
-
     @Override
     public void fetchDashboard(final Context context, CarPojo carPojo, String date, int mode, String odometer, int matricesID) {
         if (carView != null)

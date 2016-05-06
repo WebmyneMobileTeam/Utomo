@@ -14,9 +14,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
-import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.main.centreDetail.offer.api.SCOfferRequestAPI;
 import com.rovertech.utomo.app.main.centreDetail.offer.model.SCOfferResp;
 import com.rovertech.utomo.app.offers.AdminOfferPresenter;
@@ -32,7 +30,7 @@ import retrofit2.Response;
 public class CentreOfferActivity extends AppCompatActivity implements OfferView {
 
     private Toolbar toolbar;
-    private TextView txtCustomTitle;
+    private TextView txtCustomTitle, emptyNotifications;
     private int serviceCenterId;
     private AdminOfferPresenter mAdminOfferPresenter;
     private ProgressDialog dialog;
@@ -41,8 +39,8 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_centre_offer);
-        serviceCenterId=getIntent().getIntExtra("centreId",0);
-        Log.e("selected center", getIntent().getIntExtra("centreId",0)+"");
+        serviceCenterId = getIntent().getIntExtra("centreId", 0);
+        Log.e("selected center", getIntent().getIntExtra("centreId", 0) + "");
         //Log.d("selected center", PrefUtils.getCurrentCenter(this).toString());
 
         mAdminOfferPresenter = new AdminOfferPresenterImpl(this, this);
@@ -51,6 +49,9 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
 
     @Override
     public void init() {
+
+        emptyNotifications = (TextView) findViewById(R.id.emptyNotifications);
+        emptyNotifications.setTypeface(Functions.getRegularFont(this));
 
         //ShowProgressDialog();
         if (!Functions.isConnected(this)) {
@@ -124,7 +125,7 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
 
 
     public void callSCoffferApi(int serviceCenterId) {
-        try{
+        try {
             SCOfferRequestAPI api = UtomoApplication.retrofit.create(SCOfferRequestAPI.class);
             Call<SCOfferResp> call = api.SCOfferApi(serviceCenterId);
 
@@ -144,13 +145,12 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
                 }
 
                 @Override
-                public void onFailure (Call < SCOfferResp > call, Throwable t){
+                public void onFailure(Call<SCOfferResp> call, Throwable t) {
                     Log.e("error", t.toString());
                 }
 
-            });}
-        catch (Exception e)
-        {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

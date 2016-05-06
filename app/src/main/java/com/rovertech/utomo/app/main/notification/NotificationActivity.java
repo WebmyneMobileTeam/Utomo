@@ -3,10 +3,8 @@ package com.rovertech.utomo.app.main.notification;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -26,13 +24,13 @@ import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 public class NotificationActivity extends AppCompatActivity implements NotificationView {
 
     private Toolbar toolbar;
-    private TextView txtCustomTitle;
+    private TextView txtCustomTitle, emptyNotifications;
     private View parentView;
     private ProgressDialog dialog;
     private NotificationPresenter mNotificationPresenter;
     private int userID;
     private FamiliarRecyclerView notificationsFamiliarRecyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    // private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +52,14 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     public void init() {
         parentView = findViewById(android.R.id.content);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+      /*  mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
                 refreshItems();
             }
-        });
+        });*/
 
         // mNotificationPresenter.setUpRecyclerView();
     }
@@ -79,7 +77,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         notificationsFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
         notificationsFamiliarRecyclerView.setAdapter(notificationAdapter);
         notificationsFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
-        notificationsFamiliarRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        /*notificationsFamiliarRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
@@ -91,7 +90,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
-        });
+        });*/
     }
 
     @Override
@@ -102,7 +101,6 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     }
 
 
-
     private void initToolbar() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -111,6 +109,9 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         setSupportActionBar(toolbar);
 
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
+        emptyNotifications = (TextView) findViewById(R.id.emptyNotifications);
+        emptyNotifications.setTypeface(Functions.getBoldFont(this));
+
         txtCustomTitle.setText("Notifications");
         txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
@@ -139,9 +140,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         // Load items
         // ...
         mNotificationPresenter.callNotificationApi(userID, 1);
-        mSwipeRefreshLayout.setRefreshing(false);
+        //   mSwipeRefreshLayout.setRefreshing(false);
 
     }
-
 
 }

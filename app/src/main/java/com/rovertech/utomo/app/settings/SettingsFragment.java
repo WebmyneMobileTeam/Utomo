@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.settings;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -11,8 +12,6 @@ import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +19,7 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 public class SettingsFragment extends Fragment {
 
     private View parentView;
-
+    private TextView txtNotificationTitle;
     private SwitchCompat switchOffer, switchBooking;
 
 
@@ -48,6 +47,7 @@ public class SettingsFragment extends Fragment {
 
     private void init() {
 
+        txtNotificationTitle = (TextView) parentView.findViewById(R.id.txtNotificationTitle);
         switchOffer = (SwitchCompat) parentView.findViewById(R.id.switchOffer);
         switchBooking = (SwitchCompat) parentView.findViewById(R.id.switchBooking);
 
@@ -57,6 +57,7 @@ public class SettingsFragment extends Fragment {
     private void setTypeface() {
         switchBooking.setTypeface(Functions.getRegularFont(getActivity()));
         switchOffer.setTypeface(Functions.getRegularFont(getActivity()));
+        txtNotificationTitle.setTypeface(Functions.getRegularFont(getActivity()), Typeface.BOLD);
     }
 
 }

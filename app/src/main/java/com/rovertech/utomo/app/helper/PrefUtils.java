@@ -43,13 +43,20 @@ public class PrefUtils {
         return Prefs.with(ctx).getBoolean(AppConstant.IS_SPLASH, false);
     }
 
-
     public static void setLoggedIn(Context ctx, boolean value) {
         Prefs.with(ctx).save(AppConstant.LOGGED_IN, value);
     }
 
     public static boolean isUserLoggedIn(Context ctx) {
         return Prefs.with(ctx).getBoolean(AppConstant.LOGGED_IN, false);
+    }
+
+    public static void setRefreshDashboard(Context ctx, boolean value) {
+        Prefs.with(ctx).save(AppConstant.REFRESH_DASHBOARD, value);
+    }
+
+    public static boolean isRefreshDashboard(Context ctx) {
+        return Prefs.with(ctx).getBoolean(AppConstant.REFRESH_DASHBOARD, false);
     }
 
     public static void setUserID(Context ctx, int value) {

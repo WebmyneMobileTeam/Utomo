@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.annotations.SerializedName;
 import com.rovertech.utomo.app.R;
@@ -340,7 +339,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             Functions.showToast(context, "Select Year");
 
         } else if (selectModelYear.equals("")) {
-            Functions.showToast(context, "Select Year");
+            Functions.showToast(context, "Select Model");
 
         } else {
 
@@ -373,7 +372,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             request.VehicleNo = vehicleNo;
             request.Year = Integer.parseInt(selectedYear);
 
-            new AsyncTask<Void, Void, Void>() {
+            new AsyncTask<Void, String, String>() {
 
                 private String responseFromMultipart = null;
 
@@ -385,18 +384,18 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 }
 
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected String doInBackground(Void... params) {
                     try {
                         responseFromMultipart = doFileUploadAnother(file, context, request);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    return null;
+                    return responseFromMultipart;
                 }
 
                 @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
+                protected void onPostExecute(String responseFromMultipart) {
+                    super.onPostExecute(responseFromMultipart);
 
                     if (addcarView != null)
                         addcarView.hideProgress();

@@ -14,4 +14,6 @@ public interface ServiceView {
     void setBookingDetails(UserBookingData userBookingData);
 
     void showMessage(String message);
+
+    void cancelDone();
 }

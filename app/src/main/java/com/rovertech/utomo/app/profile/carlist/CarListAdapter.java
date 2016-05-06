@@ -8,7 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
@@ -58,7 +59,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
         final CarPojo carPojo = carArrayList.get(position);
         if (carPojo != null) {
             holder.carItemTile.setDetails(carPojo);
-            holder.txtDelete.setOnClickListener(new View.OnClickListener() {
+            holder.deleteLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.e("VehicleID", carPojo.VehicleID + "");
@@ -67,10 +68,9 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
                 }
             });
 
-            holder.txtEdit.setOnClickListener(new View.OnClickListener() {
+            holder.editLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     Intent editCarIntent = new Intent(context, AddCarActivity.class);
                     editCarIntent.putExtra("EditCar", AddCarActivity.editCar);
                     editCarIntent.putExtra("CarPojo", carPojo);
@@ -89,14 +89,17 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public CarItemTile carItemTile;
-        public ImageView txtDelete, txtEdit;
+        public TextView txtDelete, txtEdit;
         public CardView carCardView;
+        public LinearLayout editLayout, deleteLayout;
 
         public ViewHolder(View view) {
             super(view);
-            txtDelete = (ImageView) view.findViewById(R.id.txtDelete);
-            txtEdit = (ImageView) view.findViewById(R.id.txtEdit);
+            txtDelete = (TextView) view.findViewById(R.id.txtDelete);
+            txtEdit = (TextView) view.findViewById(R.id.txtEdit);
             carCardView = (CardView) view.findViewById(R.id.carCardView);
+            editLayout = (LinearLayout) view.findViewById(R.id.editLayout);
+            deleteLayout = (LinearLayout) view.findViewById(R.id.deleteLayout);
         }
     }
 

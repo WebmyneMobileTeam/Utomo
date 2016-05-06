@@ -29,7 +29,7 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
     private LayoutInflater inflater;
 
     private TextView txtTitle;
-    private ExpandableLayout expandLayout;
+    private ExpandableLayout expandPerformanceLayout;
     private LinearLayout expandClickLayout, initialLayout, remainsLayout;
     private ImageView imgArrow;
     private TextView txtMore;
@@ -72,9 +72,11 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
         initialLayout = (LinearLayout) parentView.findViewById(R.id.initialLayout);
         txtMore = (TextView) parentView.findViewById(R.id.txtMore);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
-        expandLayout = (ExpandableLayout) parentView.findViewById(R.id.expandLayout);
+        expandPerformanceLayout = (ExpandableLayout) parentView.findViewById(R.id.expandPerformanceLayout);
         imgArrow = (ImageView) parentView.findViewById(R.id.imgArrow);
         expandClickLayout = (LinearLayout) parentView.findViewById(R.id.expandClickLayout);
+
+        expandPerformanceLayout.setExpanded(false);
 
         expandClickLayout.setOnClickListener(this);
         txtMore.setOnClickListener(this);
@@ -82,7 +84,7 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
 
     private void doExpandCollapse() {
 
-        if (expandLayout.isExpanded()) {
+        if (expandPerformanceLayout.isExpanded()) {
             Functions.antirotateViewClockwise(imgArrow);
             txtMore.setText("More");
         } else {
@@ -90,7 +92,7 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
             txtMore.setText("Less");
         }
 
-        expandLayout.toggle();
+        expandPerformanceLayout.toggle();
     }
 
     public void setPerformance(ArrayList<Performance> lstPerformance) {

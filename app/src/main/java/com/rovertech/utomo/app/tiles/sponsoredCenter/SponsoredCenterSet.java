@@ -104,6 +104,9 @@ public class SponsoredCenterSet extends LinearLayout {
     }
 
     public void setCenterList(ArrayList<ServiceCenterPojo> lstReferTile) {
+        centerList = new ArrayList<>();
+        centerList.clear();
+
         centerList.addAll(lstReferTile);
         adapter.setCentreList(centerList);
 

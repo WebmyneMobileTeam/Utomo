@@ -58,11 +58,11 @@
         <activity
             android:name=".account.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".account.SignUpActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".main.drawer.DrawerActivity"
             android:screenOrientation="portrait"
