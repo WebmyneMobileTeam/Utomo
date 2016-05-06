@@ -38,7 +38,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     private InvoicePresenter presenter;
     private ProgressDialog progressDialog;
     private int bookinId;
-    private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableAmount, discountTitle;
+    private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableAmount, discountTitle,txtAvaildisc;
     private LinearLayout linearServiceDetails, linearOfferDiscountsDetails, emptyLayout;
     private FamiliarRecyclerView adminOffersRecyclerView;
     private PaymentDiscountOffersAdapter discountOffersAdapter;
@@ -76,6 +76,10 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
+
+
+        txtAvaildisc = (TextView) findViewById(R.id.txtAvaildisc);
+        txtAvaildisc.setTypeface(Functions.getRegularFont(this));
 
         discountTitle = (TextView) findViewById(R.id.discountTitle);
         discountTitle.setTypeface(Functions.getRegularFont(this));
@@ -191,10 +195,12 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                         }
                     });
                 } else {
+                    txtAvaildisc.setVisibility(View.GONE);
                     adminOffersRecyclerView.setVisibility(View.GONE);
                     discountTitle.setVisibility(View.GONE);
                 }
             } else {
+                txtAvaildisc.setVisibility(View.GONE);
                 serviceDetailsCardView.setVisibility(View.GONE);
                 adminOffersRecyclerView.setVisibility(View.GONE);
                 discountTitle.setVisibility(View.GONE);

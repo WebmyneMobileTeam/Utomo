@@ -70,7 +70,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.llAccp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("m click", "Accept" + notificationItems.get(position).BookingID + " || " + notificationItems.get(position).NotificationID);
+                  //  Log.d("m click", "Accept" + notificationItems.get(position).BookingID + " || " + notificationItems.get(position).NotificationID);
                     presenter.callRescheduleBookingApi(notificationItems.get(position).BookingID, notificationItems.get(position).NotificationID, true);
                 }
             });
@@ -78,7 +78,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.llReject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("m click", "Reject");
+                   // Log.d("m click", "Reject");
                     presenter.callRescheduleBookingApi(notificationItems.get(position).BookingID, notificationItems.get(position).NotificationID, false);
                 }
             });

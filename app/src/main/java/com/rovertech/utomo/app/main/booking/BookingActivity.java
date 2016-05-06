@@ -30,8 +30,12 @@ import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailP
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.dialog.AddressDialog;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BookingActivity extends AppCompatActivity implements BookingView, View.OnClickListener {
 
@@ -76,7 +80,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     private LinearLayout addressHolder;
     private static final String bookingDateTimeFormate = "dd MMM, yyyy KK:mm a";
 
-    private String dealerShip = "";
+    private String dealerShip = "",date,time;
     private int redirectFrom = 0;
     private boolean isCarSelected = false;
 
@@ -254,12 +258,35 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     @Override
     public void setDate(String convertedDate) {
+        date=convertedDate;
         txtDate.setText(convertedDate);
     }
 
     @Override
     public void setTime(String strTime) {
-        txtTime.setText(strTime);
+        time=strTime;
+        ///// check //////
+        Log.d("Date is",date + " || "+time);
+
+        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
+        String eDate = date + " "+time;
+        Date CurrentDate= new Date();
+        Date eDDte;
+        try {
+            eDDte = df2.parse(eDate);
+
+            if (eDDte.compareTo(CurrentDate)<=0) {
+                //Log.d("Date is",eDate + " < "+CurrentDate.toString()  );
+                txtTime.setText("");
+                Functions.showErrorAlert(BookingActivity.this, "Select valid Date And Time", AppConstant.INVALID_TIME);
+            } else {
+                //Log.d("Date is",eDate + " >  "+CurrentDate.toString());
+                txtTime.setText(strTime);
+            }
+
+        } catch(ParseException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -308,6 +335,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 break;
 
             case R.id.txtTime:
+                txtTime.setText("");
                 presenter.selectTime(this);
                 break;
 

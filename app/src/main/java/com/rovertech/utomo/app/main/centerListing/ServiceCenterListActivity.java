@@ -177,6 +177,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 0) {
+                    Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
                     edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
                     presenter.fetchCity(ServiceCenterListActivity.this, s.toString());
                 } else if (s.toString().length() == 0) {
@@ -355,6 +356,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearch:
+                Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
                 centerList = new ArrayList<>();
                 centerList.clear();
                 lastCentreId = 0;

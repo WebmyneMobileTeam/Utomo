@@ -146,6 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Functions.hideKeyPad(SignUpActivity.this,parentView);
                 finish();
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
@@ -156,11 +157,13 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin:
+                Functions.hideKeyPad(SignUpActivity.this,parentView);
                 presenter.checkCredentials(edtMobileNumber.getText().toString().trim(), edtName.getText().toString().trim(),
                         edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), cityId, edtReferralCode.getText().toString().trim());
                 break;
 
             case R.id.txtLogin:
+                Functions.hideKeyPad(SignUpActivity.this,parentView);
                 presenter.openLogin();
                 break;
 

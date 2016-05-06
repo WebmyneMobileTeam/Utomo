@@ -9,8 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp">
+       >
 
         <!--   <com.alexzh.circleimageview.CircleImageView
                android:id="@+id/imgNotifications"
@@ -24,13 +23,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_margin="8dp"
+
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -39,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_toLeftOf="@+id/txtNotificationsTimestamp"
-                    android:text=""
+                    android:text="AXXX"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="@dimen/XL_TEXT" />
 
@@ -51,7 +50,7 @@
                     android:layout_below="@+id/txtNotificationTitle"
                     android:layout_marginTop="5dp"
                     android:layout_toLeftOf="@+id/txtNotificationsTimestamp"
-                    android:text=""
+                    android:text="asdas"
                     android:textColor="?android:textColorSecondary"
                     android:textSize="@dimen/N_TEXT" />
 
@@ -70,18 +69,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/llAccpRej"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical">
 
-                <include layout="@layout/item_line_without_margin" />
+                <include
+                    layout="@layout/item_line_without_margin" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal"
                     android:paddingRight="16dp">
 

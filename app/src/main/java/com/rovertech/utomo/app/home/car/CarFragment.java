@@ -218,7 +218,6 @@ public class CarFragment extends Fragment implements CarView {
             sponsoredCenterSet.setVisibility(View.VISIBLE);
             sponsoredCenterSet.setCenterList(data.lstReferTile);
         }
-
         mainContent.setVisibility(View.VISIBLE);
     }
 
