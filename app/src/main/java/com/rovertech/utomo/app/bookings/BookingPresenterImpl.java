@@ -67,7 +67,7 @@ public class BookingPresenterImpl implements BookingPresenter {
 
     private void getSelectedTime(int hours, int mins) {
 
-        String timeStamp = "";
+        String timeStamp;
         if (hours > 12) {
             hours -= 12;
             timeStamp = "PM";
@@ -79,7 +79,7 @@ public class BookingPresenterImpl implements BookingPresenter {
         else
             timeStamp = "AM";
 
-        String minutes = "";
+        String minutes;
         if (mins < 10)
             minutes = "0" + mins;
         else

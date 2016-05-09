@@ -30,6 +30,7 @@ public class PrefUtils {
     public static String CURRENT_CAR_SELECTED = "CURRENT_CAR_SELECTED";
     public static String CURRENT_CENTER_SELECTED = "CURRENT_CENTER_SELECTED";
     public static String PAGER_POSITION = "PAGER_POSITION";
+    public static String NOTIFICATION_SIZE = "NOTIFICATION_SIZE";
 
     public static String WALLET_HISTORY = "WALLET_HISTORY";
 
@@ -130,6 +131,14 @@ public class PrefUtils {
 
     public static int getCurrentPosition(Context ctx) {
         return Prefs.with(ctx).getInt(PAGER_POSITION, 0);
+    }
+
+    public static void setNotificationSize(Context context, int size) {
+        Prefs.with(context).save(NOTIFICATION_SIZE, size);
+    }
+
+    public static int getNotificationSize(Context ctx) {
+        return Prefs.with(ctx).getInt(NOTIFICATION_SIZE, 0);
     }
 
     public static void setCurrentCarSelected(Context context, CarPojo carPojo) {

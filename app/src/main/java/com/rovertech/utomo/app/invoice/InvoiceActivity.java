@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.addCar.model.Vehicle;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.invoice.adapter.PaymentDiscountOffersAdapter;
@@ -38,12 +39,13 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     private InvoicePresenter presenter;
     private ProgressDialog progressDialog;
     private int bookinId;
-    private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableAmount, discountTitle,txtAvaildisc;
+    private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableAmount, discountTitle, txtSCDiscountOfferLabel, txtSCDiscountOfferAmount;
     private LinearLayout linearServiceDetails, linearOfferDiscountsDetails, emptyLayout;
     private FamiliarRecyclerView adminOffersRecyclerView;
     private PaymentDiscountOffersAdapter discountOffersAdapter;
     private CardView serviceDetailsCardView;
     private Button btnContinuePayment;
+    private View scOfferDiscountItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,10 +79,6 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             }
         });
 
-
-        txtAvaildisc = (TextView) findViewById(R.id.txtAvaildisc);
-        txtAvaildisc.setTypeface(Functions.getRegularFont(this));
-
         discountTitle = (TextView) findViewById(R.id.discountTitle);
         discountTitle.setTypeface(Functions.getRegularFont(this));
         txtTotalAmount = (TextView) findViewById(R.id.txtTotalAmount);
@@ -94,6 +92,11 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         serviceDetailsCardView = (CardView) findViewById(R.id.serviceDetailsCardView);
         btnContinuePayment = (Button) findViewById(R.id.btnContinuePayment);
         emptyLayout = (LinearLayout) findViewById(R.id.emptyLayout);
+        scOfferDiscountItem = findViewById(R.id.scOfferDiscountItem);
+        txtSCDiscountOfferLabel = (TextView) scOfferDiscountItem.findViewById(R.id.txtServiceName);
+        txtSCDiscountOfferLabel.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
+        txtSCDiscountOfferAmount = (TextView) scOfferDiscountItem.findViewById(R.id.txtServiceAmount);
+        txtSCDiscountOfferAmount.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
 
         presenter = new InvoicePresenterImpl(InvoiceActivity.this, this);
         bookinId = getIntent().getIntExtra("bookingId", 0);
@@ -128,6 +131,8 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
             txtTotalAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).TotalAmount));
             txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount));
+            txtSCDiscountOfferLabel.setText("Service Center Offer Discount: ");
+            txtSCDiscountOfferAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).SCOfferDiscount));
 
             //inflate service details
             final List<PaymentJobCardDetailsModel> serviceJobsList = paymentProcessResponse.PaymentProcess.Data.get(0).lstJobCardDeatils;
@@ -195,12 +200,10 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                         }
                     });
                 } else {
-                    txtAvaildisc.setVisibility(View.GONE);
                     adminOffersRecyclerView.setVisibility(View.GONE);
                     discountTitle.setVisibility(View.GONE);
                 }
             } else {
-                txtAvaildisc.setVisibility(View.GONE);
                 serviceDetailsCardView.setVisibility(View.GONE);
                 adminOffersRecyclerView.setVisibility(View.GONE);
                 discountTitle.setVisibility(View.GONE);

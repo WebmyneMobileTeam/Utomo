@@ -6,7 +6,7 @@ import java.util.List;
  * Created by priyasindkar on 29-04-2016.
  */
 public class PaymentDetailsDataModelItem {
-    public long PayableAmount, TotalAmount;
+    public long PayableAmount, TotalAmount, SCOfferDiscount;
     public List<PaymentJobCardDetailsModel> lstJobCardDeatils;
     public List<PaymentOfferDiscountList> lstOfferDiscount;
 

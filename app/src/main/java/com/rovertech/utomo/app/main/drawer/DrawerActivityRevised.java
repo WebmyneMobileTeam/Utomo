@@ -305,10 +305,10 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
         });
     }
 
-    public void callNotificationApi(int userid) {
+    public void callNotificationApi(int userId) {
 
         NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
-        Call<NotificationResp> call = api.notificationApi(userid);
+        Call<NotificationResp> call = api.notificationApi(userId);
 
         call.enqueue(new Callback<NotificationResp>() {
             @Override
@@ -317,7 +317,18 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
                     Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
                         notificationSize = response.body().FetchNotification.Data.size();
-                        presenter.setNotificationBadge(badgeHelper, notificationSize);
+                        int preSize = PrefUtils.getNotificationSize(DrawerActivityRevised.this);
+                        int newSize = notificationSize;
+                        if (preSize == newSize) {
+                            presenter.setNotificationBadge(badgeHelper, 0);
+                        } else {
+                            presenter.setNotificationBadge(badgeHelper, newSize - preSize);
+                        }
+                        if (notificationSize >= 10) {
+                            PrefUtils.setNotificationSize(DrawerActivityRevised.this, 0);
+                        } else {
+                            PrefUtils.setNotificationSize(DrawerActivityRevised.this, notificationSize);
+                        }
                     }
                 } catch (Exception e) {
                     Log.e("exception", e.toString());

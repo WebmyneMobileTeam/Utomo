@@ -82,6 +82,10 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"></LinearLayout>
 
+                    <include
+                        android:id="@+id/scOfferDiscountItem"
+                        layout="@layout/payment_service_item"/>
+
                     <include layout="@layout/item_line" />
 
                     <LinearLayout
