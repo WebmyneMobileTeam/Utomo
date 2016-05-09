@@ -260,33 +260,64 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     public void setDate(String convertedDate) {
         date=convertedDate;
         txtDate.setText(convertedDate);
+        if(time!=null) {
+            SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
+            String eDate = date + " " + time;
+            Date CurrentDate = new Date();
+            Date eDDte;
+            try {
+                eDDte = df2.parse(eDate);
+                if (eDDte.compareTo(CurrentDate) <= 0) {
+                    //Log.d("Date is",eDate + " < "+CurrentDate.toString()  );
+                    txtDate.setText("Select Date");
+                    Functions.showErrorAlert(BookingActivity.this, "Select valid Date And Time", AppConstant.INVALID_TIME);
+                } else {
+                    //Log.d("Date is",eDate + " >  "+CurrentDate.toString());
+                    //txtTime.setText(strTime);
+                    txtDate.setText(convertedDate);
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else
+        {
+            txtDate.setText(convertedDate);
+        }
+
     }
 
     @Override
     public void setTime(String strTime) {
         time=strTime;
         ///// check //////
-        Log.d("Date is",date + " || "+time);
+        //Log.d("Date is",date + " || "+time);
+        if(date!=null) {
+            SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
+            String eDate = date + " " + time;
+            Date CurrentDate = new Date();
+            Date eDDte;
+            try {
+                eDDte = df2.parse(eDate);
 
-        SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
-        String eDate = date + " "+time;
-        Date CurrentDate= new Date();
-        Date eDDte;
-        try {
-            eDDte = df2.parse(eDate);
+                if (eDDte.compareTo(CurrentDate) <= 0) {
+                    //Log.d("Date is",eDate + " < "+CurrentDate.toString()  );
+                    txtTime.setText("Select Time");
+                    Functions.showErrorAlert(BookingActivity.this, "Select valid Date And Time", AppConstant.INVALID_TIME);
+                } else {
+                    //Log.d("Date is",eDate + " >  "+CurrentDate.toString());
+                    txtTime.setText(strTime);
+                }
 
-            if (eDDte.compareTo(CurrentDate)<=0) {
-                //Log.d("Date is",eDate + " < "+CurrentDate.toString()  );
-                txtTime.setText("");
-                Functions.showErrorAlert(BookingActivity.this, "Select valid Date And Time", AppConstant.INVALID_TIME);
-            } else {
-                //Log.d("Date is",eDate + " >  "+CurrentDate.toString());
-                txtTime.setText(strTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-
-        } catch(ParseException e){
-            e.printStackTrace();
         }
+        else
+        {
+            txtTime.setText(strTime);
+        }
+
     }
 
     @Override
@@ -297,7 +328,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         txtCarName.setText(String.format("%s %s", carPojo.Make, carPojo.Model));
         txtCarNo.setText(String.format("%s", carPojo.VehicleNo));
         isCarSelected = true;
-
     }
 
     @Override
@@ -331,11 +361,12 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtDate:
+                txtDate.setText("Select Date");
                 presenter.selectDate(this);
                 break;
 
             case R.id.txtTime:
-                txtTime.setText("");
+                txtTime.setText("Select Time");
                 presenter.selectTime(this);
                 break;
 

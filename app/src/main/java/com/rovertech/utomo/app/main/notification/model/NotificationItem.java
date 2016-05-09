@@ -6,7 +6,7 @@ package com.rovertech.utomo.app.main.notification.model;
 public class NotificationItem {
 
     public String BookingID;
-    public String Description;
+    public String Description,NotificationDate;
     public int NotificationID;
     public String PreferedDateTime;
     public String ReferenceCode;

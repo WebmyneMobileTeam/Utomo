@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.main.notification.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.notification.model.NotificationItem;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterPresenter;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterPresenterImpl;
@@ -56,13 +58,23 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(NotificationViewHolder holder, final int position) {
+        holder.txtNotificationTitle.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
+        holder.txtNotificationDesc.setTypeface(Functions.getBoldFont(c), Typeface.NORMAL);
+        holder.txtNotificationsTimestamp.setTypeface(Functions.getBoldFont(c), Typeface.NORMAL);
+        holder.txtReject.setTypeface(Functions.getBoldFont(c), Typeface.NORMAL);
+        holder.txtAccept.setTypeface(Functions.getBoldFont(c), Typeface.NORMAL);
+
+
         if (notificationItems.get(position).ServicecentreName != null) {
             holder.txtNotificationTitle.setText(Html.fromHtml(notificationItems.get(position).ServicecentreName));
         }
         if (notificationItems.get(position).Description != null) {
             holder.txtNotificationDesc.setText(Html.fromHtml(notificationItems.get(position).Description));
         }
-        holder.txtNotificationsTimestamp.setText(notificationItems.get(position).PreferedDateTime);
+        if (notificationItems.get(position).NotificationDate != null) {
+            holder.txtNotificationsTimestamp.setText(Html.fromHtml(notificationItems.get(position).NotificationDate));
+        }
+       // holder.txtNotificationsTimestamp.setText(notificationItems.get(position).NotificationDate);
 
         if (notificationItems.get(position).Type) {
             holder.llAccpRej.setVisibility(View.VISIBLE);
@@ -134,6 +146,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public NotificationViewHolder(View itemView) {
             super(itemView);
             txtNotificationTitle = (TextView) itemView.findViewById(R.id.txtNotificationTitle);
+
             txtNotificationDesc = (TextView) itemView.findViewById(R.id.txtNotificationDesc);
             txtNotificationsTimestamp = (TextView) itemView.findViewById(R.id.txtNotificationsTimestamp);
             txtReject = (TextView) itemView.findViewById(R.id.txtReject);

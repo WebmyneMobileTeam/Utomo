@@ -59,7 +59,8 @@ public class AppConstant {
     public static String TIMEOUTERRROR = "Server not Responding";
     public static String ALREADY_BOOK = "You have request for service or this car has already is under service. Please choose another car.";
 
-    public static String INVALID_TIME = "You have request for service on invalid time. Please choose another time.";
+    public static String INVALID_TIME = "You have request for service on invalid date/time. Please choose another date/time.";
+    public static String INVALID_DATE = "You have request for service on invalid date. Please choose another date.";
 
     public static String FRAGMENT_VALUE = "fragment";
     public static String HOME_FRAGMENT = "home";
