@@ -101,6 +101,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".temp.MapActivity" />
         <activity android:name=".refer.LaunchActivity" />
+        <activity android:name=".invoice.InvoiceActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
