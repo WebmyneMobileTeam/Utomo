@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.home;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gun0912.tedpermission.PermissionListener;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
@@ -36,8 +38,6 @@ import com.rovertech.utomo.app.home.presenter.DashboardPresenter;
 import com.rovertech.utomo.app.home.presenter.DashboardPresenterImpl;
 import com.rovertech.utomo.app.home.presenter.DashboardView;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.LocationFinder;
 
@@ -91,7 +91,25 @@ public class DashboardFragment extends Fragment implements DashboardView {
                 if (PrefUtils.getCurrentCarSelected(getActivity()).CurrentBooking) {
                     Functions.showErrorAlert(getActivity(), "Cant' Book", AppConstant.ALREADY_BOOK);
                 } else {
-                    presenter.openCenterListing();
+
+                    Functions.setPermission(getActivity(),
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                            new PermissionListener() {
+                                @Override
+                                public void onPermissionGranted() {
+
+                                    presenter.openCenterListing();
+                                }
+
+                                @Override
+                                public void onPermissionDenied(ArrayList<String> arrayList) {
+
+
+                                    Functions.showToast(getActivity(), "Permission Denied");
+
+                                }
+                            });
+
                 }
             }
         });
@@ -174,6 +192,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
     @Override
     public void navigateCenterListActivity() {
+
         LocationFinder finder = new LocationFinder(getActivity());
 
         if (!finder.canGetLocation()) {
@@ -186,6 +205,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
             centreIntent.putExtra("lng", finder.getLongitude());
             startActivity(centreIntent);
         }
+
+
     }
 
     private class CarFragmentPagerAdapter extends FragmentStatePagerAdapter {
@@ -247,6 +268,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
     }
 
     private void accurateAlert() {
+
+
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("Note");
         alert.setMessage("Do you want to getting service centres nearby your location? Turn on your GPS from Settings.");

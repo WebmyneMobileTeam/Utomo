@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.addCar;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpermission.PermissionListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.addCar.adapter.CustomSpinnerAdapter;
@@ -39,6 +41,7 @@ import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.Odometer;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class AddCarActivity extends AppCompatActivity implements AddcarView, View.OnClickListener {
 
@@ -252,7 +255,22 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 break;
 
             case R.id.imageSelectLayout:
-                selectImage();
+
+                Functions.setPermission(this,
+                        new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                selectImage();
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> arrayList) {
+
+                                Toast.makeText(AddCarActivity.this, "Permission Denied", Toast.LENGTH_SHORT);
+                            }
+                        });
+
                 break;
         }
     }

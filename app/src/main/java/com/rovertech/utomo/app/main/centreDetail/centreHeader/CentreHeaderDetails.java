@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.centreDetail.centreHeader;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -12,12 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.centreDetail.CentreDetailsActivity;
 import com.rovertech.utomo.app.main.centreDetail.ImageAdapter;
 import com.rovertech.utomo.app.main.centreDetail.centreReviews.CentreReviewsActivity;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
@@ -134,7 +136,22 @@ public class CentreHeaderDetails extends LinearLayout {
             @Override
             public void onClick(View v) {
 
-                Functions.makePhoneCall(context, centreDetailPojo.ContactPhoneNo1);
+
+                Functions.setPermission(context,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                Functions.makePhoneCall(context, centreDetailPojo.ContactPhoneNo1);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> arrayList) {
+
+                                Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT);
+                            }
+                        });
+
             }
         });
 

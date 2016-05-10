@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.home.car;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.gun0912.tedpermission.PermissionListener;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
 import com.rovertech.utomo.app.helper.AppConstant;
@@ -26,8 +28,6 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.tiles.CurrentServiceTile;
 import com.rovertech.utomo.app.tiles.HealthMeterTile;
@@ -36,6 +36,8 @@ import com.rovertech.utomo.app.tiles.performance.PerformanceTile;
 import com.rovertech.utomo.app.tiles.serviceDate.ServiceDateTile;
 import com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterSet;
 import com.rovertech.utomo.app.widget.LocationFinder;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,7 +129,25 @@ public class CarFragment extends Fragment implements CarView {
                 if (PrefUtils.getCurrentCarSelected(getActivity()).CurrentBooking) {
                     Functions.showErrorAlert(getActivity(), "Can't Book", AppConstant.ALREADY_BOOK);
                 } else {
-                    presenter.openCenterListing();
+
+                    Functions.setPermission(getActivity(),
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                            new PermissionListener() {
+                                @Override
+                                public void onPermissionGranted() {
+
+                                    presenter.openCenterListing();
+                                }
+
+                                @Override
+                                public void onPermissionDenied(ArrayList<String> arrayList) {
+
+
+                                    Functions.showToast(getActivity(), "Permission Denied");
+
+                                }
+                            });
+
                 }
             }
         });
@@ -224,7 +244,6 @@ public class CarFragment extends Fragment implements CarView {
     @Override
     public void navigateCenterListActivity() {
         LocationFinder finder = new LocationFinder(getActivity());
-
         if (!finder.canGetLocation()) {
             accurateAlert();
 

@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.profile.personal;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,8 +20,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gun0912.tedpermission.PermissionListener;
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
@@ -211,7 +214,23 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
                 break;
 
             case R.id.imageSelectLayout:
-                personalProfilePresenter.selectImage(getActivity());
+
+
+                Functions.setPermission(getActivity(),
+                        new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted() {
+                                personalProfilePresenter.selectImage(getActivity());
+                            }
+
+                            @Override
+                            public void onPermissionDenied(ArrayList<String> arrayList) {
+
+                                Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT);
+                            }
+                        });
+
                 break;
 
             case R.id.txtChangePassword:

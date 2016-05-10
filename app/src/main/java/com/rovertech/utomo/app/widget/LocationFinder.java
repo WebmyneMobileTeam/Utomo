@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.widget;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,13 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.rovertech.utomo.app.addCar.AddCarActivity;
+import com.rovertech.utomo.app.helper.Functions;
+
+import java.util.ArrayList;
 
 /**
  * Created by sagartahelyani on 08-03-2016.
@@ -41,9 +49,12 @@ public class LocationFinder extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    public LocationFinder(Context context) {
+    public LocationFinder(final Context context) {
         this.context = context;
         getLocation();
+
+
+
     }
 
     @Override
