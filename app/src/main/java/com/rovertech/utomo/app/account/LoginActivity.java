@@ -242,7 +242,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
             case R.id.txtForget:
                 Functions.hideKeyPad(this,this.parentView);
-                presenter.openForget(this, edtMobileNumber.getText().toString());
+                presenter.openForget(this, edtMobileNumber.getText().toString().trim());
                 break;
         }
     }
@@ -295,7 +295,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void numberError() {
-        Functions.showErrorAlert(this, "Invalid Mobile number", false);
+        Functions.showErrorAlert(this, "Please enter mobile number", false);
 
     }
 

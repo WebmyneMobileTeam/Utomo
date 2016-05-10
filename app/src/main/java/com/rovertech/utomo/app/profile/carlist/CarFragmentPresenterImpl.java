@@ -94,7 +94,7 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
     }
 
     private void doDeleteCar(int vehicleId) {
-        
+
         DeleteCarService service = UtomoApplication.retrofit.create(DeleteCarService.class);
         Call<DeleteVehicleResponse> call = service.deletCar(PrefUtils.getUserID(context), vehicleId);
 
@@ -105,6 +105,7 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
                     DeleteVehicleResponse deleteResponse = response.body();
                     if (deleteResponse.DeleteVehicleDetails.ResponseCode == 1) {
                         Functions.showToast(context, "Delete car successfully");
+                        PrefUtils.setRefreshDashboard(context, true);
                         fetchMyCars(context);
 
                     } else {

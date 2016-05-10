@@ -64,7 +64,6 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     CarPojo mCarPojo;
     int carMode = 0;
 
-
     public AddCarPresenterImpl(AddcarView addcarView) {
         this.addcarView = addcarView;
     }
@@ -137,7 +136,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     public void fetchMakes(final Context context) {
 
         if (addcarView != null)
-            addcarView.showMakeProgress();
+            addcarView.showProgress();
 
         FetchMakeService service = UtomoApplication.retrofit.create(FetchMakeService.class);
         Call<MakeModel> call = service.fetchMake();
@@ -159,7 +158,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(context, R.layout.spinner_layout_transperent,
                             R.layout.spinner_dropview_layout, makeList);
                     addcarView.setMakeAdapter(adapter);
-                    addcarView.hideMakeProgress();
+                    addcarView.hideProgress();
 
                     //edit car
                     if (carMode == AddCarActivity.editCar && mCarPojo != null) {
@@ -180,7 +179,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     @Override
     public void fetchYears(String selectedMake, final Context context) {
         if (addcarView != null)
-            addcarView.showYearProgress();
+            addcarView.showProgress();
 
         FetchYearService service = UtomoApplication.retrofit.create(FetchYearService.class);
         Call<YearModel> call = service.fetchYear(selectedMake);
@@ -203,7 +202,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(context, R.layout.spinner_layout_transperent,
                             R.layout.spinner_dropview_layout, yearList);
                     addcarView.setYearAdapter(adapter);
-                    addcarView.hideYearProgress();
+                    addcarView.hideProgress();
 
                     //edit car
                     if (carMode == AddCarActivity.editCar && mCarPojo != null) {
@@ -223,7 +222,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     @Override
     public void fetchModels(String selectedMake, String selectedYear, final Context context) {
         if (addcarView != null)
-            addcarView.showModelProgress();
+            addcarView.showProgress();
 
         FetchModelService modelService = UtomoApplication.retrofit.create(FetchModelService.class);
         Call<VehicleModel> call = modelService.fetchModels(selectedMake, selectedYear);
@@ -246,7 +245,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     VehicleAdapter adapter = new VehicleAdapter(context, R.layout.spinner_layout_transperent,
                             R.layout.spinner_dropview_layout, modelList);
                     addcarView.setModelAdapter(adapter);
-                    addcarView.hideModelProgress();
+                    addcarView.hideProgress();
 
                     //edit car
                     if (carMode == AddCarActivity.editCar && mCarPojo != null) {
@@ -499,6 +498,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                         if (updateVehicleDetails.vehicleDetails != null && updateVehicleDetails.vehicleDetails.ResponseCode == 1) {
 
                             Functions.showErrorAlert(context, "Success", "Car Details has been Updated.", true);
+                            PrefUtils.setRefreshDashboard(context, true);
 
                         } else {
 
@@ -552,9 +552,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     public void setEditCarDetails(CarPojo carPojo, @AddCarActivity.CarMode int carMode) {
         this.mCarPojo = carPojo;
         this.carMode = carMode;
-
     }
-
 
     private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {
         String doResponse = null;
@@ -693,12 +691,10 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
     }
 
-
     public class UpdateVehicleDetails {
 
         @SerializedName("UpdateVehicleDetails")
         public VehicleDetails vehicleDetails;
     }
-
 
 }

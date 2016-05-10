@@ -19,9 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +34,6 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.Odometer;
@@ -59,7 +56,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     private AppCompatSpinner yearSpinner, modelSpinner, makeSpinner;
 
-    private ProgressBar makeProgressBar, yearProgressBar, modelProgressBar;
     private String selectedMake = "", selectedYear = "", selectedModel = "", selectModelYear = "";
 
     private LinearLayout yearCardView, modelCardView;
@@ -129,6 +125,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
                     selectedYear = parent.getSelectedItem().toString();
+                    modelCardView.setVisibility(View.GONE);
                     presenter.fetchModels(selectedMake, selectedYear, AddCarActivity.this);
                     Log.e("selectedYear", selectedYear);
                 }
@@ -160,13 +157,9 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     private void init() {
 
-
         yearCardView = (LinearLayout) findViewById(R.id.yearCardView);
         modelCardView = (LinearLayout) findViewById(R.id.modelCardView);
         modelSpinner = (AppCompatSpinner) findViewById(R.id.modelSpinner);
-        modelProgressBar = (ProgressBar) findViewById(R.id.modelProgressBar);
-        yearProgressBar = (ProgressBar) findViewById(R.id.yearProgressBar);
-        makeProgressBar = (ProgressBar) findViewById(R.id.makeProgressBar);
         yearSpinner = (AppCompatSpinner) findViewById(R.id.yearSpinner);
         makeSpinner = (AppCompatSpinner) findViewById(R.id.makeSpinner);
         parentView = findViewById(android.R.id.content);
@@ -316,6 +309,8 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 Log.e("makeAdapter", String.valueOf(position));
                 if (position != 0) {
                     selectedMake = parent.getSelectedItem().toString();
+                    yearCardView.setVisibility(View.GONE);
+                    modelCardView.setVisibility(View.GONE);
                     presenter.fetchYears(selectedMake, AddCarActivity.this);
                     Log.e("selectedMake", selectedMake);
                 }
@@ -326,36 +321,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
             }
         });
-    }
-
-    @Override
-    public void showMakeProgress() {
-        makeProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideMakeProgress() {
-        makeProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showYearProgress() {
-        yearProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideYearProgress() {
-        yearProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showModelProgress() {
-        modelProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideModelProgress() {
-        modelProgressBar.setVisibility(View.GONE);
     }
 
     @Override

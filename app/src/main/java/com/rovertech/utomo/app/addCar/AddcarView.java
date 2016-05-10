@@ -20,18 +20,6 @@ public interface AddcarView {
 
     void setMakeAdapter(CustomSpinnerAdapter adapter);
 
-    void showMakeProgress();
-
-    void hideMakeProgress();
-
-    void showYearProgress();
-
-    void hideYearProgress();
-
-    void showModelProgress();
-
-    void hideModelProgress();
-
     void setYearAdapter(CustomSpinnerAdapter adapter);
 
     void setModelAdapter(VehicleAdapter adapter);

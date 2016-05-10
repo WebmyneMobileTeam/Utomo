@@ -41,6 +41,7 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerViewOnScrollListener;
@@ -478,7 +479,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     public void onBackPressed() {
         super.onBackPressed();
         if (PrefUtils.isUserLoggedIn(this)) {
-            Intent intent = new Intent(this, DrawerActivity.class);
+            Intent intent = new Intent(this, DrawerActivityRevised.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

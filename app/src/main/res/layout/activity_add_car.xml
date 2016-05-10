@@ -85,12 +85,6 @@
                     widget:met_primaryColor="@color/editTextColor"
                     widget:met_textColorHint="@color/editTextHintColor" />
 
-                <ProgressBar
-                    android:id="@+id/makeProgressBar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="8dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -111,11 +105,6 @@
                     android:background="@null"
                     android:overlapAnchor="false" />
 
-                <ProgressBar
-                    android:id="@+id/yearProgressBar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="8dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,13 +125,7 @@
                     android:background="@null"
                     android:overlapAnchor="false" />
 
-                <ProgressBar
-                    android:id="@+id/modelProgressBar"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="8dp" />
             </LinearLayout>
-
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edtServiceDate"

@@ -723,7 +723,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     @Override
     public void openForget(Context context, String number) {
-        if (number.equals("")) {
+        if (number.equals("") || number.length() < 10) {
             accountView.numberError();
         } else {
             callWS(context, number);
@@ -732,11 +732,18 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     private void callWS(final Context context, final String number) {
 
+        if (accountView != null)
+            accountView.showProgress();
+
         ResendOtpService service = UtomoApplication.retrofit.create(ResendOtpService.class);
         Call<ResendOutput> call = service.resendOTP(number);
         call.enqueue(new Callback<ResendOutput>() {
             @Override
             public void onResponse(Call<ResendOutput> call, Response<ResendOutput> response) {
+
+                if (accountView != null)
+                    accountView.hideProgress();
+
                 if (response.body() != null) {
                     ResendOutput output = response.body();
 
@@ -764,6 +771,8 @@ public class AccountPresenterImpl implements AccountPresenter {
 
             @Override
             public void onFailure(Call<ResendOutput> call, Throwable t) {
+                if (accountView != null)
+                    accountView.hideProgress();
                 Functions.showToast(context, t.toString());
             }
         });

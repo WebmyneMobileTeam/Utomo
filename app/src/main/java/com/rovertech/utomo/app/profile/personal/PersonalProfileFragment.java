@@ -149,7 +149,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
     @Override
     public void onUpdateSuccess() {
-
+        PrefUtils.setRefreshDashboard(getActivity(), true);
     }
 
     @Override
