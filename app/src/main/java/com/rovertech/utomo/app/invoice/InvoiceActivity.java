@@ -128,6 +128,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         } else {
             serviceDetailsCardView.setVisibility(View.VISIBLE);
             adminOffersRecyclerView.setVisibility(View.VISIBLE);
+
             discountTitle.setVisibility(View.VISIBLE);
             btnContinuePayment.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
