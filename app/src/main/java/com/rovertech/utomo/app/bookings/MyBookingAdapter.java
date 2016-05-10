@@ -18,9 +18,7 @@ import com.rovertech.utomo.app.helper.Functions;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by raghavthakkar on 15-03-2016.
- */
+
 public class MyBookingAdapter extends FragmentStatePagerAdapter {
 
     private Context context;

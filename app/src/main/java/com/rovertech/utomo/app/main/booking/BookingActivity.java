@@ -228,6 +228,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     public void setDetails() {
 
         centreDetailPojo = PrefUtils.getCurrentCenter(this);
+
         dealerShip = centreDetailPojo.Dealership;
 
         if (redirectFrom == AppConstant.FROM_SC_LIST) {
