@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.startup;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,12 +17,12 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.gun0912.tedpermission.PermissionListener;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.LoginActivity;
 import com.rovertech.utomo.app.account.SignUpActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.widget.linkedViewPager.MyPagerAdapter;
 import com.rovertech.utomo.app.widget.linkedViewPager.ViewPager;
@@ -190,7 +191,21 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtSkip:
-                presenter.skip(this);
+                Functions.setPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        presenter.skip(StartupActivity.this);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> arrayList) {
+
+
+                        Functions.showToast(StartupActivity.this, "Permission Denied");
+
+                    }
+                });
+
                 break;
 
             case R.id.imgFb:
@@ -234,4 +249,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     public void gplusLogin() {
         Functions.showSnack(parentView, "gplus login");
     }
+
+
 }

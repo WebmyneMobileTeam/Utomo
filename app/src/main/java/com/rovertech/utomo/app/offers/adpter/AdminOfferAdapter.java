@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.offers.adpter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +22,9 @@ import java.util.ArrayList;
  * Created by raghavthakkar on 21-04-2016.
  */
 public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.NotificationViewHolder> {
+
+
+    private static final String AdminOfferAdapter="AdminOfferAdapter.check";
 
     private static Context c;
     private final boolean adminFlag;
@@ -147,6 +149,9 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
 
     }
+
+
+
 
 
 }

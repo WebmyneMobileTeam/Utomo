@@ -157,5 +157,7 @@
     <string name="ruppee">\u20B9</string>
     <string name="no_transactions">No Latest Transactions</string>
     <string name="view_all">View All Transactions</string>
+    <string name="permission_camera_denied">Permission denied</string>
+    <string name="permission_camera_neverask">Never askf or permission</string>
 
 </resources>

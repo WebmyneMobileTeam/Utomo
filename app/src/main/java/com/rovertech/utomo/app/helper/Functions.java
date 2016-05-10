@@ -19,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -35,6 +36,8 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.gson.GsonBuilder;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.widget.dialog.SuccessDialog;
 
@@ -127,7 +130,7 @@ public class Functions {
 
     public static Typeface getThinFont(Context _context) {
         //Typeface tf = Typeface.createFromAsset(_context.getAssets(), "roboto.thin.ttf");
-        return getTabHostFont( _context);
+        return getTabHostFont(_context);
     }
 
     public static Typeface getRegularFont(Context _context) {
@@ -436,5 +439,19 @@ public class Functions {
         }
 
         return drawable;
+    }
+
+    public static void setPermission(final Context context, @NonNull String[] permissions, PermissionListener permissionListene) {
+
+
+        if (permissions != null && permissions.length == 0 && permissionListene != null) {
+
+            return;
+        }
+        new TedPermission(context)
+                .setPermissionListener(permissionListene)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(permissions)
+                .check();
     }
 }
