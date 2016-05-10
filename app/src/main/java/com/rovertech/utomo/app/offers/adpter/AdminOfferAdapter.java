@@ -58,24 +58,29 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
     @Override
     public void onBindViewHolder(NotificationViewHolder holder, final int position) {
 
+
         holder.txtOfferTitle.setText("Offer Name : " + itemList.get(position).OfferName);
         holder.txtOfferTitleCode.setText(itemList.get(position).OfferCode);
-        if (itemList.get(position).OfferType.equals("Running")) {
-            holder.txtOfferTitle1.setText("Active Offer");
-        } else if (itemList.get(position).OfferType.equals("UpComming")) {
-            holder.img.setColorFilter(c.getResources().getColor(R.color.button_bg), PorterDuff.Mode.SRC_ATOP);
-            holder.txtOfferTitle1.setText("UpComming Offer");
+
+        if (itemList.get(position).OfferType != null) {
+            if (itemList.get(position).OfferType.equals("Running")) {
+                holder.txtOfferTitle1.setText("Active Offer");
+            } else if (itemList.get(position).OfferType.equals("UpComming")) {
+                holder.img.setColorFilter(c.getResources().getColor(R.color.button_bg), PorterDuff.Mode.SRC_ATOP);
+                holder.txtOfferTitle1.setText("UpComming Offer");
+            }
         }
+
+
         final ArrayList<OfferCategory> category = itemList.get(position).lstAvailOffersCategory;
         float sum = 0;
         for (int i = 0; i < category.size(); i++) {
             if (adminFlag) {
                 sum = sum + category.get(i).AdminOfferValue;
             } else {
-                int amt=0;
-                if(category.get(i).AdminOfferValue>0)
-                {
-                    amt=category.get(i).AdminOfferValue+category.get(i).SCOfferValue;
+                int amt = 0;
+                if (category.get(i).AdminOfferValue > 0) {
+                    amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
                 }
                 sum = sum + amt;
             }
