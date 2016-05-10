@@ -77,7 +77,6 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
         expandClickLayout = (LinearLayout) parentView.findViewById(R.id.expandClickLayout);
 
         expandPerformanceLayout.setExpanded(false);
-
         expandClickLayout.setOnClickListener(this);
         txtMore.setOnClickListener(this);
     }

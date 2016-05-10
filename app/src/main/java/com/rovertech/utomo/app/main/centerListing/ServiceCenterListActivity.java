@@ -178,7 +178,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 0) {
-                    Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
+                   // Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
                     edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
                     presenter.fetchCity(ServiceCenterListActivity.this, s.toString());
                 } else if (s.toString().length() == 0) {

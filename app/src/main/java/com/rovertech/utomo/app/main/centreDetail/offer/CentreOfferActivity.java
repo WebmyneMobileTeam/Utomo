@@ -61,7 +61,6 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
             mAdminOfferPresenter.callSCoffferApi(serviceCenterId);
             //callSCoffferApi(serviceCenterId);
         }
-
     }
 
     @Override

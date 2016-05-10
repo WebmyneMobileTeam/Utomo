@@ -46,7 +46,6 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
     @Override
     public NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
         switch (viewType) {
 
             default:
@@ -60,7 +59,6 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
     @Override
     public void onBindViewHolder(NotificationViewHolder holder, final int position) {
 
-
         holder.txtOfferTitle.setText("Offer Name : " + itemList.get(position).OfferName);
         holder.txtOfferTitleCode.setText(itemList.get(position).OfferCode);
 
@@ -72,8 +70,6 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
                 holder.txtOfferTitle1.setText("UpComming Offer");
             }
         }
-
-
         final ArrayList<OfferCategory> category = itemList.get(position).lstAvailOffersCategory;
         float sum = 0;
         for (int i = 0; i < category.size(); i++) {
