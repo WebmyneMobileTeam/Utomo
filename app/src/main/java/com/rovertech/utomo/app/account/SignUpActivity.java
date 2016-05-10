@@ -146,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.hideKeyPad(SignUpActivity.this,parentView);
+                Functions.hideKeyPad(SignUpActivity.this, parentView);
                 finish();
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
@@ -157,13 +157,13 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin:
-                Functions.hideKeyPad(SignUpActivity.this,parentView);
+                Functions.hideKeyPad(SignUpActivity.this, parentView);
                 presenter.checkCredentials(edtMobileNumber.getText().toString().trim(), edtName.getText().toString().trim(),
                         edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), cityId, edtReferralCode.getText().toString().trim());
                 break;
 
             case R.id.txtLogin:
-                Functions.hideKeyPad(SignUpActivity.this,parentView);
+                Functions.hideKeyPad(SignUpActivity.this, parentView);
                 presenter.openLogin();
                 break;
 
@@ -221,17 +221,29 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void navigateAddCar() {
-       // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
 
-        PrefUtils.setRedirectLogin(this, PrefUtils.getRedirectLogin(this));
+        // TODO: 10-05-2016 manual change
 
-      //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
 
-        Intent addCarIntent = new Intent(this, AddCarActivity.class);
-        addCarIntent.putExtra(AppConstant.SKIP, true);
-        addCarIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(addCarIntent);
-        finish();
+        //  PrefUtils.setRedirectLogin(this, PrefUtils.getRedirectLogin(this));
+
+        //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+
+        if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_SKIP) {
+            Intent addCarIntent = new Intent(this, AddCarActivity.class);
+            addCarIntent.putExtra(AppConstant.SKIP, true);
+            startActivity(addCarIntent);
+            finish();
+
+        } else {
+            PrefUtils.setRedirectLogin(this, AppConstant.FROM_START);
+            Intent addCarIntent = new Intent(this, AddCarActivity.class);
+            addCarIntent.putExtra(AppConstant.SKIP, true);
+            addCarIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(addCarIntent);
+            finish();
+        }
     }
 
     @Override

@@ -106,7 +106,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
                     Functions.fireIntent(CentreDetailsActivity.this, intent);
 
                 } else {
-                    PrefUtils.setRedirectLogin(CentreDetailsActivity.this, AppConstant.FROM_SC);
+                    PrefUtils.setRedirectLogin(CentreDetailsActivity.this, AppConstant.FROM_SKIP);
                     // Toast.makeText(context, "sd " + PrefUtils.getRedirectLogin(context), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CentreDetailsActivity.this, LoginActivity.class);
                     Functions.fireIntent(CentreDetailsActivity.this, intent);

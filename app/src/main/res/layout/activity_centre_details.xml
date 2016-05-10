@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".profile.ProfileActivity">
 
     <LinearLayout
         android:id="@+id/mainHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/btnBook"
         android:orientation="vertical">
 
         <include layout="@layout/app_bar" />
@@ -33,12 +33,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <Button
-                    android:id="@+id/btnBook"
-                    style="@style/MyButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_margin="8dp"
-                    android:text="Book Now" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -48,5 +42,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/btnBook"
+        style="@style/MyButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:text="Book Now" />
 
 </RelativeLayout>

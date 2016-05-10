@@ -83,6 +83,8 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     private void checkValidation() {
         if (edtPassword.getText().toString().trim().length() == 0 || edtRePassword.getText().toString().trim().length() == 0) {
             Functions.showToast(context, "Password can't be empty");
+        } else if (edtPassword.getText().toString().trim().length() < 8) {
+            Functions.showToast(context, "Password must of 8 characters.");
         } else {
             if (edtPassword.getText().toString().trim().equals(edtRePassword.getText().toString().trim()) && onSubmitListener != null) {
                 onSubmitListener.onSubmit(edtPassword.getText().toString().trim());

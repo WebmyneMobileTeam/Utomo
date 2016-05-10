@@ -61,7 +61,7 @@ public class BookingFragment extends Fragment implements BookingView {
         emptyTextView.setText("No Current Booking");
         emptyTextView.setTypeface(Functions.getRegularFont(getActivity()), Typeface.BOLD);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-
+        emptyTextView.setVisibility(View.GONE);
     }
 
     @Override

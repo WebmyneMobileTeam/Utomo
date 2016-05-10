@@ -187,12 +187,43 @@
                     widget:met_primaryColor="@color/editTextColor"
                     widget:met_textColorHint="@color/editTextHintColor" />
 
-                <Button
-                    android:id="@+id/btnLogin"
-                    style="@style/MyButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="Login" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        android:padding="4dp"
+                        android:text="New User? Sign Up"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
+
+                    <TextView
+                        android:id="@+id/txtLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:padding="4dp"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        android:text="Already User? Login"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/N_TEXT" />
+
+                    <Button
+                        android:id="@+id/btnLogin"
+                        style="@style/MyButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="right"
+                        android:text="Login" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/txtForget"
@@ -204,25 +235,6 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/N_TEXT" />
 
-                <TextView
-                    android:id="@+id/txtSignUp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center"
-                    android:text="New User? Sign Up"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/N_TEXT" />
-
-                <TextView
-                    android:id="@+id/txtLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:gravity="center"
-                    android:text="Already User? Login"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/N_TEXT" />
 
             </LinearLayout>
 

@@ -40,7 +40,7 @@ public class WalletPresenterImpl implements WalletPresenter {
         final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading wallet transactions", "Please Wait..");
 
         WalletServiceApi serviceApi = UtomoApplication.retrofit.create(WalletServiceApi.class);
-        Call<WalletResponse> call = serviceApi.fetchWalletHistory(66);
+        Call<WalletResponse> call = serviceApi.fetchWalletHistory(PrefUtils.getUserID(context));
         call.enqueue(new Callback<WalletResponse>() {
             @Override
             public void onResponse(Call<WalletResponse> call, Response<WalletResponse> response) {

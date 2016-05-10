@@ -19,6 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:frv_emptyView="@id/emptyTextView"
+        app:frv_isEmptyViewKeepShowHeadOrFooter="false"
+
         tools:context=".bookings.CurrentBooking.BookingFragment" />
 
     <ProgressBar

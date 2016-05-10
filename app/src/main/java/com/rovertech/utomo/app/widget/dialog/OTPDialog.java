@@ -71,6 +71,7 @@ public class OTPDialog extends BaseDialog implements View.OnClickListener {
         txtTitle.setText("Verification");
 
         setCancelable(false);
+        setCanceledOnTouchOutside(false);
 
         imgClose.setOnClickListener(this);
         btnVerify.setOnClickListener(this);

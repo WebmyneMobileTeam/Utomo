@@ -131,7 +131,7 @@ public class CentreMainDetails extends LinearLayout {
                     Functions.fireIntent(context, intent);
 
                 } else {
-                    PrefUtils.setRedirectLogin(context, AppConstant.FROM_SC);
+                    PrefUtils.setRedirectLogin(context, AppConstant.FROM_SKIP);
                    // Toast.makeText(context, "sd " + PrefUtils.getRedirectLogin(context), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LoginActivity.class);
                     Functions.fireIntent(context, intent);

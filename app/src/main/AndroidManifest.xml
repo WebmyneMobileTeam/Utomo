@@ -100,8 +100,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".temp.MapActivity" />
-        <activity android:name=".refer.LaunchActivity" />
-        <activity android:name=".invoice.InvoiceActivity" />
+        <activity
+            android:name=".refer.LaunchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".invoice.InvoiceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -116,11 +122,18 @@
 
         <activity
             android:name=".temp.MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".main.centreDetail.offer.CentreOfferActivity" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".main.centreDetail.offer.CentreOfferActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".main.centreDetail.centreReviews.CentreReviewsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <!-- GCM -->
         <receiver
@@ -139,8 +152,14 @@
             android:name=".offers.AdminOffersLIstingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".wallet.WalletHistoryActivity" />
-        <activity android:name=".main.drawer.DrawerActivityRevised"></activity>
+        <activity
+            android:name=".wallet.WalletHistoryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".main.drawer.DrawerActivityRevised"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
 
 </manifest>
