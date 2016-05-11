@@ -56,8 +56,17 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        if(carArrayList.size()==1)
+        {
+            holder.deleteLayout.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.deleteLayout.setVisibility(View.VISIBLE);
+       }
         final CarPojo carPojo = carArrayList.get(position);
         if (carPojo != null) {
+
             holder.carItemTile.setDetails(carPojo);
             holder.deleteLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
