@@ -136,7 +136,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                                 dialog.dismiss();
                                 Intent intent = new Intent(context, DrawerActivityRevised.class);
                                 intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 context.startActivity(intent);
 
                             }

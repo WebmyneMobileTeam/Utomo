@@ -58,7 +58,7 @@
                 android:digits="@string/digits"
                 android:hint="Vehicle No"
                 android:inputType="textCapCharacters|textNoSuggestions|"
-                android:maxLength="12"
+                android:maxLength="15"
                 android:singleLine="true"
                 android:textAllCaps="true"
                 widget:met_baseColor="@color/editTextColor"

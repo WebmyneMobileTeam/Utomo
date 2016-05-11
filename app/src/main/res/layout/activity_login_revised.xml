@@ -166,7 +166,6 @@
                     android:maxLength="16"
                     android:scrollbars="none"
                     android:singleLine="true"
-                    android:text="123456"
                     widget:met_baseColor="@color/editTextColor"
                     widget:met_floatingLabel="highlight"
                     widget:met_iconLeft="@drawable/ic_password"

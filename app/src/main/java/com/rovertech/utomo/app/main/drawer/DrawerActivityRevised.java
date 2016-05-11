@@ -320,9 +320,14 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
                 try {
                     Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
+
                         notificationSize = response.body().FetchNotification.Data.size();
+
                         int preSize = PrefUtils.getNotificationSize(DrawerActivityRevised.this);
                         int newSize = notificationSize;
+
+                        Log.e("newSize " + newSize, "preSize " + preSize);
+
                         if (preSize == newSize) {
                             presenter.setNotificationBadge(badgeHelper, 0);
                         } else {
