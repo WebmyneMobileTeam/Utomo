@@ -286,6 +286,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         } else {
             Intent intent = new Intent(this, BookingActivity.class);
             intent.putExtra(IntentConstant.BOOKING_PAGE, AppConstant.FROM_LOGIN);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
         }

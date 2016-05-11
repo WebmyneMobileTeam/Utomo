@@ -274,6 +274,8 @@ public class Functions {
         alert.show();
     }
 
+
+
     public static void showErrorAlert(final Context context, String title, String msg, final boolean isFinish) {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(context);

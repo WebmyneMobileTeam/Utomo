@@ -1,7 +1,10 @@
 package com.rovertech.utomo.app.main.booking;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +33,7 @@ import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.dialog.AddressDialog;
 
@@ -116,7 +120,32 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         switch (item.getItemId()) {
             case R.id.action_home_requestbook:
-                Toast.makeText(BookingActivity.this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        this);
+                alertDialogBuilder.setTitle("Alert !!")
+                        .setMessage("Are you sure want to navigate to Dashboard?")
+                        .setCancelable(false)
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // do your stuff
+                                dialog.dismiss();
+
+                                Intent iDashboard = new Intent(BookingActivity.this, DrawerActivityRevised.class);
+                                iDashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(iDashboard);
+                                finish();
+
+
+                            }
+                        })
+                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
                 break;
         }
 
