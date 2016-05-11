@@ -410,6 +410,37 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     }
 
     @Override
+    public void setAddress(ArrayList<AddressItem> data) {
+        DropPojo dropAddress = data.get(0).DropDetails.get(0);
+        if (dropAddress != null) {
+            bookingRequest.DropAddress = dropAddress.DropAddress;
+            bookingRequest.DropCity = dropAddress.DropCity;
+            bookingRequest.DropArea = dropAddress.DropArea;
+            bookingRequest.DropZipCode = dropAddress.DropZipCode;
+
+            txtDropoffAddress.setVisibility(View.VISIBLE);
+            String addressString = String.format("%s, %s, %s, %s", dropAddress.DropAddress, dropAddress.DropArea, dropAddress.DropCity, dropAddress.DropZipCode);
+            txtDropoffAddress.setText(addressString);
+            btnDropAddressAdd.setText(getString(R.string.item_booking_edit));
+
+        }
+
+        PickupPojo pickupAddress = data.get(0).PickUpDetails.get(0);
+
+        if (pickupAddress != null) {
+            bookingRequest.PickAddress = pickupAddress.PickAddress;
+            bookingRequest.PickArea = pickupAddress.PickArea;
+            bookingRequest.PickCity = pickupAddress.PickCity;
+            bookingRequest.PickZipCode = pickupAddress.PickZipCode;
+
+            txtPickupAddress.setVisibility(View.VISIBLE);
+            String addressString = String.format("%s, %s, %s, %s", pickupAddress.PickAddress, pickupAddress.PickArea, pickupAddress.PickCity, pickupAddress.PickZipCode);
+            txtPickupAddress.setText(addressString);
+            btnPickUpAddressAdd.setText(getString(R.string.item_booking_edit));
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtDate:
