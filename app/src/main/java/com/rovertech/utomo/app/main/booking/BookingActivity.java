@@ -576,7 +576,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             if (!checkBodyWash.isChecked() && !checkService.isChecked()) {
 
-
                 Toast.makeText(this, "Please, Select Service Type.", Toast.LENGTH_SHORT).show();
                 return;
             }
