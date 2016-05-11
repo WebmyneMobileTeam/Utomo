@@ -19,6 +19,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
+import java.util.Random;
+
 
 public class GcmMessageHandler extends IntentService {
     public static final int NOTIFICATION_ID = 1;
@@ -80,13 +82,16 @@ public class GcmMessageHandler extends IntentService {
         String title = this.getString(R.string.app_name);
         int mNotificationId = 101;
 
+        Random random = new Random();
+        int m = random.nextInt(9999 - 1000) + 1000;
+
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(icon)
                         .setContentTitle(title)
-                        .setContentText(message)
+                        .setContentText(String.format("%s",message))
                         .setWhen(when)
                         .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND);
 
@@ -95,6 +100,6 @@ public class GcmMessageHandler extends IntentService {
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
-        notificationManager.notify(mNotificationId, mBuilder.build());
+        notificationManager.notify(m, mBuilder.build());
     }
 }

@@ -39,6 +39,7 @@ import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.DashboardFragment;
 import com.rovertech.utomo.app.invite.InviteFragment;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
+import com.rovertech.utomo.app.main.notification.model.NotificationItem;
 import com.rovertech.utomo.app.main.notification.model.NotificationResp;
 import com.rovertech.utomo.app.main.notification.service.NotificationRequestAPI;
 import com.rovertech.utomo.app.offers.AdminOfferRequestAPI;
@@ -47,6 +48,8 @@ import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -321,23 +324,16 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
                     Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
 
-                        notificationSize = response.body().FetchNotification.Data.size();
+                        int badgeCount = 0;
+                        ArrayList<NotificationItem> notificationItems = response.body().FetchNotification.Data;
 
-                        int preSize = PrefUtils.getNotificationSize(DrawerActivityRevised.this);
-                        int newSize = notificationSize;
-
-                        Log.e("newSize " + newSize, "preSize " + preSize);
-
-                        if (preSize == newSize) {
-                            presenter.setNotificationBadge(badgeHelper, 0);
-                        } else {
-                            presenter.setNotificationBadge(badgeHelper, newSize - preSize);
+                        for (int i = 0; i < notificationItems.size(); i++) {
+                            if (!notificationItems.get(i).IsReadMobile) {
+                                badgeCount++;
+                            }
                         }
-                        if (notificationSize >= 10) {
-                            PrefUtils.setNotificationSize(DrawerActivityRevised.this, 0);
-                        } else {
-                            PrefUtils.setNotificationSize(DrawerActivityRevised.this, notificationSize);
-                        }
+                        presenter.setNotificationBadge(badgeHelper, badgeCount);
+
                     }
                 } catch (Exception e) {
                     Log.e("exception", e.toString());

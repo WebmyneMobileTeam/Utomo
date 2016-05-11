@@ -14,7 +14,7 @@ public class NotificationItem {
     public String RescheduleDatetime;
     public String ServicecentreName;
     public boolean Type;
-    public boolean IsRead;
+    public boolean IsReadMobile;
 
     public String getDescription() {
         return Description;

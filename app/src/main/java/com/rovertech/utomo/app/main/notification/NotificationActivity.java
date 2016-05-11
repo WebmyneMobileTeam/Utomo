@@ -40,6 +40,9 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         mNotificationPresenter = new NotificationPresenterImpl(this, this);
         mNotificationPresenter.init();
         mNotificationPresenter.setUpRecyclerView();
+
+        mNotificationPresenter.callNotificationReadApi(this);
+
     }
 
     @Override

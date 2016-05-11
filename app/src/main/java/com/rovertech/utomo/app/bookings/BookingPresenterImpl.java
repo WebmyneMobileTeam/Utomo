@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.bookings;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -136,16 +137,14 @@ public class BookingPresenterImpl implements BookingPresenter {
                                 dialog.dismiss();
                                 Intent intent = new Intent(context, DrawerActivityRevised.class);
                                 intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
 
                             }
                         });
                         alert.show();
 
-
                     } else {
-
                         Functions.showErrorAlert(context, context.getString(R.string.failed), false);
                     }
 

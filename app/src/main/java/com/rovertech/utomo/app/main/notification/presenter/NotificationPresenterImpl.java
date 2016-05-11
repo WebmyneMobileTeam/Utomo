@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.notification.adapter.NotificationAdapter;
+import com.rovertech.utomo.app.main.notification.service.NotificationReadAPI;
 import com.rovertech.utomo.app.main.notification.service.NotificationRequestAPI;
 import com.rovertech.utomo.app.main.notification.model.NotificationItem;
 import com.rovertech.utomo.app.main.notification.model.NotificationResp;
@@ -78,6 +80,33 @@ public class NotificationPresenterImpl implements NotificationPresenter {
                 Log.e("error", t.toString());
             }
         });
+    }
+
+    @Override
+    public void callNotificationReadApi(Context context) {
+
+        NotificationReadAPI api = UtomoApplication.retrofit.create(NotificationReadAPI.class);
+        Call<NotificationResp> call = api.notificationReadApi(PrefUtils.getUserID(context));
+
+        call.enqueue(new Callback<NotificationResp>() {
+            @Override
+            public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
+                try {
+                    Log.e("onResponse", Functions.jsonString(response.body()));
+                    if (response.body().FetchNotification.ResponseCode == 1) {
+                        Log.e("read_notification", "read");
+                    }
+                } catch (Exception e) {
+                    Log.e("exception", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResp> call, Throwable t) {
+                Log.e("error", t.toString());
+            }
+        });
+
     }
 
     public void notifyAdapter() {
