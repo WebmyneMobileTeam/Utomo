@@ -441,11 +441,12 @@ public class Functions {
         return drawable;
     }
 
+    /**
+     * Ask Run time permission for android marshmallow and above api.
+     */
     public static void setPermission(final Context context, @NonNull String[] permissions, PermissionListener permissionListene) {
 
-
         if (permissions != null && permissions.length == 0 && permissionListene != null) {
-
             return;
         }
         new TedPermission(context)

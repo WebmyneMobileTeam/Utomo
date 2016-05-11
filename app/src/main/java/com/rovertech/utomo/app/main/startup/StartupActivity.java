@@ -205,6 +205,8 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                     }
                 });
 
+
+
                 break;
 
             case R.id.imgFb:

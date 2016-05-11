@@ -1,6 +1,5 @@
 package com.rovertech.utomo.app.widget;
 
-import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,11 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
-import com.gun0912.tedpermission.PermissionListener;
-import com.rovertech.utomo.app.addCar.AddCarActivity;
-import com.rovertech.utomo.app.helper.Functions;
-
-import java.util.ArrayList;
 
 /**
  * Created by sagartahelyani on 08-03-2016.
@@ -59,7 +53,7 @@ public class LocationFinder extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(context, "Lat_lng " + location.getLatitude() + "--", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
