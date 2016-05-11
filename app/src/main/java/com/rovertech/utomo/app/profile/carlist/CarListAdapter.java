@@ -115,5 +115,4 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.ViewHold
     public interface onDeleteListener {
         void onDelete(int vehicleId);
     }
-
 }
