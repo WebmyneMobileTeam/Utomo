@@ -7,6 +7,8 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +29,7 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
+import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.dialog.AddressDialog;
 
@@ -80,7 +83,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     private LinearLayout addressHolder;
     private static final String bookingDateTimeFormate = "dd MMM, yyyy KK:mm a";
 
-    private String dealerShip = "",date,time;
+    private String dealerShip = "", date, time;
     private int redirectFrom = 0;
     private boolean isCarSelected = false;
 
@@ -98,6 +101,27 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         presenter = new BookingPresenterImpl(this);
 
         presenter.fetchDetails();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.drawer_requestbook, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_home_requestbook:
+                Toast.makeText(BookingActivity.this, "Home Clicked", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void init() {
@@ -259,9 +283,9 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     @Override
     public void setDate(String convertedDate) {
-        date=convertedDate;
+        date = convertedDate;
         txtDate.setText(convertedDate);
-        if(time!=null) {
+        if (time != null) {
             SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
             String eDate = date + " " + time;
             Date CurrentDate = new Date();
@@ -281,8 +305,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }else
-        {
+        } else {
             txtDate.setText(convertedDate);
         }
 
@@ -290,10 +313,10 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     @Override
     public void setTime(String strTime) {
-        time=strTime;
+        time = strTime;
         ///// check //////
         //Log.d("Date is",date + " || "+time);
-        if(date!=null) {
+        if (date != null) {
             SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
             String eDate = date + " " + time;
             Date CurrentDate = new Date();
@@ -313,9 +336,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
-        else
-        {
+        } else {
             txtTime.setText(strTime);
         }
 
