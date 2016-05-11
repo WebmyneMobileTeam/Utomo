@@ -1,6 +1,5 @@
 package com.rovertech.utomo.app.bookings;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -20,6 +19,9 @@ import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.booking.FetchAddressApi;
+import com.rovertech.utomo.app.main.booking.model.AddressResponse;
+import com.rovertech.utomo.app.main.booking.model.GetLastPickupDropOfUser;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
@@ -40,14 +42,48 @@ import retrofit2.Response;
 public class BookingPresenterImpl implements BookingPresenter {
 
     private BookingView bookingView;
+    private Context context;
 
-    public BookingPresenterImpl(BookingView bookingView) {
+    public BookingPresenterImpl(BookingView bookingView, Context context) {
         this.bookingView = bookingView;
+        this.context = context;
     }
 
     @Override
     public void fetchDetails() {
         // get service centre details and user-car details
+
+        final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading previous address", "Please wait..", false);
+
+        FetchAddressApi api = UtomoApplication.retrofit.create(FetchAddressApi.class);
+        Call<AddressResponse> call = api.fetchAddress(PrefUtils.getUserID(context));
+        call.enqueue(new Callback<AddressResponse>() {
+            @Override
+            public void onResponse(Call<AddressResponse> call, Response<AddressResponse> response) {
+                progressDialog.dismiss();
+
+                if (response.body() == null) {
+                    Functions.showToast(context, "Cannot load previous address");
+                } else {
+
+                    Log.e("address", Functions.jsonString(response.body()));
+
+                    AddressResponse res = response.body();
+
+                    if (res.GetLastPickupDropOfUser.ResponseCode == 1) {
+                        bookingView.setAddress(res.GetLastPickupDropOfUser.Data);
+                    } else {
+                        Functions.showToast(context, "No records for previous address");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddressResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Functions.showToast(context, t.getMessage());
+            }
+        });
 
         bookingView.setDetails();
     }
@@ -137,7 +173,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                                 dialog.dismiss();
                                 Intent intent = new Intent(context, DrawerActivityRevised.class);
                                 intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
 
                             }

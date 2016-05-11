@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.bookings;
 
+import com.rovertech.utomo.app.main.booking.model.AddressItem;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.util.ArrayList;
@@ -19,4 +20,6 @@ public interface BookingView {
     void setSelectedCar(CarPojo carPojo);
 
     void setCarList(ArrayList<CarPojo> carList);
+
+    void setAddress(ArrayList<AddressItem> data);
 }

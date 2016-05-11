@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/no_car"
-            android:textSize="@dimen/N_TEXT" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/M_TEXT" />
 
         <TextView
             android:id="@+id/txtEmpty"
@@ -25,17 +26,18 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Add car"
-            android:textSize="@dimen/M_TEXT" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/L_TEXT" />
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/btnAddCar"
         android:layout_alignParentTop="true"
-        android:layout_margin="4dp"
-        android:layout_height="match_parent">
+        android:layout_margin="4dp">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -47,8 +49,8 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="4dp"
         android:background="#F6FAEF"
-        android:textColor="@color/black"
-        android:text="Add Car" />
+        android:text="Add Car"
+        android:textColor="@color/black" />
 
 
 </RelativeLayout>

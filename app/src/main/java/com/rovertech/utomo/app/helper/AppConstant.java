@@ -22,7 +22,7 @@ public class AppConstant {
     final public static String SOCIAL_LOGIN_SIGNUP = "UserLoginSignup.svc/json/SocialLoginSignUp";
     final public static String RESET_PASSWORD = "UserLoginSignup.svc/json/ResetPassword/{MOBILENO}/{NEWPASSWORD}";
     final public static String UPDATE_PROFILE = BASE_URL + "UserLoginSignup.svc/json/UpdateUserProfile";
-    final public static String BOOKING_ACTIVITIES = BASE_URL + "BookingActivities.svc/json/RequestForBooking";
+    final public static String BOOKING_ACTIVITIES = "BookingActivities.svc/json/RequestForBooking";
 
     // Add car WS list
     final public static String FETCH_CITY = "UserActivities.svc/json/FetchCity";
@@ -39,18 +39,19 @@ public class AppConstant {
     final public static String FETCH_VEHICLE_LIST = "UserActivities.svc/json/FetchVehicleList";
     final public static String INSERT_VEHICLE_DETAILS = BASE_URL + "UserActivities.svc/json/InsertVehicleDetails";
     final public static String UPDATE_VEHICLE_DETAILS = BASE_URL + "UserActivities.svc/json/UpdateVehicleDetails";
-    final public static String FETCH_ADMIN_OFFER = BASE_URL + "UserActivities.svc/json/FetchAdminOffer";
-    final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/";
-    final public static String READ_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/NotificationsRead/";
-    final public static String RESCHEDUAL_BOOKING = BASE_URL + "BookingActivities.svc/json/RescheduleBookingResponce";
-    final public static String FETCH_SC_OFFER = BASE_URL + "UserActivities.svc/json/FetchServiceCentreOffer/";
-    //final public static String FETCH_NOTIFICATION = BASE_URL + "UserNotificationActivity.svc/json/FetchNotification/59";
+    final public static String FETCH_ADMIN_OFFER = "UserActivities.svc/json/FetchAdminOffer";
+    final public static String FETCH_NOTIFICATION = "UserNotificationActivity.svc/json/FetchNotification/";
+    final public static String READ_NOTIFICATION = "UserNotificationActivity.svc/json/NotificationsRead/";
+    final public static String RESCHEDUAL_BOOKING = "BookingActivities.svc/json/RescheduleBookingResponce";
+    final public static String FETCH_SC_OFFER = "UserActivities.svc/json/FetchServiceCentreOffer/";
+    //final public static String FETCH_NOTIFICATION = "UserNotificationActivity.svc/json/FetchNotification/59";
 
 
     // Booking
     final public static String USER_BOOKINGS = "BookingActivities.svc/json/UserBookings/";
     final public static String BOOKING_DETAILS = "BookingActivities.svc/json/UserBookingDetail/{BOOKINGID}";
     final public static String CANCEL_BOOKING = "BookingActivities.svc/json/CancleBooking/{BOOKINGID}";
+    final public static String FETCH_ADDRESS = "UserActivities.svc/json/GetLastPickupDropOfUser/{USERID}";
 
     // dashboard
     final public static String FETCH_DASHBOARD = "UserActivities.svc/json/FetchUserVehicleDashboard";

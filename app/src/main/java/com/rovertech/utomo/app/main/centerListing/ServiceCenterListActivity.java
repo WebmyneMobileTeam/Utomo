@@ -40,9 +40,7 @@ import com.rovertech.utomo.app.account.model.City;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
-import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerViewOnScrollListener;
 
@@ -182,7 +180,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() > 0) {
-                   // Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
+                    // Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
                     edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
                     presenter.fetchCity(ServiceCenterListActivity.this, s.toString());
                 } else if (s.toString().length() == 0) {
@@ -351,8 +349,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                doStuff();
             }
         });
     }
@@ -361,7 +358,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearch:
-                Functions.hideKeyPad(ServiceCenterListActivity.this,findViewById(android.R.id.content));
+                Functions.hideKeyPad(ServiceCenterListActivity.this, findViewById(android.R.id.content));
                 centerList = new ArrayList<>();
                 centerList.clear();
                 lastCentreId = 0;
@@ -482,6 +479,11 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        doStuff();
+
+    }
+
+    private void doStuff() {
         if (PrefUtils.isUserLoggedIn(this)) {
             Intent intent = new Intent(this, DrawerActivityRevised.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);

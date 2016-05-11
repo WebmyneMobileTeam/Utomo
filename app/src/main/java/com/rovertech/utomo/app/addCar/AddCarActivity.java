@@ -522,7 +522,26 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void onBackPressed() {
         if (isSkip) {
-            Toast.makeText(AddCarActivity.this, "Add a car", Toast.LENGTH_SHORT).show();
+             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                             AddCarActivity.this);
+                     alertDialogBuilder.setTitle("Alert!!")
+                             .setMessage("You have to add a car to proceed further.")
+                             .setCancelable(false)
+                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int id) {
+                                     dialog.dismiss();
+                                 }
+                             })
+                             .setNegativeButton("Exit Application", new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int id) {
+                                     Intent startMain = new Intent(Intent.ACTION_MAIN);
+                                     startMain.addCategory(Intent.CATEGORY_HOME);
+                                     startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                     startActivity(startMain);
+                                 }
+                             });
+                     AlertDialog alertDialog = alertDialogBuilder.create();
+                     alertDialog.show();
         } else {
             super.onBackPressed();
         }

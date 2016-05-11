@@ -31,6 +31,9 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.booking.model.AddressItem;
+import com.rovertech.utomo.app.main.booking.model.DropPojo;
+import com.rovertech.utomo.app.main.booking.model.PickupPojo;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
@@ -41,8 +44,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class BookingActivity extends AppCompatActivity implements BookingView, View.OnClickListener {
 
@@ -102,7 +103,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         init();
 
-        presenter = new BookingPresenterImpl(this);
+        presenter = new BookingPresenterImpl(this, this);
 
         presenter.fetchDetails();
     }
@@ -576,6 +577,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             if (!checkBodyWash.isChecked() && !checkService.isChecked()) {
 
+
                 Toast.makeText(this, "Please, Select Service Type.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -598,6 +600,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 return;
             } else {
 
+
                 bookingRequest.PreferredDateTime = Functions.parseDate(bookingDateAndTime, bookingDateTimeFormate, Functions.ServerDateTimeFormat);
 
             }
@@ -612,6 +615,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private boolean checkValidBookDateAndTime(String dateTime) {

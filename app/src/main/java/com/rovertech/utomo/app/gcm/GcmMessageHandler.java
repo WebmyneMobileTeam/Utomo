@@ -77,6 +77,8 @@ public class GcmMessageHandler extends IntentService {
     // a GCM message.
     private void sendNotification(String message) {
 
+        Log.e("message", message);
+
         int icon = R.mipmap.ic_launcher;
         long when = System.currentTimeMillis();
         String title = this.getString(R.string.app_name);
