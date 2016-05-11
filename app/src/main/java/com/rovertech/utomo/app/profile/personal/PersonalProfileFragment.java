@@ -87,11 +87,25 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         Log.e("profile", Functions.jsonString(profile));
 
         cityId = profile.CityID;
+       /* if(profile.MobileNo!=null && !profile.MobileNo.equals("0"))
+        {
+        edtMobile.setText(profile.MobileNo);}
+       *//* else
+        {
+            edtMobile.setText("");
+        }*/
         edtMobile.setText(profile.MobileNo);
         edtEmail.setText(profile.EmailID);
-        edtCity.setText(profile.CityName);
+        //edtCity.setText(profile.CityName);
+        if(profile.CityName!=null && !profile.CityName.equals("0"))
+        {
+        edtCity.setText(profile.CityName);}
         edtName.setText(profile.Name);
-        edtDOB.setText(profile.DOB);
+       // edtDOB.setText(profile.DOB);
+        if(profile.DOB!=null && !profile.DOB.equals("01-01-1900"))
+        {
+            edtDOB.setText(profile.DOB);
+        }
         edtAddress.setText(profile.Address.trim());
         if (profile.ProfileImg != null && profile.ProfileImg.length() > 0)
             Glide.with(getActivity()).load(profile.ProfileImg).into(imagePerson);

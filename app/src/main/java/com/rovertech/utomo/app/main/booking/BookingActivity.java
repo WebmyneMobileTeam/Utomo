@@ -599,7 +599,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 return;
             } else {
 
-
                 bookingRequest.PreferredDateTime = Functions.parseDate(bookingDateAndTime, bookingDateTimeFormate, Functions.ServerDateTimeFormat);
 
             }
@@ -614,7 +613,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private boolean checkValidBookDateAndTime(String dateTime) {
