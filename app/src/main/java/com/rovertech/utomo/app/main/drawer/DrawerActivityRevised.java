@@ -66,6 +66,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     private int OfferSize = 0, notificationSize = 0;
 
     private UserProfileOutput profile;
+    ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +149,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
         View headerLayout = navigationView.getHeaderView(0);
 
         txtName = (TextView) headerLayout.findViewById(R.id.txtName);
-        txtName.setText(String.format("%s", profile.Name));
+
         txtName.setTypeface(Functions.getRegularFont(this));
 
         TextView txtLogout = (TextView) headerLayout.findViewById(R.id.txtLogout);
@@ -170,8 +171,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
             }
         });
 
-        ImageView profilePic = (ImageView) headerLayout.findViewById(R.id.profilePic);
-        Functions.loadRoundImage(profilePic, profile.ProfileImg, this);
+        profilePic = (ImageView) headerLayout.findViewById(R.id.profilePic);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -254,6 +254,10 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     @Override
     protected void onResume() {
         super.onResume();
+
+        profile = PrefUtils.getUserFullProfileDetails(this);
+        txtName.setText(String.format("%s", profile.Name));
+        Functions.loadRoundImage(profilePic, profile.ProfileImg, this);
 
         if (!Functions.isConnected(this)) {
             Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);
