@@ -200,7 +200,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                     @Override
                     public void onPermissionDenied(ArrayList<String> arrayList) {
 
-
                         Functions.showToast(StartupActivity.this, "Permission Denied");
 
                     }

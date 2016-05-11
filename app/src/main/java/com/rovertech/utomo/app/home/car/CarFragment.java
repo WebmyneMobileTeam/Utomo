@@ -260,7 +260,7 @@ public class CarFragment extends Fragment implements CarView {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("Note");
-        alert.setMessage("Do you want to getting service centres nearby your location? Turn on your GPS from Settings.");
+        alert.setMessage("Do you want to get service centres nearby you? Turn on your GPS from Settings.");
         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

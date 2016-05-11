@@ -59,7 +59,7 @@ public class LocationFinder extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-
+        Toast.makeText(context, "Lat_lng " + location.getLatitude() + "--", Toast.LENGTH_SHORT).show();
     }
 
     @Override

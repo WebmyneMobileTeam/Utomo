@@ -157,11 +157,15 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         initRecycler();
 
-        if (type == AppConstant.BY_CITY) {
-            edtCity.setText(String.format("%s", PrefUtils.getUserFullProfileDetails(this).CityName));
-            edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
-        } else if (type == AppConstant.BY_LAT_LNG) {
-            edtCity.setText("");
+        try {
+            if (type == AppConstant.BY_CITY) {
+                edtCity.setText(String.format("%s", PrefUtils.getUserFullProfileDetails(this).CityName));
+                edtCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_close, 0);
+            } else if (type == AppConstant.BY_LAT_LNG) {
+                edtCity.setText("");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         edtCity.addTextChangedListener(new TextWatcher() {
