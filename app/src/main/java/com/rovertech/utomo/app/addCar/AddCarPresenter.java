@@ -36,4 +36,6 @@ public interface AddCarPresenter {
     void selectPermitsDate(Context context,String selectedDate);
 
     void setEditCarDetails(CarPojo carPojo, @AddCarActivity.CarMode int carMode);
+
+    void selectImage();
 }

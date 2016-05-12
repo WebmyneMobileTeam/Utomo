@@ -5,9 +5,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.IntDef;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.account.model.UserProfileOutput;
 import com.rovertech.utomo.app.addCar.adapter.CustomSpinnerAdapter;
 import com.rovertech.utomo.app.addCar.adapter.VehicleAdapter;
 import com.rovertech.utomo.app.addCar.model.Vehicle;
@@ -37,6 +39,7 @@ import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
+import com.rovertech.utomo.app.main.startup.StartupActivity;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.Odometer;
 
@@ -93,7 +96,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         init();
 
-        presenter = new AddCarPresenterImpl(this);
+        presenter = new AddCarPresenterImpl(this, this);
 
 
         // fetch makes
@@ -261,41 +264,19 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                         new PermissionListener() {
                             @Override
                             public void onPermissionGranted() {
-                                selectImage();
+                                presenter.selectImage();
+                                //  selectImageRevised();
                             }
 
                             @Override
                             public void onPermissionDenied(ArrayList<String> arrayList) {
 
-                                Toast.makeText(AddCarActivity.this, "Permission Denied", Toast.LENGTH_SHORT);
+                                Toast.makeText(AddCarActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                             }
                         });
 
                 break;
         }
-    }
-
-    private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Gallery"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add Photo!");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (items[item].equals("Take Photo")) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, AppConstant.REQUEST_CAMERA);
-
-                } else if (items[item].equals("Choose from Gallery")) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_PICK);
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), AppConstant.PICK_IMAGE);
-                }
-            }
-        });
-        builder.show();
     }
 
     @Override
@@ -386,10 +367,13 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             startActivity(intent);
             overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
 
-        } else {
+        } else if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_SKIP) {
             Intent intent = new Intent(this, BookingActivity.class);
             intent.putExtra(IntentConstant.BOOKING_PAGE, AppConstant.FROM_LOGIN);
             startActivity(intent);
+            finish();
+
+        } else {
             finish();
         }
     }
@@ -399,6 +383,14 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         Glide.clear(imageCar);
         Glide.with(this).load(finalFile).into(imageCar);
         file = finalFile;
+    }
+
+    @Override
+    public void setRxImage(File finalFile) {
+        file = finalFile;
+        Bitmap bitmap = BitmapFactory.decodeFile(finalFile.getAbsolutePath());
+        Bitmap resizedBitmap = Functions.getResizedBitmap(bitmap, 640, 640);
+        imageCar.setImageBitmap(resizedBitmap);
     }
 
     @Override
@@ -443,10 +435,21 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             carMode = AddCarActivity.editCar;
             btnAdd.setVisibility(View.GONE);
             btnUpdate.setVisibility(View.VISIBLE);
+
+            edtVehicleNo.setEnabled(false);
+            makeSpinner.setEnabled(false);
+            yearSpinner.setEnabled(false);
+            modelSpinner.setEnabled(false);
+
         } else {
             carMode = AddCarActivity.addCar;
             btnAdd.setVisibility(View.VISIBLE);
             btnUpdate.setVisibility(View.GONE);
+
+            edtVehicleNo.setEnabled(true);
+            makeSpinner.setEnabled(true);
+            yearSpinner.setEnabled(true);
+            modelSpinner.setEnabled(true);
         }
     }
 
@@ -455,7 +458,11 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         try {
             modelCardView.setVisibility(View.VISIBLE);
             yearCardView.setVisibility(View.VISIBLE);
-            Functions.LoadImage(imageCar, mCarPojo.CarImage, this);
+
+            Glide.clear(imageCar);
+            Glide.with(AddCarActivity.this).load(mCarPojo.CarImage).asBitmap().override(480, 320).centerCrop().into(imageCar);
+
+            //Functions.LoadImage(imageCar, mCarPojo.CarImage, this);
             if (!TextUtils.isEmpty(mCarPojo.VehicleNo)) {
                 edtVehicleNo.setText(mCarPojo.VehicleNo);
             }
@@ -522,26 +529,29 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     @Override
     public void onBackPressed() {
         if (isSkip) {
-             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                             AddCarActivity.this);
-                     alertDialogBuilder.setTitle("Alert!!")
-                             .setMessage("You have to add a car to proceed further.")
-                             .setCancelable(false)
-                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                 public void onClick(DialogInterface dialog, int id) {
-                                     dialog.dismiss();
-                                 }
-                             })
-                             .setNegativeButton("Exit Application", new DialogInterface.OnClickListener() {
-                                 public void onClick(DialogInterface dialog, int id) {
-                                     Intent startMain = new Intent(Intent.ACTION_MAIN);
-                                     startMain.addCategory(Intent.CATEGORY_HOME);
-                                     startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                     startActivity(startMain);
-                                 }
-                             });
-                     AlertDialog alertDialog = alertDialogBuilder.create();
-                     alertDialog.show();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    AddCarActivity.this);
+            alertDialogBuilder.setTitle("Alert!!")
+                    .setMessage("You have to add a car to proceed further.")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Logout", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            UserProfileOutput profileOutput = new UserProfileOutput();
+                            PrefUtils.setLoggedIn(AddCarActivity.this, false);
+                            PrefUtils.setUserFullProfileDetails(AddCarActivity.this, profileOutput);
+
+                            Intent startupIntent = new Intent(AddCarActivity.this, StartupActivity.class);
+                            startupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(startupIntent);
+                        }
+                    });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         } else {
             super.onBackPressed();
         }

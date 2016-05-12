@@ -28,4 +28,6 @@ public interface PersonalProfileView {
     void showProgress();
 
     void hideProgress();
+
+    void setRxImage(File file);
 }

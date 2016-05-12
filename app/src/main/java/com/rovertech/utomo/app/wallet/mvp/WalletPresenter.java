@@ -11,5 +11,5 @@ public interface WalletPresenter {
 
     void fetchWalletHistory();
 
-    void openWalletHistory(ArrayList<WalletPojo> walletArrayList);
+    void openWalletHistory();
 }

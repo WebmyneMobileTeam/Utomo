@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -71,7 +72,7 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         // Inflate the layout for this fragment
         parentView = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        personalProfilePresenter = new PersonalProfilePresenterImpl(this);
+        personalProfilePresenter = new PersonalProfilePresenterImpl(this, getActivity());
 
         init();
 
@@ -97,18 +98,17 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
         edtMobile.setText(profile.MobileNo);
         edtEmail.setText(profile.EmailID);
         //edtCity.setText(profile.CityName);
-        if(profile.CityName!=null && !profile.CityName.equals("0"))
-        {
-        edtCity.setText(profile.CityName);}
+        if (profile.CityName != null && !profile.CityName.equals("0")) {
+            edtCity.setText(profile.CityName);
+        }
         edtName.setText(profile.Name);
-       // edtDOB.setText(profile.DOB);
-        if(profile.DOB!=null && !profile.DOB.equals("01-01-1900"))
-        {
+        // edtDOB.setText(profile.DOB);
+        if (profile.DOB != null && !profile.DOB.equals("01-01-1900")) {
             edtDOB.setText(profile.DOB);
         }
         edtAddress.setText(profile.Address.trim());
         if (profile.ProfileImg != null && profile.ProfileImg.length() > 0)
-            Glide.with(getActivity()).load(profile.ProfileImg).into(imagePerson);
+            Glide.with(getActivity()).load(profile.ProfileImg).asBitmap().override(480, 320).into(imagePerson);
     }
 
     private void setTypeface() {
@@ -216,6 +216,14 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     }
 
     @Override
+    public void setRxImage(File finalFile) {
+        file = finalFile;
+        Bitmap bitmap = BitmapFactory.decodeFile(finalFile.getAbsolutePath());
+        Bitmap resizedBitmap = Functions.getResizedBitmap(bitmap, 640, 640);
+        imagePerson.setImageBitmap(resizedBitmap);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtUpdate:
@@ -228,14 +236,12 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
                 break;
 
             case R.id.imageSelectLayout:
-
-
                 Functions.setPermission(getActivity(),
                         new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         new PermissionListener() {
                             @Override
                             public void onPermissionGranted() {
-                                personalProfilePresenter.selectImage(getActivity());
+                                personalProfilePresenter.selectImage();
                             }
 
                             @Override

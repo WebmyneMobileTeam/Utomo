@@ -17,7 +17,7 @@ public interface PersonalProfilePresenter {
 
     void fetchCity(Context context, String string);
 
-    void selectImage(Context context);
+    void selectImage();
 
     void setImage(Intent data, Context context, int requestCode);
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
@@ -18,7 +19,6 @@ import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.wallet.mvp.WalletPresenter;
 import com.rovertech.utomo.app.wallet.mvp.WalletPresenterImpl;
 import com.rovertech.utomo.app.wallet.mvp.WalletView;
-import com.rovertech.utomo.app.widget.DividerItemDecoration;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 import java.util.ArrayList;
@@ -30,11 +30,11 @@ public class WalletFragment extends Fragment implements WalletView {
     private TextView txtWalletRs, txtWalletTitle, emptyTextView, txtLatest, txtViewAll;
 
     Button btnHistory, btnInvite;
-    private FamiliarRecyclerView recyclerView;
 
     private ArrayList<WalletPojo> walletArrayList;
     private WalletAdapter adapter;
     private WalletPresenter presenter;
+    private RelativeLayout walletContentLayout;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -68,6 +68,7 @@ public class WalletFragment extends Fragment implements WalletView {
         emptyTextView = (TextView) parentView.findViewById(R.id.emptyTextView);
         txtLatest = (TextView) parentView.findViewById(R.id.txtLatest);
 
+        walletContentLayout = (RelativeLayout) parentView.findViewById(R.id.walletContentLayout);
         txtViewAll = (TextView) parentView.findViewById(R.id.txtViewAll);
         txtWalletRs = (TextView) parentView.findViewById(R.id.txtWalletRs);
         btnInvite = (Button) parentView.findViewById(R.id.btnInvite);
@@ -96,20 +97,21 @@ public class WalletFragment extends Fragment implements WalletView {
     }
 
     private void navigateWalletHistory() {
-        presenter.openWalletHistory(walletArrayList);
+        presenter.openWalletHistory();
     }
 
     private void initRecyclerView() {
         walletArrayList = new ArrayList<>();
 
-        recyclerView = (FamiliarRecyclerView) parentView.findViewById(R.id.recyclerView);
+        FamiliarRecyclerView recyclerView = (FamiliarRecyclerView) parentView.findViewById(R.id.recyclerView);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         adapter = new WalletAdapter(getActivity(), walletArrayList);
+
         recyclerView.setAdapter(adapter);
-       // recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        // recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
 
         presenter.fetchWalletHistory();
 
@@ -129,7 +131,17 @@ public class WalletFragment extends Fragment implements WalletView {
     @Override
     public void setHistory(ArrayList<WalletPojo> walletList) {
         walletArrayList.clear();
-        walletArrayList.addAll(walletList);
-        adapter.setWalletArrayList(walletArrayList);
+
+        if (walletList.size() == 0) {
+            emptyTextView.setVisibility(View.VISIBLE);
+            walletContentLayout.setVisibility(View.GONE);
+
+        } else {
+            walletArrayList.addAll(walletList);
+            adapter.setWalletArrayList(walletArrayList);
+            walletContentLayout.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
+        }
+
     }
 }

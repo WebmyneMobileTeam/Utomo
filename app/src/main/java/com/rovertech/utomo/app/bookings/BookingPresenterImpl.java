@@ -21,7 +21,6 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.booking.FetchAddressApi;
 import com.rovertech.utomo.app.main.booking.model.AddressResponse;
-import com.rovertech.utomo.app.main.booking.model.GetLastPickupDropOfUser;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
@@ -73,7 +72,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                     if (res.GetLastPickupDropOfUser.ResponseCode == 1) {
                         bookingView.setAddress(res.GetLastPickupDropOfUser.Data);
                     } else {
-                        Functions.showToast(context, "No records for previous address");
+                        //  Functions.showToast(context, "No records for previous address");
                     }
                 }
             }
@@ -284,6 +283,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                     Log.e("res", Functions.jsonString(response.body()));
 
                     VehicleListResponse vehicleListResponse = response.body();
+
                     if (vehicleListResponse.FetchVehicleList.ResponseCode == 1) {
 
                         if (vehicleListResponse.FetchVehicleList.Data.size() > 0) {

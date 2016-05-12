@@ -51,4 +51,6 @@ public interface AddcarView {
     void setYearSpinner(CarPojo carPojo);
 
     void setModelSpinner(CarPojo carPojo);
+
+    void setRxImage(File file);
 }

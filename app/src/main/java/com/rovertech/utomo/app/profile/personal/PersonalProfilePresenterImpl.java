@@ -9,12 +9,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.DatePicker;
 
 import com.google.gson.Gson;
+import com.mlsdev.rximagepicker.RxImageConverters;
+import com.mlsdev.rximagepicker.RxImagePicker;
+import com.mlsdev.rximagepicker.Sources;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
@@ -51,6 +55,9 @@ import java.util.Calendar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by sagartahelyani on 31-03-2016.
@@ -58,9 +65,11 @@ import retrofit2.Response;
 public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
 
     private PersonalProfileView personalProfileView;
+    private Context context;
 
-    public PersonalProfilePresenterImpl(PersonalProfileView personalProfileView) {
+    public PersonalProfilePresenterImpl(PersonalProfileView personalProfileView, Context context) {
         this.personalProfileView = personalProfileView;
+        this.context = context;
     }
 
     @Override
@@ -259,7 +268,7 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
     }
 
     @Override
-    public void selectImage(final Context context) {
+    public void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Gallery"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -268,18 +277,50 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Take Photo")) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    ((Activity) context).startActivityForResult(intent, AppConstant.REQUEST_CAMERA);
+                    captureImage();
 
                 } else if (items[item].equals("Choose from Gallery")) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_PICK);
-                    ((Activity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), AppConstant.PICK_IMAGE);
+                    fromGallery();
                 }
             }
         });
         builder.show();
+    }
+
+    private void fromGallery() {
+        RxImagePicker.with(context).requestImage(Sources.GALLERY)
+                .flatMap(new Func1<Uri, Observable<File>>() {
+                    @Override
+                    public Observable<File> call(Uri uri) {
+                        return RxImageConverters.uriToFile(context, uri, createTempFile());
+                    }
+                })
+                .subscribe(new Action1<File>() {
+                    @Override
+                    public void call(File file) {
+                        personalProfileView.setRxImage(file);
+                    }
+                });
+    }
+
+    private void captureImage() {
+        RxImagePicker.with(context).requestImage(Sources.CAMERA)
+                .flatMap(new Func1<Uri, Observable<File>>() {
+                    @Override
+                    public Observable<File> call(Uri uri) {
+                        return RxImageConverters.uriToFile(context, uri, createTempFile());
+                    }
+                })
+                .subscribe(new Action1<File>() {
+                    @Override
+                    public void call(File file) {
+                        personalProfileView.setRxImage(file);
+                    }
+                });
+    }
+
+    private File createTempFile() {
+        return new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + "_image.jpeg");
     }
 
     @Override

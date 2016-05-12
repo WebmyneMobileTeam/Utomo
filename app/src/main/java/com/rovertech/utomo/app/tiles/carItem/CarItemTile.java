@@ -82,7 +82,10 @@ public class CarItemTile extends LinearLayout {
         if (carPojo.CarImage == null || carPojo.CarImage.equals("")) {
             imgCar.setImageResource(R.drawable.car);
         } else {
-            Glide.with(context).load(carPojo.CarImage).asBitmap().centerCrop().into(new SimpleTarget<Bitmap>() {
+
+            // original image size high or low, we set resolution 480x320
+
+            Glide.with(context).load(carPojo.CarImage).asBitmap().override(480, 320).centerCrop().into(new SimpleTarget<Bitmap>() {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
 

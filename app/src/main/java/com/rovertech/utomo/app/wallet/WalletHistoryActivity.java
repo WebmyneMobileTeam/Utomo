@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class WalletHistoryActivity extends AppCompatActivity {
 
+    private TextView emptyTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,9 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
     private void init() {
         initToolbar();
+
+        emptyTextView = (TextView) findViewById(R.id.emptyTextView);
+        emptyTextView.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         initRecyclerView();
     }
@@ -43,11 +48,17 @@ public class WalletHistoryActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        walletArrayList.addAll(PrefUtils.getWallet(this).Data);
+        if (PrefUtils.getWallet(this) == null || PrefUtils.getWallet(this).Data.size() == 0) {
+            emptyTextView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
 
-        WalletAdapter adapter = new WalletAdapter(this, walletArrayList);
-        recyclerView.setAdapter(adapter);
-      //  recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        } else {
+            emptyTextView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            walletArrayList.addAll(PrefUtils.getWallet(this).Data);
+            WalletAdapter adapter = new WalletAdapter(this, walletArrayList);
+            recyclerView.setAdapter(adapter);
+        }
 
     }
 

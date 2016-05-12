@@ -9,17 +9,25 @@
 
     <include layout="@layout/app_bar" />
 
-    <TextView
-        android:id="@+id/emptyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:frv_emptyView="@id/emptyTextView" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:text="No Transactions History"
+            android:textColor="@color/white"
+            android:textSize="@dimen/L_TEXT" />
+
+        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:frv_emptyView="@id/emptyTextView" />
+    </RelativeLayout>
 
 </LinearLayout>

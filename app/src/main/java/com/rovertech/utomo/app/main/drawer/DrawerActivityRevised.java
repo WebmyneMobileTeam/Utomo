@@ -175,6 +175,13 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
         });
 
         profilePic = (ImageView) headerLayout.findViewById(R.id.profilePic);
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Functions.fireIntent(DrawerActivityRevised.this, ProfileActivity.class);
+                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

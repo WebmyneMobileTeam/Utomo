@@ -29,7 +29,7 @@
 
                 <include layout="@layout/item_service_type" />
 
-                <include layout="@layout/item_pick_up_address" />
+                <include android:id="@+id/pickupLayout" layout="@layout/item_pick_up_address" />
 
                 <include layout="@layout/item_booking_description" />
 

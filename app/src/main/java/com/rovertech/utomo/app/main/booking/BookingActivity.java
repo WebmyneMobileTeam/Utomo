@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.model.UserProfileOutput;
+import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.bookings.BookingPresenter;
 import com.rovertech.utomo.app.bookings.BookingPresenterImpl;
 import com.rovertech.utomo.app.bookings.BookingView;
@@ -35,7 +36,6 @@ import com.rovertech.utomo.app.main.booking.model.AddressItem;
 import com.rovertech.utomo.app.main.booking.model.DropPojo;
 import com.rovertech.utomo.app.main.booking.model.PickupPojo;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.dialog.AddressDialog;
@@ -94,6 +94,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     private ArrayList<CarPojo> carList;
 
+    private View pickupLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,16 +106,18 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         init();
 
         presenter = new BookingPresenterImpl(this, this);
-
-        presenter.fetchDetails();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.fetchDetails();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer_requestbook, menu);
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @Override
@@ -131,10 +135,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                                 // do your stuff
                                 dialog.dismiss();
 
-                                Intent iDashboard = new Intent(BookingActivity.this, DrawerActivityRevised.class);
-                                iDashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(iDashboard);
-                                finish();
+                                //// TODO: 11-05-2016
+                                gotoDashboard();
 
 
                             }
@@ -154,10 +156,18 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         return super.onOptionsItemSelected(item);
     }
 
+    private void gotoDashboard() {
+        Intent iDashboard = new Intent(BookingActivity.this, DrawerActivityRevised.class);
+        iDashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(iDashboard);
+        finish();
+    }
+
     private void init() {
 
         initToolbar();
 
+        pickupLayout = (View) findViewById(R.id.pickupLayout);
         txtSelectCar = (TextView) findViewById(R.id.txtSelectCar);
         edtDescription = (EditText) findViewById(R.id.edtDescription);
         parentView = findViewById(android.R.id.content);
@@ -283,6 +293,12 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         centreDetailPojo = PrefUtils.getCurrentCenter(this);
 
+        if (centreDetailPojo.IsPickupDrop) {
+            pickupLayout.setVisibility(View.VISIBLE);
+        } else {
+            pickupLayout.setVisibility(View.GONE);
+        }
+
         dealerShip = centreDetailPojo.Dealership;
 
         if (redirectFrom == AppConstant.FROM_SC_LIST) {
@@ -406,6 +422,28 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             txtCarNo.setVisibility(View.GONE);
             txtCarName.setVisibility(View.GONE);
             txtSelectCar.setVisibility(View.VISIBLE);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    BookingActivity.this);
+            alertDialogBuilder.setTitle("No Car")
+                    .setMessage("You have no " + dealerShip + " car.")
+                    .setCancelable(false)
+                    .setPositiveButton("Add New Car", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                           PrefUtils.setRedirectLogin(BookingActivity.this, AppConstant.FROM_NO_CAR);
+                            Intent addCarIntent = new Intent(BookingActivity.this, AddCarActivity.class);
+                            addCarIntent.putExtra(AppConstant.SKIP, false);
+                            startActivity(addCarIntent);
+
+                        }
+                    })
+                    .setNegativeButton("Dashboard", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            gotoDashboard();
+                        }
+                    });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
     }
 

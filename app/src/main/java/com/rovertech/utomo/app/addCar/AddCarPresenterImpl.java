@@ -2,16 +2,22 @@ package com.rovertech.utomo.app.addCar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
+import com.mlsdev.rximagepicker.RxImageConverters;
+import com.mlsdev.rximagepicker.RxImagePicker;
+import com.mlsdev.rximagepicker.Sources;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.addCar.adapter.CustomSpinnerAdapter;
@@ -54,6 +60,9 @@ import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by sagartahelyani on 09-03-2016.
@@ -63,9 +72,11 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     AddcarView addcarView;
     CarPojo mCarPojo;
     int carMode = 0;
+    private Context context;
 
-    public AddCarPresenterImpl(AddcarView addcarView) {
+    public AddCarPresenterImpl(AddcarView addcarView, Context context) {
         this.addcarView = addcarView;
+        this.context = context;
     }
 
     @Override
@@ -552,6 +563,62 @@ public class AddCarPresenterImpl implements AddCarPresenter {
     public void setEditCarDetails(CarPojo carPojo, @AddCarActivity.CarMode int carMode) {
         this.mCarPojo = carPojo;
         this.carMode = carMode;
+    }
+
+    @Override
+    public void selectImage() {
+        final CharSequence[] items = {"Take Photo", "Choose from Gallery"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    captureImage();
+
+                } else if (items[item].equals("Choose from Gallery")) {
+                    fromGallery();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void fromGallery() {
+        RxImagePicker.with(context).requestImage(Sources.GALLERY)
+                .flatMap(new Func1<Uri, Observable<File>>() {
+                    @Override
+                    public Observable<File> call(Uri uri) {
+                        return RxImageConverters.uriToFile(context, uri, createTempFile());
+                    }
+                })
+                .subscribe(new Action1<File>() {
+                    @Override
+                    public void call(File file) {
+                        addcarView.setRxImage(file);
+                    }
+                });
+    }
+
+    private void captureImage() {
+        RxImagePicker.with(context).requestImage(Sources.CAMERA)
+                .flatMap(new Func1<Uri, Observable<File>>() {
+                    @Override
+                    public Observable<File> call(Uri uri) {
+                        return RxImageConverters.uriToFile(context, uri, createTempFile());
+                    }
+                })
+                .subscribe(new Action1<File>() {
+                    @Override
+                    public void call(File file) {
+                       addcarView.setRxImage(file);
+                    }
+                });
+    }
+
+    private File createTempFile() {
+        return new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + "_image.jpeg");
     }
 
     private String doFileUploadAnother(File f, final Context context, AddCarRequest request) throws Exception {

@@ -57,8 +57,10 @@ public class WalletPresenterImpl implements WalletPresenter {
 
                     WalletResponse walletResponse = response.body();
 
+                    ArrayList<WalletPojo> walletList = new ArrayList<>();
+
                     if (walletResponse.GetClientWallateHistory.ResponseCode == 1) {
-                        ArrayList<WalletPojo> walletList = new ArrayList<>();
+
                         walletList.addAll(walletResponse.GetClientWallateHistory.Data);
 
                         PrefUtils.setWallet(context, walletResponse.GetClientWallateHistory);
@@ -66,7 +68,8 @@ public class WalletPresenterImpl implements WalletPresenter {
                         walletView.setHistory(walletList);
 
                     } else {
-                        Functions.showToast(context, walletResponse.GetClientWallateHistory.ResponseMessage);
+                        walletView.setHistory(walletList);
+                        // Functions.showToast(context, walletResponse.GetClientWallateHistory.ResponseMessage);
                     }
                 }
             }
@@ -86,9 +89,8 @@ public class WalletPresenterImpl implements WalletPresenter {
     }
 
     @Override
-    public void openWalletHistory(ArrayList<WalletPojo> walletArrayList) {
+    public void openWalletHistory() {
         Intent walletIntent = new Intent(context, WalletHistoryActivity.class);
-        walletIntent.putExtra("wallet", walletArrayList);
         context.startActivity(walletIntent);
     }
 }
