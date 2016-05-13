@@ -296,7 +296,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void numberError(String msg) {
-        Functions.showErrorAlert(this, msg, false);
+        Functions.showToast(this, msg);
 
     }
 
@@ -339,8 +339,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     }
 
     @Override
-    public void pwdError() {
-        Functions.showErrorAlert(this, "Password should not be empty", false);
+    public void pwdError(String msg) {
+        Functions.showToast(this, msg);
     }
 
     @Override
@@ -349,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     }
 
     @Override
-    public void cityError() {
+    public void cityError(String msg) {
 
     }
 

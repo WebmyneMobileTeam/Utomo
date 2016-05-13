@@ -430,7 +430,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                     .setCancelable(false)
                     .setPositiveButton("Add New Car", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                           PrefUtils.setRedirectLogin(BookingActivity.this, AppConstant.FROM_NO_CAR);
+                            PrefUtils.setRedirectLogin(BookingActivity.this, AppConstant.FROM_NO_CAR);
                             Intent addCarIntent = new Intent(BookingActivity.this, AddCarActivity.class);
                             addCarIntent.putExtra(AppConstant.SKIP, false);
                             startActivity(addCarIntent);
@@ -513,7 +513,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             case R.id.btnBook:
                 if (isCarSelected)
                     if (carPojo.CurrentBooking) {
-                        Functions.showErrorAlert(BookingActivity.this, "Can't Book", AppConstant.ALREADY_BOOK);
+                        Functions.showErrorAlert(BookingActivity.this, AppConstant.ALREADY_BOOK, false);
                     } else {
                         bookRequest();
                     }
@@ -645,9 +645,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             bookingRequest.IsBodyShop = checkBodyWash.isChecked();
 
             if (!checkBodyWash.isChecked() && !checkService.isChecked()) {
-
-
-                Toast.makeText(this, "Please, Select Service Type.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Select Service Type.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -665,7 +663,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             boolean isValidDateTime = checkValidBookDateAndTime(bookingDateAndTime);
 
             if (!isValidDateTime) {
-                Toast.makeText(this, "Please, Select Date and Time.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Select Date and Time.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
 

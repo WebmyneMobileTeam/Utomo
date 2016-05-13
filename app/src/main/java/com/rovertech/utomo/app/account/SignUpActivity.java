@@ -172,12 +172,12 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void emailError() {
-        Functions.showSnack(parentView, "Invalid Email-id");
+        Functions.showToast(this, "Please Enter Valid Email-Id");
     }
 
     @Override
     public void nameError() {
-        Functions.showSnack(parentView, "Please enter name");
+        Functions.showToast(this, "Please Enter Name");
     }
 
 
@@ -203,7 +203,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void numberError(String msg) {
-        Functions.showSnack(parentView, msg);
+        Functions.showToast(this, msg);
     }
 
     @Override
@@ -262,8 +262,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     }
 
     @Override
-    public void pwdError() {
-        Functions.showSnack(parentView, "Password Must Be Of Minimum 8 Characters.");
+    public void pwdError(String msg) {
+        Functions.showToast(this, msg);
     }
 
     @Override
@@ -281,8 +281,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     }
 
     @Override
-    public void cityError() {
-        Functions.showSnack(parentView, "Invalid City Name. ");
+    public void cityError(String msg) {
+        Functions.showToast(this, msg);
     }
 
     @Override

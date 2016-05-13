@@ -84,7 +84,7 @@
 
                     <include
                         android:id="@+id/scOfferDiscountItem"
-                        layout="@layout/payment_service_item"/>
+                        layout="@layout/payment_service_item" />
 
                     <include layout="@layout/item_line" />
 
@@ -140,10 +140,7 @@
         android:id="@+id/btnContinuePayment"
         style="@style/MyButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/booking_card_margin"
-        android:drawableRight="@drawable/ic_hardware_keyboard_arrow_right"
         android:text="Continue To Payment" />
 
     <LinearLayout

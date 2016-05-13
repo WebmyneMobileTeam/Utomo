@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.wallet.adpter.WalletAdapter;
 import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.wallet.mvp.WalletPresenter;
@@ -35,6 +36,7 @@ public class WalletFragment extends Fragment implements WalletView {
     private WalletAdapter adapter;
     private WalletPresenter presenter;
     private RelativeLayout walletContentLayout;
+    DrawerActivityRevised activity;
 
     public WalletFragment() {
         // Required empty public constructor
@@ -85,6 +87,14 @@ public class WalletFragment extends Fragment implements WalletView {
             @Override
             public void onClick(View v) {
                 navigateWalletHistory();
+            }
+        });
+
+        btnInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity = (DrawerActivityRevised) getActivity();
+                activity.actionInvite();
             }
         });
 

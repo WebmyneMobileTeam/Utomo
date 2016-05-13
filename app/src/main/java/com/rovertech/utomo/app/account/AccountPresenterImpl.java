@@ -352,7 +352,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                         dialog.dismiss();
                         Functions.showToast(activity, "OTP Verification successful.");
 
-                        new CountDownTimer(1500, 1000) {
+                        new CountDownTimer(1400, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
 
@@ -460,9 +460,12 @@ public class AccountPresenterImpl implements AccountPresenter {
             return;
 
         } else if (pwd.length() == 0) {
-            setPasswordError();
+            setPasswordError("Enter Password");
             return;
 
+        } else if (pwd.length() < 8) {
+            setPasswordError("Password should be minimum of 8 characters");
+            return;
         }
 
         setProgressBar();
@@ -578,11 +581,18 @@ public class AccountPresenterImpl implements AccountPresenter {
         }
 
         if (cityId == 0) {
-            setCityError();
+            setCityError("Enter Valid City");
             return;
         }
+
+        if (pwd.length() == 0) {
+            setPasswordError("Enter Password");
+            return;
+
+        }
+
         if (pwd.length() < 8) {
-            setPasswordError();
+            setPasswordError("Password should be minimum of 8 characters");
             return;
 
         }
@@ -591,10 +601,10 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     }
 
-    private void setCityError() {
+    private void setCityError(String msg) {
         if (accountView != null) {
             // accountView.hideProgress();
-            accountView.cityError();
+            accountView.cityError(msg);
         }
     }
 
@@ -863,10 +873,10 @@ public class AccountPresenterImpl implements AccountPresenter {
         }
     }
 
-    private void setPasswordError() {
+    private void setPasswordError(String msg) {
         if (accountView != null) {
             // accountView.hideProgress();
-            accountView.pwdError();
+            accountView.pwdError(msg);
         }
     }
 

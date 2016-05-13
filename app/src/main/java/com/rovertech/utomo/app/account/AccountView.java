@@ -35,11 +35,11 @@ public interface AccountView {
 
     void onGoogleLoginError(String error);
 
-    void pwdError();
+    void pwdError(String msg);
 
     void setCityAdapter(CityAdapter adapter, ArrayList<City> cityArrayList);
 
-    void cityError();
+    void cityError(String msg);
 
     void disconnectGoogle();
 }

@@ -369,21 +369,25 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
     @Override
     public void actionHome() {
+        navigationView.setCheckedItem(R.id.drawer_dashboard);
         initFragment(DashboardFragment.newInstance(), "Dashboard");
     }
 
     @Override
     public void actionWallet() {
+        navigationView.setCheckedItem(R.id.drawer_wallet);
         initFragment(WalletFragment.newInstance(), "Wallet");
     }
 
     @Override
     public void actionSettings() {
+        navigationView.setCheckedItem(R.id.drawer_settings);
         initFragment(SettingsFragment.newInstance(), "Settings");
     }
 
     @Override
     public void actionBookings() {
+        navigationView.setCheckedItem(R.id.drawer_booking);
         initFragment(MyBookingFragment.newInstance(), "My Bookings");
     }
 
@@ -397,11 +401,13 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
     @Override
     public void actionInvite() {
+        navigationView.setCheckedItem(R.id.drawer_invite);
         initFragment(InviteFragment.newInstance(), "Invite & Earn");
     }
 
     @Override
     public void actionAbout() {
+        navigationView.setCheckedItem(R.id.drawer_about);
         initFragment(AboutFragment.newInstance(), "About Us");
     }
 

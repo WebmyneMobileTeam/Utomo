@@ -357,8 +357,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         // TODO: 25-04-2016 AppConstant changes values
 
-        //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
-
         if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_START) {
 
             Intent intent = new Intent(this, DrawerActivityRevised.class);
@@ -398,12 +396,12 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         PrefUtils.setCarAdded(this, true);
 
-        // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
-
         Functions.showToast(this, "Your car has been added successfully.");
+
         if (isSkip) {
             navigateToDashboard();
         } else {
+            PrefUtils.setRefreshDashboard(this, true);
             finish();
         }
     }

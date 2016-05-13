@@ -74,16 +74,16 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
     @Override
     public void doUpdate(final Context context, final String name, final String birthDate, final String address, final int cityId, final File file, final String email) {
 
-        if (personalProfileView != null)
-            personalProfileView.showProgress();
-
         if (name.length() == 0) {
-            Functions.showToast(context, "Name cannot be empty");
+            Functions.showToast(context, "Enter Name");
 
         } else if (cityId == 0) {
-            Functions.showToast(context, "City cannot be empty");
+            Functions.showToast(context, "Enter City");
 
         } else {
+
+            if (personalProfileView != null)
+                personalProfileView.showProgress();
 
             new AsyncTask<Void, Void, Void>() {
 

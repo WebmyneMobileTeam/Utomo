@@ -340,7 +340,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                        String serviceDate, String pucDate, String insuranceDate, String permitsDate, String odometerValue) {
 
         if (vehicleNo.equals("")) {
-            Functions.showToast(context, "Vehicle number cannot be empty");
+            Functions.showToast(context, "Enter Vehicle Number");
 
         } else if (selectedMake.equals("")) {
             Functions.showToast(context, "Select Dealership");

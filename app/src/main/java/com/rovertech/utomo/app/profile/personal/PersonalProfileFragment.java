@@ -227,8 +227,12 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtUpdate:
-                personalProfilePresenter.doUpdate(getActivity(), edtName.getText().toString().trim(), edtDOB.getText().toString().trim(),
-                        edtAddress.getText().toString().trim(), cityId, file, edtEmail.getText().toString().trim());
+                if (Functions.toStr(edtCity).length() == 0) {
+                    Functions.showToast(getActivity(), "Enter City");
+                } else {
+                    personalProfilePresenter.doUpdate(getActivity(), edtName.getText().toString().trim(), edtDOB.getText().toString().trim(),
+                            edtAddress.getText().toString().trim(), cityId, file, edtEmail.getText().toString().trim());
+                }
                 break;
 
             case R.id.edtDOB:
