@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.notification.service.RescheduleBookingApi;
 import com.rovertech.utomo.app.main.notification.model.RescheduleBookingRequest;
 import com.rovertech.utomo.app.main.notification.model.RescheduleResp;
@@ -55,6 +56,7 @@ public class NotificationAdapterPresenterImpl implements NotificationAdapterPres
                     view.hideProgressDialog();
                     message = "Unable To Process Your Request. Please try again later.";
                     view.onAcceptReject(true, message);
+                    RetrofitErrorHelper.showErrorMsg(t, mContext);
                 }
             });
         } catch (Exception e) {

@@ -1,8 +1,9 @@
 package com.rovertech.utomo.app.main.centreDetail;
 
-import android.util.Log;
+import android.content.Context;
 
 import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailResponse;
 import com.rovertech.utomo.app.main.centreDetail.service.CentreDetailsView;
 import com.rovertech.utomo.app.main.centreDetail.service.FetchServiceCentreDetailAPI;
@@ -20,6 +21,7 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
     private CentreDetailsView mCentreDetailsView;
     private FetchServiceCentreDetailResponse fetchServiceCentreDetailResponse;
 
+
     public CentreDetailsPresnterImpl(CentreDetailsView mCentreDetailsView) {
         this.mCentreDetailsView = mCentreDetailsView;
         init();
@@ -32,7 +34,7 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
     }
 
     @Override
-    public void fetchServiceCenterDetails(int serviceCentreID) {
+    public void fetchServiceCenterDetails(int serviceCentreID, final Context context) {
 
         mCentreDetailsView.showProgressBar();
         mCentreDetailsView.hideMainLayoutHolder();
@@ -58,7 +60,7 @@ public class CentreDetailsPresnterImpl implements CentreDetailsPresnter {
             @Override
             public void onFailure(Call<FetchServiceCentreDetailResponse> call, Throwable t) {
                 mCentreDetailsView.hideProgressBar();
-
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

@@ -6,8 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.notification.model.RescheduleBookingRequest;
 import com.rovertech.utomo.app.main.notification.model.RescheduleResp;
 import com.rovertech.utomo.app.main.notification.service.RescheduleBookingApi;
@@ -16,9 +16,6 @@ import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingData;
 import com.rovertech.utomo.app.main.serviceDetail.model.UserBookingDetailsResponse;
 import com.rovertech.utomo.app.main.serviceDetail.service.BookingDetailService;
 import com.rovertech.utomo.app.main.serviceDetail.service.CancelBookingService;
-
-import java.net.UnknownHostException;
-import java.util.concurrent.TimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,8 +70,7 @@ public class ServicePresenterImpl implements ServicePresenter {
             public void onFailure(Call<UserBookingDetailsResponse> call, Throwable t) {
                 if (serviceView != null)
                     serviceView.hideProgress();
-                if (t.getCause() instanceof TimeoutException)
-                    Functions.showErrorAlert(context, AppConstant.TIMEOUTERRROR, false);
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }
@@ -163,13 +159,7 @@ public class ServicePresenterImpl implements ServicePresenter {
                 if (serviceView != null)
                     serviceView.hideProgress();
 
-                if (t.getCause() instanceof TimeoutException) {
-                    Functions.showToast(context, AppConstant.TIMEOUTERRROR);
-                } else if (t.getCause() instanceof UnknownHostException) {
-                    Functions.showErrorAlert(context, AppConstant.NO_INTERNET_CONNECTION, false);
-                } else {
-                    Functions.showToast(context, t.toString());
-                }
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }
@@ -211,8 +201,7 @@ public class ServicePresenterImpl implements ServicePresenter {
             public void onFailure(Call<RescheduleResp> call, Throwable t) {
                 serviceView.hideProgress();
 
-                message = "Unable To Process Your Request. Please try again later.";
-                serviceView.showMessage(message);
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

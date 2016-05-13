@@ -6,6 +6,7 @@ import android.util.Log;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.notification.adapter.NotificationAdapter;
 import com.rovertech.utomo.app.main.notification.service.NotificationReadAPI;
 import com.rovertech.utomo.app.main.notification.service.NotificationRequestAPI;
@@ -78,6 +79,7 @@ public class NotificationPresenterImpl implements NotificationPresenter {
             @Override
             public void onFailure(Call<NotificationResp> call, Throwable t) {
                 Log.e("error", t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, c);
             }
         });
     }
@@ -104,6 +106,7 @@ public class NotificationPresenterImpl implements NotificationPresenter {
             @Override
             public void onFailure(Call<NotificationResp> call, Throwable t) {
                 Log.e("error", t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, c);
             }
         });
 

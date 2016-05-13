@@ -33,6 +33,7 @@ import com.rovertech.utomo.app.addCar.service.FetchYearService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import org.apache.http.HttpEntity;
@@ -182,7 +183,8 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
             @Override
             public void onFailure(Call<MakeModel> call, Throwable t) {
-                Log.e("onFailure", t.toString());
+                addcarView.hideProgress();
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }
@@ -224,7 +226,8 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
             @Override
             public void onFailure(Call<YearModel> call, Throwable t) {
-                Log.e("onFailure", t.toString());
+                addcarView.hideProgress();
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
 
@@ -267,7 +270,8 @@ public class AddCarPresenterImpl implements AddCarPresenter {
 
             @Override
             public void onFailure(Call<VehicleModel> call, Throwable t) {
-
+                addcarView.hideProgress();
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

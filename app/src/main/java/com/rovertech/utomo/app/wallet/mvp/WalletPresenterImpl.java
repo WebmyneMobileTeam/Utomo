@@ -6,16 +6,15 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.wallet.WalletHistoryActivity;
 import com.rovertech.utomo.app.wallet.model.WalletPojo;
 import com.rovertech.utomo.app.wallet.model.WalletResponse;
 import com.rovertech.utomo.app.wallet.service.WalletServiceApi;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,12 +76,7 @@ public class WalletPresenterImpl implements WalletPresenter {
             @Override
             public void onFailure(Call<WalletResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                if (t.getCause() instanceof TimeoutException) {
-                    Functions.showToast(context, AppConstant.TIMEOUTERRROR);
-
-                } else {
-                    Functions.showToast(context, t.getMessage());
-                }
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
 
         });

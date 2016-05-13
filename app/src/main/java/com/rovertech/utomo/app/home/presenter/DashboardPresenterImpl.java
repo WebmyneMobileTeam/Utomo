@@ -5,13 +5,11 @@ import android.util.Log;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
 import com.rovertech.utomo.app.profile.carlist.model.VehicleListResponse;
 import com.rovertech.utomo.app.profile.carlist.service.FetchVehicleListService;
-
-import java.util.concurrent.TimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,9 +67,7 @@ public class DashboardPresenterImpl implements DashboardPresenter {
             public void onFailure(Call<VehicleListResponse> call, Throwable t) {
                 if (view != null)
                     view.hideProgress();
-                if (t.getCause() instanceof TimeoutException) {
-                    Functions.showErrorAlert(context, AppConstant.TIMEOUTERRROR, false);
-                }
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

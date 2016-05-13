@@ -40,6 +40,7 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.BadgeHelper;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.home.DashboardFragment;
 import com.rovertech.utomo.app.invite.InviteFragment;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
@@ -51,8 +52,6 @@ import com.rovertech.utomo.app.profile.ProfileActivity;
 import com.rovertech.utomo.app.settings.SettingsFragment;
 import com.rovertech.utomo.app.wallet.WalletFragment;
 import com.rovertech.utomo.app.widget.LocationFinder;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -190,7 +189,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
             @Override
             public void onFailure(Call<AdminOfferResp> call, Throwable t) {
-                Log.e("error", t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, DrawerActivity.this);
             }
         });
     }
@@ -216,7 +215,7 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
 
             @Override
             public void onFailure(Call<NotificationResp> call, Throwable t) {
-                Log.e("error", t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, DrawerActivity.this);
             }
         });
     }

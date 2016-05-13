@@ -19,6 +19,7 @@ import com.rovertech.utomo.app.bookings.model.RequestForBookingResponse;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.booking.FetchAddressApi;
 import com.rovertech.utomo.app.main.booking.model.AddressResponse;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
@@ -80,7 +81,7 @@ public class BookingPresenterImpl implements BookingPresenter {
             @Override
             public void onFailure(Call<AddressResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Functions.showToast(context, t.getMessage());
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
 
@@ -190,7 +191,7 @@ public class BookingPresenterImpl implements BookingPresenter {
             @Override
             public void onFailure(Call<RequestForBooking> call, Throwable t) {
                 progressDialog.dismiss();
-                Functions.showErrorAlert(context, context.getString(R.string.failed), false);
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
 
@@ -254,7 +255,7 @@ public class BookingPresenterImpl implements BookingPresenter {
             @Override
             public void onFailure(Call<VehicleListResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Functions.showToast(context, t.getMessage());
+                RetrofitErrorHelper.showErrorMsg(t, context);
 
             }
         });
@@ -309,7 +310,7 @@ public class BookingPresenterImpl implements BookingPresenter {
             @Override
             public void onFailure(Call<VehicleListResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Functions.showToast(context, t.getMessage());
+                RetrofitErrorHelper.showErrorMsg(t, context);
 
             }
         });

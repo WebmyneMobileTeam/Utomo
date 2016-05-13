@@ -14,6 +14,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.main.centreDetail.offer.api.SCOfferRequestAPI;
 import com.rovertech.utomo.app.main.centreDetail.offer.model.SCOfferResp;
@@ -143,7 +144,7 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
 
                 @Override
                 public void onFailure(Call<SCOfferResp> call, Throwable t) {
-                    Log.e("error", t.toString());
+                    RetrofitErrorHelper.showErrorMsg(t, CentreOfferActivity.this);
                 }
 
             });

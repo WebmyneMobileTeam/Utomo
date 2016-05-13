@@ -29,6 +29,7 @@ import com.rovertech.utomo.app.account.service.ResetPwdService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.profile.personal.model.UpdateProfileRequest;
 import com.rovertech.utomo.app.profile.personal.model.UpdateProfileResponse;
 import com.rovertech.utomo.app.widget.dialog.ChangePasswordDialog;
@@ -258,7 +259,7 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
 
             @Override
             public void onFailure(Call<CityOutput> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }
@@ -376,7 +377,7 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
 
             @Override
             public void onFailure(Call<ResetPasswordOutput> call, Throwable t) {
-                Functions.showToast(context, t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

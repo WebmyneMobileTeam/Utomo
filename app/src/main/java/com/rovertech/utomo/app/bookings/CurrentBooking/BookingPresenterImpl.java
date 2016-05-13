@@ -8,6 +8,7 @@ import com.rovertech.utomo.app.bookings.CurrentBooking.model.UserBookingsRespons
 import com.rovertech.utomo.app.bookings.CurrentBooking.service.BookingActivitiesAPI;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class BookingPresenterImpl implements BookingPresenter {
     }
 
     @Override
-    public void setUpRecyclerView(Context context, @MyBookingFragment.BookingViewMode int viewMode) {
+    public void setUpRecyclerView(final Context context, @MyBookingFragment.BookingViewMode int viewMode) {
 
         bookingView.showProgressBar();
         int userID = PrefUtils.getUserID(context);
@@ -54,6 +55,7 @@ public class BookingPresenterImpl implements BookingPresenter {
             @Override
             public void onFailure(Call<UserBookingsResponse> call, Throwable t) {
                 bookingView.hideProgressBar();
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
 

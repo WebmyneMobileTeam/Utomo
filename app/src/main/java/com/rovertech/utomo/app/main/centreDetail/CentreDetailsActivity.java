@@ -63,7 +63,7 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
         Intent intent = getIntent();
         int serviceCenterId = intent.getExtras().getInt("centreId");
         distance = intent.getStringExtra("DistanceKM");
-        centreDetailsPresnter.fetchServiceCenterDetails(serviceCenterId);
+        centreDetailsPresnter.fetchServiceCenterDetails(serviceCenterId,this);
 
         initToolbar();
     }

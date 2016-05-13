@@ -8,6 +8,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.review.model.ReviewOutput;
 import com.rovertech.utomo.app.main.review.model.ReviewRequest;
 import com.rovertech.utomo.app.main.review.service.ReviewService;
@@ -76,7 +77,7 @@ public class ReviewPresenterImpl implements ReviewPresenter {
 
                 @Override
                 public void onFailure(Call<ReviewOutput> call, Throwable t) {
-
+                    RetrofitErrorHelper.showErrorMsg(t, context);
                 }
             });
         }

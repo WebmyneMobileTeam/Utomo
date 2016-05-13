@@ -51,13 +51,13 @@ import com.rovertech.utomo.app.account.service.SocialLoginService;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.widget.dialog.ChangePasswordDialog;
 import com.rovertech.utomo.app.widget.dialog.OTPDialog;
 
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -229,6 +229,7 @@ public class AccountPresenterImpl implements AccountPresenter {
             @Override
             public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
                 progressDialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
     }
@@ -267,7 +268,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
             @Override
             public void onFailure(Call<CityOutput> call, Throwable t) {
-
+                RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
     }
@@ -317,12 +318,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                 @Override
                 public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
                     accountView.hideProgress();
-                    if (t.getCause() instanceof TimeoutException) {
-                        Functions.showToast(activity, AppConstant.TIMEOUTERRROR);
+                    RetrofitErrorHelper.showErrorMsg(t, activity);
 
-                    }
-
-                    accountView.hideProgress();
                 }
             });
         }
@@ -384,8 +381,8 @@ public class AccountPresenterImpl implements AccountPresenter {
 
             @Override
             public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
-                Functions.showToast(activity, t.getMessage());
                 dialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
 
@@ -708,7 +705,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                 public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
                     if (accountView != null)
                         accountView.hideProgress();
-                    Log.e("onFailure", t.toString());
+                    RetrofitErrorHelper.showErrorMsg(t, activity);
                 }
             });
 
@@ -797,7 +794,7 @@ public class AccountPresenterImpl implements AccountPresenter {
             public void onFailure(Call<ResendOutput> call, Throwable t) {
                 if (accountView != null)
                     accountView.hideProgress();
-                Functions.showToast(context, t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
     }
@@ -837,7 +834,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
             @Override
             public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
-                Functions.showToast(activity, t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
 
@@ -861,7 +858,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
             @Override
             public void onFailure(Call<ResetPasswordOutput> call, Throwable t) {
-                Functions.showToast(context, t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
     }

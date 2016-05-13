@@ -27,6 +27,7 @@ import com.rovertech.utomo.app.helper.AdvancedSpannableString;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.centerListing.model.CentreListRequest;
 import com.rovertech.utomo.app.main.centerListing.model.CentreListResponse;
 import com.rovertech.utomo.app.main.centerListing.service.FetchServiceCentreListService;
@@ -124,7 +125,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
 
             @Override
             public void onFailure(Call<CentreListResponse> call, Throwable t) {
-                Functions.showToast(context, "Failed " + t.getMessage());
+                RetrofitErrorHelper.showErrorMsg(t, context);
                 onSubmit(new ArrayList<ServiceCenterPojo>(), 0);
             }
         });

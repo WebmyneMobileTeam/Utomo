@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.invoice.model.PaymentDetailsResponse;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.invoice.model.PaymentProcessResponse;
 import com.rovertech.utomo.app.invoice.service.FetchPaymentDetailsService;
 
@@ -50,8 +50,7 @@ public class InvoicePresenterImpl implements InvoicePresenter {
             @Override
             public void onFailure(Call<PaymentProcessResponse> call, Throwable t) {
                 view.hideProgress();
-                Log.e("onFailure", t.toString());
-                Functions.showToast(mContext, "Error occurred.");
+                RetrofitErrorHelper.showErrorMsg(t, mContext);
             }
         });
 

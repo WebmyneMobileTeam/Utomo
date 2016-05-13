@@ -8,6 +8,7 @@ import android.util.Log;
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
 import com.rovertech.utomo.app.profile.carlist.model.VehicleListResponse;
 import com.rovertech.utomo.app.profile.carlist.service.FetchVehicleListService;
@@ -68,6 +69,8 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
             public void onFailure(Call<VehicleListResponse> call, Throwable t) {
                 if (carFragmentView != null)
                     carFragmentView.hideProgress();
+
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }
@@ -116,7 +119,7 @@ public class CarFragmentPresenterImpl implements CarFragmentPresenter {
 
             @Override
             public void onFailure(Call<DeleteVehicleResponse> call, Throwable t) {
-                Functions.showToast(context, t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
     }

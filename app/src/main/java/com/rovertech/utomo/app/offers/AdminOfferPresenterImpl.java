@@ -1,10 +1,10 @@
 package com.rovertech.utomo.app.offers;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.centreDetail.offer.api.SCOfferRequestAPI;
 import com.rovertech.utomo.app.main.centreDetail.offer.model.SCOfferResp;
 import com.rovertech.utomo.app.offers.adpter.AdminOfferAdapter;
@@ -68,6 +68,7 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
             @Override
             public void onFailure(Call<AdminOfferResp> call, Throwable t) {
                 Log.e("error", t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, c);
             }
         });
 
@@ -96,7 +97,7 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
 
                 @Override
                 public void onFailure (Call < SCOfferResp > call, Throwable t){
-                    Log.e("error", t.toString());
+                    RetrofitErrorHelper.showErrorMsg(t, c);
                 }
 
         });}

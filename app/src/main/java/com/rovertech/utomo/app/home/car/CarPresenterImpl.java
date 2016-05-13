@@ -7,6 +7,7 @@ import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.home.car.model.DashboardRequest;
 import com.rovertech.utomo.app.home.car.model.DashboardResponse;
 import com.rovertech.utomo.app.home.car.service.FetchDashboardService;
@@ -85,7 +86,7 @@ public class CarPresenterImpl implements CarPresenter {
             public void onFailure(Call<DashboardResponse> call, Throwable t) {
                 if (carView != null)
                     carView.hideProgress();
-                Functions.showToast(context, t.toString());
+                RetrofitErrorHelper.showErrorMsg(t, context);
             }
         });
 
