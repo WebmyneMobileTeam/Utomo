@@ -98,6 +98,7 @@ public class ServiceDateTile extends LinearLayout implements View.OnClickListene
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
+        datePickerDialog.setMaxDate(now);
         datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
