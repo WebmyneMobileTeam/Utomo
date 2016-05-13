@@ -40,8 +40,6 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_centre_offer);
         serviceCenterId = getIntent().getIntExtra("centreId", 0);
-        Log.e("selected center", getIntent().getIntExtra("centreId", 0) + "");
-        //Log.d("selected center", PrefUtils.getCurrentCenter(this).toString());
 
         mAdminOfferPresenter = new AdminOfferPresenterImpl(this, this);
         mAdminOfferPresenter.init();

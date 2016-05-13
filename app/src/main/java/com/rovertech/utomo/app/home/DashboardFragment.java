@@ -143,6 +143,10 @@ public class DashboardFragment extends Fragment implements DashboardView {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        Log.e("current_position", PrefUtils.getCurrentPosition(getActivity()) + "");
+
+        viewPager.setCurrentItem(PrefUtils.getCurrentPosition(getActivity()));
+
         viewPager.setOffscreenPageLimit(0);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
@@ -165,6 +169,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
                 PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
                 PrefUtils.setCurrentPosition(getActivity(), position);
+
+                Log.e("current_position", PrefUtils.getCurrentPosition(getActivity()) + "");
             }
 
             @Override
@@ -172,8 +178,6 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
             }
         });
-
-        viewPager.setCurrentItem(PrefUtils.getCurrentPosition(getActivity()));
     }
 
     @Override

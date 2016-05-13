@@ -282,7 +282,7 @@ public class CarFragment extends Fragment implements CarView {
     }
 
     public void getLocation(LocationFinder finder) {
-        Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
+     //   Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
 
     }
 }

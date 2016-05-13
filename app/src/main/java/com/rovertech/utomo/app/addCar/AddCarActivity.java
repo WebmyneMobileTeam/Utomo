@@ -133,7 +133,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                     selectedYear = parent.getSelectedItem().toString();
                     modelCardView.setVisibility(View.GONE);
                     presenter.fetchModels(selectedMake, selectedYear, AddCarActivity.this);
-                    Log.e("selectedYear", selectedYear);
+                  //  Log.e("selectedYear", selectedYear);
                 }
             }
 
@@ -150,7 +150,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                     Vehicle model = (Vehicle) parent.getAdapter().getItem(position);
                     selectedModel = model.Model;
                     selectModelYear = model.VehicleModelYearID;
-                    Log.e("selectedModel", selectedModel + " " + selectModelYear);
+                 //   Log.e("selectedModel", selectedModel + " " + selectModelYear);
                 }
             }
 
@@ -305,13 +305,13 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
         makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("makeAdapter", String.valueOf(position));
+             //   Log.e("makeAdapter", String.valueOf(position));
                 if (position != 0) {
                     selectedMake = parent.getSelectedItem().toString();
                     yearCardView.setVisibility(View.GONE);
                     modelCardView.setVisibility(View.GONE);
                     presenter.fetchYears(selectedMake, AddCarActivity.this);
-                    Log.e("selectedMake", selectedMake);
+            //        Log.e("selectedMake", selectedMake);
                 }
             }
 

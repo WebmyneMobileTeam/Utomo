@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
             packageInfo = getPackageManager().getPackageInfo(packageName,
                     PackageManager.GET_SIGNATURES);
 
-            Log.e("Package Name=", getApplicationContext().getPackageName());
+         //   Log.e("Package Name=", getApplicationContext().getPackageName());
 
             for (Signature signature : packageInfo.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");

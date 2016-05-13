@@ -103,7 +103,6 @@ public class CentreHeaderDetails extends LinearLayout {
 
     public void setDetails(final FetchServiceCentreDetailPojo centreDetailPojo, String distance) {
 
-        Log.e("Received Image", UtomoApplication.getInstance().getGson().toJson(centreDetailPojo));
         if (centreDetailPojo.lstServiceCentreImage.size() > 0) {
 
             if (centreDetailPojo.lstServiceCentreImage.size() == 1) {

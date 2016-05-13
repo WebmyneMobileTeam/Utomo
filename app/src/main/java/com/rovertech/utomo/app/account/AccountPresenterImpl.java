@@ -117,8 +117,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                                             Uri profileUri = null;
                                             profileUri = profile2.getProfilePictureUri(640, 640);
                                             socialRequest.ProfileImg = profileUri.toString();
-                                            Log.e("Profile pic #1 if", "" + profileUri);
-                                            Log.e("Profile pic #2 if", "" + socialRequest.ProfileImg);
+                                         //   Log.e("Profile pic #1 if", "" + profileUri);
+                                         //   Log.e("Profile pic #2 if", "" + socialRequest.ProfileImg);
                                             //Log.e("Profile pic #3 if", "" + );
                                             mProfileTracker.stopTracking();
                                         }
@@ -128,7 +128,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                                 } else {
                                     profileUri = profile.getProfilePictureUri(640, 640);
                                     socialRequest.ProfileImg = profileUri.toString();
-                                    Log.e("Profile pic url else", "" + profileUri);
+                                 //   Log.e("Profile pic url else", "" + profileUri);
                                 }
                                 return null;
                             }
@@ -249,7 +249,7 @@ public class AccountPresenterImpl implements AccountPresenter {
         CityRequest request = new CityRequest();
         request.CityName = string;
 
-        Log.e("city_req", Functions.jsonString(request));
+     //   Log.e("city_req", Functions.jsonString(request));
 
         FetchCityService service = UtomoApplication.retrofit.create(FetchCityService.class);
         Call<CityOutput> call = service.doFetchCity(request);
@@ -259,7 +259,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                 if (response.body() == null) {
                     Functions.showToast(context, "Error");
                 } else {
-                    Log.e("json_res", Functions.jsonString(response.body()));
+                //    Log.e("json_res", Functions.jsonString(response.body()));
                     CityAdapter adapter = new CityAdapter(context, R.layout.layout_adapter_item, response.body().FetchCity.Data);
                     accountView.setCityAdapter(adapter, response.body().FetchCity.Data);
                 }

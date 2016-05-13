@@ -14,7 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +43,6 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
-import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerViewOnScrollListener;
 
@@ -59,7 +60,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private List<ServiceCenterPojo> centerList;
     private ServiceCentreListAdapter adapter;
     private DrawerLayout drawerLayout;
-    private TextView txtFilterTitle;
+    private TextView txtFilterTitle, txtFilter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private FamiliarRecyclerView recyclerView;
     private View mFooterLoadMoreView;
@@ -71,6 +72,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private boolean isMapShow = false;
     private GoogleMap mMap;
     private ActionBarDrawerToggle drawerToggle;
+    private MenuItem mapItem;
 
     // right drawer
     private Button btnReset, btnApply;
@@ -115,6 +117,8 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.center_listing_menu, menu);
 
+        mapItem = menu.findItem(R.id.action_filter);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -133,6 +137,20 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private void init() {
 
         initToolbar();
+
+        txtFilter = (TextView) findViewById(R.id.txtFilter);
+        txtFilter.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
+        txtFilter.setText(Html.fromHtml("<u>You can also use filter to find out Service centres by clicking here.</u>"));
+        txtFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                    drawerLayout.closeDrawer(Gravity.RIGHT);
+                } else {
+                    drawerLayout.openDrawer(Gravity.RIGHT);
+                }
+            }
+        });
 
         contentLayout = (RelativeLayout) findViewById(R.id.contentLayout);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
@@ -373,10 +391,14 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                 if (!isMapShow) {
                     isMapShow = true;
                     presenter.showMapView(mMap, centerList, this);
+                    mapItem.setVisible(false);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
                 } else {
                     presenter.showListView();
                     isMapShow = false;
+                    mapItem.setVisible(true);
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 }
                 break;
 
@@ -486,6 +508,8 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     }
 
     private void doStuff() {
+
+        Log.e("current_position back", PrefUtils.getCurrentPosition(this) + "");
 
         if (PrefUtils.isUserLoggedIn(this)) {
             Intent intent = new Intent(this, DrawerActivityRevised.class);

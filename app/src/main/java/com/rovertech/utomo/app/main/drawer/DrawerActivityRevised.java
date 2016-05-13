@@ -265,6 +265,8 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     protected void onResume() {
         super.onResume();
 
+        Log.e("current_position resume", PrefUtils.getCurrentPosition(this) + "");
+
         profile = PrefUtils.getUserFullProfileDetails(this);
         txtName.setText(String.format("%s", profile.Name));
         Functions.loadRoundImage(profilePic, profile.ProfileImg, this);
@@ -328,7 +330,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
                 try {
-                    Log.e("onResponse", Functions.jsonString(response.body()));
+                  //  Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
 
                         int badgeCount = 0;

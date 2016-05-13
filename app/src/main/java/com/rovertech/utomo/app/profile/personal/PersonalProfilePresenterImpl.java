@@ -243,8 +243,6 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
         CityRequest request = new CityRequest();
         request.CityName = string;
 
-        Log.e("city_req", Functions.jsonString(request));
-
         FetchCityService service = UtomoApplication.retrofit.create(FetchCityService.class);
         Call<CityOutput> call = service.doFetchCity(request);
         call.enqueue(new Callback<CityOutput>() {
@@ -253,7 +251,6 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
                 if (response.body() == null) {
                     Functions.showToast(context, "Error");
                 } else {
-                    Log.e("json_res", Functions.jsonString(response.body()));
                     CityAdapter adapter = new CityAdapter(context, R.layout.layout_adapter_item, response.body().FetchCity.Data);
                     personalProfileView.setCityAdapter(adapter, response.body().FetchCity.Data);
                 }

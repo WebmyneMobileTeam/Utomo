@@ -94,8 +94,6 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
             @Override
             public void onResponse(Call<CentreListResponse> call, Response<CentreListResponse> response) {
 
-                Log.e("response", "comes");
-
                 if (response.body() == null) {
                     Functions.showToast(context, "Error occurred");
 
@@ -143,8 +141,6 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
         CityRequest request = new CityRequest();
         request.CityName = string;
 
-        Log.e("city_req", Functions.jsonString(request));
-
         FetchCityService service = UtomoApplication.retrofit.create(FetchCityService.class);
         Call<CityOutput> call = service.doFetchCity(request);
         call.enqueue(new Callback<CityOutput>() {
@@ -153,7 +149,6 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
                 if (response.body() == null) {
                     Functions.showToast(context, "Error");
                 } else {
-                    Log.e("json_res", Functions.jsonString(response.body()));
                     CityAdapter adapter = new CityAdapter(context, R.layout.layout_adapter_item, response.body().FetchCity.Data);
                     centreView.setCityAdapter(adapter, response.body().FetchCity.Data);
                 }

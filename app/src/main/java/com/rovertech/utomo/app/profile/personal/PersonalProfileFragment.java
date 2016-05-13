@@ -85,7 +85,6 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
     private void loadProfile() {
         UserProfileOutput profile = PrefUtils.getUserFullProfileDetails(getActivity());
-        Log.e("profile", Functions.jsonString(profile));
 
         cityId = profile.CityID;
        /* if(profile.MobileNo!=null && !profile.MobileNo.equals("0"))

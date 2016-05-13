@@ -149,6 +149,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
         mPager.setAdapter(mPageAdapter);
         mPager.setFollowViewPager(mFramePager);
 
+
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -204,7 +205,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
 
                     }
                 });
-
 
 
                 break;

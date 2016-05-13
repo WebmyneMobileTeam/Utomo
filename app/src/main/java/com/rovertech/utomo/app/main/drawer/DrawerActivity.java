@@ -86,7 +86,6 @@ public class DrawerActivity extends AppCompatActivity implements DrawerView {
         init();
 
         UserProfileOutput profile = PrefUtils.getUserFullProfileDetails(this);
-        Log.e("profile", Functions.jsonString(profile));
     }
 
     @Override
