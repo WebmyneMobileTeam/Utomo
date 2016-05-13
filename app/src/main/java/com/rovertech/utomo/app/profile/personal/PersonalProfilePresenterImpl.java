@@ -1,6 +1,5 @@
 package com.rovertech.utomo.app.profile.personal;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -288,6 +287,9 @@ public class PersonalProfilePresenterImpl implements PersonalProfilePresenter {
     }
 
     private void fromGallery() {
+
+        // RxImagePicker https://android-arsenal.com/details/1/3466
+
         RxImagePicker.with(context).requestImage(Sources.GALLERY)
                 .flatMap(new Func1<Uri, Observable<File>>() {
                     @Override

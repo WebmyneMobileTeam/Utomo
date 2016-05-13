@@ -176,12 +176,6 @@ public class Functions {
         return matcher.matches();
     }
 
-    public static boolean vehicleValidation(String vehicleNo) {
-        pattern = Pattern.compile(VEHICLE_NO_PATTERN);
-        matcher = pattern.matcher(vehicleNo);
-        return matcher.matches();
-    }
-
     public static String parseDate(String inputDate, String inputPattern, String outputPattern) {
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);

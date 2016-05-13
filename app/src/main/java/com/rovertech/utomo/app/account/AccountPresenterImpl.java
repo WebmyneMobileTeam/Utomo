@@ -451,9 +451,12 @@ public class AccountPresenterImpl implements AccountPresenter {
     @Override
     public void checkCredentials(String number, String pwd) {
 
+        if (number.length() == 0) {
+            setNumberError("Enter Mobile Number");
+            return;
 
-        if (number.length() != 10) {
-            setNumberError();
+        } else if (number.length() != 10) {
+            setNumberError("Enter Valid Mobile Number");
             return;
 
         } else if (pwd.length() == 0) {
@@ -522,10 +525,10 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     }
 
-    private void setNumberError() {
+    private void setNumberError(String message) {
         if (accountView != null) {
             // accountView.hideProgress();
-            accountView.numberError();
+            accountView.numberError(message);
         }
     }
 
@@ -551,11 +554,18 @@ public class AccountPresenterImpl implements AccountPresenter {
     @Override
     public void checkCredentials(String number, String name, String email, String pwd, int cityId, String referralCode) {
 
-        if (number.length() != 10) {
-            setNumberError();
+        if (number.length() == 0) {
+            setNumberError("Enter Mobile Number");
             return;
 
         }
+
+        if (number.length() != 10) {
+            setNumberError("Enter Valid Mobile Number");
+            return;
+
+        }
+
         if (name.length() == 0) {
             setNameError();
             return;
@@ -723,8 +733,12 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     @Override
     public void openForget(Context context, String number) {
-        if (number.equals("") || number.length() < 10) {
-            accountView.numberError();
+
+        if (number.equals("")) {
+            accountView.numberError("Enter Mobile Number");
+
+        } else if (number.length() < 10) {
+            accountView.numberError("Enter Valid Mobile Number");
         } else {
             callWS(context, number);
         }

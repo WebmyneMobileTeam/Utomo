@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Functions.hideKeyPad(LoginActivity.this,parentView);
+                Functions.hideKeyPad(LoginActivity.this, parentView);
                 finish();
                 overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
@@ -231,17 +231,17 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
                 break;
 
             case R.id.btnLogin:
-                Functions.hideKeyPad(this,this.parentView);
+                Functions.hideKeyPad(this, this.parentView);
                 presenter.checkCredentials(edtMobileNumber.getText().toString(), edtPassword.getText().toString());
                 break;
 
             case R.id.txtSignUp:
-                Functions.hideKeyPad(this,this.parentView);
+                Functions.hideKeyPad(this, this.parentView);
                 presenter.openSignUp();
                 break;
 
             case R.id.txtForget:
-                Functions.hideKeyPad(this,this.parentView);
+                Functions.hideKeyPad(this, this.parentView);
                 presenter.openForget(this, edtMobileNumber.getText().toString().trim());
                 break;
         }
@@ -295,8 +295,8 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     }
 
     @Override
-    public void numberError() {
-        Functions.showErrorAlert(this, "Please enter mobile number", false);
+    public void numberError(String msg) {
+        Functions.showErrorAlert(this, msg, false);
 
     }
 

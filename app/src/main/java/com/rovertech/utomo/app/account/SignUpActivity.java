@@ -202,13 +202,13 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     }
 
     @Override
-    public void numberError() {
-        Functions.showSnack(parentView, "Invalid Mobile Number");
+    public void numberError(String msg) {
+        Functions.showSnack(parentView, msg);
     }
 
     @Override
     public void navigateSignUp() {
-
+        // method for login activity
     }
 
     @Override

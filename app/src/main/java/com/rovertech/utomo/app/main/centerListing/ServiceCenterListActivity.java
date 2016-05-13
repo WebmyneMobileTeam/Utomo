@@ -41,6 +41,7 @@ import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
+import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerViewOnScrollListener;
 
@@ -349,6 +350,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Functions.hideKeyPad(ServiceCenterListActivity.this, v);
                 doStuff();
             }
         });
@@ -484,6 +486,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     }
 
     private void doStuff() {
+
         if (PrefUtils.isUserLoggedIn(this)) {
             Intent intent = new Intent(this, DrawerActivityRevised.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);

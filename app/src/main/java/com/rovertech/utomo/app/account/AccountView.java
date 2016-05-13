@@ -21,7 +21,7 @@ public interface AccountView {
 
     void navigateDashboard();
 
-    void numberError();
+    void numberError(String msg);
 
     void navigateSignUp();
 
