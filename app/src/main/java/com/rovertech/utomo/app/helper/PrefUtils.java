@@ -32,6 +32,9 @@ public class PrefUtils {
     public static String PAGER_POSITION = "PAGER_POSITION";
     public static String NOTIFICATION_SIZE = "NOTIFICATION_SIZE";
 
+    public static String SETTINGS_OFFER = "SETTINGS_OFFER";
+    public static String SETTINGS_BOOKING = "SETTINGS_BOOKING";
+
     public static String WALLET_HISTORY = "WALLET_HISTORY";
 
     public static final String RedirectLogin = "RedirectLogin";
@@ -232,6 +235,22 @@ public class PrefUtils {
         }
 
         return walletHistory;
+    }
+
+    public static void setSettingsOffer(Context context, boolean isChecked) {
+        Prefs.with(context).save(SETTINGS_OFFER, isChecked);
+    }
+
+    public static void setSettingsBooking(Context context, boolean isChecked) {
+        Prefs.with(context).save(SETTINGS_BOOKING, isChecked);
+    }
+
+    public static boolean getSettingsOffer(Context context) {
+        return Prefs.with(context).getBoolean(SETTINGS_OFFER, false);
+    }
+
+    public static boolean getSettingsBooking(Context context) {
+        return Prefs.with(context).getBoolean(SETTINGS_BOOKING, false);
     }
 
 }

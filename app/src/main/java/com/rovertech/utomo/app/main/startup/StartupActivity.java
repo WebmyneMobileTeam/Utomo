@@ -1,11 +1,13 @@
 package com.rovertech.utomo.app.main.startup;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -185,7 +187,23 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     public void initFramePagerView(View frameView, int drawable) {
         ImageView image = (ImageView) frameView.findViewById(R.id.image);
         image.setImageResource(drawable);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "Loading", "Please wait", false);
+        new CountDownTimer(2000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                progressDialog.dismiss();
+            }
+        }.start();
     }
 
     @Override

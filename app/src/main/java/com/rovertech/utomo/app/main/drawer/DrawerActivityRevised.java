@@ -77,6 +77,8 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_activity_revised);
 
+        PrefUtils.setRedirectLogin(this, AppConstant.FROM_START);
+
         PrefUtils.setCurrentPosition(this, 0);
 
         profile = PrefUtils.getUserFullProfileDetails(this);
@@ -331,7 +333,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
                 try {
-                  //  Log.e("onResponse", Functions.jsonString(response.body()));
+                    //  Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
 
                         int badgeCount = 0;

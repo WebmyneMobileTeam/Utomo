@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -133,7 +131,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                     selectedYear = parent.getSelectedItem().toString();
                     modelCardView.setVisibility(View.GONE);
                     presenter.fetchModels(selectedMake, selectedYear, AddCarActivity.this);
-                  //  Log.e("selectedYear", selectedYear);
+                    //  Log.e("selectedYear", selectedYear);
                 }
             }
 
@@ -150,7 +148,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                     Vehicle model = (Vehicle) parent.getAdapter().getItem(position);
                     selectedModel = model.Model;
                     selectModelYear = model.VehicleModelYearID;
-                 //   Log.e("selectedModel", selectedModel + " " + selectModelYear);
+                    //   Log.e("selectedModel", selectedModel + " " + selectModelYear);
                 }
             }
 
@@ -301,17 +299,17 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     public void setMakeAdapter(CustomSpinnerAdapter adapter) {
         this.makeAdapter = adapter;
         makeSpinner.setAdapter(makeAdapter);
-
+        Functions.hideKeyPad(this, parentView);
         makeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-             //   Log.e("makeAdapter", String.valueOf(position));
+                //   Log.e("makeAdapter", String.valueOf(position));
                 if (position != 0) {
                     selectedMake = parent.getSelectedItem().toString();
                     yearCardView.setVisibility(View.GONE);
                     modelCardView.setVisibility(View.GONE);
                     presenter.fetchYears(selectedMake, AddCarActivity.this);
-            //        Log.e("selectedMake", selectedMake);
+                    //        Log.e("selectedMake", selectedMake);
                 }
             }
 
@@ -326,6 +324,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     public void setYearAdapter(CustomSpinnerAdapter adapter) {
         yearCardView.setVisibility(View.VISIBLE);
         yearSpinner.setAdapter(adapter);
+        Functions.hideKeyPad(this, parentView);
         yearAdapter = adapter;
     }
 
@@ -333,6 +332,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
     public void setModelAdapter(VehicleAdapter adapter) {
         modelCardView.setVisibility(View.VISIBLE);
         modelSpinner.setAdapter(adapter);
+        Functions.hideKeyPad(this, parentView);
         modelAdapter = adapter;
     }
 

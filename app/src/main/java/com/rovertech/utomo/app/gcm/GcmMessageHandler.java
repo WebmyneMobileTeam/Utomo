@@ -17,6 +17,7 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 import org.json.JSONException;
@@ -82,7 +83,7 @@ public class GcmMessageHandler extends IntentService {
 
         Log.e("message", message);
 
-        JSONObject object;
+        JSONObject object = null;
         String strMsg = "";
 
         try {
@@ -91,7 +92,6 @@ public class GcmMessageHandler extends IntentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         int icon = R.mipmap.ic_launcher;
         long when = System.currentTimeMillis();
@@ -115,6 +115,27 @@ public class GcmMessageHandler extends IntentService {
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
-        notificationManager.notify(m, mBuilder.build());
+
+        //// TODO: 16-05-2016  If Else for Settings
+
+        try {
+            if (object.getString("NotificationFor").equalsIgnoreCase("Service")) {
+                if (PrefUtils.getSettingsBooking(getApplicationContext())) {
+                    notificationManager.notify(m, mBuilder.build());
+                }
+
+            } else if (object.getString("NotificationFor").equalsIgnoreCase("AdminOffer")) {
+                if (PrefUtils.getSettingsOffer(getApplicationContext())) {
+                    notificationManager.notify(m, mBuilder.build());
+                }
+
+            } else {
+                notificationManager.notify(m, mBuilder.build());
+            }
+        } catch (Exception e) {
+            Log.e("exception", "temp exception for PN");
+            e.printStackTrace();
+        }
+
     }
 }

@@ -379,12 +379,15 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         switch (v.getId()) {
             case R.id.btnSearch:
                 Functions.hideKeyPad(ServiceCenterListActivity.this, findViewById(android.R.id.content));
-                centerList = new ArrayList<>();
-                centerList.clear();
-                lastCentreId = 0;
-                type = AppConstant.BY_CITY;
-                presenter.setLocation(0.0, 0.0, cityId);
-                presenter.fetchCentreList(lastCentreId, this, type, isBodyShop, isPickup);
+
+                if (Functions.toStr(edtCity).length() != 0) {
+                    centerList = new ArrayList<>();
+                    centerList.clear();
+                    lastCentreId = 0;
+                    type = AppConstant.BY_CITY;
+                    presenter.setLocation(0.0, 0.0, cityId);
+                    presenter.fetchCentreList(lastCentreId, this, type, isBodyShop, isPickup);
+                }
                 break;
 
             case R.id.fab:
@@ -506,14 +509,13 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     public void onBackPressed() {
         super.onBackPressed();
         doStuff();
-
     }
 
     private void doStuff() {
 
         Log.e("current_position back", PrefUtils.getCurrentPosition(this) + "");
 
-        if (PrefUtils.isUserLoggedIn(this)) {
+        if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_SKIP && PrefUtils.isUserLoggedIn(this)) {
             Intent intent = new Intent(this, DrawerActivityRevised.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

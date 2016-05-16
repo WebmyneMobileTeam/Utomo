@@ -271,6 +271,9 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     @Override
     public void navigateDashboard() {
 
+        PrefUtils.setSettingsOffer(this, true);
+        PrefUtils.setSettingsBooking(this, true);
+
         if (PrefUtils.getUserFullProfileDetails(this).VehicleCount == 0) {
             Intent addCarIntent = new Intent(this, AddCarActivity.class);
             addCarIntent.putExtra(AppConstant.SKIP, true);

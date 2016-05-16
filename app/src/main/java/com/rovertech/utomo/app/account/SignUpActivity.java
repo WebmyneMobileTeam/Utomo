@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -27,9 +26,7 @@ import com.rovertech.utomo.app.account.model.SocialRequest;
 import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 import java.util.ArrayList;
@@ -222,13 +219,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     @Override
     public void navigateAddCar() {
 
-        // TODO: 10-05-2016 manual change
-
-        // Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
-
-        //  PrefUtils.setRedirectLogin(this, PrefUtils.getRedirectLogin(this));
-
-        //  Toast.makeText(this, "sd " + PrefUtils.getRedirectLogin(this), Toast.LENGTH_SHORT).show();
+        PrefUtils.setSettingsOffer(this, true);
+        PrefUtils.setSettingsBooking(this, true);
 
         if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_SKIP) {
             Intent addCarIntent = new Intent(this, AddCarActivity.class);

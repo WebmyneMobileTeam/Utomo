@@ -166,6 +166,7 @@ public class BookingPresenterImpl implements BookingPresenter {
 
                         AlertDialog.Builder alert = new AlertDialog.Builder(context);
                         alert.setTitle(context.getResources().getString(R.string.Success));
+                        alert.setCancelable(true);
                         alert.setMessage(requestForBooking.ResponseMessage);
                         alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override

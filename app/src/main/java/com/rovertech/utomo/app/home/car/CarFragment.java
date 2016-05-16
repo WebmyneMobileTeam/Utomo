@@ -12,12 +12,10 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -35,6 +33,7 @@ import com.rovertech.utomo.app.tiles.odometer.OdometerTile;
 import com.rovertech.utomo.app.tiles.performance.PerformanceTile;
 import com.rovertech.utomo.app.tiles.serviceDate.ServiceDateTile;
 import com.rovertech.utomo.app.tiles.sponsoredCenter.SponsoredCenterSet;
+import com.rovertech.utomo.app.widget.LoadingDialog;
 import com.rovertech.utomo.app.widget.LocationFinder;
 
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ public class CarFragment extends Fragment implements CarView {
     private CarPojo carPojo;
     private ProgressDialog progressDialog;
     private LinearLayout mainContent;
-    private ScrollView scrollView;
 
     private CurrentServiceTile currentServiceTile;
     private HealthMeterTile healthMeterTile;
@@ -61,6 +59,8 @@ public class CarFragment extends Fragment implements CarView {
     private TextView txtRequestBooking, txtRequestBookingTitle;
 
     private SwipeRefreshLayout swipe_car_refresh;
+
+    LoadingDialog loadingDialog;
 
     public CarFragment() {
         // Required empty public constructor
@@ -75,6 +75,7 @@ public class CarFragment extends Fragment implements CarView {
         init();
 
         presenter = new CarPresenterImpl(this);
+
         presenter.fetchDashboard(getActivity(), carPojo, "", 0, "", 0);
 
         return parentView;
@@ -96,10 +97,9 @@ public class CarFragment extends Fragment implements CarView {
 
     private void init() {
         mainContent = (LinearLayout) parentView.findViewById(R.id.mainContent);
-        mainContent.setVisibility(View.GONE);
+        //  mainContent.setVisibility(View.GONE);
 
         // findview
-        scrollView = (ScrollView) parentView.findViewById(R.id.scrollView);
         currentServiceTile = (CurrentServiceTile) parentView.findViewById(R.id.currentServiceTile);
         healthMeterTile = (HealthMeterTile) parentView.findViewById(R.id.healthMeterTile);
 
@@ -167,15 +167,22 @@ public class CarFragment extends Fragment implements CarView {
         if (swipe_car_refresh.isRefreshing()) {
 
         } else {
-            progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
+            loadingDialog = new LoadingDialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
+            loadingDialog.show();
+            mainContent.setVisibility(View.GONE);
+            //progressDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait..", false);
         }
 
     }
 
     @Override
     public void hideProgress() {
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
+
+
+        mainContent.setVisibility(View.VISIBLE);
+
+        /*if (progressDialog.isShowing())
+            progressDialog.dismiss();*/
 
         swipe_car_refresh.setRefreshing(false);
     }
@@ -238,7 +245,7 @@ public class CarFragment extends Fragment implements CarView {
             sponsoredCenterSet.setVisibility(View.VISIBLE);
             sponsoredCenterSet.setCenterList(data.lstReferTile);
         }
-        mainContent.setVisibility(View.VISIBLE);
+        loadingDialog.dismiss();
     }
 
     @Override
@@ -282,7 +289,7 @@ public class CarFragment extends Fragment implements CarView {
     }
 
     public void getLocation(LocationFinder finder) {
-     //   Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
+        //   Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
 
     }
 }

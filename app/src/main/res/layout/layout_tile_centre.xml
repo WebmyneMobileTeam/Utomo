@@ -24,9 +24,8 @@
                     android:id="@+id/imgCenter"
                     android:layout_width="match_parent"
                     android:layout_height="145dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/service_center"
-                    android:tint="#40000000" />
+                    android:src="@color/half_black"
+                    android:scaleType="centerCrop" />
 
                 <com.rovertech.utomo.app.widget.labelView.LabelImageView
                     android:id="@+id/sponsoredLabelView"
@@ -110,10 +109,10 @@
                         <ImageView
                             android:id="@+id/imgOffer"
                             android:layout_width="wrap_content"
-                            android:src="@drawable/ic_offer"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:tint="@color/button_bg"
-                            android:layout_height="wrap_content" />
+                            android:src="@drawable/ic_offer"
+                            android:tint="@color/button_bg" />
 
                         <TextView
                             android:id="@+id/txtRating"
