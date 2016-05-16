@@ -19,6 +19,9 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Random;
 
 
@@ -79,10 +82,20 @@ public class GcmMessageHandler extends IntentService {
 
         Log.e("message", message);
 
+        JSONObject object;
+        String strMsg = "";
+
+        try {
+            object = new JSONObject(message);
+            strMsg = object.getString("Message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         int icon = R.mipmap.ic_launcher;
         long when = System.currentTimeMillis();
         String title = this.getString(R.string.app_name);
-        int mNotificationId = 101;
 
         Random random = new Random();
         int m = random.nextInt(9999 - 1000) + 1000;
@@ -93,7 +106,7 @@ public class GcmMessageHandler extends IntentService {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(icon)
                         .setContentTitle(title)
-                        .setContentText(String.format("%s",message))
+                        .setContentText(String.format("%s", strMsg))
                         .setWhen(when)
                         .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND);
 

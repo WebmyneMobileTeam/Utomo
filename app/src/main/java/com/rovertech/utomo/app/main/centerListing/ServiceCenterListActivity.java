@@ -394,6 +394,8 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
                     mapItem.setVisible(false);
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
+                    // http://stackoverflow.com/questions/21233230/how-to-disable-drawer-layout-from-one-side
+
                 } else {
                     presenter.showListView();
                     isMapShow = false;

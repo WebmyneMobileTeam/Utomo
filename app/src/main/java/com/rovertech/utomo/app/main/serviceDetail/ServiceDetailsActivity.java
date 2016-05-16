@@ -243,6 +243,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
     @Override
     public void showMessage(String message) {
+        PrefUtils.setRefreshDashboard(this, true);
         Functions.showToast(this, message);
         presenter.fetchBookingDetails(bookingId);
     }
