@@ -401,7 +401,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
         setHeaderTitle(title);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, fragment);
+        fragmentTransaction.replace(R.id.content, fragment, title);
         fragmentTransaction.commit();
     }
 
@@ -477,5 +477,12 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     public void onBackPressed() {
         super.onBackPressed();
         PrefUtils.setCurrentPosition(this, 0);
+    }
+
+    public void setIcon() {
+        Log.e("call", "setIcon");
+
+        DashboardFragment fragment = (DashboardFragment) getSupportFragmentManager().findFragmentByTag("Dashboard");
+        fragment.setCurrentCarIcon();
     }
 }

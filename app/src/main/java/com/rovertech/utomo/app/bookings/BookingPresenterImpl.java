@@ -1,15 +1,12 @@
 package com.rovertech.utomo.app.bookings;
 
-import android.app.DatePickerDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.UtomoApplication;
@@ -28,9 +25,15 @@ import com.rovertech.utomo.app.profile.carlist.model.FetchVehicleRequest;
 import com.rovertech.utomo.app.profile.carlist.model.VehicleListResponse;
 import com.rovertech.utomo.app.profile.carlist.service.FetchVehicleListService;
 import com.rovertech.utomo.app.widget.dialog.CarListDialog;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +46,8 @@ public class BookingPresenterImpl implements BookingPresenter {
 
     private BookingView bookingView;
     private Context context;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM, yyyy");
 
     public BookingPresenterImpl(BookingView bookingView, Context context) {
         this.bookingView = bookingView;
@@ -89,17 +94,33 @@ public class BookingPresenterImpl implements BookingPresenter {
     }
 
     @Override
-    public void selectTime(Context context) {
+    public void selectTime(Context context, String date) {
+
+        Date todayDate = new Date();
+        Date selectedDate;
+        boolean isMinimum = false;
+
+        try {
+            selectedDate = dateFormat.parse(date);
+            if (selectedDate.compareTo(todayDate) <= 0) {
+                isMinimum = true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         Calendar calendar = Calendar.getInstance();
-        TimePickerDialog dialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hours, int minutes) {
-                getSelectedTime(hours, minutes);
 
+        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+                getSelectedTime(hourOfDay, minute);
             }
-        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
-        dialog.show();
+        }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.MINUTE), false);
+        if (isMinimum) {
+            timePickerDialog.setMinTime(calendar.get(Calendar.HOUR_OF_DAY) + 1, calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+        }
+        timePickerDialog.show(((Activity) context).getFragmentManager(), "Select Time");
     }
 
     private void getSelectedTime(int hours, int mins) {
@@ -127,18 +148,21 @@ public class BookingPresenterImpl implements BookingPresenter {
 
     @Override
     public void selectDate(Context context) {
-        Calendar cal = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
 
-        DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
-                bookingView.setDate(convertedDate);
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        dialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-        dialog.show();
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        String date = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        String convertedDate = Functions.parseDate(date, "dd-MM-yyyy", "dd MMMM, yyyy");
+                        bookingView.setDate(convertedDate);
+                    }
+                }, now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.setMinDate(now);
+        datePickerDialog.show(((Activity) context).getFragmentManager(), "Select Date");
     }
 
     @Override

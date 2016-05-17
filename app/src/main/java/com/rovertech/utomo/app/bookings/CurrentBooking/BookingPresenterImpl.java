@@ -1,12 +1,14 @@
 package com.rovertech.utomo.app.bookings.CurrentBooking;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.bookings.CurrentBooking.model.UserBookingsPojo;
 import com.rovertech.utomo.app.bookings.CurrentBooking.model.UserBookingsResponse;
 import com.rovertech.utomo.app.bookings.CurrentBooking.service.BookingActivitiesAPI;
 import com.rovertech.utomo.app.bookings.MyBookingFragment;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 
@@ -44,6 +46,8 @@ public class BookingPresenterImpl implements BookingPresenter {
             public void onResponse(Call<UserBookingsResponse> call, Response<UserBookingsResponse> response) {
 
                 if (response.isSuccess()) {
+
+                    Log.e("response_past", Functions.jsonString(response.body()));
 
                     UserBookingsResponse userBookingsResponse = response.body();
                     currentBookingAdapter.setUserBookingsPojos(userBookingsResponse.userBookings.Data);

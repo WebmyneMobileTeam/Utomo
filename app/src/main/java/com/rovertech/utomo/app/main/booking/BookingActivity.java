@@ -331,7 +331,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     public void setDate(String convertedDate) {
         date = convertedDate;
         txtDate.setText(convertedDate);
-        if (time != null) {
+
+        txtTime.setText("Select Time");
+        time = "";
+
+        /*if (time != null) {
             SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
             String eDate = date + " " + time;
             Date CurrentDate = new Date();
@@ -353,8 +357,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             }
         } else {
             txtDate.setText(convertedDate);
-        }
-
+        }*/
     }
 
     @Override
@@ -362,6 +365,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         time = strTime;
         ///// check //////
         //Log.d("Date is",date + " || "+time);
+
         if (date != null) {
             SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
             String eDate = date + " " + time;
@@ -482,13 +486,13 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtDate:
-                txtDate.setText("Select Date");
+                //   txtDate.setText("Select Date");
                 presenter.selectDate(this);
                 break;
 
             case R.id.txtTime:
-                txtTime.setText("Select Time");
-                presenter.selectTime(this);
+                //  txtTime.setText("Select Time");
+                presenter.selectTime(this, date);
                 break;
 
             case R.id.btnPickUpAddressAdd:

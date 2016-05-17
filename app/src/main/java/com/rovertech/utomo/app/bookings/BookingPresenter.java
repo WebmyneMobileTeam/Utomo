@@ -14,7 +14,7 @@ public interface BookingPresenter {
 
     void fetchDetails();
 
-    void selectTime(Context context);
+    void selectTime(Context context, String date);
 
     void selectDate(Context context);
 

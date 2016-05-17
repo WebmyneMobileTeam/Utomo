@@ -209,8 +209,19 @@ public class DashboardFragment extends Fragment implements DashboardView {
             centreIntent.putExtra("lng", finder.getLongitude());
             startActivity(centreIntent);
         }
+    }
 
+    public void setCurrentCarIcon() {
+        Log.e("call", "setCurrentCarIcon");
 
+        TabLayout.Tab tab = tabLayout.getTabAt(viewPager.getCurrentItem());
+        if (tab != null) {
+            View v = tab.getCustomView();
+            if (v != null) {
+                ImageView img = (ImageView) v.findViewById(R.id.tab_image);
+                img.setVisibility(View.GONE);
+            }
+        }
     }
 
     private class CarFragmentPagerAdapter extends FragmentStatePagerAdapter {

@@ -116,6 +116,8 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Functions.hideKeyPad(context, v);
+
         switch (v.getId()) {
             case R.id.btnOk:
                 switch (addressType) {
@@ -130,7 +132,6 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
                 break;
 
             case R.id.imgClose:
-                Functions.hideKeyPad(context, v);
                 dismiss();
                 break;
 

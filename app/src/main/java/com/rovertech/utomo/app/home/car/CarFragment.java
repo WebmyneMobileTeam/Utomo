@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.home.car.model.DashboardData;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.tiles.CurrentServiceTile;
 import com.rovertech.utomo.app.tiles.HealthMeterTile;
@@ -181,20 +183,23 @@ public class CarFragment extends Fragment implements CarView {
 
         mainContent.setVisibility(View.VISIBLE);
 
-        /*if (progressDialog.isShowing())
-            progressDialog.dismiss();*/
-
         swipe_car_refresh.setRefreshing(false);
     }
 
     @Override
     public void setDashboard(DashboardData data) {
 
+        Log.e("LOG", "set dashboard");
+
         if (data.IsCurrentBooking) {
             currentServiceTile.setVisibility(View.VISIBLE);
             currentServiceTile.setDetails(data, MyBookingFragment.CURRENTBOOKING);
 
         } else {
+
+            Log.e("call", "else");
+
+            setIconVisible();
 
             if (data.BookingID == 0) {
                 currentServiceTile.setVisibility(View.GONE);
@@ -248,6 +253,17 @@ public class CarFragment extends Fragment implements CarView {
         loadingDialog.dismiss();
     }
 
+    private void setIconVisible() {
+
+        CarPojo car = PrefUtils.getCurrentCarSelected(getActivity());
+
+        if (car.VehicleID == carPojo.VehicleID) {
+            car.CurrentBooking = false;
+            PrefUtils.setCurrentCarSelected(getActivity(), car);
+            ((DrawerActivityRevised) getActivity()).setIcon();
+        }
+    }
+
     @Override
     public void navigateCenterListActivity() {
         LocationFinder finder = new LocationFinder(getActivity());
@@ -291,5 +307,9 @@ public class CarFragment extends Fragment implements CarView {
     public void getLocation(LocationFinder finder) {
         //   Log.e("location", finder.getLatitude() + " : " + finder.getLongitude());
 
+    }
+
+    public interface changeIconListener {
+        public void onChange();
     }
 }

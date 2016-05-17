@@ -64,16 +64,14 @@ public class ServiceMainDetails extends LinearLayout {
 
         txtBookingDate.setText(String.format("Booking On: %s", userBookingData.PreferredDateTime));
 
-        if (userBookingData.IsCarDelivered) {
-            txtDeliveryDate.setVisibility(VISIBLE);
-            txtDeliveryDate.setText(String.format("Delivered On: %s", userBookingData.DeliveredDate));
-        } else {
-            txtDeliveryDate.setVisibility(GONE);
-        }
-
         if (userBookingData.BookingStatusID == AppConstant.SCHEDULE) {
             txtDeliveryDate.setVisibility(VISIBLE);
-            txtDeliveryDate.setText(String.format("Requested Reschedule Date: %s", userBookingData.RescheduledDateTime));
+            txtDeliveryDate.setText(String.format("Requesed Reschedule Date: %s", userBookingData.RescheduledDateTime));
+
+        } else if (userBookingData.IsCarDelivered) {
+            txtDeliveryDate.setVisibility(VISIBLE);
+            txtDeliveryDate.setText(String.format("Delivered On: %s", userBookingData.DeliveredDate));
+
         } else {
             txtDeliveryDate.setVisibility(GONE);
         }

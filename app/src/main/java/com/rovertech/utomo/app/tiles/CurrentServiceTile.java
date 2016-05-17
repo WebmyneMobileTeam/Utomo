@@ -96,8 +96,11 @@ public class CurrentServiceTile extends LinearLayout {
 
 
         } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
-            txtReviews.setVisibility(VISIBLE);
-            txtRating.setVisibility(VISIBLE);
+
+            //// TODO: 17-05-2016 From WS changes, review rating avg
+            txtReviews.setVisibility(GONE);
+            txtRating.setVisibility(GONE);
+
             txtServiceStatus.setVisibility(VISIBLE);
             txtTitle.setText(String.format("%s", "Current Car Service"));
             txtTitle.setVisibility(GONE);
@@ -123,8 +126,8 @@ public class CurrentServiceTile extends LinearLayout {
             txtTitle.setText(String.format("%s", "Service Running"));
 
         } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
-            txtReviews.setVisibility(VISIBLE);
-            txtRating.setVisibility(VISIBLE);
+            txtReviews.setVisibility(GONE);
+            txtRating.setVisibility(GONE);
             txtServiceStatus.setVisibility(GONE);
             txtTitle.setText(String.format("%s", "Past Service"));
         }
@@ -135,6 +138,11 @@ public class CurrentServiceTile extends LinearLayout {
         txtCenterName.setText(data.ServiceCentreName);
         txtBookingDate.setText(String.format("Booked on: %s", data.CreatedDate));
         txtServiceStatus.setText(String.format("Current Service Status: %s", data.Status));
-        txtReviews.setText(String.format("%d %s", data.ReviewCount, "Reviews"));
+
+        if (data.ReviewCount == 0) {
+            txtReviews.setText("No Reviews");
+        } else {
+            txtReviews.setText(String.format("%d %s", data.ReviewCount, "Reviews"));
+        }
     }
 }
