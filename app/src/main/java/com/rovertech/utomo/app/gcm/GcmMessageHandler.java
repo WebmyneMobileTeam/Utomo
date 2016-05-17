@@ -18,7 +18,7 @@ import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
+import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,13 +110,13 @@ public class GcmMessageHandler extends IntentService {
                         .setWhen(when)
                         .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND);
 
-        Intent resultIntent = new Intent(this, DrawerActivity.class);
+        Intent resultIntent = new Intent(this, DrawerActivityRevised.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
 
-        //// TODO: 16-05-2016  If Else for Settings
+        // TODO: 16-05-2016  If Else for Settings
 
         try {
             if (object.getString("NotificationFor").equalsIgnoreCase("Service")) {

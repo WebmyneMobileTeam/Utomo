@@ -1,5 +1,9 @@
 package com.rovertech.utomo.app.main.serviceDetail.model;
 
+import com.rovertech.utomo.app.invoice.model.PaymentJobCardDetailsModel;
+
+import java.util.List;
+
 /**
  * Created by sagartahelyani on 15-04-2016.
  */
@@ -42,4 +46,6 @@ public class UserBookingData {
     public String Status;
 
     public String VehicleNo;
+
+    public List<PaymentJobCardDetailsModel> lstJobCardDeatils;
 }

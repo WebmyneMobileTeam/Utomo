@@ -79,8 +79,20 @@ public class ServiceMainDetails extends LinearLayout {
         }
 
         if (userBookingData.Description.equals(""))
-            txtServiceDetails.setText("No Description");
+            txtServiceDetails.setText("No Request from you.");
         else
             txtServiceDetails.setText(userBookingData.Description);
+
+        if (userBookingData.BookingStatusID == AppConstant.CAR_DELIVERED) {
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < userBookingData.lstJobCardDeatils.size(); i++) {
+                sb.append(userBookingData.lstJobCardDeatils.get(i).Diagnosis).append(", ");
+            }
+
+            String desc = sb.toString().substring(0, sb.toString().length() - 2);
+            txtServiceDetails.setText(desc);
+        }
     }
 }

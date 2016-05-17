@@ -130,6 +130,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
                 break;
 
             case R.id.imgClose:
+                Functions.hideKeyPad(context, v);
                 dismiss();
                 break;
 
@@ -161,6 +162,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         } else if (TextUtils.isEmpty(Functions.toStr(edtZipCode)) || Functions.toStr(edtZipCode).length() < 6) {
             edtZipCode.setError("Enter ZipCode");
         } else {
+            Functions.hideKeyPad(context, btnOk);
             if (onSubmitListener != null) {
                 onSubmitListener.onSubmit(
                         Functions.toStr(edtAddress)
