@@ -16,4 +16,6 @@ public interface StartupPresenter {
     void loginFb();
 
     void loginGplus();
+
+    void stopRxLocation();
 }

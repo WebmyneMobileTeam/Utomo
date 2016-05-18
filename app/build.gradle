@@ -104,5 +104,10 @@ dependencies {
     compile 'com.github.ParkSangGwon:TedPermission:v1.0.9'
     compile 'com.mlsdev.rximagepicker:library:1.1.5'
     compile 'io.reactivex:rxjava:1.0.14'
+
+    //location
+    compile 'pl.charmas.android:android-reactive-location:0.9@aar'
+    compile 'com.google.android.gms:play-services-location:8.4.0'
+    compile 'io.reactivex:rxandroid:1.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

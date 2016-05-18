@@ -190,27 +190,12 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        final ProgressDialog progressDialog = ProgressDialog.show(this, "Loading", "Please wait", false);
-        new CountDownTimer(2000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                progressDialog.dismiss();
-            }
-        }.start();
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtSkip:
-                Functions.setPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
+                presenter.skip(StartupActivity.this);
+
+               /* Functions.setPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
                     @Override
                     public void onPermissionGranted() {
                         presenter.skip(StartupActivity.this);
@@ -222,8 +207,7 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
                         Functions.showToast(StartupActivity.this, "Permission Denied");
 
                     }
-                });
-
+                });*/
 
                 break;
 
@@ -269,5 +253,9 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
         Functions.showSnack(parentView, "gplus login");
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //presenter.stopRxLocation();
+    }
 }

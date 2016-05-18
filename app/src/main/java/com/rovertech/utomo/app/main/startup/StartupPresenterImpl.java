@@ -3,12 +3,13 @@ package com.rovertech.utomo.app.main.startup;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
-import com.rovertech.utomo.app.widget.LocationFinder;
+import com.rovertech.utomo.app.widget.GetRxLocation;
 
 /**
  * Created by sagartahelyani on 07-03-2016.
@@ -16,26 +17,33 @@ import com.rovertech.utomo.app.widget.LocationFinder;
 public class StartupPresenterImpl implements StartupPresenter {
 
     StartupView view;
+    GetRxLocation location;
 
     public StartupPresenterImpl(StartupView view) {
         this.view = view;
     }
 
     @Override
-    public void skip(Context context) {
+    public void skip(final Context context) {
 
-        LocationFinder finder = new LocationFinder(context);
+        location = new GetRxLocation(context);
+        location.setOnLocationChangeListener(new GetRxLocation.onLocationChangeListener() {
+            @Override
+            public void onLocationChange(Location location) {
 
-        if (!finder.canGetLocation()) {
-            gpsAlert(context);
+                if (location == null) {
+                    gpsAlert(context);
 
-        } else {
-            Intent centreIntent = new Intent(context, ServiceCenterListActivity.class);
-            Log.e("lat-lng", finder.getLatitude() + "-" + finder.getLongitude());
-            centreIntent.putExtra("lat", finder.getLatitude());
-            centreIntent.putExtra("lng", finder.getLongitude());
-            context.startActivity(centreIntent);
-        }
+                } else {
+                    Intent centreIntent = new Intent(context, ServiceCenterListActivity.class);
+                    Log.e("lat-lng", location.getLatitude() + "-" + location.getLongitude());
+                    centreIntent.putExtra("lat", location.getLatitude());
+                    centreIntent.putExtra("lng", location.getLongitude());
+                    context.startActivity(centreIntent);
+                }
+            }
+        });
+
     }
 
     private void gpsAlert(final Context context) {
@@ -83,5 +91,12 @@ public class StartupPresenterImpl implements StartupPresenter {
 
         if (view != null)
             view.gplusLogin();
+    }
+
+    @Override
+    public void stopRxLocation() {
+        if (location != null) {
+            location.onUnsubcribe();
+        }
     }
 }
