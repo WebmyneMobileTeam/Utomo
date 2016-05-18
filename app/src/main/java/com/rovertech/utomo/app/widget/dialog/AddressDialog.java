@@ -35,6 +35,8 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
     onSubmitListener onSubmitListener;
 
+    private boolean isSameAddress;
+
     public void setOnSubmitListener(AddressDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
@@ -44,10 +46,12 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         this.context = context;
     }
 
-    public AddressDialog(Context context, int addressType) {
+    public AddressDialog(Context context, int addressType, boolean isSameAddress) {
         super(context);
         this.context = context;
         this.addressType = addressType;
+        this.isSameAddress = isSameAddress;
+        isSame = isSameAddress;
     }
 
     @Override
@@ -67,6 +71,10 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         checkSame = (CheckBox) parentView.findViewById(R.id.checkSame);
 
         setTypeface();
+
+        if (isSameAddress) {
+            checkSame.setChecked(true);
+        }
 
         checkSame.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

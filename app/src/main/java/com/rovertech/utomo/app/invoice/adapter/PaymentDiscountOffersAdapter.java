@@ -67,7 +67,6 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
     public void onBindViewHolder(final DiscountOffersViewHolder holder, final int position) {
         setTypeFace();
 
-
         if (checkedState[position]) {
             holder.isOfferSelected.setChecked(true);
         } else {
@@ -79,8 +78,8 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
         holder.imgInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, itemList.get(position).lstDistinctDiscount, itemList.get(position).OfferName);
-            dialog.show();
+                final PaymentDiscountOfferInfoDialog dialog = new PaymentDiscountOfferInfoDialog(mContext, itemList.get(position).lstDistinctDiscount, itemList.get(position).OfferName);
+                dialog.show();
             }
         });
         holder.isOfferSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -90,9 +89,12 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
                     onOfferSelectedListener.onOfferSelected(itemList.get(position).lstDistinctDiscount);
                     holder.isOfferSelected.setChecked(true);
                     for (int i = 0; i < checkedState.length; i++) {
-                        if (i != position)
+
+                        if (i != position) {
                             checkedState[i] = false;
-                        else checkedState[i] = true;
+                        } else {
+                            checkedState[i] = true;
+                        }
                     }
                     notifyDataSetChanged();
                 }
@@ -129,5 +131,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
         void onOfferSelected(List<PaymentDistinctDiscountModel> discountOfferItems);
     }
 
-    public void setOnOfferSelectedListener(OnOfferSelectedListener _obj) {this.onOfferSelectedListener = _obj;}
+    public void setOnOfferSelectedListener(OnOfferSelectedListener _obj) {
+        this.onOfferSelectedListener = _obj;
+    }
 }

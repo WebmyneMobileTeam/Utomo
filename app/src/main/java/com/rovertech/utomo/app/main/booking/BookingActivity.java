@@ -96,6 +96,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     private View pickupLayout;
 
+    private boolean isAddressSame = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +153,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
                 break;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -496,7 +497,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 break;
 
             case R.id.btnPickUpAddressAdd:
-                pickAddressSet();
+                pickAddressSet(isAddressSame);
                 break;
 
             case R.id.btnDropUpAddressAdd:
@@ -540,12 +541,15 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         }
     }
 
-    private void pickAddressSet() {
+    private void pickAddressSet(boolean isSameAddress) {
 
-        AddressDialog addressDialog = new AddressDialog(this, ADDRESS_PICK_UP);
+        AddressDialog addressDialog = new AddressDialog(this, ADDRESS_PICK_UP, isSameAddress);
         addressDialog.setOnSubmitListener(new AddressDialog.onSubmitListener() {
             @Override
             public void onSubmit(String address, String area, String city, String zipCode, boolean isSame) {
+
+                isAddressSame = isSame;
+
                 txtPickupAddress.setVisibility(View.VISIBLE);
                 String addressString = String.format("%s, %s, %s, %s", address, area, city, zipCode);
 
@@ -576,7 +580,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     }
 
     private void dropAddressSet() {
-        AddressDialog addressDialog1 = new AddressDialog(this, ADDRESS_DROP_OFF);
+        AddressDialog addressDialog1 = new AddressDialog(this, ADDRESS_DROP_OFF, false);
         addressDialog1.setOnSubmitListener(new AddressDialog.onSubmitListener() {
             @Override
             public void onSubmit(String address, String area, String city, String zipCode, boolean isSame) {
