@@ -106,8 +106,11 @@ public class GcmMessageHandler extends IntentService {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(icon)
                         .setContentTitle(title)
+                        .setAutoCancel(true)
                         .setContentText(String.format("%s", strMsg))
                         .setWhen(when)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(String.format("%s", strMsg)))
                         .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND);
 
         Intent resultIntent = new Intent(this, DrawerActivityRevised.class);

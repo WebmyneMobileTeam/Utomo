@@ -46,6 +46,8 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     private CardView serviceDetailsCardView;
     private Button btnContinuePayment;
     private View scOfferDiscountItem;
+    private PaymentProcessResponse paymentProcessResponse;
+    long totalDiscount = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,7 +120,13 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
     @Override
     public void setPaymentAndOfferDetails(final PaymentProcessResponse paymentProcessResponse) {
+        this.paymentProcessResponse = paymentProcessResponse;
+        setPaymentDetailsUI(paymentProcessResponse);
+    }
 
+
+
+    private void setPaymentDetailsUI(final PaymentProcessResponse paymentProcessResponse) {
         if (paymentProcessResponse.PaymentProcess.ResponseCode == 0) {
             serviceDetailsCardView.setVisibility(View.GONE);
             adminOffersRecyclerView.setVisibility(View.GONE);
@@ -126,6 +134,8 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             btnContinuePayment.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.VISIBLE);
         } else {
+
+
             serviceDetailsCardView.setVisibility(View.VISIBLE);
             adminOffersRecyclerView.setVisibility(View.VISIBLE);
 
@@ -133,6 +143,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             btnContinuePayment.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
 
+            totalDiscount = 0;
             txtTotalAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).TotalAmount));
             txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount));
 
@@ -179,35 +190,43 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                     adminOffersRecyclerView.setAdapter(discountOffersAdapter);
                     discountOffersAdapter.setOnOfferSelectedListener(new PaymentDiscountOffersAdapter.OnOfferSelectedListener() {
                         @Override
-                        public void onOfferSelected(List<PaymentDistinctDiscountModel> discountOfferItems) {
-                            for (int j = 0; j < discountOfferItems.size(); j++) {
-                                for (int i = 0; i < jobsList.size(); i++) {
-                                    if (discountOfferItems.get(j).ServiceName.equals(jobsList.get(i))) {
-                                        filteredDiscounts.add(discountOffersList.get(0).lstDistinctDiscount.get(i));
+                        public void onOfferSelected(boolean isOfferSelected, List<PaymentDistinctDiscountModel> discountOfferItems) {
+                            totalDiscount = 0;
+                            filteredDiscounts.clear();
+                            linearOfferDiscountsDetails.removeAllViews();
+                            txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount));
+
+                            if (isOfferSelected) {
+                                for (int j = 0; j < discountOfferItems.size(); j++) {
+                                    for (int i = 0; i < jobsList.size(); i++) {
+                                        if (discountOfferItems.get(j).ServiceName.equals(jobsList.get(i))) {
+                                            filteredDiscounts.add(discountOffersList.get(0).lstDistinctDiscount.get(i));
+                                        }
+                                    }
+                                    if (discountOfferItems.get(j).ServiceName.equals("Invoice")) {
+                                        filteredDiscounts.add(discountOfferItems.get(j));
                                     }
                                 }
-                                if (discountOfferItems.get(j).ServiceName.equals("Invoice")) {
-                                    filteredDiscounts.add(discountOfferItems.get(j));
+                                Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
+
+
+                                linearOfferDiscountsDetails.removeAllViews();
+                                for (int i = 0; i < filteredDiscounts.size(); i++) {
+                                    totalDiscount += Long.parseLong(filteredDiscounts.get(i).DiscountAmount);
                                 }
+                                View view = LayoutInflater.from(InvoiceActivity.this).inflate(R.layout.payment_service_item, null);
+                                TextView txtServiceName = (TextView) view.findViewById(R.id.txtServiceName);
+                                TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
+
+                                txtServiceAmount.setText(" - " + getString(R.string.ruppee) + " " + totalDiscount);
+                                txtServiceName.setText("Discounted Amount");
+                                txtServiceAmount.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
+                                txtServiceName.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
+                                linearOfferDiscountsDetails.addView(view);
+                                txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount - totalDiscount));
+                            } else {
+                                setPaymentDetailsUI(paymentProcessResponse);
                             }
-                            Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
-
-                            long totalDiscount = 0;
-                            linearOfferDiscountsDetails.removeAllViews();
-                            for (int i = 0; i < filteredDiscounts.size(); i++) {
-                                totalDiscount += Long.parseLong(filteredDiscounts.get(i).DiscountAmount);
-                            }
-
-                            View view = LayoutInflater.from(InvoiceActivity.this).inflate(R.layout.payment_service_item, null);
-                            TextView txtServiceName = (TextView) view.findViewById(R.id.txtServiceName);
-                            TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
-
-                            txtServiceAmount.setText(" - " + getString(R.string.ruppee) + " " + totalDiscount);
-                            txtServiceName.setText("Discounted Amount");
-                            txtServiceAmount.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
-                            txtServiceName.setTextColor(ContextCompat.getColor(InvoiceActivity.this, R.color.button_bg));
-                            linearOfferDiscountsDetails.addView(view);
-                            txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount - totalDiscount));
                         }
                     });
                 } else {

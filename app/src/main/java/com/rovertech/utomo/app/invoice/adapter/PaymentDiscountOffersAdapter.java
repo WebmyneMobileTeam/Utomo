@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.invoice.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -82,9 +84,37 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
                 dialog.show();
             }
         });
-        holder.isOfferSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        holder.linearParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.isOfferSelected.isChecked()) {
+                    holder.isOfferSelected.setChecked(false);
+                    onOfferSelectedListener.onOfferSelected(false, new ArrayList<PaymentDistinctDiscountModel>());
+                } else {
+
+                    holder.isOfferSelected.setChecked(true);
+                    onOfferSelectedListener.onOfferSelected(true, itemList.get(position).lstDistinctDiscount);
+                    holder.isOfferSelected.setChecked(true);
+                    for (int i = 0; i < checkedState.length; i++) {
+
+                        if (i != position) {
+                            checkedState[i] = false;
+                        } else {
+                            checkedState[i] = true;
+                        }
+                    }
+                    notifyDataSetChanged();
+                }
+
+            }
+
+        });
+
+/*        holder.isOfferSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if (isChecked) {
                     onOfferSelectedListener.onOfferSelected(itemList.get(position).lstDistinctDiscount);
                     holder.isOfferSelected.setChecked(true);
@@ -99,7 +129,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
                     notifyDataSetChanged();
                 }
             }
-        });
+        });*/
     }
 
     private void setTypeFace() {
@@ -117,6 +147,7 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
         private TextView txtOfferTitle, txtOfferCode;
         private ImageView imgInfo;
         private RadioButton isOfferSelected;
+        private CardView linearParent;
 
         public DiscountOffersViewHolder(View itemView) {
             super(itemView);
@@ -124,11 +155,12 @@ public class PaymentDiscountOffersAdapter extends RecyclerView.Adapter<PaymentDi
             txtOfferCode = (TextView) itemView.findViewById(R.id.txtOfferCode);
             imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
             isOfferSelected = (RadioButton) itemView.findViewById(R.id.isOfferSelected);
+            linearParent = (CardView) itemView.findViewById(R.id.linearParent);
         }
     }
 
     public interface OnOfferSelectedListener {
-        void onOfferSelected(List<PaymentDistinctDiscountModel> discountOfferItems);
+        void onOfferSelected(boolean isOfferSelected, List<PaymentDistinctDiscountModel> discountOfferItems);
     }
 
     public void setOnOfferSelectedListener(OnOfferSelectedListener _obj) {
