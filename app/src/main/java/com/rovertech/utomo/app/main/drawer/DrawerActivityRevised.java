@@ -82,7 +82,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
         PrefUtils.setCurrentPosition(this, 0);
 
         profile = PrefUtils.getUserFullProfileDetails(this);
-        Log.e("profile", Functions.jsonString(profile));
+        // Log.e("profile", Functions.jsonString(profile));
 
         String fragmentValue = getIntent().getStringExtra(AppConstant.FRAGMENT_VALUE);
         presenter = new DrawerPresenterImpl(this);

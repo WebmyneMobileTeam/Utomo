@@ -257,11 +257,16 @@ public class CarFragment extends Fragment implements CarView {
 
         CarPojo car = PrefUtils.getCurrentCarSelected(getActivity());
 
-        if (car.VehicleID == carPojo.VehicleID) {
-            car.CurrentBooking = false;
-            PrefUtils.setCurrentCarSelected(getActivity(), car);
-            ((DrawerActivityRevised) getActivity()).setIcon();
+        try {
+            if (car != null && car.VehicleID == carPojo.VehicleID) {
+                car.CurrentBooking = false;
+                PrefUtils.setCurrentCarSelected(getActivity(), car);
+                ((DrawerActivityRevised) getActivity()).setIcon();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override

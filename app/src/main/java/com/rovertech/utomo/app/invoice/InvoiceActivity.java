@@ -191,6 +191,8 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                     discountOffersAdapter.setOnOfferSelectedListener(new PaymentDiscountOffersAdapter.OnOfferSelectedListener() {
                         @Override
                         public void onOfferSelected(boolean isOfferSelected, List<PaymentDistinctDiscountModel> discountOfferItems) {
+                            Log.e("jobsList", Functions.jsonString(jobsList));
+                            Log.e("discountOfferItems", Functions.jsonString(discountOfferItems));
                             totalDiscount = 0;
                             filteredDiscounts.clear();
                             linearOfferDiscountsDetails.removeAllViews();
@@ -200,7 +202,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                                 for (int j = 0; j < discountOfferItems.size(); j++) {
                                     for (int i = 0; i < jobsList.size(); i++) {
                                         if (discountOfferItems.get(j).ServiceName.equals(jobsList.get(i))) {
-                                            filteredDiscounts.add(discountOffersList.get(0).lstDistinctDiscount.get(i));
+                                            filteredDiscounts.add(discountOfferItems.get(j));
                                         }
                                     }
                                     if (discountOfferItems.get(j).ServiceName.equals("Invoice")) {
@@ -208,7 +210,6 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                                     }
                                 }
                                 Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
-
 
                                 linearOfferDiscountsDetails.removeAllViews();
                                 for (int i = 0; i < filteredDiscounts.size(); i++) {

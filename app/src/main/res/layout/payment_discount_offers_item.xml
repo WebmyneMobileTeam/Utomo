@@ -18,9 +18,10 @@
         <RadioButton
             android:id="@+id/isOfferSelected"
             android:layout_width="wrap_content"
+            android:clickable="false"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/margin_2" />
+            android:layout_margin="@dimen/margin_5" />
 
         <RelativeLayout
             android:layout_width="match_parent"
