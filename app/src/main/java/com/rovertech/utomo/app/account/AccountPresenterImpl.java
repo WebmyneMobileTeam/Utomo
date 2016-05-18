@@ -87,6 +87,47 @@ public class AccountPresenterImpl implements AccountPresenter {
         this.accountView = accountView;
         this.activity = activity;
         deviceId = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        // TODO: 18-05-2016 GCM ID code
+        getGCMId(activity);
+    }
+
+    private void getGCMId(final Activity activity) {
+        try {
+            if (gcm == null) {
+
+                if (Functions.isGooglePlayServiceAvailable(activity)) {
+                    new AsyncTask<Void, Void, String>() {
+                        @Override
+                        protected String doInBackground(Void... params) {
+                            try {
+                                if (gcm == null) {
+                                    gcm = GoogleCloudMessaging.getInstance(activity);
+                                }
+                                GCM_ID = gcm.register(activity.getString(R.string.project_id));
+                            } catch (Exception ex) {
+                                GCM_ID = "";
+                            }
+                            return GCM_ID;
+                        }
+
+                        @Override
+                        protected void onPostExecute(String regId) {
+                            super.onPostExecute(regId);
+                            if (!regId.equals("")) {
+                                GCM_ID = regId;
+                                PrefUtils.setGCMID(activity, GCM_ID);
+                            } else {
+                                Functions.showToast(activity, activity.getString(R.string.gcm_error));
+                            }
+                        }
+                    }.execute();
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -117,8 +158,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                                             Uri profileUri = null;
                                             profileUri = profile2.getProfilePictureUri(640, 640);
                                             socialRequest.ProfileImg = profileUri.toString();
-                                         //   Log.e("Profile pic #1 if", "" + profileUri);
-                                         //   Log.e("Profile pic #2 if", "" + socialRequest.ProfileImg);
+                                            //   Log.e("Profile pic #1 if", "" + profileUri);
+                                            //   Log.e("Profile pic #2 if", "" + socialRequest.ProfileImg);
                                             //Log.e("Profile pic #3 if", "" + );
                                             mProfileTracker.stopTracking();
                                         }
@@ -128,7 +169,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                                 } else {
                                     profileUri = profile.getProfilePictureUri(640, 640);
                                     socialRequest.ProfileImg = profileUri.toString();
-                                 //   Log.e("Profile pic url else", "" + profileUri);
+                                    //   Log.e("Profile pic url else", "" + profileUri);
                                 }
                                 return null;
                             }
@@ -150,6 +191,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                                                         socialRequest.EmailID = fbProfile.getString("email");
                                                         socialRequest.SocialID = fbProfile.get("id").toString();
                                                         socialRequest.LoginBy = AppConstant.LOGIN_BY_FB;
+                                                        socialRequest.DeviceID = deviceId;
+                                                        socialRequest.GCMToken = PrefUtils.getGcmId(activity);
 
                                                         Log.e("social_request_impl", Functions.jsonString(socialRequest));
 
@@ -250,7 +293,7 @@ public class AccountPresenterImpl implements AccountPresenter {
         CityRequest request = new CityRequest();
         request.CityName = string;
 
-     //   Log.e("city_req", Functions.jsonString(request));
+        //   Log.e("city_req", Functions.jsonString(request));
 
         FetchCityService service = UtomoApplication.retrofit.create(FetchCityService.class);
         Call<CityOutput> call = service.doFetchCity(request);
@@ -260,7 +303,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                 if (response.body() == null) {
                     Functions.showToast(context, "Error");
                 } else {
-                //    Log.e("json_res", Functions.jsonString(response.body()));
+                    //    Log.e("json_res", Functions.jsonString(response.body()));
                     CityAdapter adapter = new CityAdapter(context, R.layout.layout_adapter_item, response.body().FetchCity.Data);
                     accountView.setCityAdapter(adapter, response.body().FetchCity.Data);
                 }
@@ -419,6 +462,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                         }
                         socialRequest.SocialID = acct.getId();
                         socialRequest.LoginBy = AppConstant.LOGIN_BY_GPLUS;
+                        socialRequest.DeviceID = PrefUtils.getDeviceId(activity);
+                        socialRequest.GCMToken = PrefUtils.getGcmId(activity);
 
                         Log.e("socialRequest_gplus", socialRequest.toString());
 

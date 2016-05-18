@@ -35,17 +35,17 @@ public class SocialRequest implements Serializable {
 
     public SocialRequest() {
         this.DOB = "";
-        DeviceID = "";
+        this.DeviceID = "";
         this.EmailID = "";
         this.FName = "";
         this.GCMToken = "";
-        Gender = "";
+        this.Gender = "";
         this.LName = "";
-        Lattitude = 0.0;
-        LoginBy = "";
-        Longitude = 0.0;
-        MobileNo = "";
-        ProfileImg = "";
-        SocialID = "";
+        this.Lattitude = 0.0;
+        this.LoginBy = "";
+        this.Longitude = 0.0;
+        this.MobileNo = "";
+        this.ProfileImg = "";
+        this.SocialID = "";
     }
 }
