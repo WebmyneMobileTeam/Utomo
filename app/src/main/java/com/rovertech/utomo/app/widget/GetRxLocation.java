@@ -140,7 +140,7 @@ public class GetRxLocation {
                 if (onLocationChangeListener != null) {
                     onLocationChangeListener.onLocationChange(location);
                 }
-                onUnsubcribe();
+                unSubScribe();
                 return location.getLatitude() + " " + location.getLongitude();
             } else {
                 return "no location available";
@@ -160,7 +160,7 @@ public class GetRxLocation {
         void onLocationChange(Location location);
     }
 
-    public void onUnsubcribe() {
+    public void unSubScribe() {
         if (lastKnownLocationObservable != null)
             lastKnownLocationSubscription.unsubscribe();
         if (updatableLocationSubscription != null)

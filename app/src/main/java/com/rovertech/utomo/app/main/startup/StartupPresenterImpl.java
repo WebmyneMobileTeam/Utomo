@@ -96,7 +96,7 @@ public class StartupPresenterImpl implements StartupPresenter {
     @Override
     public void stopRxLocation() {
         if (location != null) {
-            location.onUnsubcribe();
+            location.unSubScribe();
         }
     }
 }
