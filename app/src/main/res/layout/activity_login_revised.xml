@@ -207,9 +207,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
-                        android:padding="4dp"
                         android:layout_margin="8dp"
                         android:gravity="center"
+                        android:padding="4dp"
                         android:text="Already User? Login"
                         android:textColor="@color/white"
                         android:textSize="@dimen/N_TEXT" />
@@ -224,10 +224,6 @@
 
                 </RelativeLayout>
 
-
-
-
-
                 <TextView
                     android:id="@+id/txtForget"
                     android:layout_width="match_parent"
@@ -237,7 +233,6 @@
                     android:text="Forget Password?"
                     android:textColor="@color/white"
                     android:textSize="@dimen/N_TEXT" />
-
 
             </LinearLayout>
 

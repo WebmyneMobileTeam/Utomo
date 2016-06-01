@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Typeface;
-import android.graphics.drawable.ShapeDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,7 +41,6 @@ import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.IntentConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.booking.BookingActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 import java.security.MessageDigest;
@@ -100,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
             packageInfo = getPackageManager().getPackageInfo(packageName,
                     PackageManager.GET_SIGNATURES);
 
-         //   Log.e("Package Name=", getApplicationContext().getPackageName());
+            //   Log.e("Package Name=", getApplicationContext().getPackageName());
 
             for (Signature signature : packageInfo.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -183,6 +182,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         btnLogin.setOnClickListener(this);
         txtSignUp.setOnClickListener(this);
         txtForget.setOnClickListener(this);
+        txtTc.setOnClickListener(this);
 
         setTypeface();
 
@@ -243,6 +243,11 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
             case R.id.txtForget:
                 Functions.hideKeyPad(this, this.parentView);
                 presenter.openForget(this, edtMobileNumber.getText().toString().trim());
+                break;
+
+            case R.id.txtTc:
+                Functions.hideKeyPad(this, this.parentView);
+                presenter.openTerms();
                 break;
         }
     }

@@ -140,7 +140,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
         txtFilter = (TextView) findViewById(R.id.txtFilter);
         txtFilter.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
-        txtFilter.setText(Html.fromHtml("<u>You can also use filter to find out Service centres by clicking here.</u>"));
+        txtFilter.setText(Html.fromHtml("<u>You can also use filter to find out Service centres by\n<i>clicking here.</i></u>"));
         txtFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

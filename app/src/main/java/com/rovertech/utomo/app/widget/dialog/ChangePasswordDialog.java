@@ -3,7 +3,6 @@ package com.rovertech.utomo.app.widget.dialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.flyco.animation.SlideEnter.SlideLeftEnter;
@@ -22,7 +21,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
     Context context;
 
     private IconEditText edtPassword, edtRePassword;
-    private TextView btnSubmit;
+    private TextView btnSubmit, btnCancel;
 
     onSubmitListener onSubmitListener;
 
@@ -45,6 +44,7 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
         edtPassword = (IconEditText) parentView.findViewById(R.id.edtPassword);
         edtRePassword = (IconEditText) parentView.findViewById(R.id.edtRePassword);
         btnSubmit = (TextView) parentView.findViewById(R.id.btnSubmit);
+        btnCancel = (TextView) parentView.findViewById(R.id.btnCancel);
 
         setTypeface();
 
@@ -67,6 +67,13 @@ public class ChangePasswordDialog extends BaseDialog implements View.OnClickList
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
     }

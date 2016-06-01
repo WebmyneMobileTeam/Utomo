@@ -106,6 +106,8 @@
                         android:layout_gravity="center"
                         android:drawablePadding="8dp"
                         android:layout_marginTop="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
                         android:gravity="center"
                         android:text="You can also use filter to find out Service centres by clicking here."
                         android:textColor="@color/white"

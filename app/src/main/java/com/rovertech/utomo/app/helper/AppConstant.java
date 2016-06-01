@@ -120,4 +120,7 @@ public class AppConstant {
     //Payment
     final public static String FETCH_TRANSACTION_PAYMENT_DETAILS = "TransactionsProcess.svc/json/PaymentProcess/{BOOKINGID}";
 
+    // Terms & conditions link
+    final public static String TC_URL = "http://www.google.com";
+
 }

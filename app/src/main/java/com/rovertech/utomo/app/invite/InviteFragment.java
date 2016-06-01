@@ -66,8 +66,8 @@ public class InviteFragment extends Fragment implements InviteView, View.OnClick
     }
 
     private void setTypeface() {
-        txtCode.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
-        txtDesc.setTypeface(Functions.getRegularFont(getActivity()), Typeface.NORMAL);
+        txtCode.setTypeface(Functions.getRegularFont(getActivity()), Typeface.BOLD);
+        txtDesc.setTypeface(Functions.getRegularFont(getActivity()));
         btnInvite.setTypeface(Functions.getBoldFont(getActivity()), Typeface.BOLD);
     }
 

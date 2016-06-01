@@ -316,6 +316,13 @@ public class AccountPresenterImpl implements AccountPresenter {
         });
     }
 
+    @Override
+    public void openTerms() {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(AppConstant.TC_URL));
+        activity.startActivity(i);
+    }
+
     private void processLogin(final Activity activity, final BasicLoginRequest loginRequest) {
         Log.e("login_request", loginRequest.toString());
 
@@ -460,6 +467,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                         } else if (person.getGender() == 1) {
                             socialRequest.Gender = "Female";
                         }
+
                         socialRequest.SocialID = acct.getId();
                         socialRequest.LoginBy = AppConstant.LOGIN_BY_GPLUS;
                         socialRequest.DeviceID = PrefUtils.getDeviceId(activity);
@@ -712,7 +720,7 @@ public class AccountPresenterImpl implements AccountPresenter {
     private void processSignUp(final Activity activity, final BasicLoginRequest loginRequest) {
         Log.e("request", loginRequest.toString());
 
-        if (GCM_ID == null || GCM_ID == "") {
+        if (GCM_ID == null || GCM_ID.equals("")) {
             Functions.showToast(activity, activity.getString(R.string.gcm_error));
 
         } else {

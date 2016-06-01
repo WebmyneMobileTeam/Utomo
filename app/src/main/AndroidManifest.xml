@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- GCM -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -161,7 +161,7 @@
             android:name=".main.drawer.DrawerActivityRevised"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".temp.TempActivity"></activity>
+        <activity android:name=".temp.TempActivity" />
     </application>
 
 </manifest>
