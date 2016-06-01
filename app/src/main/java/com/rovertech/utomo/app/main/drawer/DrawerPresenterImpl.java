@@ -135,7 +135,7 @@ public class DrawerPresenterImpl implements DrawerPresenter {
     @Override
     public void share(Context context) {
         String text = context.getResources().getString(R.string.share) + "\n";
-        String appURL = "Download App on Play Store\n" + "http://play.google.com/store/apps/details?id=" + context.getPackageName();
+        String appURL = "Download App from Play Store\n" + "http://play.google.com/store/apps/details?id=" + context.getPackageName();
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, text + appURL);

@@ -342,8 +342,6 @@ public class Functions {
             }
         });
         dialog.show();
-
-
     }
 
 
@@ -404,14 +402,22 @@ public class Functions {
         return ProgressDialog.show(context, "", "waiting..", false, true);
     }
 
-    public static String getProgressStatus(Context context, float f) {
+    public static String getProgressStatus(Context context, float f, int type) {
 
         String status;
 
         if (f <= 10) {
-            status = context.getString(R.string.urgent);
+            if (type == 0) {
+                status = context.getString(R.string.urgent);
+            } else {
+                status = context.getString(R.string.urgent_renew);
+            }
         } else if (f > 10 && f <= 40) {
-            status = context.getString(R.string.need);
+            if (type == 0) {
+                status = context.getString(R.string.need);
+            } else {
+                status = context.getString(R.string.renew);
+            }
         } else if (f > 40 && f <= 70) {
             status = context.getString(R.string.ok);
         } else {
@@ -467,5 +473,15 @@ public class Functions {
                 bm, 0, 0, width, height, matrix, false);
         bm.recycle();
         return resizedBitmap;
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
     }
 }

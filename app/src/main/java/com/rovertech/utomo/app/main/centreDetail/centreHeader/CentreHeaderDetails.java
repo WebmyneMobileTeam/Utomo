@@ -170,7 +170,7 @@ public class CentreHeaderDetails extends LinearLayout {
 
                     Functions.openInMap(context, centreDetailPojo.Lattitude, centreDetailPojo.Longitude, centreDetailPojo.ServiceCentreName);
                 } else {
-                    Functions.showDialog(context, "Currently Location unavailable", null);
+                    Functions.showErrorAlert(context, "Currently Location Not Available", false);
                 }
 
             }

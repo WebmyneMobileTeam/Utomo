@@ -1,154 +1,182 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginRight="8dp"
             android:src="@drawable/ic_launcher" />
 
-        <TextView
-            android:id="@+id/txtAppName"
-            style="@style/MyAboutTextStyle"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="@dimen/XL_TEXT" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <ScrollView
+            <TextView
+                android:id="@+id/txtAppName"
+                style="@style/MyAboutTextStyle"
+                android:padding="2dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/XL_TEXT" />
+
+            <TextView
+                android:id="@+id/txtVersion"
+                style="@style/MyAboutTextStyle"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Version 1.0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/S_TEXT" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:background="@color/off_white">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:src="@drawable/action_white_circle" />
-
-                    <TextView
-                        android:id="@+id/txt1"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:src="@drawable/action_white_circle" />
-
-                    <TextView
-                        android:id="@+id/txt2"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy2" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:src="@drawable/action_white_circle" />
-
-                    <TextView
-                        android:id="@+id/txt3"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy3" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:src="@drawable/action_white_circle" />
-
-                    <TextView
-                        android:id="@+id/txt4"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy4" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:src="@drawable/action_white_circle" />
-
-                    <TextView
-                        android:id="@+id/txt5"
-                        style="@style/MyAboutTextStyle"
-                        android:text="@string/dummy5" />
-                </LinearLayout>
-
-                <include layout="@layout/item_line_white" />
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="10dp"
+                    android:src="@drawable/action_white_circle"
+                    android:tint="@color/black" />
 
                 <TextView
-                    android:id="@+id/txtVersion"
+                    android:id="@+id/txt1"
                     style="@style/MyAboutTextStyle"
-                    android:text="Version 1.0" />
-
-                <include layout="@layout/item_line_white" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_email"
-                        android:tint="@color/white" />
-
-                    <TextView
-                        android:id="@+id/txtContact"
-                        style="@style/MyAboutTextStyle"
-                        android:gravity="center_vertical"
-                        android:text="Contact Us" />
-
-                </LinearLayout>
-
+                    android:text="@string/dummy1" />
             </LinearLayout>
-        </ScrollView>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-</RelativeLayout>
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="10dp"
+                    android:src="@drawable/action_white_circle"
+                    android:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt2"
+                    style="@style/MyAboutTextStyle"
+                    android:text="@string/dummy2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="10dp"
+                    android:src="@drawable/action_white_circle"
+                    android:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt3"
+                    style="@style/MyAboutTextStyle"
+                    android:text="@string/dummy3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="10dp"
+                    android:src="@drawable/action_white_circle"
+                    android:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt4"
+                    style="@style/MyAboutTextStyle"
+                    android:text="@string/dummy4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:padding="10dp"
+                    android:src="@drawable/action_white_circle"
+                    android:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/txt5"
+                    style="@style/MyAboutTextStyle"
+                    android:text="@string/dummy5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center"
+                android:layout_margin="8dp"
+                android:background="@drawable/button_bg_about"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:src="@drawable/ic_email"
+                    android:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/txtContact"
+                    style="@style/MyButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_bg_about"
+                    android:padding="2dp"
+                    android:text="Contact Us"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -83,7 +83,7 @@ public class PerformanceTileItem extends LinearLayout {
 
         txtItemValue.setText(String.format("%d %s", (int) f, "%"));
 
-        txtProgressStatus.setText(Functions.getProgressStatus(context, f));
+        txtProgressStatus.setText(Functions.getProgressStatus(context, f, performance.Type));
         txtProgressStatus.setTextColor(Functions.getColor(context, f));
 
         txtReset.setOnClickListener(new OnClickListener() {

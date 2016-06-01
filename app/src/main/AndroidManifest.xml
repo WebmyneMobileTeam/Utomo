@@ -71,11 +71,11 @@
         <activity
             android:name=".profile.ProfileActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".addCar.AddCarActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".main.centerListing.ServiceCenterListActivity"
             android:screenOrientation="portrait"
@@ -91,7 +91,7 @@
         <activity
             android:name=".main.booking.BookingActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".main.serviceDetail.ServiceDetailsActivity"
             android:screenOrientation="portrait"

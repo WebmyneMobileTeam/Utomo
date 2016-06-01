@@ -8,11 +8,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +36,7 @@ import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.profile.ProfileActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -189,7 +190,24 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
     @Override
     public void setImage(Bitmap thumbnail, File finalFile) {
-        imagePerson.setImageBitmap(thumbnail);
+        try {
+            ExifInterface ei = new ExifInterface(finalFile.getAbsolutePath());
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    thumbnail = Functions.rotateImage(thumbnail, 90);
+                    imagePerson.setImageBitmap(thumbnail);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    thumbnail = Functions.rotateImage(thumbnail, 180);
+                    imagePerson.setImageBitmap(thumbnail);
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         file = finalFile;
     }
 
@@ -224,6 +242,9 @@ public class PersonalProfileFragment extends Fragment implements PersonalProfile
 
     @Override
     public void onClick(View v) {
+
+        Functions.hideKeyPad(getActivity(), parentView);
+
         switch (v.getId()) {
             case R.id.txtUpdate:
                 if (Functions.toStr(edtCity).length() == 0) {

@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -323,7 +325,25 @@ public class AddCarPresenterImpl implements AddCarPresenter {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             Uri tempUri = Functions.getImageUri(context, thumbnail);
             File finalFile = new File(Functions.getRealPathFromURI(context, tempUri));
-            addcarView.setImage(thumbnail, finalFile);
+
+            try {
+                ExifInterface ei = new ExifInterface(finalFile.getAbsolutePath());
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        thumbnail = Functions.rotateImage(thumbnail, 90);
+                        addcarView.setImage(thumbnail, finalFile);
+                        break;
+
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        thumbnail = Functions.rotateImage(thumbnail, 180);
+                        addcarView.setImage(thumbnail, finalFile);
+                        break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         } else if (requestCode == AppConstant.PICK_IMAGE) {
             Uri selectedImageUri = data.getData();
@@ -616,7 +636,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                 .subscribe(new Action1<File>() {
                     @Override
                     public void call(File file) {
-                       addcarView.setRxImage(file);
+                        addcarView.setRxImage(file);
                     }
                 });
     }

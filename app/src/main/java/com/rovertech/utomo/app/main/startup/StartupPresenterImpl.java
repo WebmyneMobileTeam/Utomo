@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
+import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.centerListing.ServiceCenterListActivity;
 import com.rovertech.utomo.app.widget.GetRxLocation;
 
@@ -32,9 +33,15 @@ public class StartupPresenterImpl implements StartupPresenter {
             public void onLocationChange(Location location) {
 
                 if (location == null) {
+                   /* Location location1 = PrefUtils.getLastLocation(context);
+                    Log.e("last_location", "lat: " + location1.getLatitude() + "- long: " + location1.getLongitude());*/
+
                     gpsAlert(context);
 
                 } else {
+
+               //     PrefUtils.setLastLocation(context, location);
+
                     Intent centreIntent = new Intent(context, ServiceCenterListActivity.class);
                     Log.e("lat-lng", location.getLatitude() + "-" + location.getLongitude());
                     centreIntent.putExtra("lat", location.getLatitude());

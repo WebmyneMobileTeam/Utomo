@@ -33,7 +33,6 @@ import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity implements AccountView, View.OnClickListener {
 
-    private Toolbar toolbar;
     private TextView txtCustomTitle, txtTc, txtSignUp, txtLogin, txtOr, txtForget;
     private View parentView;
     private AccountPresenter presenter;
@@ -41,17 +40,14 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword, edtReferralCode;
     private MaterialAutoCompleteTextView edtCity;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar, cityLayout;
     private int cityId = 0;
-
-    private int fromLogin = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_revised);
 
-        fromLogin = PrefUtils.getRedirectLogin(this);
+        int fromLogin = PrefUtils.getRedirectLogin(this);
 
         init();
 
@@ -64,8 +60,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
         edtReferralCode = (MaterialEditText) findViewById(R.id.edtReferralCode);
         edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
-        cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
-        socialBar = (LinearLayout) findViewById(R.id.socialBar);
+        LinearLayout cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
+        LinearLayout socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
         edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
         edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);
@@ -133,7 +129,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     private void initToolbar() {
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_close);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -152,15 +148,16 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
 
     @Override
     public void onClick(View v) {
+
+        Functions.hideKeyPad(this, parentView);
+
         switch (v.getId()) {
             case R.id.btnLogin:
-                Functions.hideKeyPad(SignUpActivity.this, parentView);
                 presenter.checkCredentials(edtMobileNumber.getText().toString().trim(), edtName.getText().toString().trim(),
                         edtEmail.getText().toString().trim(), edtPassword.getText().toString().trim(), cityId, edtReferralCode.getText().toString().trim());
                 break;
 
             case R.id.txtLogin:
-                Functions.hideKeyPad(SignUpActivity.this, parentView);
                 presenter.openLogin();
                 break;
 

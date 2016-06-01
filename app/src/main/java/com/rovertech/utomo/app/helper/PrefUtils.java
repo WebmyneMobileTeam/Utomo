@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -33,6 +34,7 @@ public class PrefUtils {
     public static String NOTIFICATION_SIZE = "NOTIFICATION_SIZE";
 
     public static String SETTINGS_OFFER = "SETTINGS_OFFER";
+    public static String LAST_LOCATION = "LAST_LOCATION";
     public static String SETTINGS_BOOKING = "SETTINGS_BOOKING";
 
     public static String WALLET_HISTORY = "WALLET_HISTORY";
@@ -253,4 +255,24 @@ public class PrefUtils {
         return Prefs.with(context).getBoolean(SETTINGS_BOOKING, false);
     }
 
+    public static void setLastLocation(Context context, Location location) {
+        String toJson = new Gson().toJson(location);
+        Prefs.with(context).save(LAST_LOCATION, toJson);
+    }
+
+    public static Location getLastLocation(Context context) {
+        Gson gson = new Gson();
+
+        Location location = null;
+
+        String getLocationString = Prefs.with(context).getString(LAST_LOCATION, "");
+
+        try {
+            location = gson.fromJson(getLocationString, Location.class);
+
+        } catch (Exception e) {
+
+        }
+        return location;
+    }
 }

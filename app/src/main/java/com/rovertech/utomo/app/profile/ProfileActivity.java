@@ -51,6 +51,23 @@ public class ProfileActivity extends AppCompatActivity {
         adapter = new CustomAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Functions.hideKeyPad(ProfileActivity.this,parentView);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Functions.hideKeyPad(ProfileActivity.this,parentView);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setCurrentItem(0);
 

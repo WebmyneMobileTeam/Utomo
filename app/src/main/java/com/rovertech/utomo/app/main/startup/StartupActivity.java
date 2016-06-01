@@ -194,21 +194,6 @@ public class StartupActivity extends AppCompatActivity implements StartupView, V
         switch (v.getId()) {
             case R.id.txtSkip:
                 presenter.skip(StartupActivity.this);
-
-               /* Functions.setPermission(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        presenter.skip(StartupActivity.this);
-                    }
-
-                    @Override
-                    public void onPermissionDenied(ArrayList<String> arrayList) {
-
-                        Functions.showToast(StartupActivity.this, "Permission Denied");
-
-                    }
-                });*/
-
                 break;
 
             case R.id.imgFb:

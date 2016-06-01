@@ -127,6 +127,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         switch (item.getItemId()) {
             case R.id.action_home_requestbook:
+                Functions.hideKeyPad(this, parentView);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         this);
                 alertDialogBuilder.setTitle("Alert !!")
@@ -485,14 +486,15 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     @Override
     public void onClick(View v) {
+
+        Functions.hideKeyPad(this, parentView);
+
         switch (v.getId()) {
             case R.id.txtDate:
-                //   txtDate.setText("Select Date");
                 presenter.selectDate(this);
                 break;
 
             case R.id.txtTime:
-                //  txtTime.setText("Select Time");
                 presenter.selectTime(this, date);
                 break;
 
@@ -537,7 +539,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             case R.id.txtSelectCar:
                 presenter.openCarList(this, centreDetailPojo.Dealership);
                 break;
-
         }
     }
 

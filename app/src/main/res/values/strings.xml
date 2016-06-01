@@ -26,7 +26,7 @@
     <string name="review_success">Your review sent successfully. Thank you!</string>
     <string name="invite">Invite your friends and  earn points when they use this Referral Code.</string>
 
-    <string name="share">Use this amazing app for your car service and share in your circle.</string>
+    <string name="share">Use Utomo app for your car service and share in your circle.</string>
 
     <string name="facebook_connection_cancelled">Facebook Connection Cancelled</string>
     <string name="facebook_connection_failed">Facebook Connection Failed</string>
@@ -51,6 +51,8 @@
 
     <string name="urgent">Urgent Replacement</string>
     <string name="need">Need to Replacement</string>
+    <string name="urgent_renew">Urgent Renew</string>
+    <string name="renew">Need to Renew</string>
     <string name="ok">OK</string>
     <string name="excellent">Excellent</string>
 

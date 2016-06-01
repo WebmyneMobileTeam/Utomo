@@ -96,7 +96,6 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
         presenter = new AddCarPresenterImpl(this, this);
 
-
         // fetch makes
         presenter.fetchMakes(this);
 
@@ -225,6 +224,9 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
 
     @Override
     public void onClick(View v) {
+
+        Functions.hideKeyPad(AddCarActivity.this, parentView);
+
         switch (v.getId()) {
             case R.id.edtPUC:
                 presenter.selectPUCDate(AddCarActivity.this, Functions.toStr(edtPUC));
@@ -242,6 +244,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
                 presenter.addCar(AddCarActivity.this, file, Functions.toStr(edtVehicleNo), selectedMake, selectedYear, selectModelYear, Functions.toStr(edtServiceDate),
                         Functions.toStr(edtPUC), Functions.toStr(edtInsuranceDate), Functions.toStr(edtPermitsDate), odometer.getValue());
                 break;
+
             case R.id.btnUpdate:
                 presenter.updateCar(AddCarActivity.this, file, Functions.toStr(edtVehicleNo), selectedMake, selectedYear, selectModelYear, Functions.toStr(edtServiceDate),
                         Functions.toStr(edtPUC), Functions.toStr(edtInsuranceDate), Functions.toStr(edtPermitsDate), odometer.getValue());
@@ -434,7 +437,7 @@ public class AddCarActivity extends AppCompatActivity implements AddcarView, Vie
             btnAdd.setVisibility(View.GONE);
             btnUpdate.setVisibility(View.VISIBLE);
 
-            edtVehicleNo.setEnabled(false);
+            edtVehicleNo.setEnabled(true);
             makeSpinner.setEnabled(false);
             yearSpinner.setEnabled(false);
             modelSpinner.setEnabled(false);

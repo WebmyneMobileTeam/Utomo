@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,16 +48,13 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity implements AccountView, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
-    private Toolbar toolbar;
     private TextView txtCustomTitle, txtTc, txtSignUp, txtLogin, txtOr, txtForget;
     private View parentView;
     private AccountPresenter presenter;
-    private ImageView imgFb, imgGoogle;
     private Button btnLogin;
-    private MaterialEditText edtMobileNumber, edtPassword, edtName, edtEmail, edtReferralCode;
+    private MaterialEditText edtMobileNumber;
+    private MaterialEditText edtPassword;
     private ProgressDialog progressDialog;
-    private LinearLayout socialBar;
-    private MaterialAutoCompleteTextView edtCity;
 
     //google
     private GoogleApiClient mGoogleApiClient;
@@ -144,21 +140,21 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
         initToolbar();
 
-        edtReferralCode = (MaterialEditText) findViewById(R.id.edtReferralCode);
-        edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
+        MaterialEditText edtReferralCode = (MaterialEditText) findViewById(R.id.edtReferralCode);
+        MaterialAutoCompleteTextView edtCity = (MaterialAutoCompleteTextView) findViewById(R.id.edtCity);
         edtCity.setVisibility(View.GONE);
-        socialBar = (LinearLayout) findViewById(R.id.socialBar);
+        LinearLayout socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
-        edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);
-        edtName = (MaterialEditText) findViewById(R.id.edtName);
+        MaterialEditText edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);
+        MaterialEditText edtName = (MaterialEditText) findViewById(R.id.edtName);
 
         txtOr = (TextView) findViewById(R.id.txtOr);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
         txtSignUp = (TextView) findViewById(R.id.txtSignUp);
         txtTc = (TextView) findViewById(R.id.txtTc);
         parentView = findViewById(android.R.id.content);
-        imgFb = (ImageView) findViewById(R.id.imgFb);
-        imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
+        ImageView imgFb = (ImageView) findViewById(R.id.imgFb);
+        ImageView imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setText("Login");
         edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
@@ -201,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private void initToolbar() {
 
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_close);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -221,6 +217,9 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
 
     @Override
     public void onClick(View v) {
+
+        Functions.hideKeyPad(this, parentView);
+
         switch (v.getId()) {
             case R.id.imgFb:
                 presenter.loginFb(LoginActivity.this);
@@ -231,22 +230,18 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
                 break;
 
             case R.id.btnLogin:
-                Functions.hideKeyPad(this, this.parentView);
                 presenter.checkCredentials(edtMobileNumber.getText().toString(), edtPassword.getText().toString());
                 break;
 
             case R.id.txtSignUp:
-                Functions.hideKeyPad(this, this.parentView);
                 presenter.openSignUp();
                 break;
 
             case R.id.txtForget:
-                Functions.hideKeyPad(this, this.parentView);
                 presenter.openForget(this, edtMobileNumber.getText().toString().trim());
                 break;
 
             case R.id.txtTc:
-                Functions.hideKeyPad(this, this.parentView);
                 presenter.openTerms();
                 break;
         }
