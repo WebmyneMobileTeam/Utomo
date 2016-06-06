@@ -109,5 +109,6 @@ dependencies {
     compile 'pl.charmas.android:android-reactive-location:0.9@aar'
     compile 'com.google.android.gms:play-services-location:8.4.0'
     compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }
 apply plugin: 'com.google.gms.google-services'
