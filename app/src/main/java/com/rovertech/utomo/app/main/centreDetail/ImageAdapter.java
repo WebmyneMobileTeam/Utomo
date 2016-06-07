@@ -47,7 +47,7 @@ public class ImageAdapter extends PagerAdapter {
         FrameLayout frameLayout = new FrameLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         View shadowView = new View(context);
-        shadowView.setBackgroundColor(Color.parseColor("#99000000"));
+        shadowView.setBackgroundColor(Color.parseColor("#66000000"));
         frameLayout.addView(imageView, params);
         frameLayout.addView(shadowView, params);
         ((ViewPager) container).addView(frameLayout, 0);

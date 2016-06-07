@@ -108,8 +108,8 @@
 
                         <ImageView
                             android:id="@+id/imgOffer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="right"
                             android:src="@drawable/ic_offer"
                             android:tint="@color/button_bg" />

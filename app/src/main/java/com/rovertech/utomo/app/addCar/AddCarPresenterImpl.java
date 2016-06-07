@@ -696,7 +696,7 @@ public class AddCarPresenterImpl implements AddCarPresenter {
                     .build();
         }
 
-        Log.e("req", Functions.jsonString(request));
+        Log.e("addcar_req", Functions.jsonString(request));
 
         httppost.setEntity(entity);
         try {
