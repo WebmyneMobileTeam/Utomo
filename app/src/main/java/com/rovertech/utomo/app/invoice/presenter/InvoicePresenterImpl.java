@@ -50,6 +50,7 @@ public class InvoicePresenterImpl implements InvoicePresenter {
             @Override
             public void onFailure(Call<PaymentProcessResponse> call, Throwable t) {
                 view.hideProgress();
+                Log.e("ERROR", t.toString());
                 RetrofitErrorHelper.showErrorMsg(t, mContext);
             }
         });

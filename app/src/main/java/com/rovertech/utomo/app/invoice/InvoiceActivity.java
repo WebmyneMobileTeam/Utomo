@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.addCar.model.Vehicle;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.invoice.adapter.PaymentDiscountOffersAdapter;
@@ -125,7 +124,6 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     }
 
 
-
     private void setPaymentDetailsUI(final PaymentProcessResponse paymentProcessResponse) {
         if (paymentProcessResponse.PaymentProcess.ResponseCode == 0) {
             serviceDetailsCardView.setVisibility(View.GONE);
@@ -181,8 +179,8 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
                 if (!discountOffersList.isEmpty()) {
                     for (int i = 0; i < discountOffersList.size(); i++) {
-                        for (int j = 0; j < serviceJobsList.size(); j++) {
-                            allDiscountModels.add(discountOffersList.get(i).lstDistinctDiscount.get(j));
+                        for (int k = 0; k < discountOffersList.get(i).lstDistinctDiscount.size(); k++) {
+                            allDiscountModels.add(discountOffersList.get(i).lstDistinctDiscount.get(k));
                         }
                     }
 

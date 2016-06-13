@@ -84,6 +84,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             }
         }
         holder.txtOfferDiscount.setText("UPTO ₹ " + Math.round(sum) + " OFF ");
+
         /*if(adminFlag) {
             holder.txtOfferDiscount.setText("UPTO ₹ " + Math.round(sum) + " OFF ");
         }
