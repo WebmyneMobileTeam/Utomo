@@ -1,18 +1,23 @@
 package com.rovertech.utomo.app.main.centreDetail.centreMain;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailPojo;
+import com.rovertech.utomo.app.main.centreDetail.offer.CentreOfferActivity;
 import com.rovertech.utomo.app.widget.FlowLayout;
 import com.rovertech.utomo.app.widget.serviceTypeChip.ServiceChip;
 
@@ -28,6 +33,7 @@ public class CentreMainDetails extends LinearLayout {
     private Button btnBook;
     private FlowLayout serviceFlowLayout;
     LinearLayout.LayoutParams params;
+    private ImageView imgOffer;
 
     public CentreMainDetails(Context context) {
         super(context);
@@ -45,6 +51,7 @@ public class CentreMainDetails extends LinearLayout {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         parentView = inflater.inflate(R.layout.layout_centre_main, this, true);
 
+        imgOffer = (ImageView) parentView.findViewById(R.id.imgOffer);
         txtCentreDealerShip = (TextView) parentView.findViewById(R.id.txtCentreDealerShip);
         txtCentreWebsite = (TextView) parentView.findViewById(R.id.txtCentreWebsite);
         txtCentreAddress = (TextView) parentView.findViewById(R.id.txtCentreAddress);
@@ -108,7 +115,6 @@ public class CentreMainDetails extends LinearLayout {
             txtCentreWebsite.setText(String.format("%s", centreDetailPojo.Website));
         }
 
-
         if (centreDetailPojo.IsBodyWash) {
             ServiceChip serviceChip = new ServiceChip(context, "Body Shop");
             serviceFlowLayout.addView(serviceChip, params);
@@ -118,6 +124,27 @@ public class CentreMainDetails extends LinearLayout {
             ServiceChip serviceChip = new ServiceChip(context, "Pick Drop");
             serviceFlowLayout.addView(serviceChip, params);
         }
+
+        if (centreDetailPojo.IsOfferAvail) {
+            imgOffer.setVisibility(VISIBLE);
+            AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
+            animation.setDuration(500);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.REVERSE);
+            animation.setFillAfter(true);
+            imgOffer.startAnimation(animation);
+        } else {
+            imgOffer.setVisibility(GONE);
+        }
+
+        imgOffer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CentreOfferActivity.class);
+                intent.putExtra("centreId", centreDetailPojo.ServiceCentreID);
+                context.startActivity(intent);
+            }
+        });
 
       /*  btnBook.setOnClickListener(new OnClickListener() {
             @Override

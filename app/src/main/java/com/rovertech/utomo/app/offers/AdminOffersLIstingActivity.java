@@ -97,7 +97,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
         setSupportActionBar(toolbar);
 
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
-        txtCustomTitle.setText("Admin Offers");
+        txtCustomTitle.setText("Offers");
         txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

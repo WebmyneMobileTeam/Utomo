@@ -26,6 +26,8 @@ public class FetchServiceCentreDetailPojo implements Serializable {
 
     public String Expertise;
 
+    public boolean IsOfferAvail;
+
     public boolean IsBodyWash;
 
     public boolean IsPickupDrop;

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -96,6 +98,12 @@ public class ServiceCentreTile extends LinearLayout {
 
         if (centerPojo.IsOfferAvail) {
             imgOffer.setVisibility(VISIBLE);
+            AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
+            animation.setDuration(500);
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatMode(Animation.REVERSE);
+            animation.setFillAfter(true);
+            imgOffer.startAnimation(animation);
         } else {
             imgOffer.setVisibility(GONE);
         }

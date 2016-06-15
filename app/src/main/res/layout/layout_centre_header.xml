@@ -54,13 +54,13 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_distance"
-                android:tint="@color/color70" />
+                android:tint="@color/button_bg" />
 
             <TextView
                 android:id="@+id/txtDistance"
                 style="@style/MyTextStyleLabel"
                 android:layout_marginLeft="4dp"
-                android:textColor="@color/color70"
+                android:textColor="@color/button_bg"
                 android:textSize="@dimen/S_TEXT" />
 
         </LinearLayout>
@@ -79,12 +79,14 @@
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:src="@drawable/ic_offer"
-                android:tint="@color/white" />
+                android:tint="@color/white"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/imgCall"
@@ -98,6 +100,8 @@
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/white" />
 
             <ImageView
@@ -112,6 +116,8 @@
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/white" />
 
             <ImageView

@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -49,6 +50,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         setContentView(R.layout.activity_service_details);
 
         bookingId = getIntent().getIntExtra("bookingId", 0);
+        Log.e("bookingId", bookingId + "");
 
         init();
 

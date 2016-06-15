@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.NotificationViewHolder> {
 
 
-    private static final String AdminOfferAdapter="AdminOfferAdapter.check";
+    private static final String AdminOfferAdapter = "AdminOfferAdapter.check";
 
     private static Context c;
     private final boolean adminFlag;
@@ -75,15 +75,19 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         for (int i = 0; i < category.size(); i++) {
             if (adminFlag) {
                 sum = sum + category.get(i).AdminOfferValue;
+                holder.txtOfferBy.setVisibility(View.VISIBLE);
+                holder.txtOfferBy.setText(String.format("Offer from %s", itemList.get(position).OfferBy));
             } else {
                 int amt = 0;
-                if (category.get(i).AdminOfferValue > 0) {
-                    amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
-                }
+                //  if (category.get(i).AdminOfferValue > 0) {
+                amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
+                //  }
                 sum = sum + amt;
+                holder.txtOfferBy.setVisibility(View.GONE);
             }
         }
-        holder.txtOfferDiscount.setText("UPTO ₹ " + Math.round(sum) + " OFF ");
+        holder.txtOfferDiscount.setText("UPTO " + Math.round(sum) + " " + category.get(0).AmountType + " OFF ");
+
 
         /*if(adminFlag) {
             holder.txtOfferDiscount.setText("UPTO ₹ " + Math.round(sum) + " OFF ");
@@ -118,6 +122,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         holder.txtOfferTitleCode.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
         holder.txtOfferTitle.setTypeface(Functions.getRegularFont(c));
         holder.txtOfferValidTo.setTypeface(Functions.getRegularFont(c));
+        holder.txtOfferBy.setTypeface(Functions.getRegularFont(c));
         holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
     }
 
@@ -128,7 +133,7 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     public static class NotificationViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtOfferTitle, txtOfferTitleCode, txtOfferTitle1, txtOfferValidTo, txtOfferDiscount;
+        private TextView txtOfferTitle, txtOfferTitleCode, txtOfferTitle1, txtOfferValidTo, txtOfferDiscount, txtOfferBy;
         private ImageView img, imgInfo;
 
         public NotificationViewHolder(View itemView) {
@@ -140,15 +145,10 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             txtOfferDiscount = (TextView) itemView.findViewById(R.id.txtOfferDiscount);
             img = (ImageView) itemView.findViewById(R.id.img);
             imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
-
+            txtOfferBy = (TextView) itemView.findViewById(R.id.txtOfferBy);
 
         }
 
-
     }
-
-
-
-
 
 }

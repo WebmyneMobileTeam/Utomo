@@ -66,6 +66,7 @@
                         android:id="@+id/distanceLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
                         android:layout_gravity="center_vertical">
 
                         <ImageView
@@ -102,14 +103,15 @@
                         android:id="@+id/bottomBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|end"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="4dp">
 
                         <ImageView
                             android:id="@+id/imgOffer"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:src="@drawable/ic_offer"
                             android:tint="@color/button_bg" />

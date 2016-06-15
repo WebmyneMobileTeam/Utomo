@@ -356,7 +356,8 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                         } else if (loginOutput.BasicLoginSignUp.ResponseCode == -3) {
 
-                            otpAlert(loginRequest, AppConstant.LOGIN, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
+                           // otpAlert(loginRequest, AppConstant.LOGIN, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
+                            verifyOTPRevised(loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginRequest.Mobile, AppConstant.LOGIN, loginOutput);
 
                         } else {
                             Functions.showToast(activity, loginOutput.BasicLoginSignUp.ResponseMessage);
@@ -432,6 +433,62 @@ public class AccountPresenterImpl implements AccountPresenter {
             @Override
             public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
                 dialog.dismiss();
+                RetrofitErrorHelper.showErrorMsg(t, activity);
+            }
+        });
+
+    }
+
+    private void verifyOTPRevised(String otp, String mobile, final String string, final ManiBasicLoginSignUp loginOutput) {
+
+        OtpVerifyService service = UtomoApplication.retrofit.create(OtpVerifyService.class);
+        Call<ManiBasicLoginSignUp> call = service.verifyOTP(mobile, otp);
+        call.enqueue(new Callback<ManiBasicLoginSignUp>() {
+            @Override
+            public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
+
+                if (response.body() == null) {
+                    Functions.showToast(activity, "Error occurred.");
+
+                } else {
+
+                    ManiBasicLoginSignUp otpOutput = response.body();
+
+                    if (otpOutput.OTPVerification.ResponseCode == 1) {
+                        //Functions.showToast(activity, "OTP Verification successful.");
+
+                        new CountDownTimer(1400, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                if (string.equals(AppConstant.LOGIN)) {
+
+                                    PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
+                                    PrefUtils.setLoggedIn(activity, true);
+                                    loginSuccess();
+
+                                } else {
+                                    PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
+                                    PrefUtils.setLoggedIn(activity, true);
+
+                                    signUpSuccess();
+                                }
+
+                            }
+                        }.start();
+
+                    } else {
+                        Functions.showToast(activity, "Error occurred.");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ManiBasicLoginSignUp> call, Throwable t) {
                 RetrofitErrorHelper.showErrorMsg(t, activity);
             }
         });
@@ -744,7 +801,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                         Log.e("response", response.body().toString());
 
                         if (loginOutput.BasicLoginSignUp.ResponseCode == 1) {
-                            otpAlert(loginRequest, AppConstant.SIGN_UP, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
+                          //  otpAlert(loginRequest, AppConstant.SIGN_UP, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
+                            verifyOTPRevised(loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginRequest.Mobile, AppConstant.SIGN_UP, loginOutput);
                             //signUpSuccess();
 
                         } else {
@@ -761,7 +819,6 @@ public class AccountPresenterImpl implements AccountPresenter {
                     RetrofitErrorHelper.showErrorMsg(t, activity);
                 }
             });
-
         }
     }
 
@@ -775,7 +832,6 @@ public class AccountPresenterImpl implements AccountPresenter {
         });
         dialog.show();
     }
-
 
     @Override
     public void openSignUp() {

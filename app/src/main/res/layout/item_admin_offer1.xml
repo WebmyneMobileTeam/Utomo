@@ -75,12 +75,19 @@
             android:layout_marginLeft="10dp"
             android:text="Valid Upto:" />
 
+        <TextView
+            android:id="@+id/txtOfferBy"
+            style="@style/BodyTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="From" />
+
         <ImageView
             android:id="@+id/imgInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="4dp"
+            android:layout_gravity="right|bottom"
             android:src="@drawable/ic_action_info"
             android:tint="@color/primary_dark" />
 

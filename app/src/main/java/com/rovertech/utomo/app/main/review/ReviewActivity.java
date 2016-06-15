@@ -61,7 +61,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
         ratingBar = (AppCompatRatingBar) findViewById(R.id.ratingBar);
 
         Drawable progress = ratingBar.getProgressDrawable();
-        DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.purple));
+        DrawableCompat.setTint(progress, ContextCompat.getColor(this, R.color.white));
 
         setTypeface();
 
@@ -96,7 +96,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
 
-        txtCustomTitle.setText("Reviews");
+        txtCustomTitle.setText("Add Review");
         txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

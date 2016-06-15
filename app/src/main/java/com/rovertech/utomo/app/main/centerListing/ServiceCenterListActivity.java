@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.centerListing;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.gun0912.tedpermission.PermissionListener;
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.account.adapter.CityAdapter;
@@ -287,6 +289,21 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
+                Functions.setPermission(ServiceCenterListActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        try {
+                            mMap.setMyLocationEnabled(true);
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionDenied(ArrayList<String> arrayList) {
+
+                    }
+                });
             }
         });
     }

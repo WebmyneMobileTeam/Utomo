@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.offers.model.OfferCategory;
-import com.rovertech.utomo.app.profile.carlist.CarPojo;
 
 import java.util.ArrayList;
 
@@ -20,17 +19,17 @@ import java.util.ArrayList;
  */
 public class AdminOfferInfoAdapter extends BaseAdapter {
 
-    private  boolean adminFlag;
+    private boolean adminFlag;
     private Context context;
     private ArrayList<OfferCategory> offerArrayList;
     private static LayoutInflater inflater = null;
 
-    public AdminOfferInfoAdapter(Context context, ArrayList<OfferCategory> offerArrayList,boolean adminFlag) {
+    public AdminOfferInfoAdapter(Context context, ArrayList<OfferCategory> offerArrayList, boolean adminFlag) {
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.offerArrayList = offerArrayList;
-        this.adminFlag=adminFlag;
+        this.adminFlag = adminFlag;
     }
 
     @Override
@@ -65,18 +64,16 @@ public class AdminOfferInfoAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         int amt = 0;
-        if(adminFlag) {
-            amt=offerArrayList.get(position).AdminOfferValue;
+        if (adminFlag) {
+            amt = offerArrayList.get(position).AdminOfferValue;
+        } else {
+            //    if(offerArrayList.get(position).AdminOfferValue>0)
+            //    {
+            amt = offerArrayList.get(position).AdminOfferValue + offerArrayList.get(position).SCOfferValue;
+            //   }
         }
-        else
-        {
-            if(offerArrayList.get(position).AdminOfferValue>0)
-            {
-                amt=offerArrayList.get(position).AdminOfferValue+offerArrayList.get(position).SCOfferValue;
-            }
-        }
-        holder.txtDetail.setText(String.format("%s %d off on %s", offerArrayList.get(position).AmountType,amt,
-                 offerArrayList.get(position).OfferCategoryName));
+        holder.txtDetail.setText(String.format("%d %s off on %s", amt, offerArrayList.get(position).AmountType,
+                offerArrayList.get(position).OfferCategoryName));
         holder.txtDetail.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
 
         //String.format(getString(R.string.all), 3.12, 2)

@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.main.notification.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -19,6 +20,7 @@ import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterPr
 import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterPresenterImpl;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationAdapterView;
 import com.rovertech.utomo.app.main.notification.presenter.NotificationView;
+import com.rovertech.utomo.app.main.serviceDetail.ServiceDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,6 @@ import java.util.ArrayList;
  * Created by raghavthakkar on 21-04-2016.
  */
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> implements NotificationAdapterView {
-
 
     private final Context c;
     public ArrayList<NotificationItem> notificationItems;
@@ -64,7 +65,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.txtReject.setTypeface(Functions.getBoldFont(c), Typeface.NORMAL);
         holder.txtAccept.setTypeface(Functions.getBoldFont(c), Typeface.NORMAL);
 
-
         if (notificationItems.get(position).ServicecentreName != null) {
             holder.txtNotificationTitle.setText(Html.fromHtml(notificationItems.get(position).ServicecentreName));
         }
@@ -74,7 +74,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         if (notificationItems.get(position).NotificationDate != null) {
             holder.txtNotificationsTimestamp.setText(Html.fromHtml(notificationItems.get(position).NotificationDate));
         }
-       // holder.txtNotificationsTimestamp.setText(notificationItems.get(position).NotificationDate);
+        // holder.txtNotificationsTimestamp.setText(notificationItems.get(position).NotificationDate);
 
         if (notificationItems.get(position).Type) {
             holder.llAccpRej.setVisibility(View.VISIBLE);
@@ -82,7 +82,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.llAccp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  //  Log.d("m click", "Accept" + notificationItems.get(position).BookingID + " || " + notificationItems.get(position).NotificationID);
+                    //  Log.d("m click", "Accept" + notificationItems.get(position).BookingID + " || " + notificationItems.get(position).NotificationID);
                     presenter.callRescheduleBookingApi(notificationItems.get(position).BookingID, notificationItems.get(position).NotificationID, true);
                 }
             });
@@ -90,15 +90,24 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.llReject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // Log.d("m click", "Reject");
+                    // Log.d("m click", "Reject");
                     presenter.callRescheduleBookingApi(notificationItems.get(position).BookingID, notificationItems.get(position).NotificationID, false);
                 }
             });
-        }
-        else
-        {
+        } else {
             holder.llAccpRej.setVisibility(View.GONE);
         }
+
+        holder.contentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("bookingId", notificationItems.get(position).BookingID + "");
+
+                Intent intent = new Intent(c, ServiceDetailsActivity.class);
+                intent.putExtra("bookingId", Integer.parseInt(notificationItems.get(position).BookingID));
+                c.startActivity(intent);
+            }
+        });
     }
 
     public void clear() {
@@ -108,7 +117,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     // Add a list of items
     public void addAll(ArrayList<NotificationItem> entries) {
-       // notificationItems.addAll(entries);
+        // notificationItems.addAll(entries);
         notificationItems = entries;
         notifyDataSetChanged();
     }
@@ -142,6 +151,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public static class NotificationViewHolder extends RecyclerView.ViewHolder {
         private TextView txtNotificationTitle, txtNotificationDesc, txtNotificationsTimestamp, txtReject, txtAccept;
         private LinearLayout llAccpRej, llAccp, llReject;
+        private LinearLayout contentLayout;
 
         public NotificationViewHolder(View itemView) {
             super(itemView);
@@ -154,6 +164,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             llAccpRej = (LinearLayout) itemView.findViewById(R.id.llAccpRej);
             llAccp = (LinearLayout) itemView.findViewById(R.id.llAccp);
             llReject = (LinearLayout) itemView.findViewById(R.id.llReject);
+            contentLayout = (LinearLayout) itemView.findViewById(R.id.contentLayout);
 
         }
     }

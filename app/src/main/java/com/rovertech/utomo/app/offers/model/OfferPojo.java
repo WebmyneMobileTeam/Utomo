@@ -10,6 +10,8 @@ public class OfferPojo implements Serializable {
 
     public ArrayList<OfferCategory> lstAvailOffersCategory;
 
+    public String OfferBy;
+
     public int AvailOfferId;
 
     public String Description;
