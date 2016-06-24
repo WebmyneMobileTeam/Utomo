@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -103,6 +104,12 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         btnInvoice.setOnClickListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -113,7 +120,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
             }
         });
@@ -135,6 +142,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
                 Intent reviewIntent = new Intent(ServiceDetailsActivity.this, ReviewActivity.class);
                 reviewIntent.putExtra("serviceCenterId", userBookingData.ServiceCentreID);
                 startActivity(reviewIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.bottomCancelReq:

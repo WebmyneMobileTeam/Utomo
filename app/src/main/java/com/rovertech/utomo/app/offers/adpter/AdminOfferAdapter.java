@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,8 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             if (adminFlag) {
                 sum = sum + category.get(i).AdminOfferValue;
                 holder.txtOfferBy.setVisibility(View.VISIBLE);
-                holder.txtOfferBy.setText(String.format("Offer from %s", itemList.get(position).OfferBy));
+                // Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>");
+                holder.txtOfferBy.setText(Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>"));
             } else {
                 int amt = 0;
                 //  if (category.get(i).AdminOfferValue > 0) {

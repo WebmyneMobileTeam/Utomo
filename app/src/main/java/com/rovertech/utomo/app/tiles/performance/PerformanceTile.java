@@ -32,7 +32,6 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
     private ExpandableLayout expandPerformanceLayout;
     private LinearLayout expandClickLayout, initialLayout, remainsLayout;
     private ImageView imgArrow;
-    private TextView txtMore;
 
     private onPerformanceResetListener onPerformanceResetListener;
 
@@ -64,31 +63,27 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
-        txtMore.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
     }
 
     private void findViewById() {
         remainsLayout = (LinearLayout) parentView.findViewById(R.id.remainsLayout);
         initialLayout = (LinearLayout) parentView.findViewById(R.id.initialLayout);
-        txtMore = (TextView) parentView.findViewById(R.id.txtMore);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         expandPerformanceLayout = (ExpandableLayout) parentView.findViewById(R.id.expandPerformanceLayout);
+        expandPerformanceLayout.setExpanded(false);
+
         imgArrow = (ImageView) parentView.findViewById(R.id.imgArrow);
         expandClickLayout = (LinearLayout) parentView.findViewById(R.id.expandClickLayout);
 
-        expandPerformanceLayout.setExpanded(false);
         expandClickLayout.setOnClickListener(this);
-        txtMore.setOnClickListener(this);
     }
 
     private void doExpandCollapse() {
 
         if (expandPerformanceLayout.isExpanded()) {
             Functions.antirotateViewClockwise(imgArrow);
-            txtMore.setText("More");
         } else {
             Functions.rotateViewClockwise(imgArrow);
-            txtMore.setText("Less");
         }
 
         expandPerformanceLayout.toggle();
@@ -126,10 +121,6 @@ public class PerformanceTile extends LinearLayout implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.txtMore:
-                doExpandCollapse();
-                break;
-
             case R.id.expandClickLayout:
                 doExpandCollapse();
                 break;

@@ -61,8 +61,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void init() {
@@ -76,7 +75,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 

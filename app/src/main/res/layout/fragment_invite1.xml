@@ -7,8 +7,8 @@
         android:id="@+id/img1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/invitenearn"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside"
+        android:src="@drawable/invitenearn" />
 
     <LinearLayout
         android:id="@+id/amountLayout"
@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/txtCode"
-            android:layout_width="wrap_content"
+            android:layout_width="128dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/invite_code_border"
@@ -43,19 +43,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/M_TEXT" />
 
-        <!--  <TextView
-              android:id="@+id/txtWalletRsTitle"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_horizontal|center_vertical"
-              android:text="Your Referral code"
-              android:layout_marginTop="20dp"
-              android:layout_marginBottom="20dp"
-              android:textColor="@color/white"
-              android:textSize="@dimen/S_TEXT"
-              android:visibility="visible" />
-  -->
-
     </LinearLayout>
 
     <Button
@@ -64,49 +51,4 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:text="Invite" />
-
-    <!--  <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:background="@color/white"
-          android:layout_marginTop="10dp"
-          android:orientation="vertical">
-  -->
-    <!--  <android.support.v7.widget.CardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_centerInParent="true"
-          android:layout_margin="16dp"
-          card_view:cardCornerRadius="4dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center"
-              android:orientation="vertical"
-              android:padding="8dp">
-
-
-              <TextView
-                  android:id="@+id/txtDesc"
-                  style="@style/MyTextStyle"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="8dp"
-                  android:layout_marginTop="8dp"
-                  android:padding="16dp"
-                  android:text="@string/invite" />
-
-              <Button
-                  android:id="@+id/btnInvite"
-                  style="@style/MyButtonStyle"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentBottom="true"
-                  android:layout_margin="8dp"
-                  android:text="Invite" />
-
-          </LinearLayout>
-      </android.support.v7.widget.CardView>-->
-    <!--</LinearLayout>-->
 </RelativeLayout>

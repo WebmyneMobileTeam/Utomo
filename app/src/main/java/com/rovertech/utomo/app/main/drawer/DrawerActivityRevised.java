@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,6 +28,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mikepenz.actionitembadge.library.ActionItemBadge;
@@ -160,7 +165,10 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
         TextView txtLogout = (TextView) headerLayout.findViewById(R.id.txtLogout);
         txtLogout.setTypeface(Functions.getRegularFont(this));
-        txtLogout.setOnClickListener(new View.OnClickListener() {
+
+        LinearLayout profileLayout = (LinearLayout) headerLayout.findViewById(R.id.profileLayout);
+        LinearLayout logoutLayout = (LinearLayout) headerLayout.findViewById(R.id.logoutLayout);
+        logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.logOut(DrawerActivityRevised.this);
@@ -169,11 +177,11 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
         TextView txtProfile = (TextView) headerLayout.findViewById(R.id.txtProfile);
         txtProfile.setTypeface(Functions.getRegularFont(this));
-        txtProfile.setOnClickListener(new View.OnClickListener() {
+        profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Functions.fireIntent(DrawerActivityRevised.this, ProfileActivity.class);
-                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
 
@@ -182,7 +190,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
             @Override
             public void onClick(View v) {
                 Functions.fireIntent(DrawerActivityRevised.this, ProfileActivity.class);
-                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
 
@@ -272,7 +280,15 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
 
         profile = PrefUtils.getUserFullProfileDetails(this);
         txtName.setText(String.format("%s", profile.Name));
-        Functions.loadRoundImage(profilePic, profile.ProfileImg, this);
+
+        if (profile.ProfileImg != null && profile.ProfileImg.length() > 0) {
+            Functions.loadRoundImage(profilePic, profile.ProfileImg, this);
+
+        } else {
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_person);
+            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+            profilePic.setImageDrawable(drawable);
+        }
 
         if (!Functions.isConnected(this)) {
             Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);

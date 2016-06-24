@@ -237,6 +237,7 @@ public class AccountPresenterImpl implements AccountPresenter {
     }
 
     private void onFacebookLogin(SocialRequest socialRequest, boolean isSuccess, String success, String error) {
+        LoginManager.getInstance().logOut();
         if (isSuccess) {
             doLogin(socialRequest);
         } else {
@@ -253,6 +254,8 @@ public class AccountPresenterImpl implements AccountPresenter {
         call.enqueue(new Callback<ManiBasicLoginSignUp>() {
             @Override
             public void onResponse(Call<ManiBasicLoginSignUp> call, Response<ManiBasicLoginSignUp> response) {
+                progressDialog.dismiss();
+
                 if (response.body() != null) {
 
                     ManiBasicLoginSignUp output = response.body();
@@ -264,7 +267,9 @@ public class AccountPresenterImpl implements AccountPresenter {
                         PrefUtils.setLoggedIn(activity, true);
                         LoginManager.getInstance().logOut();
                         loginSuccess();
-                        progressDialog.dismiss();
+
+                    }else{
+                        accountView.onFacebookLoginError(output.SocialLoginSignUp.ResponseMessage);
                     }
                 }
             }

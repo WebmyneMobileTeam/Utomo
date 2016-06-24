@@ -96,31 +96,37 @@ public class BookingPresenterImpl implements BookingPresenter {
     @Override
     public void selectTime(Context context, String date) {
 
-        Date todayDate = new Date();
-        Date selectedDate;
-        boolean isMinimum = false;
+        if (date == null || date.length() == 0) {
+            Functions.showErrorAlert(context, "Error", "Select date first");
 
-        try {
-            selectedDate = dateFormat.parse(date);
-            if (selectedDate.compareTo(todayDate) <= 0) {
-                isMinimum = true;
+        } else {
+            Date todayDate = new Date();
+            Date selectedDate;
+            boolean isMinimum = false;
+
+            try {
+                selectedDate = dateFormat.parse(date);
+                if (selectedDate.compareTo(todayDate) <= 0) {
+                    isMinimum = true;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+            Calendar calendar = Calendar.getInstance();
+
+            TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+                    getSelectedTime(hourOfDay, minute);
+                }
+            }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.MINUTE), false);
+            if (isMinimum) {
+                timePickerDialog.setMinTime(calendar.get(Calendar.HOUR_OF_DAY) + 1, calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+            }
+            timePickerDialog.show(((Activity) context).getFragmentManager(), "Select Time");
         }
 
-        Calendar calendar = Calendar.getInstance();
-
-        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-                getSelectedTime(hourOfDay, minute);
-            }
-        }, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.MINUTE), false);
-        if (isMinimum) {
-            timePickerDialog.setMinTime(calendar.get(Calendar.HOUR_OF_DAY) + 1, calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
-        }
-        timePickerDialog.show(((Activity) context).getFragmentManager(), "Select Time");
     }
 
     private void getSelectedTime(int hours, int mins) {

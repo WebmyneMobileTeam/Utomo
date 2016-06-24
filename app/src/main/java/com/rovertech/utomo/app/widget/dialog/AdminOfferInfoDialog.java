@@ -76,8 +76,6 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         txtTitle1.setText(desc);
         setTypeface();
 
-
-
         //   if (carList.size() > 0) {
 
         new MyAsyncTask().execute();

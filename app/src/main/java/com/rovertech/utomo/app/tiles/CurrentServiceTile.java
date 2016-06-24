@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.tiles;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -56,6 +57,7 @@ public class CurrentServiceTile extends LinearLayout {
                 Intent intent = new Intent(context, ServiceDetailsActivity.class);
                 intent.putExtra("bookingId", bookingId);
                 context.startActivity(intent);
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
             }
         });

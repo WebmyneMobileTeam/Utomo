@@ -99,6 +99,7 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     @Override
     public void onAcceptRejectCallback(String message) {
       //  Log.e("onAcceptRejectCallback", message);
+        PrefUtils.setRefreshDashboard(this, true);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         refreshItems();
     }

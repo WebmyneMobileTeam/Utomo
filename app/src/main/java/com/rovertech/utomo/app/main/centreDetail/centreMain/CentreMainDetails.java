@@ -1,5 +1,6 @@
 package com.rovertech.utomo.app.main.centreDetail.centreMain;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -143,6 +144,7 @@ public class CentreMainDetails extends LinearLayout {
                 Intent intent = new Intent(context, CentreOfferActivity.class);
                 intent.putExtra("centreId", centreDetailPojo.ServiceCentreID);
                 context.startActivity(intent);
+                ((Activity) context).overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
             }
         });
 
