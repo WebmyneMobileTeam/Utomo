@@ -115,6 +115,7 @@
             android:layout_height="?actionBarSize"
             android:hint="City"
             android:singleLine="true"
+            android:imeOptions="actionDone"
             widget:met_baseColor="@color/editTextColor"
             widget:met_floatingLabel="highlight"
             widget:met_iconLeft="@drawable/ic_map"
