@@ -7,6 +7,7 @@ import android.support.multidex.MultiDexApplication;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
