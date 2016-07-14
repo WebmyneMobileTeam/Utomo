@@ -65,10 +65,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".main.drawer.DrawerActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
             android:name=".profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -100,7 +96,6 @@
             android:name=".main.review.ReviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".temp.MapActivity" />
         <activity
             android:name=".refer.LaunchActivity"
             android:screenOrientation="portrait"
@@ -161,7 +156,6 @@
             android:name=".main.drawer.DrawerActivityRevised"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".temp.TempActivity" />
     </application>
 
 </manifest>

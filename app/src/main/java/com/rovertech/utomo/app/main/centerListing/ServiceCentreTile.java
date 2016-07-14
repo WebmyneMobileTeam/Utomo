@@ -93,7 +93,11 @@ public class ServiceCentreTile extends LinearLayout {
             txtReviews.setVisibility(GONE);
         } else {
             txtReviews.setVisibility(VISIBLE);
-            txtReviews.setText(String.format("%d Reviews", centerPojo.ReviewCounter));
+            if (centerPojo.ReviewCounter == 1) {
+                txtReviews.setText(String.format("%d Review", centerPojo.ReviewCounter));
+            } else {
+                txtReviews.setText(String.format("%d Reviews", centerPojo.ReviewCounter));
+            }
         }
 
         if (centerPojo.IsOfferAvail) {

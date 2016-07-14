@@ -1,20 +1,16 @@
 package com.rovertech.utomo.app.widget.dialog;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.flyco.animation.SlideEnter.SlideLeftEnter;
 import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 
 /**
  * Created by sagartahelyani on 18-03-2016.
@@ -97,15 +93,6 @@ public class SuccessDialog extends BaseDialog implements View.OnClickListener {
                 }.start();
                 break;
         }
-    }
-
-    private void redirectMyBookings() {
-
-        Intent intent = new Intent(context, DrawerActivity.class);
-        intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.MY_BOOKING_FRAGMENT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-        dismiss();
     }
 
     public interface onSubmitListener {

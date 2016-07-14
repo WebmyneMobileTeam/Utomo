@@ -130,26 +130,21 @@ public class CarFragment extends Fragment implements CarView {
             public void onClick(View v) {
                 if (PrefUtils.getCurrentCarSelected(getActivity()).CurrentBooking) {
                     Functions.showErrorAlert(getActivity(), "Can't Book", AppConstant.ALREADY_BOOK);
-                } else {
 
+                } else {
                     Functions.setPermission(getActivity(),
                             new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
                             new PermissionListener() {
                                 @Override
                                 public void onPermissionGranted() {
-
                                     presenter.openCenterListing();
                                 }
 
                                 @Override
                                 public void onPermissionDenied(ArrayList<String> arrayList) {
-
-
                                     Functions.showToast(getActivity(), "Permission Denied");
-
                                 }
                             });
-
                 }
             }
         });
@@ -160,6 +155,7 @@ public class CarFragment extends Fragment implements CarView {
             @Override
             public void onRefresh() {
                 presenter.fetchDashboard(getActivity(), carPojo, "", 0, "", 0);
+                ((DrawerActivityRevised) getActivity()).callNotificationApi(PrefUtils.getUserID(getActivity()));
             }
         });
     }
@@ -197,9 +193,9 @@ public class CarFragment extends Fragment implements CarView {
 
         } else {
 
-            Log.e("call", "else");
-
             setIconVisible();
+
+            Log.e("call", "else");
 
             if (data.BookingID == 0) {
                 currentServiceTile.setVisibility(View.GONE);

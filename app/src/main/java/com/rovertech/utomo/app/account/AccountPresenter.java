@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.rovertech.utomo.app.account.model.UserProfile;
 
 /**
  * Created by sagartahelyani on 07-03-2016.

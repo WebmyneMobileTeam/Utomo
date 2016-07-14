@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rovertech.utomo.app.R;
-import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
-import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
 /**
  * A simple {@link Fragment} subclass.

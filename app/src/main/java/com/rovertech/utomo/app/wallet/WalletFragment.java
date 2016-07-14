@@ -24,7 +24,6 @@ import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
 
 import java.util.ArrayList;
 
-
 public class WalletFragment extends Fragment implements WalletView {
 
     private View parentView;

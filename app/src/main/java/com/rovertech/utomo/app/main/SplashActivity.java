@@ -17,7 +17,6 @@ import com.rovertech.utomo.app.addCar.AddCarActivity;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.PrefUtils;
-import com.rovertech.utomo.app.main.drawer.DrawerActivity;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.main.startup.StartupActivity;
 
