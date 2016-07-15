@@ -135,12 +135,13 @@ public class CentreDetailsActivity extends AppCompatActivity implements CentreDe
     @Override
     public void showMainLayoutHolder() {
         mainHolder.setVisibility(View.VISIBLE);
-
+        btnBook.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideMainLayoutHolder() {
         mainHolder.setVisibility(View.GONE);
+        btnBook.setVisibility(View.GONE);
     }
 
 

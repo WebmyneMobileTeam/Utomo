@@ -46,6 +46,7 @@
     <Button
         android:id="@+id/btnBook"
         style="@style/MyButtonStyle"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_margin="8dp"
