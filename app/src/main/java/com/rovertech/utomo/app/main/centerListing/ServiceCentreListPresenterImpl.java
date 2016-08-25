@@ -66,6 +66,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
     @Override
     public void fetchCentreList(int centreId, final Context context, int type, boolean isBodyShop, boolean isPickup) {
 
+        centreView.showProgress();
         // Call WS
         CentreListRequest request = new CentreListRequest();
 
@@ -133,6 +134,7 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
     }
 
     public void onSubmit(List<ServiceCenterPojo> list, int lastCentreId) {
+        centreView.hideProgress();
         centreView.setListing(list, lastCentreId);
     }
 

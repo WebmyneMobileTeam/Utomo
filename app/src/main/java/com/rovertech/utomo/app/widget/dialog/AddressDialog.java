@@ -95,6 +95,9 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         edtAddress.setTypeface(Functions.getRegularFont(context));
+        edtArea.setTypeface(Functions.getRegularFont(context));
+        edtCity.setTypeface(Functions.getRegularFont(context));
+        edtZipCode.setTypeface(Functions.getRegularFont(context));
         btnOk.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         checkSame.setTypeface(Functions.getRegularFont(context));
     }

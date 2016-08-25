@@ -19,6 +19,7 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.invoice.adapter.PaymentDiscountOffersAdapter;
+import com.rovertech.utomo.app.invoice.model.PaymentApiRequest;
 import com.rovertech.utomo.app.invoice.model.PaymentDistinctDiscountModel;
 import com.rovertech.utomo.app.invoice.model.PaymentJobCardDetailsModel;
 import com.rovertech.utomo.app.invoice.model.PaymentOfferDiscountList;
@@ -37,7 +38,6 @@ import java.util.List;
 public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     private InvoicePresenter presenter;
     private ProgressDialog progressDialog;
-    private int bookinId;
     private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableAmount, discountTitle, txtSCDiscountOfferLabel, txtSCDiscountOfferAmount, txtAvaildisc;
     private LinearLayout linearServiceDetails, linearOfferDiscountsDetails, emptyLayout;
     private FamiliarRecyclerView adminOffersRecyclerView;
@@ -48,10 +48,16 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     private PaymentProcessResponse paymentProcessResponse;
     long totalDiscount = 0;
 
+    int serviceCentreId, bookingId;
+    long offerId = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice);
+
+        bookingId = getIntent().getIntExtra("bookingId", 0);
+        serviceCentreId = getIntent().getIntExtra("serviceCentreId", 0);
 
         Log.e("bookingid", getIntent().getIntExtra("bookingId", 0) + "");
 
@@ -70,6 +76,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
+        txtCustomTitle.setTypeface(Functions.getRegularFont(this));
         txtCustomTitle.setText("Service Payment Details");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +91,13 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
         discountTitle = (TextView) findViewById(R.id.discountTitle);
         discountTitle.setTypeface(Functions.getRegularFont(this));
+
         txtTotalAmount = (TextView) findViewById(R.id.txtTotalAmount);
+        txtTotalAmount.setTypeface(Functions.getRegularFont(this));
+
         txtTotalPayableAmount = (TextView) findViewById(R.id.txtTotalPayableAmount);
+        txtTotalPayableAmount.setTypeface(Functions.getRegularFont(this));
+
         linearServiceDetails = (LinearLayout) findViewById(R.id.linearServiceDetails);
         adminOffersRecyclerView = (FamiliarRecyclerView) findViewById(R.id.adminOffersRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -96,14 +108,25 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         btnContinuePayment = (Button) findViewById(R.id.btnContinuePayment);
         emptyLayout = (LinearLayout) findViewById(R.id.emptyLayout);
         scOfferDiscountItem = findViewById(R.id.scOfferDiscountItem);
+
         txtSCDiscountOfferLabel = (TextView) scOfferDiscountItem.findViewById(R.id.txtServiceName);
         txtSCDiscountOfferLabel.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
+        txtSCDiscountOfferLabel.setTypeface(Functions.getRegularFont(this));
+
         txtSCDiscountOfferAmount = (TextView) scOfferDiscountItem.findViewById(R.id.txtServiceAmount);
         txtSCDiscountOfferAmount.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
+        txtSCDiscountOfferAmount.setTypeface(Functions.getRegularFont(this));
 
         presenter = new InvoicePresenterImpl(InvoiceActivity.this, this);
-        bookinId = getIntent().getIntExtra("bookingId", 0);
-        presenter.getTransactionProcessDetails(bookinId);
+        presenter.getTransactionProcessDetails(bookingId);
+
+        btnContinuePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.doPayment(totalDiscount, bookingId, offerId, paymentProcessResponse, serviceCentreId);
+
+            }
+        });
     }
 
     @Override
@@ -167,6 +190,9 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                     TextView txtServiceName = (TextView) view.findViewById(R.id.txtServiceName);
                     TextView txtServiceAmount = (TextView) view.findViewById(R.id.txtServiceAmount);
 
+                    txtServiceName.setTypeface(Functions.getRegularFont(this));
+                    txtServiceAmount.setTypeface(Functions.getRegularFont(this));
+
                     txtServiceAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(serviceJobsList.get(i).NetAmount));
                     txtServiceName.setText(serviceJobsList.get(i).Diagnosis);
                     jobsList.add(serviceJobsList.get(i).Diagnosis);
@@ -207,6 +233,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                                     }
                                 }
                                 Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
+                                offerId = filteredDiscounts.get(0).AvailOfferID;
 
                                 linearOfferDiscountsDetails.removeAllViews();
                                 for (int i = 0; i < filteredDiscounts.size(); i++) {
@@ -223,8 +250,11 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                                 linearOfferDiscountsDetails.addView(view);
                                 txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount - totalDiscount));
                             } else {
+                                offerId = 0;
                                 setPaymentDetailsUI(paymentProcessResponse);
                             }
+
+                            Log.e("offerId", offerId + " ##");
                         }
                     });
                 } else {

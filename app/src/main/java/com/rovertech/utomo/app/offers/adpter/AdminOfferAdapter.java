@@ -73,21 +73,22 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         }
         final ArrayList<OfferCategory> category = itemList.get(position).lstAvailOffersCategory;
         float sum = 0;
-        for (int i = 0; i < category.size(); i++) {
-            if (adminFlag) {
-                sum = sum + category.get(i).AdminOfferValue;
-                holder.txtOfferBy.setVisibility(View.VISIBLE);
-                // Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>");
-                holder.txtOfferBy.setText(Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>"));
-            } else {
-                int amt = 0;
-                //  if (category.get(i).AdminOfferValue > 0) {
-                amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
-                //  }
-                sum = sum + amt;
-                holder.txtOfferBy.setVisibility(View.GONE);
+        if (category.size() > 0)
+            for (int i = 0; i < category.size(); i++) {
+                if (adminFlag) {
+                    sum = sum + category.get(i).AdminOfferValue;
+                    holder.txtOfferBy.setVisibility(View.VISIBLE);
+                    // Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>");
+                    holder.txtOfferBy.setText(Html.fromHtml("Offer from " + "<u>" + itemList.get(position).OfferBy + "</u>"));
+                } else {
+                    int amt = 0;
+                    //  if (category.get(i).AdminOfferValue > 0) {
+                    amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
+                    //  }
+                    sum = sum + amt;
+                    holder.txtOfferBy.setVisibility(View.GONE);
+                }
             }
-        }
         holder.txtOfferDiscount.setText("UPTO " + Math.round(sum) + " " + category.get(0).AmountType + " OFF ");
 
 

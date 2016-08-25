@@ -29,10 +29,7 @@ public interface ServiceCentreView {
 
     void hideListLayout();
 
+    void showProgress();
 
-
-
-
-
-
+    void hideProgress();
 }

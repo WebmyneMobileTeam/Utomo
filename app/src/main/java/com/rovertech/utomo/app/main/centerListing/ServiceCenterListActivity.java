@@ -1,6 +1,7 @@
 package com.rovertech.utomo.app.main.centerListing;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -80,6 +81,7 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     private Button btnReset, btnApply;
     private SwitchCompat switchBodyShop, switchPickup;
     private boolean isBodyShop = true, isPickup = true, isLoggedIn = false;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -512,7 +514,6 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     @Override
     public void showListLayout() {
-
         fab.setImageResource(R.drawable.ic_map_white);
         listLayout.setVisibility(View.VISIBLE);
     }
@@ -520,6 +521,16 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     @Override
     public void hideListLayout() {
         listLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog = ProgressDialog.show(this, "Loading", "Please wait", false);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressDialog.dismiss();
     }
 
     @Override

@@ -160,6 +160,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
             case R.id.btnInvoice:
                 Intent invoiceIntent = new Intent(ServiceDetailsActivity.this, InvoiceActivity.class);
                 invoiceIntent.putExtra("bookingId", bookingId);
+                invoiceIntent.putExtra("serviceCentreId", userBookingData.ServiceCentreID);
                 startActivity(invoiceIntent);
                 break;
 

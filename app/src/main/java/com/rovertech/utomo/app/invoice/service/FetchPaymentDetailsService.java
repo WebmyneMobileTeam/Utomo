@@ -11,6 +11,7 @@ import retrofit2.http.Path;
  * Created by priyasindkar on 29-04-2016.
  */
 public interface FetchPaymentDetailsService {
+
     @GET(AppConstant.FETCH_TRANSACTION_PAYMENT_DETAILS)
     Call<PaymentProcessResponse> fetchPaymentDetails(@Path("BOOKINGID") int bookingId);
 }

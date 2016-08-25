@@ -61,7 +61,7 @@ public class CarListAdapter extends BaseAdapter {
         }
 
         holder.txtCarName.setText(String.format("%s %s", carArrayList.get(position).Make, carArrayList.get(position).Model));
-        holder.txtCarNo.setText(String.format("( %s )", carArrayList.get(position).VehicleNo));
+        holder.txtCarNo.setText(String.format("(%s)", carArrayList.get(position).VehicleNo));
 
         return convertView;
     }

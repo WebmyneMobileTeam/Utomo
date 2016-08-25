@@ -116,6 +116,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                             super.onPostExecute(regId);
                             if (!regId.equals("")) {
                                 GCM_ID = regId;
+                                Log.e("GCMId", GCM_ID + "-#");
                                 PrefUtils.setGCMID(activity, GCM_ID);
                             } else {
                                 Functions.showToast(activity, activity.getString(R.string.gcm_error));
@@ -268,7 +269,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                         LoginManager.getInstance().logOut();
                         loginSuccess();
 
-                    }else{
+                    } else {
                         accountView.onFacebookLoginError(output.SocialLoginSignUp.ResponseMessage);
                     }
                 }
@@ -361,7 +362,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                         } else if (loginOutput.BasicLoginSignUp.ResponseCode == -3) {
 
-                           // otpAlert(loginRequest, AppConstant.LOGIN, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
+                            // otpAlert(loginRequest, AppConstant.LOGIN, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
                             verifyOTPRevised(loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginRequest.Mobile, AppConstant.LOGIN, loginOutput);
 
                         } else {
@@ -619,6 +620,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                                 GCM_ID = regId;
                                 loginRequest.GCMId = GCM_ID;
                                 PrefUtils.setGCMID(activity, GCM_ID);
+                                Log.e("GCMId", GCM_ID + "-#");
                                 processLogin(activity, loginRequest);
                             } else {
                                 Functions.showToast(activity, activity.getString(R.string.gcm_error));
@@ -631,6 +633,8 @@ public class AccountPresenterImpl implements AccountPresenter {
                 }
 
             } else {
+                Log.e("log", "not null " + PrefUtils.getGcmId(activity));
+                loginRequest.GCMId = PrefUtils.getGcmId(activity);
                 processLogin(activity, loginRequest);
             }
 
@@ -806,7 +810,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                         Log.e("response", response.body().toString());
 
                         if (loginOutput.BasicLoginSignUp.ResponseCode == 1) {
-                          //  otpAlert(loginRequest, AppConstant.SIGN_UP, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
+                            //  otpAlert(loginRequest, AppConstant.SIGN_UP, loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginOutput);
                             verifyOTPRevised(loginOutput.BasicLoginSignUp.Data.get(0).OTP, loginRequest.Mobile, AppConstant.SIGN_UP, loginOutput);
                             //signUpSuccess();
 

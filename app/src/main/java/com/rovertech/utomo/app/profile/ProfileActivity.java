@@ -83,8 +83,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
+        if (toolbar != null) {
+            toolbar.setTitle("");
+            toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
+        }
         setSupportActionBar(toolbar);
 
         txtCustomTitle.setText("My Profile");

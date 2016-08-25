@@ -57,7 +57,7 @@
         <TextView
             android:id="@+id/txtCentreEmail"
             style="@style/BodyTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoLink="email"
             android:drawableLeft="@drawable/ic_email"
@@ -67,7 +67,7 @@
         <TextView
             android:id="@+id/txtCentreWebsite"
             style="@style/BodyTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:drawablePadding="4dp"
