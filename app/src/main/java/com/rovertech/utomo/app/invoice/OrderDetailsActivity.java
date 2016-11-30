@@ -2,6 +2,7 @@ package com.rovertech.utomo.app.invoice;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,8 +28,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private LinearLayout linearServiceDetails, linearDiscount;
     private View linear_line;
     private TextView txtTotalLabel, txtTotalAmount, txtTotalPayableLabel, txtTotalPayableAmount, txtCenterTitle,
-            txtDiscountLabel, txtDiscountAmount;
+            txtDiscountLabel, txtDiscountAmount, txtSCDiscountOfferLabel, txtSCDiscountOfferAmount;
     private Button btnHome;
+    private View scOfferDiscountItem;
+    private double SCOfferDiscount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private void getIntentData() {
         jsonString = getIntent().getStringExtra("payment");
         apiResponse = new Gson().fromJson(jsonString, PaymentApiResponse.class);
+
+        SCOfferDiscount = getIntent().getDoubleExtra("SCOfferDiscount", 0.0);
 
     }
 
@@ -77,6 +82,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtDiscountLabel = (TextView) findViewById(R.id.txtDiscountLabel);
         txtDiscountAmount = (TextView) findViewById(R.id.txtDiscountAmount);
 
+        txtSCDiscountOfferLabel = (TextView) findViewById(R.id.txtServiceName);
+        txtSCDiscountOfferAmount = (TextView) findViewById(R.id.txtServiceAmount);
+        scOfferDiscountItem = findViewById(R.id.scOfferDiscountItem);
+
         btnHome.setTypeface(Functions.getRegularFont(this));
         txtCustomTitle.setTypeface(Functions.getRegularFont(this));
         txtTotalLabel.setTypeface(Functions.getRegularFont(this));
@@ -110,10 +119,22 @@ public class OrderDetailsActivity extends AppCompatActivity {
             linearDiscount.setVisibility(View.GONE);
             linear_line.setVisibility(View.GONE);
         } else {
-            linearDiscount.setVisibility(View.GONE);
-            linear_line.setVisibility(View.GONE);
+            linearDiscount.setVisibility(View.VISIBLE);
+            linear_line.setVisibility(View.VISIBLE);
 
             txtDiscountAmount.setText(getString(R.string.ruppee) + " " + apiResponse.Payment.Data.get(0).AdminOfferDiscount + "");
+        }
+
+        if (SCOfferDiscount == 0.0) {
+            scOfferDiscountItem.setVisibility(View.GONE);
+        } else {
+            scOfferDiscountItem.setVisibility(View.VISIBLE);
+            txtSCDiscountOfferLabel.setText("Service Center Offer Discount: ");
+            txtSCDiscountOfferAmount.setText(getString(R.string.ruppee) + " " + SCOfferDiscount);
+            txtSCDiscountOfferAmount.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
+            txtSCDiscountOfferLabel.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
+            txtSCDiscountOfferAmount.setTypeface(Functions.getRegularFont(this));
+            txtSCDiscountOfferLabel.setTypeface(Functions.getRegularFont(this));
         }
 
         linearServiceDetails.removeAllViews();

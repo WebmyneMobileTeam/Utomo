@@ -9,6 +9,8 @@ public class PaymentApiRequest implements Serializable {
 
     public double AdminDiscount;
 
+    public double SCOfferDiscount;
+
     public String BookingCode;
 
     public int BookingID;
@@ -27,6 +29,7 @@ public class PaymentApiRequest implements Serializable {
 
     public PaymentApiRequest() {
         AdminDiscount = 0;
+        SCOfferDiscount = 0;
         BookingCode = "";
         BookingID = 0;
         OfferID = 0;

@@ -44,6 +44,12 @@
                     <include layout="@layout/item_line" />
 
                     <LinearLayout
+                        android:id="@+id/linearServiceDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
                         android:id="@+id/linearTotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -68,19 +74,11 @@
 
                     </LinearLayout>
 
-                    <include layout="@layout/item_line" />
-
-                    <LinearLayout
-                        android:id="@+id/linearServiceDetails"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"></LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/linearOfferDiscountsDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"></LinearLayout>
+                        android:orientation="vertical" />
 
                     <include
                         android:id="@+id/scOfferDiscountItem"

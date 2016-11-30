@@ -14,8 +14,8 @@ public interface BookingActivitiesAPI {
 
     String USERID = "userID";
     String MODE = "mode";
-    int CurrentBooking=1;
-    int PastBooking=2;
+    int CurrentBooking = 1;
+    int PastBooking = 2;
 
     @GET(AppConstant.USER_BOOKINGS + "{" + USERID + "}/{" + MODE + "}")
     Call<UserBookingsResponse> fetchUserBooking(@Path(USERID) int userID, @Path(MODE) int mode);

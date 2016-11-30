@@ -19,7 +19,6 @@ import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.invoice.adapter.PaymentDiscountOffersAdapter;
-import com.rovertech.utomo.app.invoice.model.PaymentApiRequest;
 import com.rovertech.utomo.app.invoice.model.PaymentDistinctDiscountModel;
 import com.rovertech.utomo.app.invoice.model.PaymentJobCardDetailsModel;
 import com.rovertech.utomo.app.invoice.model.PaymentOfferDiscountList;
@@ -127,11 +126,25 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
             }
         });
+
+        initProgress();
+    }
+
+    private void initProgress() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please wait..");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setCancelable(false);
     }
 
     @Override
     public void showProgress() {
-        progressDialog = ProgressDialog.show(this, "Loading", "Please wait..", false);
+        if (progressDialog != null) {
+            progressDialog.show();
+        } else {
+            initProgress();
+        }
     }
 
     @Override

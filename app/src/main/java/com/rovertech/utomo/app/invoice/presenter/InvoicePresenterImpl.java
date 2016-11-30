@@ -73,9 +73,10 @@ public class InvoicePresenterImpl implements InvoicePresenter {
             view.showProgress();
         }
 
-        PaymentApiRequest apiRequest = new PaymentApiRequest();
+        final PaymentApiRequest apiRequest = new PaymentApiRequest();
         apiRequest.AdminDiscount = totalDiscount;
         apiRequest.BookingID = bookingId;
+        apiRequest.SCOfferDiscount = paymentProcessResponse.PaymentProcess.Data.get(0).SCOfferDiscount;
         apiRequest.OfferID = (int) offerId;
         apiRequest.PayableAmount = paymentProcessResponse.PaymentProcess.Data.get(0).PayableAmount - totalDiscount;
         apiRequest.ServiceCentreId = serviceCentreId;
@@ -99,9 +100,11 @@ public class InvoicePresenterImpl implements InvoicePresenter {
 
                         Intent paymentIntent = new Intent(mContext, OrderDetailsActivity.class);
                         paymentIntent.putExtra("payment", new Gson().toJson(paymentApiResponse));
+                        paymentIntent.putExtra("SCOfferDiscount", apiRequest.SCOfferDiscount);
                         mContext.startActivity(paymentIntent);
 
                     } else {
+                        view.hideProgress();
                         Functions.showToast(mContext, paymentApiResponse.Payment.ResponseMessage);
                     }
                 }

@@ -81,6 +81,10 @@
                         android:id="@+id/linear_line"
                         layout="@layout/item_line" />
 
+                    <include
+                        android:id="@+id/scOfferDiscountItem"
+                        layout="@layout/payment_service_item" />
+
                     <LinearLayout
                         android:id="@+id/linearDiscount"
                         android:layout_width="match_parent"
