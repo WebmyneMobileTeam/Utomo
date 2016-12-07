@@ -33,6 +33,8 @@ public class DashboardData implements Serializable {
 
     public String SCImageName;
 
+    public String ServiceCompletedDateTime;
+
     public int ServiceCentreID;
 
     public String ServiceCentreName;

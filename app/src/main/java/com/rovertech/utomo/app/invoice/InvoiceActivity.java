@@ -214,6 +214,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
                 // show available offers
                 final List<PaymentOfferDiscountList> discountOffersList = paymentProcessResponse.PaymentProcess.Data.get(0).lstOfferDiscount;
+                Log.e("discountOffersList", discountOffersList.size() + "-#");
 
                 if (!discountOffersList.isEmpty()) {
                     for (int i = 0; i < discountOffersList.size(); i++) {

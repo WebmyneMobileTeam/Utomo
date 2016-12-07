@@ -70,6 +70,16 @@
                         android:textColor="?android:textColorSecondary"
                         android:textSize="@dimen/N_TEXT" />
 
+                    <TextView
+                        android:id="@+id/txtCompleteDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_8"
+                        android:text="11th March, 2016"
+                        android:textColor="?android:textColorSecondary"
+                        android:textSize="@dimen/N_TEXT" />
+
                 </LinearLayout>
             </LinearLayout>
 

@@ -155,7 +155,7 @@ public class Functions {
     }
 
     public static String jsonString(Object obj) {
-        return "" + new GsonBuilder().create().toJson(obj).toString();
+        return "" + new GsonBuilder().create().toJson(obj);
     }
 
 

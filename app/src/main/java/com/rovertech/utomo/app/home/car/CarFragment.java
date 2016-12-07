@@ -185,7 +185,7 @@ public class CarFragment extends Fragment implements CarView {
     @Override
     public void setDashboard(DashboardData data) {
 
-        Log.e("LOG", "set dashboard");
+        Log.e("IsCurrentBooking", data.IsCurrentBooking + "##");
 
         if (data.IsCurrentBooking) {
             currentServiceTile.setVisibility(View.VISIBLE);
@@ -194,8 +194,6 @@ public class CarFragment extends Fragment implements CarView {
         } else {
 
             setIconVisible();
-
-            Log.e("call", "else");
 
             if (data.BookingID == 0) {
                 currentServiceTile.setVisibility(View.GONE);

@@ -1,12 +1,12 @@
 package com.rovertech.utomo.app.main.serviceDetail;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +41,8 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     private ServiceMainDetails mainDetails;
     private UserBookingData userBookingData;
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     private boolean isBottomSheetExpanded = false;
 
     private TextView txtCancel, txtReviews, txtMap, txtCall;
@@ -64,6 +66,7 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
         initToolbar();
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mSwipeRefreshLayout);
         btnInvoice = (Button) findViewById(R.id.btnInvoice);
         txtCancel = (TextView) findViewById(R.id.txtCancel);
         txtCall = (TextView) findViewById(R.id.txtCall);
@@ -102,6 +105,13 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
         bottomAccept.setOnClickListener(this);
         bottomReject.setOnClickListener(this);
         btnInvoice.setOnClickListener(this);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.fetchBookingDetails(bookingId);
+            }
+        });
     }
 
     @Override
@@ -170,7 +180,9 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
 
     @Override
     public void showProgress() {
-        main_content.setVisibility(View.GONE);
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+            main_content.setVisibility(View.GONE);
+        }
         progressDialog = ProgressDialog.show(this, "Loading", "Please wait", false);
     }
 
@@ -178,6 +190,9 @@ public class ServiceDetailsActivity extends AppCompatActivity implements Service
     public void hideProgress() {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
+        if (mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

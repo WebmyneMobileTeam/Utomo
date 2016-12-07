@@ -25,7 +25,7 @@ public class CurrentServiceTile extends LinearLayout {
     private View parentView;
     private LayoutInflater inflater;
 
-    private TextView txtTitle, txtBookingDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
+    private TextView txtTitle, txtBookingDate, txtCompleteDate, txtCenterName, txtServiceStatus, txtReviews, txtRating;
     private ImageView imgCenter;
     private CardView currentCardView;
 
@@ -65,6 +65,7 @@ public class CurrentServiceTile extends LinearLayout {
 
     private void setTypeface() {
         txtBookingDate.setTypeface(Functions.getThinFont(context));
+        txtCompleteDate.setTypeface(Functions.getThinFont(context));
         txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         txtCenterName.setTypeface(Functions.getRegularFont(context));
         txtServiceStatus.setTypeface(Functions.getLightFont(context), Typeface.BOLD);
@@ -75,6 +76,7 @@ public class CurrentServiceTile extends LinearLayout {
         imgCenter = (ImageView) parentView.findViewById(R.id.imgCenter);
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtBookingDate = (TextView) parentView.findViewById(R.id.txtBookingDate);
+        txtCompleteDate = (TextView) parentView.findViewById(R.id.txtCompleteDate);
         txtCenterName = (TextView) parentView.findViewById(R.id.txtCenterName);
         txtServiceStatus = (TextView) parentView.findViewById(R.id.txtServiceStatus);
 
@@ -124,6 +126,7 @@ public class CurrentServiceTile extends LinearLayout {
         if (bookingViewMode == MyBookingFragment.CURRENTBOOKING) {
             txtReviews.setVisibility(GONE);
             txtRating.setVisibility(GONE);
+            txtCompleteDate.setVisibility(GONE);
             txtServiceStatus.setVisibility(VISIBLE);
             txtTitle.setText(String.format("%s", "Service Running"));
 
@@ -131,7 +134,9 @@ public class CurrentServiceTile extends LinearLayout {
             txtReviews.setVisibility(GONE);
             txtRating.setVisibility(GONE);
             txtServiceStatus.setVisibility(GONE);
+            txtCompleteDate.setVisibility(VISIBLE);
             txtTitle.setText(String.format("%s", "Past Service"));
+            txtCompleteDate.setText(String.format("Car Delivered on: %s", data.ServiceCompletedDateTime));
         }
 
         bookingId = data.BookingID;

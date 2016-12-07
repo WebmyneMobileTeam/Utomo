@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/spacing_double"
             android:paddingStart="@dimen/spacing_double"
-            android:text="Is your Drop-off Address as above?" />
+            android:text="Is your Drop-off Address same as above?" />
 
         <TextView
             android:id="@+id/btnOk"

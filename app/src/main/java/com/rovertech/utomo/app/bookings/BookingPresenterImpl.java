@@ -58,7 +58,7 @@ public class BookingPresenterImpl implements BookingPresenter {
     public void fetchDetails() {
         // get service centre details and user-car details
 
-        final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading previous address", "Please wait..", false);
+        final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading..", "Please wait..", false);
 
         FetchAddressApi api = UtomoApplication.retrofit.create(FetchAddressApi.class);
         Call<AddressResponse> call = api.fetchAddress(PrefUtils.getUserID(context));

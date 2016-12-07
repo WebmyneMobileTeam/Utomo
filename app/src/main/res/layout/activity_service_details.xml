@@ -20,34 +20,39 @@
             android:elevation="0dp"
             app:layout_collapseMode="pin" />
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mSwipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <com.rovertech.utomo.app.main.serviceDetail.serviceHeader.ServiceHeaderDetails
-                    android:id="@+id/headerDetails"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails
-                    android:id="@+id/mainDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible" />
+                    <com.rovertech.utomo.app.main.serviceDetail.serviceHeader.ServiceHeaderDetails
+                        android:id="@+id/headerDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
-                <include layout="@layout/layout_service_actions" />
+                    <com.rovertech.utomo.app.main.serviceDetail.serviceMain.ServiceMainDetails
+                        android:id="@+id/mainDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
-            </LinearLayout>
+                    <include layout="@layout/layout_service_actions" />
 
-        </android.support.v4.widget.NestedScrollView>
+                </LinearLayout>
 
+            </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
 

@@ -177,7 +177,6 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
 
         try {
 
-
             centreView.hideListLayout();
             centreView.showMapContainer();
 
@@ -185,11 +184,11 @@ public class ServiceCentreListPresenterImpl implements ServiceCentreLisPresenter
                 return;
             }
             googleMap.clear();
+
             final HashMap<String, ServiceCenterPojo> integerServiceCenterPojoHashMap = new HashMap<>();
 
             int lastItem = centerList.size();
             for (ServiceCenterPojo serviceCenterPojo : centerList) {
-
 
                 LatLng latLng = new LatLng(serviceCenterPojo.Lattitude, serviceCenterPojo.Longitude);
                 MarkerOptions markerOptions = new MarkerOptions();
