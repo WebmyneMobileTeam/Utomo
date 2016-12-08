@@ -32,4 +32,6 @@ public interface ServiceCentreView {
     void showProgress();
 
     void hideProgress();
+
+    void setDrag(boolean isDrag);
 }

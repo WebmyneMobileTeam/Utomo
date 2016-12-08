@@ -51,7 +51,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
@@ -70,6 +69,21 @@
                 widget:met_floatingLabel="highlight"
                 widget:met_primaryColor="@color/black" />
 
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtZipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ZipCode"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="6"
+                android:minHeight="?android:attr/actionBarSize"
+                android:paddingEnd="@dimen/spacing_double"
+                android:paddingStart="@dimen/spacing_double"
+                android:textColorHint="@color/black"
+                widget:met_baseColor="@color/black"
+                widget:met_floatingLabel="highlight"
+                widget:met_primaryColor="@color/black" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edtArea"
@@ -86,7 +100,6 @@
                 widget:met_floatingLabel="highlight"
                 widget:met_primaryColor="@color/black" />
 
-
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edtCity"
                 android:layout_width="match_parent"
@@ -94,23 +107,6 @@
                 android:hint="@string/city"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:minHeight="?android:attr/actionBarSize"
-                android:paddingEnd="@dimen/spacing_double"
-                android:paddingStart="@dimen/spacing_double"
-                android:textColorHint="@color/black"
-                widget:met_baseColor="@color/black"
-                widget:met_floatingLabel="highlight"
-                widget:met_primaryColor="@color/black" />
-
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edtZipCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/ZipCode"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLength="6"
                 android:minHeight="?android:attr/actionBarSize"
                 android:paddingEnd="@dimen/spacing_double"
                 android:paddingStart="@dimen/spacing_double"

@@ -15,7 +15,6 @@ public class RetrofitErrorHelper {
 
     public static void showErrorMsg(Throwable throwable, Context context) {
 
-
         if (throwable instanceof IOException) {
             Functions.showErrorAlert(context, context.getResources().getString(R.string.no_internet_connection), false);
         } else if (throwable instanceof SocketTimeoutException) {

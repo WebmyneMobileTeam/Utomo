@@ -1,8 +1,12 @@
 package com.rovertech.utomo.app.widget.dialog;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -14,8 +18,16 @@ import com.flyco.animation.SlideExit.SlideRightExit;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.bookings.GetLocationAPI;
 import com.rovertech.utomo.app.bookings.model.BookingRequest;
+import com.rovertech.utomo.app.bookings.model.LocationResponse;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by sagartahelyani on 17-03-2016.
@@ -72,6 +84,9 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
         setTypeface();
 
+        edtArea.setEnabled(false);
+        edtCity.setEnabled(false);
+
         if (isSameAddress) {
             checkSame.setChecked(true);
         }
@@ -85,6 +100,62 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
                 } else {
                     setAddressDetails(bookingRequest, false);
                 }
+
+            }
+        });
+
+        edtZipCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                if (charSequence.toString().length() == 6) {
+                    // call api
+                    Functions.hideKeyPad(context, edtZipCode);
+
+                    final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading", "Please wait..", false, false);
+
+                    GetLocationAPI api = UtomoApplication.retrofit.create(GetLocationAPI.class);
+                    Call<LocationResponse> call = api.getLocationFromZip(charSequence.toString());
+                    call.enqueue(new Callback<LocationResponse>() {
+                        @Override
+                        public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
+                            progressDialog.dismiss();
+                            if (response.body() != null) {
+                                LocationResponse mainResponse = response.body();
+
+                                if (mainResponse.GetLocationFromPIN.ResponseCode == 1) {
+                                    Log.e("response", Functions.jsonString(mainResponse));
+                                    edtArea.setText(mainResponse.GetLocationFromPIN.Data.get(0).Area);
+                                    edtCity.setText(mainResponse.GetLocationFromPIN.Data.get(0).City);
+                                } else {
+                                    Functions.showErrorAlert(context, "Error", mainResponse.GetLocationFromPIN.ResponseMessage);
+                                }
+                            } else {
+                                Functions.showErrorAlert(context, "Error", "Something went wrong. Please try again.");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LocationResponse> call, Throwable t) {
+                            progressDialog.dismiss();
+                            RetrofitErrorHelper.showErrorMsg(t, context);
+                        }
+                    });
+
+                } else {
+                    edtArea.setText("");
+                    edtCity.setText("");
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });

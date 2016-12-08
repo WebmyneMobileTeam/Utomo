@@ -16,5 +16,4 @@ public interface BookingRequestAPI {
     @POST(AppConstant.BOOKING_ACTIVITIES)
     Call<RequestForBooking> bookingService(@Body BookingRequest bookingRequest);
 
-
 }

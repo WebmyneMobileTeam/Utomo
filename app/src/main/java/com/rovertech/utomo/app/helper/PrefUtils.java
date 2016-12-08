@@ -16,7 +16,9 @@ import com.rovertech.utomo.app.wallet.model.GetClientWalletHistory;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by xitij on 17-03-2015.
@@ -24,6 +26,7 @@ import java.util.List;
 public class PrefUtils {
 
     public static String USER_ID = "UserId";
+    public static String MOBILE_NO = "MobileNo";
     public static String USER_PROFILE_KEY = "USER_PROFILE_KEY";
     public static String FEEDBACK = "FEEDBACK";
     public static String GCM_ID = "GCM_ID";
@@ -71,6 +74,16 @@ public class PrefUtils {
 
     public static int getUserID(Context ctx) {
         return Prefs.with(ctx).getInt(USER_ID, 0);
+    }
+
+    public static void setMobileNo(Context ctx, String value) {
+        Set<String> mobileList = getMobileNo(ctx);
+        mobileList.add(value);
+        Prefs.with(ctx).save(MOBILE_NO, new HashSet<String>(mobileList));
+    }
+
+    public static Set<String> getMobileNo(Context ctx) {
+        return Prefs.with(ctx).getStringSet(MOBILE_NO, new HashSet<String>());
     }
 
     public static void setUserFullProfileDetails(Context context, UserProfileOutput userProfile) {

@@ -42,6 +42,7 @@ public class AppConstant {
     final public static String FETCH_ADMIN_OFFER = "UserActivities.svc/json/FetchAdminOffer";
     final public static String FETCH_NOTIFICATION = "UserNotificationActivity.svc/json/FetchNotification/";
     final public static String READ_NOTIFICATION = "UserNotificationActivity.svc/json/NotificationsRead/";
+    final public static String GET_LOCATION = "UserActivities.svc/json/GetLocationFromPIN/{PIN}";
     final public static String RESCHEDUAL_BOOKING = "BookingActivities.svc/json/RescheduleBookingResponce";
     final public static String FETCH_SC_OFFER = "UserActivities.svc/json/FetchServiceCentreOffer/";
     //final public static String FETCH_NOTIFICATION = "UserNotificationActivity.svc/json/FetchNotification/59";

@@ -10,5 +10,5 @@ public interface InvoicePresenter {
 
     void getTransactionProcessDetails(int bookingId);
 
-    void doPayment(long totalDiscount, int bookingId, long offerId, PaymentProcessResponse paymentProcessResponse, int serviceCentreId);
+    void doPayment(long totalDiscount, int bookingId, long offerId, PaymentProcessResponse paymentProcessResponse, int serviceCentreId, String selectedOffer);
 }

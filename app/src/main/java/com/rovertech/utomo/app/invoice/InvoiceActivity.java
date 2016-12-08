@@ -37,8 +37,8 @@ import java.util.List;
 public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
     private InvoicePresenter presenter;
     private ProgressDialog progressDialog;
-    private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableAmount, discountTitle, txtSCDiscountOfferLabel, txtSCDiscountOfferAmount, txtAvaildisc;
-    private LinearLayout linearServiceDetails, linearOfferDiscountsDetails, emptyLayout;
+    private TextView txtCustomTitle, txtTotalAmount, txtTotalPayableLabel, txtTotalPayableAmount, discountTitle, txtSCDiscountOfferLabel, txtSCDiscountOfferAmount, txtAvaildisc;
+    private LinearLayout linearServiceDetails, linearOfferDiscountsDetails, emptyLayout, linearBottom, linearBottom2;
     private FamiliarRecyclerView adminOffersRecyclerView;
     private PaymentDiscountOffersAdapter discountOffersAdapter;
     private CardView serviceDetailsCardView;
@@ -49,6 +49,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
     int serviceCentreId, bookingId;
     long offerId = 0;
+    String selectedOffer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,6 +95,9 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         txtTotalAmount = (TextView) findViewById(R.id.txtTotalAmount);
         txtTotalAmount.setTypeface(Functions.getRegularFont(this));
 
+        txtTotalPayableLabel = (TextView) findViewById(R.id.txtTotalPayableLabel);
+        txtTotalPayableLabel.setTypeface(Functions.getRegularFont(this));
+
         txtTotalPayableAmount = (TextView) findViewById(R.id.txtTotalPayableAmount);
         txtTotalPayableAmount.setTypeface(Functions.getRegularFont(this));
 
@@ -107,6 +111,11 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         btnContinuePayment = (Button) findViewById(R.id.btnContinuePayment);
         emptyLayout = (LinearLayout) findViewById(R.id.emptyLayout);
         scOfferDiscountItem = findViewById(R.id.scOfferDiscountItem);
+        linearBottom = (LinearLayout) findViewById(R.id.linearBottom);
+        linearBottom2 = (LinearLayout) findViewById(R.id.linearBottom2);
+
+        linearBottom.setVisibility(View.GONE);
+        linearBottom2.setVisibility(View.GONE);
 
         txtSCDiscountOfferLabel = (TextView) scOfferDiscountItem.findViewById(R.id.txtServiceName);
         txtSCDiscountOfferLabel.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
@@ -116,13 +125,15 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
         txtSCDiscountOfferAmount.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
         txtSCDiscountOfferAmount.setTypeface(Functions.getRegularFont(this));
 
+        ((TextView) findViewById(R.id.txtCenterTitle)).setTypeface(Functions.getRegularFont(this));
+
         presenter = new InvoicePresenterImpl(InvoiceActivity.this, this);
         presenter.getTransactionProcessDetails(bookingId);
 
         btnContinuePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.doPayment(totalDiscount, bookingId, offerId, paymentProcessResponse, serviceCentreId);
+                presenter.doPayment(totalDiscount, bookingId, offerId, paymentProcessResponse, serviceCentreId, selectedOffer);
 
             }
         });
@@ -160,6 +171,10 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
 
     private void setPaymentDetailsUI(final PaymentProcessResponse paymentProcessResponse) {
+
+        linearBottom.setVisibility(View.VISIBLE);
+        linearBottom2.setVisibility(View.VISIBLE);
+
         if (paymentProcessResponse.PaymentProcess.ResponseCode == 0) {
             serviceDetailsCardView.setVisibility(View.GONE);
             adminOffersRecyclerView.setVisibility(View.GONE);
@@ -187,7 +202,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
             }
 
             txtSCDiscountOfferLabel.setText("Service Center Offer Discount: ");
-            txtSCDiscountOfferAmount.setText(getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).SCOfferDiscount));
+            txtSCDiscountOfferAmount.setText(" - " + getString(R.string.ruppee) + " " + String.valueOf(paymentProcessResponse.PaymentProcess.Data.get(0).SCOfferDiscount));
 
             //inflate service details
             final List<PaymentJobCardDetailsModel> serviceJobsList = paymentProcessResponse.PaymentProcess.Data.get(0).lstJobCardDeatils;
@@ -248,6 +263,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
                                 }
                                 Log.e("avail selected offers", Functions.jsonString(filteredDiscounts));
                                 offerId = filteredDiscounts.get(0).AvailOfferID;
+                                selectedOffer = filteredDiscounts.get(0).DiscountAmount + " " + filteredDiscounts.get(0).DiscountType + " OFF on " + filteredDiscounts.get(0).Description;
 
                                 linearOfferDiscountsDetails.removeAllViews();
                                 for (int i = 0; i < filteredDiscounts.size(); i++) {

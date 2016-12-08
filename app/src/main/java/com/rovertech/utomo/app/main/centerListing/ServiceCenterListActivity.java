@@ -456,16 +456,21 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
         if (centerList.size() == 0) {
             emptyLayout.setVisibility(View.VISIBLE);
             contentLayout.setVisibility(View.GONE);
-            fab.setVisibility(View.GONE);
+//            fab.setVisibility(View.GONE);
 
         } else {
             emptyLayout.setVisibility(View.GONE);
             contentLayout.setVisibility(View.VISIBLE);
+            if (isMapShow) {
+                presenter.showMapView(mMap, centerList, this);
+            }
             adapter.setCentreList(centerList);
             fab.setVisibility(View.VISIBLE);
         }
 
         hideScroll();
+
+
     }
 
     @Override
@@ -531,6 +536,12 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
     @Override
     public void hideProgress() {
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void setDrag(boolean isDrag) {
+        centerList = new ArrayList<>();
+        centerList.clear();
     }
 
     @Override

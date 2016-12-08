@@ -7,10 +7,71 @@
 
     <include layout="@layout/app_bar" />
 
+    <Button
+        android:id="@+id/btnContinuePayment"
+        style="@style/MyButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:text="Continue To Payment" />
+
+    <LinearLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="8dp"
+            android:drawableTop="@drawable/oops"
+            android:gravity="center"
+            android:text="Oops! Something went wrong while processing payment transcript."
+            android:textColor="@color/white"
+            android:textSize="@dimen/N_TEXT" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearBottom2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearBottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtAvaildisc"
+            style="@style/TitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_5"
+            android:text="Avail Discounts From One of Our Offers!"
+            android:textColor="@color/white" />
+
+        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
+            android:id="@+id/adminOffersRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:scrollbars="vertical"
+            app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/toolbar"
         android:orientation="vertical">
 
@@ -39,7 +100,8 @@
                         style="@style/TitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Service Details" />
+                        android:text="Service Details"
+                        android:textSize="@dimen/L_TEXT" />
 
                     <include layout="@layout/item_line" />
 
@@ -61,7 +123,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total Amount: " />
+                            android:text="Total Amount (*):" />
 
                         <TextView
                             android:id="@+id/txtTotalAmount"
@@ -98,7 +160,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total Payable Amount (*):"
+                            android:text="Total Payable Amount:"
                             android:textColor="@color/purple"
                             android:textStyle="bold" />
 
@@ -132,62 +194,6 @@
             android:text="*Inclusive of all taxes"
             android:textColor="@color/button_bg"
             android:textSize="@dimen/S_TEXT" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnContinuePayment"
-        style="@style/MyButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:text="Continue To Payment" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnContinuePayment"
-        android:layout_below="@id/linearBottom"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtAvaildisc"
-            style="@style/TitleTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/margin_5"
-            android:text="Avail Discounts From One of Our Offers!"
-            android:textColor="@color/white" />
-
-        <com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView
-            android:id="@+id/adminOffersRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:scrollbars="vertical"
-            app:frv_isEmptyViewKeepShowHeadOrFooter="true" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/emptyLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/txtNoData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="8dp"
-            android:drawableTop="@drawable/oops"
-            android:gravity="center"
-            android:text="Oops! Something went wrong while processing payment transcript."
-            android:textColor="@color/white"
-            android:textSize="@dimen/N_TEXT" />
 
     </LinearLayout>
 

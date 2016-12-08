@@ -22,7 +22,7 @@ import java.util.List;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
-    private TextView txtCustomTitle;
+    private TextView txtCustomTitle, txtOfferLabel;
     private String jsonString;
     private PaymentApiResponse apiResponse;
     private LinearLayout linearServiceDetails, linearDiscount;
@@ -32,6 +32,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private Button btnHome;
     private View scOfferDiscountItem;
     private double SCOfferDiscount;
+    private String selectedOffer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private void getIntentData() {
         jsonString = getIntent().getStringExtra("payment");
+        selectedOffer = getIntent().getStringExtra("selectedOffer");
         apiResponse = new Gson().fromJson(jsonString, PaymentApiResponse.class);
 
         SCOfferDiscount = getIntent().getDoubleExtra("SCOfferDiscount", 0.0);
@@ -81,11 +83,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
         txtCenterTitle = (TextView) findViewById(R.id.txtCenterTitle);
         txtDiscountLabel = (TextView) findViewById(R.id.txtDiscountLabel);
         txtDiscountAmount = (TextView) findViewById(R.id.txtDiscountAmount);
+        txtOfferLabel = (TextView) findViewById(R.id.txtOfferLabel);
 
         txtSCDiscountOfferLabel = (TextView) findViewById(R.id.txtServiceName);
         txtSCDiscountOfferAmount = (TextView) findViewById(R.id.txtServiceAmount);
         scOfferDiscountItem = findViewById(R.id.scOfferDiscountItem);
 
+        txtOfferLabel.setTypeface(Functions.getRegularFont(this));
         btnHome.setTypeface(Functions.getRegularFont(this));
         txtCustomTitle.setTypeface(Functions.getRegularFont(this));
         txtTotalLabel.setTypeface(Functions.getRegularFont(this));
@@ -110,10 +114,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private void setProductDetails() {
+
+        txtOfferLabel.setText(String.format("(%s)", selectedOffer));
+
         final List<PaymentJobCardDetailsModel> serviceJobsList = apiResponse.Payment.Data.get(0).lstJobCardDeatils;
 
         txtTotalAmount.setText(getString(R.string.ruppee) + " " + apiResponse.Payment.Data.get(0).TotalAmount + "");
         txtTotalPayableAmount.setText(getString(R.string.ruppee) + " " + apiResponse.Payment.Data.get(0).PayableAmount + "");
+
 
         if (apiResponse.Payment.Data.get(0).AdminOfferDiscount == 0.0) {
             linearDiscount.setVisibility(View.GONE);
@@ -122,7 +130,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             linearDiscount.setVisibility(View.VISIBLE);
             linear_line.setVisibility(View.VISIBLE);
 
-            txtDiscountAmount.setText(getString(R.string.ruppee) + " " + apiResponse.Payment.Data.get(0).AdminOfferDiscount + "");
+            txtDiscountAmount.setText(" - " + getString(R.string.ruppee) + " " + apiResponse.Payment.Data.get(0).AdminOfferDiscount + "");
         }
 
         if (SCOfferDiscount == 0.0) {
@@ -130,7 +138,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         } else {
             scOfferDiscountItem.setVisibility(View.VISIBLE);
             txtSCDiscountOfferLabel.setText("Service Center Offer Discount: ");
-            txtSCDiscountOfferAmount.setText(getString(R.string.ruppee) + " " + SCOfferDiscount);
+            txtSCDiscountOfferAmount.setText(" - " + getString(R.string.ruppee) + " " + SCOfferDiscount);
             txtSCDiscountOfferAmount.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
             txtSCDiscountOfferLabel.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
             txtSCDiscountOfferAmount.setTypeface(Functions.getRegularFont(this));

@@ -67,7 +67,7 @@ public class InvoicePresenterImpl implements InvoicePresenter {
     }
 
     @Override
-    public void doPayment(long totalDiscount, int bookingId, long offerId, PaymentProcessResponse paymentProcessResponse, int serviceCentreId) {
+    public void doPayment(long totalDiscount, int bookingId, long offerId, PaymentProcessResponse paymentProcessResponse, int serviceCentreId, final String selectedOffer) {
 
         if (view != null) {
             view.showProgress();
@@ -101,6 +101,7 @@ public class InvoicePresenterImpl implements InvoicePresenter {
                         Intent paymentIntent = new Intent(mContext, OrderDetailsActivity.class);
                         paymentIntent.putExtra("payment", new Gson().toJson(paymentApiResponse));
                         paymentIntent.putExtra("SCOfferDiscount", apiRequest.SCOfferDiscount);
+                        paymentIntent.putExtra("selectedOffer", selectedOffer);
                         mContext.startActivity(paymentIntent);
 
                     } else {

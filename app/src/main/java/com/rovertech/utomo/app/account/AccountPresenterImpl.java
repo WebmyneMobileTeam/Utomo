@@ -358,6 +358,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                             PrefUtils.setUserFullProfileDetails(activity, loginOutput.BasicLoginSignUp.Data.get(0));
                             PrefUtils.setLoggedIn(activity, true);
+                            PrefUtils.setMobileNo(activity, loginRequest.Mobile);
                             loginSuccess();
 
                         } else if (loginOutput.BasicLoginSignUp.ResponseCode == -3) {
@@ -445,7 +446,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
     }
 
-    private void verifyOTPRevised(String otp, String mobile, final String string, final ManiBasicLoginSignUp loginOutput) {
+    private void verifyOTPRevised(String otp, final String mobile, final String string, final ManiBasicLoginSignUp loginOutput) {
 
         OtpVerifyService service = UtomoApplication.retrofit.create(OtpVerifyService.class);
         Call<ManiBasicLoginSignUp> call = service.verifyOTP(mobile, otp);
@@ -483,7 +484,7 @@ public class AccountPresenterImpl implements AccountPresenter {
 
                                     signUpSuccess();
                                 }
-
+                                PrefUtils.setMobileNo(activity, mobile);
                             }
                         }.start();
 

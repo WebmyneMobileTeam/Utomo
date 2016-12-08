@@ -13,6 +13,7 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +46,8 @@ import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class LoginActivity extends AppCompatActivity implements AccountView, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -52,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
     private View parentView;
     private AccountPresenter presenter;
     private Button btnLogin;
-    private MaterialEditText edtMobileNumber;
+    private MaterialAutoCompleteTextView edtMobileNumber;
     private MaterialEditText edtPassword;
     private ProgressDialog progressDialog;
 
@@ -75,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         init();
 
         presenter = new AccountPresenterImpl(this, LoginActivity.this);
+
     }
 
     @Override
@@ -157,7 +161,15 @@ public class LoginActivity extends AppCompatActivity implements AccountView, Vie
         ImageView imgGoogle = (ImageView) findViewById(R.id.imgGoogle);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setText("Login");
-        edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
+
+        edtMobileNumber = (MaterialAutoCompleteTextView) findViewById(R.id.edtMobileNumber);
+
+        Set<String> saveNumbers = PrefUtils.getMobileNo(this);
+        ArrayAdapter adapter = new ArrayAdapter(LoginActivity.this, android.R.layout.simple_list_item_1, new ArrayList<String>(saveNumbers));
+
+        edtMobileNumber.setAdapter(adapter);
+        edtMobileNumber.setThreshold(1);
+
         edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);
 
         edtEmail.setVisibility(View.GONE);
