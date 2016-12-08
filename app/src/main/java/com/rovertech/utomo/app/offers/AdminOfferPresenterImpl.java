@@ -27,8 +27,8 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
     private OfferView mAdminOfferView;
     private ArrayList<OfferPojo> itemList = new ArrayList<>();
 
-    public AdminOfferPresenterImpl(Context c,OfferView notificationView) {
-        this.c=c;
+    public AdminOfferPresenterImpl(Context c, OfferView notificationView) {
+        this.c = c;
         this.mAdminOfferView = notificationView;
 
     }
@@ -57,11 +57,14 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
             public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
                 if (response.body().FetchAdminOffer.ResponseCode == 1) {
 
-                    for (int i = 0; i < response.body().FetchAdminOffer.Data.size(); i++) {
-                        itemList = response.body().FetchAdminOffer.Data.get(i).getAllOffersList();
-                        mAdminOfferView.HideProgressDialog();
-                        mAdminOfferView.setUpRecyclerView(setAdminOfferdpter(true));
+                    if (response.body().FetchAdminOffer.Data.size() > 0) {
+                        for (int i = 0; i < response.body().FetchAdminOffer.Data.size(); i++) {
+                            itemList = response.body().FetchAdminOffer.Data.get(i).getAllOffersList();
+                            mAdminOfferView.HideProgressDialog();
+                            mAdminOfferView.setUpRecyclerView(setAdminOfferdpter(true));
+                        }
                     }
+
                 }
             }
 
@@ -76,15 +79,15 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
 
     @Override
     public void callSCoffferApi(int serviceCenterId) {
-        try{
+        try {
             SCOfferRequestAPI api = UtomoApplication.retrofit.create(SCOfferRequestAPI.class);
-        Call<SCOfferResp> call = api.SCOfferApi(serviceCenterId);
+            Call<SCOfferResp> call = api.SCOfferApi(serviceCenterId);
 
-        call.enqueue(new Callback<SCOfferResp>() {
-            @Override
-            public void onResponse(Call<SCOfferResp> call, Response<SCOfferResp> response) {
+            call.enqueue(new Callback<SCOfferResp>() {
+                @Override
+                public void onResponse(Call<SCOfferResp> call, Response<SCOfferResp> response) {
 
-                Log.d("Resp", response.body().toString());
+                    Log.d("Resp", response.body().toString());
                     if (response.body().FetchServiceCentreOffer.ResponseCode == 1) {
 
                         for (int i = 0; i < response.body().FetchServiceCentreOffer.Data.size(); i++) {
@@ -96,20 +99,19 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
                 }
 
                 @Override
-                public void onFailure (Call < SCOfferResp > call, Throwable t){
+                public void onFailure(Call<SCOfferResp> call, Throwable t) {
                     RetrofitErrorHelper.showErrorMsg(t, c);
                 }
 
-        });}
-        catch (Exception e)
-        {
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public AdminOfferAdapter setAdminOfferdpter(boolean adminflag) {
-        AdminOfferAdapter adminOfferAdapter = new AdminOfferAdapter(c, itemList,adminflag);
+        AdminOfferAdapter adminOfferAdapter = new AdminOfferAdapter(c, itemList, adminflag);
         return adminOfferAdapter;
     }
 
