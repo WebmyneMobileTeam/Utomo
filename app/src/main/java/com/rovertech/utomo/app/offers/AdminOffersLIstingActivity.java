@@ -85,7 +85,7 @@ public class AdminOffersLIstingActivity extends AppCompatActivity implements Off
         OfferFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
         //Log.d("Itemlist", "Size= " + itemList.size() + "|| " + itemList.toString());
         OfferFamiliarRecyclerView.setAdapter(adminOfferAdapter);
-        OfferFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
+        //OfferFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
     }
 
 
