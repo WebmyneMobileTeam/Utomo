@@ -27,15 +27,21 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     private static final String AdminOfferAdapter = "AdminOfferAdapter.check";
 
-    private static Context c;
-    private final boolean adminFlag;
+    private static Context context;
+    private static boolean adminFlag;
     private NotificationViewHolder holder = null;
-    private static ArrayList<OfferPojo> itemList;
+    private ArrayList<OfferPojo> itemList;
 
     public AdminOfferAdapter(Context c, ArrayList<OfferPojo> itemList, boolean adminFlag) {
         this.itemList = itemList;
-        this.c = c;
+        this.context = c;
         this.adminFlag = adminFlag;
+    }
+
+    public void setOfferList(ArrayList<OfferPojo> itemList) {
+        this.itemList = new ArrayList<>();
+        this.itemList = itemList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,74 +65,9 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
 
     @Override
     public void onBindViewHolder(NotificationViewHolder holder, final int position) {
-
-        holder.txtOfferTitle.setText("Offer Name : " + itemList.get(position).OfferName);
-        holder.txtOfferTitleCode.setText(itemList.get(position).OfferCode);
-
-        if (itemList.get(position).OfferType != null) {
-            if (itemList.get(position).OfferType.equals("Running")) {
-                holder.txtOfferTitle1.setText("Active Offer");
-            } else if (itemList.get(position).OfferType.equals("UpComming")) {
-                holder.img.setColorFilter(c.getResources().getColor(R.color.button_bg), PorterDuff.Mode.SRC_ATOP);
-                holder.txtOfferTitle1.setText("UpComming Offer");
-            }
-        }
-        final ArrayList<OfferCategory> category = itemList.get(position).lstAvailOffersCategory;
-        float sum = 0;
-        if (category.size() > 0)
-            for (int i = 0; i < category.size(); i++) {
-                if (adminFlag) {
-                    sum = sum + category.get(i).AdminOfferValue;
-                    holder.txtOfferBy.setVisibility(View.VISIBLE);
-                    // Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>");
-                    holder.txtOfferBy.setText(Html.fromHtml("Offer from " + "<u>" + itemList.get(position).OfferBy + "</u>"));
-                } else {
-                    int amt = 0;
-                    //  if (category.get(i).AdminOfferValue > 0) {
-                    amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
-                    //  }
-                    sum = sum + amt;
-                    holder.txtOfferBy.setVisibility(View.GONE);
-                }
-            }
-        holder.txtOfferDiscount.setText("UPTO " + Math.round(sum) + " " + category.get(0).AmountType + " OFF ");
-
-
-        /*if(adminFlag) {
-            holder.txtOfferDiscount.setText("UPTO ₹ " + Math.round(sum) + " OFF ");
-        }
-        else
-        {
-            holder.txtOfferDiscount.setText("UPTO " + Math.round(sum) + " % OFF ");
-        }*/
-        holder.txtOfferValidTo.setText("Valid From " + itemList.get(position).ValidFrom + " To " + itemList.get(position).ValidTo);
-        holder.imgInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final AdminOfferInfoDialog dialog = new AdminOfferInfoDialog(c, category, adminFlag, itemList.get(position).OfferName, itemList.get(position).Description);
-                dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
-                    @Override
-                    public void onSubmit(OfferCategory offerCategory) {
-                        dialog.dismiss();
-                    }
-
-                });
-                dialog.show();
-
-            }
-        });
-        setTypeFace();
-
-    }
-
-    private void setTypeFace() {
-        holder.txtOfferTitle1.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferTitleCode.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
-        holder.txtOfferTitle.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferValidTo.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferBy.setTypeface(Functions.getRegularFont(c));
-        holder.txtOfferDiscount.setTypeface(Functions.getBoldFont(c), Typeface.BOLD);
+        OfferPojo offerPojo = itemList.get(position);
+//        Log.e("position " + position, Functions.jsonString(offerPojo));
+        holder.setOfferDetails(offerPojo);
     }
 
     @Override
@@ -134,12 +75,12 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
         return itemList.size();
     }
 
-    public static class NotificationViewHolder extends RecyclerView.ViewHolder {
+    public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtOfferTitle, txtOfferTitleCode, txtOfferTitle1, txtOfferValidTo, txtOfferDiscount, txtOfferBy;
         private ImageView img, imgInfo;
 
-        public NotificationViewHolder(View itemView) {
+        private NotificationViewHolder(View itemView) {
             super(itemView);
             txtOfferTitle1 = (TextView) itemView.findViewById(R.id.txtOfferTitle1);
             txtOfferTitleCode = (TextView) itemView.findViewById(R.id.txtOfferTitleCode);
@@ -150,8 +91,81 @@ public class AdminOfferAdapter extends RecyclerView.Adapter<AdminOfferAdapter.No
             imgInfo = (ImageView) itemView.findViewById(R.id.imgInfo);
             txtOfferBy = (TextView) itemView.findViewById(R.id.txtOfferBy);
 
+            setTypeFace();
+
         }
 
+        private void setTypeFace() {
+            txtOfferTitle1.setTypeface(Functions.getRegularFont(context));
+            txtOfferTitleCode.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+            txtOfferTitle.setTypeface(Functions.getRegularFont(context));
+            txtOfferValidTo.setTypeface(Functions.getRegularFont(context));
+            txtOfferBy.setTypeface(Functions.getRegularFont(context));
+            txtOfferDiscount.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
+        }
+
+        private void setOfferDetails(final OfferPojo offerPojo) {
+
+            final ArrayList<OfferCategory> category = new ArrayList<>();
+            float sum = 0;
+
+            txtOfferTitle.setText("Offer Name : " + offerPojo.OfferName);
+            txtOfferTitleCode.setText(offerPojo.OfferCode);
+
+            if (offerPojo.OfferType != null) {
+                if (offerPojo.OfferType.equals("Running")) {
+                    txtOfferTitle1.setText("Active Offer");
+                } else if (offerPojo.OfferType.equals("UpComming")) {
+                    img.setColorFilter(context.getResources().getColor(R.color.button_bg), PorterDuff.Mode.SRC_ATOP);
+                    txtOfferTitle1.setText("UpComming Offer");
+                }
+            }
+
+            if (offerPojo.lstAvailOffersCategory.size() > 0) {
+                category.addAll(offerPojo.lstAvailOffersCategory);
+
+                if (category.size() > 0) {
+                    for (int i = 0; i < category.size(); i++) {
+                        if (adminFlag) {
+                            sum = sum + category.get(i).AdminOfferValue;
+                            txtOfferBy.setVisibility(View.VISIBLE);
+                            // Html.fromHtml("Offer from "+"<u>"+itemList.get(position).OfferBy+"</u>");
+                        } else {
+                            int amt = 0;
+                            //  if (category.get(i).AdminOfferValue > 0) {
+                            amt = category.get(i).AdminOfferValue + category.get(i).SCOfferValue;
+                            //  }
+                            sum = sum + amt;
+                            txtOfferBy.setVisibility(View.GONE);
+                        }
+                    }
+                }
+
+                txtOfferDiscount.setText("UPTO " + Math.round(sum) + " " + category.get(0).AmountType + " OFF ");
+
+                imgInfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final AdminOfferInfoDialog dialog = new AdminOfferInfoDialog(context, category, adminFlag, offerPojo.OfferName, offerPojo.Description);
+                        dialog.setOnSubmitListener(new AdminOfferInfoDialog.onSubmitListener() {
+                            @Override
+                            public void onSubmit(OfferCategory offerCategory) {
+                                dialog.dismiss();
+                            }
+
+                        });
+                        dialog.show();
+                    }
+                });
+
+            }
+
+            txtOfferValidTo.setText("Valid From " + offerPojo.ValidFrom + " To " + offerPojo.ValidTo);
+
+            txtOfferBy.setText(Html.fromHtml("Offer from " + "<u>" + offerPojo.OfferBy + "</u>"));
+
+        }
     }
 
 }

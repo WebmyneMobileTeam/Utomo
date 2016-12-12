@@ -116,6 +116,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
         linearBottom.setVisibility(View.GONE);
         linearBottom2.setVisibility(View.GONE);
+        btnContinuePayment.setVisibility(View.GONE);
 
         txtSCDiscountOfferLabel = (TextView) scOfferDiscountItem.findViewById(R.id.txtServiceName);
         txtSCDiscountOfferLabel.setTextColor(ContextCompat.getColor(this, R.color.button_bg));
@@ -174,6 +175,7 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
         linearBottom.setVisibility(View.VISIBLE);
         linearBottom2.setVisibility(View.VISIBLE);
+        btnContinuePayment.setVisibility(View.VISIBLE);
 
         if (paymentProcessResponse.PaymentProcess.ResponseCode == 0) {
             serviceDetailsCardView.setVisibility(View.GONE);
@@ -229,7 +231,8 @@ public class InvoiceActivity extends AppCompatActivity implements InvoiceView {
 
                 // show available offers
                 final List<PaymentOfferDiscountList> discountOffersList = paymentProcessResponse.PaymentProcess.Data.get(0).lstOfferDiscount;
-                Log.e("discountOffersList", discountOffersList.size() + "-#");
+                Log.e("size", discountOffersList.size() + "-#");
+                Log.e("discountOffersList", Functions.jsonString(discountOffersList));
 
                 if (!discountOffersList.isEmpty()) {
                     for (int i = 0; i < discountOffersList.size(); i++) {

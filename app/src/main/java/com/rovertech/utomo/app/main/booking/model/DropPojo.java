@@ -14,4 +14,11 @@ public class DropPojo implements Serializable{
     public String DropCity;
 
     public String DropZipCode;
+
+    public DropPojo() {
+        DropAddress = "";
+        DropArea = "";
+        DropCity = "";
+        DropZipCode = "";
+    }
 }

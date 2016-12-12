@@ -22,8 +22,11 @@ import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.bookings.GetLocationAPI;
 import com.rovertech.utomo.app.bookings.model.BookingRequest;
 import com.rovertech.utomo.app.bookings.model.LocationResponse;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
+import com.rovertech.utomo.app.main.booking.model.DropPojo;
+import com.rovertech.utomo.app.main.booking.model.PickupPojo;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +35,7 @@ import retrofit2.Response;
 /**
  * Created by sagartahelyani on 17-03-2016.
  */
-public class AddressDialog extends BaseDialog implements View.OnClickListener {
+public class AddressDialogRevised extends BaseDialog implements View.OnClickListener {
 
     View parentView;
     Context context;
@@ -49,20 +52,25 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
     private boolean isSameAddress;
 
-    public void setOnSubmitListener(AddressDialog.onSubmitListener onSubmitListener) {
+    private DropPojo dropPojo;
+    private PickupPojo pickupPojo;
+
+    private DropPojo finalDropOffPojo;
+    private PickupPojo finalPickupPojo;
+
+    public void setOnSubmitListener(AddressDialogRevised.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
 
-    public AddressDialog(Context context) {
-        super(context);
-        this.context = context;
-    }
-
-    public AddressDialog(Context context, int addressType, boolean isSameAddress) {
+    public AddressDialogRevised(Context context, int addressType, boolean isSameAddress, PickupPojo pickupPojo, DropPojo dropPojo) {
         super(context);
         this.context = context;
         this.addressType = addressType;
         this.isSameAddress = isSameAddress;
+        this.dropPojo = dropPojo;
+        this.finalDropOffPojo = dropPojo;
+        this.pickupPojo = pickupPojo;
+        this.finalPickupPojo = pickupPojo;
         isSame = isSameAddress;
     }
 
@@ -94,13 +102,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         checkSame.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isSame = isChecked;
-                if (isSame) {
-                    setAddressDetails(bookingRequest, true);
-                } else {
-                    setAddressDetails(bookingRequest, false);
-                }
-
+                isSameAddress = isChecked;
             }
         });
 
@@ -114,7 +116,6 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 if (charSequence.toString().length() == 6) {
-                    // call api
                     Functions.hideKeyPad(context, edtZipCode);
 
                     final ProgressDialog progressDialog = ProgressDialog.show(context, "Loading", "Please wait..", false, false);
@@ -146,12 +147,10 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
                             RetrofitErrorHelper.showErrorMsg(t, context);
                         }
                     });
-
                 } else {
                     edtArea.setText("");
                     edtCity.setText("");
                 }
-
             }
 
             @Override
@@ -159,6 +158,8 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
             }
         });
+
+        setAddressDetails();
 
         return parentView;
     }
@@ -176,12 +177,13 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
     @Override
     public void setUiBeforShow() {
 
-        if (addressType == 1) {
+        if (addressType == AppConstant.TYPE_PICK_UP) {
             txtTitle.setText("Pick-up Address");
-            checkSame.setVisibility(View.VISIBLE);
+            checkSame.setText("Is your Drop-off Address same as above?");
+
         } else {
             txtTitle.setText("Drop-off Address");
-            checkSame.setVisibility(View.GONE);
+            checkSame.setText("Is your Pick-up Address same as above?");
         }
 
         setCancelable(false);
@@ -202,36 +204,22 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.btnOk:
-                switch (addressType) {
+                sendAddress();
+               /* switch (addressType) {
                     case 1:
-                        selectPickAddress();
+                        sendAddress();
                         break;
 
                     case 2:
                         selectDropOffAddress();
                         break;
-                }
+                }*/
                 break;
 
             case R.id.imgClose:
                 dismiss();
                 break;
 
-        }
-    }
-
-    private void selectDropOffAddress() {
-        if (!isSame) {
-            validCheckAddress();
-        } else {
-            if (onSubmitListener != null) {
-                onSubmitListener.onSubmit(
-                        Functions.toStr(edtAddress)
-                        , Functions.toStr(edtArea)
-                        , Functions.toStr(edtCity)
-                        , Functions.toStr(edtZipCode), false);
-            }
-            dismiss();
         }
     }
 
@@ -245,28 +233,73 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
         } else if (TextUtils.isEmpty(Functions.toStr(edtZipCode)) || Functions.toStr(edtZipCode).length() < 6) {
             edtZipCode.setError("Enter ZipCode");
         } else {
+            setAddressPojo();
             Functions.hideKeyPad(context, btnOk);
             if (onSubmitListener != null) {
                 onSubmitListener.onSubmit(
-                        Functions.toStr(edtAddress)
-                        , Functions.toStr(edtArea)
-                        , Functions.toStr(edtCity)
-                        , Functions.toStr(edtZipCode), isSame);
+                        addressType,
+                        finalPickupPojo,
+                        finalDropOffPojo,
+                        isSame);
             }
             dismiss();
         }
     }
 
-    private void selectPickAddress() {
+    private void setAddressPojo() {
+        if (addressType == AppConstant.TYPE_PICK_UP) {
+            finalPickupPojo = new PickupPojo();
+            finalPickupPojo.PickArea = Functions.toStr(edtArea);
+            finalPickupPojo.PickAddress = Functions.toStr(edtAddress);
+            finalPickupPojo.PickCity = Functions.toStr(edtCity);
+            finalPickupPojo.PickZipCode = Functions.toStr(edtZipCode);
+        } else {
+            finalDropOffPojo = new DropPojo();
+            finalDropOffPojo.DropAddress = Functions.toStr(edtAddress);
+            finalDropOffPojo.DropArea = Functions.toStr(edtArea);
+            finalDropOffPojo.DropCity = Functions.toStr(edtCity);
+            finalDropOffPojo.DropZipCode = Functions.toStr(edtZipCode);
+        }
+
+        if(isSameAddress){
+            finalPickupPojo = new PickupPojo();
+            finalPickupPojo.PickArea = Functions.toStr(edtArea);
+            finalPickupPojo.PickAddress = Functions.toStr(edtAddress);
+            finalPickupPojo.PickCity = Functions.toStr(edtCity);
+            finalPickupPojo.PickZipCode = Functions.toStr(edtZipCode);
+
+            finalDropOffPojo = new DropPojo();
+            finalDropOffPojo.DropAddress = Functions.toStr(edtAddress);
+            finalDropOffPojo.DropArea = Functions.toStr(edtArea);
+            finalDropOffPojo.DropCity = Functions.toStr(edtCity);
+            finalDropOffPojo.DropZipCode = Functions.toStr(edtZipCode);
+        }
+    }
+
+    private void sendAddress() {
+
         validCheckAddress();
     }
 
     public interface onSubmitListener {
-        void onSubmit(String address, String area, String city, String zipCode, boolean isSame);
+        void onSubmit(int addressType, PickupPojo finalPickup, DropPojo finalDropOff, boolean isSame);
     }
 
-    public void setAddressDetails(BookingRequest bookingRequest, boolean isPickUpAddress) {
-        this.bookingRequest = bookingRequest;
+    private void setAddressDetails() {
+        if (addressType == AppConstant.TYPE_PICK_UP) {
+            edtAddress.setText(pickupPojo.PickAddress);
+            edtArea.setText(pickupPojo.PickArea);
+            edtCity.setText(pickupPojo.PickCity);
+            edtZipCode.setText(pickupPojo.PickZipCode);
+
+        } else {
+            edtAddress.setText(dropPojo.DropAddress);
+            edtArea.setText(dropPojo.DropArea);
+            edtCity.setText(dropPojo.DropCity);
+            edtZipCode.setText(dropPojo.DropZipCode);
+        }
+
+        /*this.bookingRequest = bookingRequest;
         if (isPickUpAddress) {
 
             if (!TextUtils.isEmpty(bookingRequest.PickZipCode)) {
@@ -282,9 +315,7 @@ public class AddressDialog extends BaseDialog implements View.OnClickListener {
                 edtCity.setText(bookingRequest.DropCity);
                 edtZipCode.setText(bookingRequest.DropZipCode);
             }
-        }
-
-
+        }*/
     }
 
 }

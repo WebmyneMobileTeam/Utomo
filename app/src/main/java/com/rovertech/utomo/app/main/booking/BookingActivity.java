@@ -39,6 +39,7 @@ import com.rovertech.utomo.app.main.centreDetail.model.FetchServiceCentreDetailP
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 import com.rovertech.utomo.app.profile.carlist.CarPojo;
 import com.rovertech.utomo.app.widget.dialog.AddressDialog;
+import com.rovertech.utomo.app.widget.dialog.AddressDialogRevised;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,10 +61,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     // Service Centre Section
     private TextView txtTitle;
-    //private ImageView imgCenter;
 
     // User Section
-    //private ImageView imgCar;
     private TextView txtUsername, txtCarName, txtCarNo;
 
     // Schedule Section
@@ -74,10 +73,12 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
     private TextView txtDropoffAddress, txtPickupAddress, txtAddress, txtSelectCar,
             txtPickupTitle, txtDropoffTitle;
 
+    private DropPojo dropPojo;
+    private PickupPojo pickupPojo;
+
     // Promo Section
     private CardView promoCardView, edtPromoCard;
     private RadioGroup radioGroup;
-    // private RadioButton radioDefault, radioPromo;
 
     private int ADDRESS_PICK_UP = 1;
     private int ADDRESS_DROP_OFF = 2;
@@ -96,7 +97,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     private View pickupLayout;
 
-    private boolean isAddressSame = false;
+    private boolean isDropOffSame = false, isPickupSame = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,13 +136,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                         .setCancelable(false)
                         .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // do your stuff
                                 dialog.dismiss();
-
-                                //// TODO: 11-05-2016
                                 gotoDashboard();
-
-
                             }
                         })
                         .setPositiveButton("No", new DialogInterface.OnClickListener() {
@@ -181,9 +177,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         txtAddress = (TextView) findViewById(R.id.txtAddress);
-        //imgCenter = (ImageView) findViewById(R.id.imgCenter);
 
-        // imgCar = (ImageView) findViewById(R.id.imgCar);
         txtUsername = (TextView) findViewById(R.id.txtUsername);
         txtCarName = (TextView) findViewById(R.id.txtCarName);
         txtCarNo = (TextView) findViewById(R.id.txtCarNo);
@@ -193,12 +187,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         checkService = (CheckBox) findViewById(R.id.checkService);
         checkBodyWash = (CheckBox) findViewById(R.id.checkBodyWash);
 
-
-        //checkIsPickUp = (CheckBox) findViewById(R.id.checkIsPickUp);
-        //checkIsDrop = (CheckBox) findViewById(R.id.checkIsDrop);
         txtPickupAddress = (TextView) findViewById(R.id.txtPickupAddress);
         txtDropoffAddress = (TextView) findViewById(R.id.txtDropoffAddress);
-
 
         btnPickUpAddressRemove = (TextView) findViewById(R.id.btnPickUpAddressRemove);
 
@@ -207,15 +197,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         promoCardView = (CardView) findViewById(R.id.promoCardView);
         edtPromoCard = (CardView) findViewById(R.id.edtPromoCard);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        // radioDefault = (RadioButton) findViewById(R.id.radioDefault);
-        // radioPromo = (RadioButton) findViewById(R.id.radioPromo);
-        //txtApply = (TextView) findViewById(R.id.txtApply);
         txtPickupTitle = (TextView) findViewById(R.id.txtPickupTitle);
         txtDropoffTitle = (TextView) findViewById(R.id.txtDropoffTitle);
 
         txtDate.setOnClickListener(this);
         txtTime.setOnClickListener(this);
-        //txtApply.setOnClickListener(this);
         btnBook.setOnClickListener(this);
         txtSelectCar.setOnClickListener(this);
 
@@ -225,12 +211,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         btnPickUpAddressRemove.setOnClickListener(this);
 
         btnDropAddressRemove.setOnClickListener(this);
-
-        /*checkIsPickUp.setOnCheckedChangeListener(this);
-        checkIsDrop.setOnCheckedChangeListener(this);*/
-
-        // radioDefault.setOnClickListener(this);
-        // radioPromo.setOnClickListener(this);
 
         setTypeface();
 
@@ -311,7 +291,6 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             if (userProfileOutput != null) {
                 txtUsername.setText(String.format("%s", userProfileOutput.Name));
-                // txtUsername.setVisibility(View.VISIBLE);
             }
 
             if (carPojo != null) {
@@ -336,37 +315,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
         txtTime.setText("Select Time");
         time = "";
-
-        /*if (time != null) {
-            SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
-            String eDate = date + " " + time;
-            Date CurrentDate = new Date();
-            Date eDDte;
-            try {
-                eDDte = df2.parse(eDate);
-                if (eDDte.compareTo(CurrentDate) <= 0) {
-                    //Log.d("Date is",eDate + " < "+CurrentDate.toString()  );
-                    txtDate.setText("Select Date");
-                    Functions.showErrorAlert(BookingActivity.this, "Select valid Date And Time", AppConstant.INVALID_TIME);
-                } else {
-                    //Log.d("Date is",eDate + " >  "+CurrentDate.toString());
-                    //txtTime.setText(strTime);
-                    txtDate.setText(convertedDate);
-                }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        } else {
-            txtDate.setText(convertedDate);
-        }*/
     }
 
     @Override
     public void setTime(String strTime) {
         time = strTime;
-        ///// check //////
-        //Log.d("Date is",date + " || "+time);
 
         if (date != null) {
             SimpleDateFormat df2 = new SimpleDateFormat("dd MMMM, yyyy hh:mm aa");
@@ -377,11 +330,9 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 eDDte = df2.parse(eDate);
 
                 if (eDDte.compareTo(CurrentDate) <= 0) {
-                    //Log.d("Date is",eDate + " < "+CurrentDate.toString()  );
                     txtTime.setText("Select Time");
                     Functions.showErrorAlert(BookingActivity.this, "Select valid Date And Time", AppConstant.INVALID_TIME);
                 } else {
-                    //Log.d("Date is",eDate + " >  "+CurrentDate.toString());
                     txtTime.setText(strTime);
                 }
 
@@ -455,32 +406,35 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
     @Override
     public void setAddress(ArrayList<AddressItem> data) {
-        DropPojo dropAddress = data.get(0).DropDetails.get(0);
-        if (dropAddress != null) {
-            bookingRequest.DropAddress = dropAddress.DropAddress;
-            bookingRequest.DropCity = dropAddress.DropCity;
-            bookingRequest.DropArea = dropAddress.DropArea;
-            bookingRequest.DropZipCode = dropAddress.DropZipCode;
+        dropPojo = data.get(0).DropDetails.get(0);
+        if (dropPojo != null) {
+            // bookingRequest.DropAddress = dropPojo.DropAddress;
+            // bookingRequest.DropCity = dropPojo.DropCity;
+            // bookingRequest.DropArea = dropPojo.DropArea;
+            // bookingRequest.DropZipCode = dropPojo.DropZipCode;
 
             txtDropoffAddress.setVisibility(View.VISIBLE);
-            String addressString = String.format("%s, %s, %s, %s", dropAddress.DropAddress, dropAddress.DropArea, dropAddress.DropCity, dropAddress.DropZipCode);
+            String addressString = String.format("%s, %s, %s, %s", dropPojo.DropAddress, dropPojo.DropArea, dropPojo.DropCity, dropPojo.DropZipCode);
             txtDropoffAddress.setText(addressString);
             btnDropAddressAdd.setText(getString(R.string.item_booking_edit));
-
+        } else {
+            dropPojo = new DropPojo();
         }
 
-        PickupPojo pickupAddress = data.get(0).PickUpDetails.get(0);
+        pickupPojo = data.get(0).PickUpDetails.get(0);
 
-        if (pickupAddress != null) {
-            bookingRequest.PickAddress = pickupAddress.PickAddress;
-            bookingRequest.PickArea = pickupAddress.PickArea;
-            bookingRequest.PickCity = pickupAddress.PickCity;
-            bookingRequest.PickZipCode = pickupAddress.PickZipCode;
+        if (pickupPojo != null) {
+            // bookingRequest.PickAddress = pickupPojo.PickAddress;
+            // bookingRequest.PickArea = pickupPojo.PickArea;
+            // bookingRequest.PickCity = pickupPojo.PickCity;
+            // bookingRequest.PickZipCode = pickupPojo.PickZipCode;
 
             txtPickupAddress.setVisibility(View.VISIBLE);
-            String addressString = String.format("%s, %s, %s, %s", pickupAddress.PickAddress, pickupAddress.PickArea, pickupAddress.PickCity, pickupAddress.PickZipCode);
+            String addressString = String.format("%s, %s, %s, %s", pickupPojo.PickAddress, pickupPojo.PickArea, pickupPojo.PickCity, pickupPojo.PickZipCode);
             txtPickupAddress.setText(addressString);
             btnPickUpAddressAdd.setText(getString(R.string.item_booking_edit));
+        } else {
+            pickupPojo = new PickupPojo();
         }
     }
 
@@ -499,11 +453,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 break;
 
             case R.id.btnPickUpAddressAdd:
-                pickAddressSet(isAddressSame);
+                openAddressDialog(AppConstant.TYPE_PICK_UP, isDropOffSame, pickupPojo, dropPojo);
                 break;
 
             case R.id.btnDropUpAddressAdd:
-                dropAddressSet();
+                openAddressDialog(AppConstant.TYPE_DROP_OFF, isPickupSame, pickupPojo, dropPojo);
                 break;
 
             case R.id.txtApply:
@@ -542,6 +496,55 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         }
     }
 
+    private void openAddressDialog(int typePickUp, boolean isDropOff, PickupPojo pojo1, DropPojo pojo2) {
+        AddressDialogRevised dialogRevised = new AddressDialogRevised(this, typePickUp, isDropOff, pojo1, pojo2);
+        dialogRevised.setOnSubmitListener(new AddressDialogRevised.onSubmitListener() {
+            @Override
+            public void onSubmit(int addressType, PickupPojo finalPickup, DropPojo finalDropOff, boolean isSame) {
+
+                Log.e("finalPickup", Functions.jsonString(finalPickup));
+                Log.e("finalDropOff", Functions.jsonString(finalDropOff));
+
+                isDropOffSame = isSame;
+
+                // set pickup
+                pickupPojo = new PickupPojo();
+                pickupPojo.PickZipCode = finalPickup.PickZipCode;
+                pickupPojo.PickArea = finalPickup.PickArea;
+                pickupPojo.PickAddress = finalPickup.PickAddress;
+                pickupPojo.PickCity = finalPickup.PickCity;
+
+                // set drop-off
+                dropPojo = new DropPojo();
+                dropPojo.DropAddress = finalDropOff.DropAddress;
+                dropPojo.DropCity = finalDropOff.DropCity;
+                dropPojo.DropZipCode = finalDropOff.DropZipCode;
+                dropPojo.DropArea = finalDropOff.DropArea;
+
+                // set pick-up text
+                String pickupString = String.format("%s, %s, %s, %s", finalPickup.PickAddress, finalPickup.PickArea, finalPickup.PickCity, finalPickup.PickZipCode);
+                if (TextUtils.isEmpty(pickupString) || pickupString.equals(", , ,")) {
+                    btnPickUpAddressAdd.setText("Add");
+                    txtPickupAddress.setVisibility(View.INVISIBLE);
+                } else {
+                    txtPickupAddress.setText(pickupString);
+                    btnPickUpAddressAdd.setText(getString(R.string.item_booking_edit));
+                }
+
+                // set drop-off text
+                String dropoffString = String.format("%s, %s, %s, %s", finalDropOff.DropAddress, finalDropOff.DropArea, finalDropOff.DropCity, finalDropOff.DropZipCode);
+                if (TextUtils.isEmpty(dropoffString) || dropoffString.equals(", , , ")) {
+                    btnDropAddressAdd.setText("Add");
+                    txtDropoffAddress.setVisibility(View.INVISIBLE);
+                } else {
+                    txtDropoffAddress.setText(dropoffString);
+                    btnDropAddressAdd.setText(getString(R.string.item_booking_edit));
+                }
+            }
+        });
+        dialogRevised.show();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -555,7 +558,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             @Override
             public void onSubmit(String address, String area, String city, String zipCode, boolean isSame) {
 
-                isAddressSame = isSame;
+                isDropOffSame = isSame;
 
                 txtPickupAddress.setVisibility(View.VISIBLE);
                 String addressString = String.format("%s, %s, %s, %s", address, area, city, zipCode);
@@ -648,28 +651,11 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             bookingRequest.Description = Functions.toStr(edtDescription);
 
-            if (!TextUtils.isEmpty(bookingRequest.DropAddress) && !TextUtils.isEmpty(bookingRequest.DropArea)
-                    && !TextUtils.isEmpty(bookingRequest.DropCity) && !TextUtils.isEmpty(bookingRequest.DropZipCode)) {
-
-                bookingRequest.IsDrop = true;
-            } else {
-
-                bookingRequest.IsDrop = false;
-            }
-
             bookingRequest.IsBodyShop = checkBodyWash.isChecked();
 
             if (!checkBodyWash.isChecked() && !checkService.isChecked()) {
                 Toast.makeText(this, "Select Service Type.", Toast.LENGTH_SHORT).show();
                 return;
-            }
-
-            if (!TextUtils.isEmpty(bookingRequest.PickAddress) && !TextUtils.isEmpty(bookingRequest.PickArea)
-                    && !TextUtils.isEmpty(bookingRequest.PickCity) && !TextUtils.isEmpty(bookingRequest.PickZipCode)) {
-
-                bookingRequest.IsPickup = true;
-            } else {
-                bookingRequest.IsPickup = false;
             }
 
             bookingRequest.IsService = checkService.isChecked();
@@ -681,10 +667,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                 Toast.makeText(this, "Select Date and Time.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
-
-
                 bookingRequest.PreferredDateTime = Functions.parseDate(bookingDateAndTime, bookingDateTimeFormate, Functions.ServerDateTimeFormat);
-
             }
 
             bookingRequest.ServiceCentreID = centreDetailPojo.ServiceCentreID;
@@ -692,6 +675,35 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
             bookingRequest.UserID = PrefUtils.getUserID(this);
 
             bookingRequest.VehicleID = carPojo.VehicleID;
+
+            bookingRequest.PickAddress = pickupPojo.PickAddress;
+            bookingRequest.PickArea = pickupPojo.PickArea;
+            bookingRequest.PickCity = pickupPojo.PickCity;
+            bookingRequest.PickZipCode = pickupPojo.PickZipCode;
+
+            bookingRequest.DropAddress = dropPojo.DropAddress;
+            bookingRequest.DropArea = dropPojo.DropArea;
+            bookingRequest.DropCity = dropPojo.DropCity;
+            bookingRequest.DropZipCode = dropPojo.DropZipCode;
+
+            if (!TextUtils.isEmpty(bookingRequest.PickAddress) && !TextUtils.isEmpty(bookingRequest.PickArea)
+                    && !TextUtils.isEmpty(bookingRequest.PickCity) && !TextUtils.isEmpty(bookingRequest.PickZipCode)) {
+
+                bookingRequest.IsPickup = true;
+            } else {
+                bookingRequest.IsPickup = false;
+            }
+
+            if (!TextUtils.isEmpty(bookingRequest.DropAddress) && !TextUtils.isEmpty(bookingRequest.DropArea)
+                    && !TextUtils.isEmpty(bookingRequest.DropCity) && !TextUtils.isEmpty(bookingRequest.DropZipCode)) {
+
+                bookingRequest.IsDrop = true;
+            } else {
+
+                bookingRequest.IsDrop = false;
+            }
+
+            Log.e("book_req", Functions.jsonString(bookingRequest));
 
             presenter.book(this, bookingRequest);
         } catch (Exception e) {

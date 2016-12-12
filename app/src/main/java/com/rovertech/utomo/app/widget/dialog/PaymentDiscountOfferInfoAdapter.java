@@ -63,8 +63,8 @@ public class PaymentDiscountOfferInfoAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.txtDetail.setText(String.format("%s %s off on %s", offerArrayList.get(position).DiscountAmount,
-                context.getString(R.string.Rs), offerArrayList.get(position).ServiceName));
+        holder.txtDetail.setText(String.format("%s%s off on %s", offerArrayList.get(position).DiscountAmount,
+                offerArrayList.get(position).DiscountType, offerArrayList.get(position).ServiceName));
         holder.txtDetail.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
         holder.txtCarNo.setVisibility(View.GONE);
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
 import com.rovertech.utomo.app.main.centreDetail.offer.api.SCOfferRequestAPI;
 import com.rovertech.utomo.app.main.centreDetail.offer.model.SCOfferResp;
@@ -34,20 +35,8 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
     }
 
     @Override
-    public void init() {
-
-        mAdminOfferView.init();
-        mAdminOfferView.initToolBar();
-    }
-
-    @Override
-    public void destroy() {
-
-
-    }
-
-    @Override
     public void callOfferApi() {
+        mAdminOfferView.ShowProgressDialog();
 
         AdminOfferRequestAPI api = UtomoApplication.retrofit.create(AdminOfferRequestAPI.class);
         Call<AdminOfferResp> call = api.adminOfferApi();
@@ -55,14 +44,15 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
         call.enqueue(new Callback<AdminOfferResp>() {
             @Override
             public void onResponse(Call<AdminOfferResp> call, Response<AdminOfferResp> response) {
+                mAdminOfferView.HideProgressDialog();
                 if (response.body().FetchAdminOffer.ResponseCode == 1) {
 
                     if (response.body().FetchAdminOffer.Data.size() > 0) {
-                        for (int i = 0; i < response.body().FetchAdminOffer.Data.size(); i++) {
+
+                       /* for (int i = 0; i < response.body().FetchAdminOffer.Data.size(); i++) {
                             itemList = response.body().FetchAdminOffer.Data.get(i).getAllOffersList();
-                            mAdminOfferView.HideProgressDialog();
-                            mAdminOfferView.setUpRecyclerView(setAdminOfferdpter(true));
-                        }
+                        }*/
+                        mAdminOfferView.setOfferList(response.body().FetchAdminOffer.Data.get(0).getAllOffersList());
                     }
 
                 }
@@ -70,6 +60,7 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
 
             @Override
             public void onFailure(Call<AdminOfferResp> call, Throwable t) {
+                mAdminOfferView.HideProgressDialog();
                 Log.e("error", t.toString());
                 RetrofitErrorHelper.showErrorMsg(t, c);
             }
@@ -79,6 +70,7 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
 
     @Override
     public void callSCoffferApi(int serviceCenterId) {
+        mAdminOfferView.ShowProgressDialog();
         try {
             SCOfferRequestAPI api = UtomoApplication.retrofit.create(SCOfferRequestAPI.class);
             Call<SCOfferResp> call = api.SCOfferApi(serviceCenterId);
@@ -86,20 +78,21 @@ public class AdminOfferPresenterImpl implements AdminOfferPresenter {
             call.enqueue(new Callback<SCOfferResp>() {
                 @Override
                 public void onResponse(Call<SCOfferResp> call, Response<SCOfferResp> response) {
+                    mAdminOfferView.HideProgressDialog();
 
                     Log.d("Resp", response.body().toString());
                     if (response.body().FetchServiceCentreOffer.ResponseCode == 1) {
 
                         for (int i = 0; i < response.body().FetchServiceCentreOffer.Data.size(); i++) {
                             itemList = response.body().FetchServiceCentreOffer.Data.get(i).getAllOffersList();
-                            mAdminOfferView.HideProgressDialog();
-                            mAdminOfferView.setUpRecyclerView(setAdminOfferdpter(false));
                         }
+                        mAdminOfferView.setOfferList(itemList);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<SCOfferResp> call, Throwable t) {
+                    mAdminOfferView.HideProgressDialog();
                     RetrofitErrorHelper.showErrorMsg(t, c);
                 }
 

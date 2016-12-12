@@ -14,4 +14,11 @@ public class PickupPojo implements Serializable {
     public String PickCity;
 
     public String PickZipCode;
+
+    public PickupPojo() {
+        PickAddress = "";
+        PickArea = "";
+        PickCity = "";
+        PickZipCode = "";
+    }
 }

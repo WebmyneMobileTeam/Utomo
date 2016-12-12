@@ -9,10 +9,6 @@ import com.rovertech.utomo.app.offers.adpter.AdminOfferAdapter;
  */
 public interface AdminOfferPresenter {
 
-    void init();
-
-    void destroy();
-
     void callOfferApi();
 
     void callSCoffferApi(int serviceCenterId);

@@ -68,9 +68,8 @@ public class BookingPresenterImpl implements BookingPresenter {
                 progressDialog.dismiss();
 
                 if (response.body() == null) {
-                    Functions.showToast(context, "Cannot load previous address");
+                    //Functions.showToast(context, "Cannot load previous address");
                 } else {
-
                     Log.e("address", Functions.jsonString(response.body()));
 
                     AddressResponse res = response.body();
@@ -180,7 +179,6 @@ public class BookingPresenterImpl implements BookingPresenter {
 
         final ProgressDialog progressDialog = ProgressDialog.show(context, "Booking", "Wait while Booking a request.", false, false);
 
-        Log.e("book_request", UtomoApplication.getInstance().getGson().toJson(bookingRequest));
         BookingRequestAPI bookingRequestAPI = UtomoApplication.retrofit.create(BookingRequestAPI.class);
         Call<RequestForBooking> requestForBookingCall = bookingRequestAPI.bookingService(bookingRequest);
         requestForBookingCall.enqueue(new Callback<RequestForBooking>() {

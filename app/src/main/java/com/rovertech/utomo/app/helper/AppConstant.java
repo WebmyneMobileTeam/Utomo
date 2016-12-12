@@ -125,4 +125,8 @@ public class AppConstant {
     // Terms & conditions link
     final public static String TC_URL = "http://www.google.com";
 
+    // Address Type constants
+    final public static int TYPE_PICK_UP = 1;
+    final public static int TYPE_DROP_OFF = 2;
+
 }

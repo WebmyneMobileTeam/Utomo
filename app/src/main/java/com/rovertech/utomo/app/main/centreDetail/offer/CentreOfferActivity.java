@@ -15,14 +15,16 @@ import com.rovertech.utomo.app.UtomoApplication;
 import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.Functions;
 import com.rovertech.utomo.app.helper.RetrofitErrorHelper;
-import com.rovertech.utomo.app.helper.VerticalSpaceItemDecoration;
 import com.rovertech.utomo.app.main.centreDetail.offer.api.SCOfferRequestAPI;
 import com.rovertech.utomo.app.main.centreDetail.offer.model.SCOfferResp;
 import com.rovertech.utomo.app.offers.AdminOfferPresenter;
 import com.rovertech.utomo.app.offers.AdminOfferPresenterImpl;
 import com.rovertech.utomo.app.offers.adpter.AdminOfferAdapter;
+import com.rovertech.utomo.app.offers.model.OfferPojo;
 import com.rovertech.utomo.app.offers.model.OfferView;
 import com.rovertech.utomo.app.widget.familiarrecyclerview.FamiliarRecyclerView;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,11 +32,10 @@ import retrofit2.Response;
 
 public class CentreOfferActivity extends AppCompatActivity implements OfferView {
 
-    private Toolbar toolbar;
-    private TextView txtCustomTitle, emptyNotifications;
     private int serviceCenterId;
     private AdminOfferPresenter mAdminOfferPresenter;
     private ProgressDialog dialog;
+    private AdminOfferAdapter adminOfferAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,61 +43,60 @@ public class CentreOfferActivity extends AppCompatActivity implements OfferView 
         setContentView(R.layout.activity_centre_offer);
         serviceCenterId = getIntent().getIntExtra("centreId", 0);
 
-        mAdminOfferPresenter = new AdminOfferPresenterImpl(this, this);
-        mAdminOfferPresenter.init();
+        init();
+
     }
 
-    @Override
     public void init() {
 
-        emptyNotifications = (TextView) findViewById(R.id.emptyNotifications);
+        initToolbar();
+
+        TextView emptyNotifications = (TextView) findViewById(R.id.emptyNotifications);
         emptyNotifications.setTypeface(Functions.getRegularFont(this));
 
-        //ShowProgressDialog();
+        FamiliarRecyclerView offerFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
+        adminOfferAdapter = new AdminOfferAdapter(this, new ArrayList<OfferPojo>(), false);
+        offerFamiliarRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        offerFamiliarRecyclerView.setAdapter(adminOfferAdapter);
+
+        mAdminOfferPresenter = new AdminOfferPresenterImpl(this, this);
+
         if (!Functions.isConnected(this)) {
             Functions.showErrorAlert(this, AppConstant.NO_INTERNET_CONNECTION, true);
 
         } else {
             mAdminOfferPresenter.callSCoffferApi(serviceCenterId);
-            //callSCoffferApi(serviceCenterId);
         }
     }
 
     @Override
-    public void initToolBar() {
-        initToolbar();
-    }
-
-    @Override
     public void ShowProgressDialog() {
-        //dialog.show();
+        if (dialog == null) {
+            dialog = new ProgressDialog(this);
+            dialog.setTitle("Please wait....");
+        }
+        dialog.show();
     }
 
     @Override
     public void HideProgressDialog() {
-        //dialog.dismiss();
+        if (dialog.isShowing())
+            dialog.dismiss();
     }
 
     @Override
-    public void setUpRecyclerView(AdminOfferAdapter adminOfferAdapter) {
-        FamiliarRecyclerView OfferFamiliarRecyclerView = (FamiliarRecyclerView) findViewById(R.id.notificationsRecyclerView);
-        // OfferFamiliarRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        OfferFamiliarRecyclerView.setLayoutManager(linearLayoutManager);
-        //Log.d("Itemlist", "Size= " + itemList.size() + "|| " + itemList.toString());
-        OfferFamiliarRecyclerView.setAdapter(adminOfferAdapter);
-        OfferFamiliarRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(8));
+    public void setOfferList(ArrayList<OfferPojo> offerList) {
+        adminOfferAdapter.setOfferList(offerList);
     }
-
 
     private void initToolbar() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         setSupportActionBar(toolbar);
 
-        txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
+        TextView txtCustomTitle = (TextView) findViewById(R.id.txtCustomTitle);
         txtCustomTitle.setText("Service Center Offers");
         txtCustomTitle.setTypeface(Functions.getBoldFont(this), Typeface.BOLD);
 
