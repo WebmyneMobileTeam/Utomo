@@ -453,7 +453,7 @@ public class Functions {
         }
         new TedPermission(context)
                 .setPermissionListener(permissionListene)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("If you reject permission, you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(permissions)
                 .check();
     }

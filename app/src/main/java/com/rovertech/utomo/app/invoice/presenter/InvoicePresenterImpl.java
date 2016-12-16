@@ -108,12 +108,15 @@ public class InvoicePresenterImpl implements InvoicePresenter {
                         view.hideProgress();
                         Functions.showToast(mContext, paymentApiResponse.Payment.ResponseMessage);
                     }
+                }else{
+                    Functions.showToast(mContext, "Something went wrong. Please try again.");
                 }
             }
 
             @Override
             public void onFailure(Call<PaymentApiResponse> call, Throwable t) {
-
+                view.hideProgress();
+                RetrofitErrorHelper.showErrorMsg(t, mContext);
             }
         });
     }
