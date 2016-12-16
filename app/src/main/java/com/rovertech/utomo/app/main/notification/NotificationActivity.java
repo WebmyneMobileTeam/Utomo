@@ -104,6 +104,15 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
         refreshItems();
     }
 
+    @Override
+    public void showProgress() {
+        dialog = ProgressDialog.show(this, "Loading", "Please wait", false);
+    }
+
+    @Override
+    public void hideProgress() {
+        dialog.dismiss();
+    }
 
     private void initToolbar() {
 

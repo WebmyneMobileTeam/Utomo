@@ -171,7 +171,7 @@ public class BookingPresenterImpl implements BookingPresenter {
     }
 
     @Override
-    public void book(final Context context, BookingRequest bookingRequest) {
+    public void book(final Context context, final BookingRequest bookingRequest) {
 
         if (bookingRequest == null) {
             return;
@@ -202,6 +202,7 @@ public class BookingPresenterImpl implements BookingPresenter {
                                 dialog.dismiss();
                                 Intent intent = new Intent(context, DrawerActivityRevised.class);
                                 intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);
+                                PrefUtils.setNotificationCarId(context, bookingRequest.VehicleID);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
 

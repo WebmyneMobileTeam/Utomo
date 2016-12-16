@@ -38,6 +38,7 @@ public class PrefUtils {
 
     public static String SETTINGS_OFFER = "SETTINGS_OFFER";
     public static String LAST_LOCATION = "LAST_LOCATION";
+    public static String NOTIFICATION_CLICK = "NOTIFICATION_CLICK";
     public static String SETTINGS_BOOKING = "SETTINGS_BOOKING";
 
     public static String WALLET_HISTORY = "WALLET_HISTORY";
@@ -284,8 +285,16 @@ public class PrefUtils {
             location = gson.fromJson(getLocationString, Location.class);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return location;
+    }
+
+    public static void setNotificationCarId(Context applicationContext, int carId) {
+        Prefs.with(applicationContext).save(NOTIFICATION_CLICK, carId);
+    }
+
+    public static int getNotificationCarId(Context context) {
+        return Prefs.with(context).getInt(NOTIFICATION_CLICK, 0);
     }
 }

@@ -109,15 +109,16 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
                                 }
                             });
-
                 }
             }
         });
     }
 
-    public static DashboardFragment newInstance() {
+    public static DashboardFragment newInstance(int carId) {
 
         Bundle args = new Bundle();
+        args.putInt("car_id", carId);
+        Log.e("car_id_dashboard", String.valueOf(carId));
         DashboardFragment fragment = new DashboardFragment();
         fragment.setArguments(args);
         return fragment;
@@ -145,7 +146,21 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
         Log.e("current_position", PrefUtils.getCurrentPosition(getActivity()) + "");
 
-        viewPager.setCurrentItem(PrefUtils.getCurrentPosition(getActivity()));
+        int position = 0;
+
+        if (getArguments().getInt("car_id", 0) == 0) {
+            viewPager.setCurrentItem(PrefUtils.getCurrentPosition(getActivity()));
+        } else {
+            for (int i = 0; i < data.size(); i++) {
+                if (getArguments().getInt("car_id", 0) == data.get(i).VehicleID) {
+                    position = i;
+                    break;
+                }
+            }
+
+            viewPager.setCurrentItem(position);
+            PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
+        }
 
         viewPager.setOffscreenPageLimit(0);
 

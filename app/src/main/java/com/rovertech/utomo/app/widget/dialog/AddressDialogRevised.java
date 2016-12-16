@@ -205,15 +205,6 @@ public class AddressDialogRevised extends BaseDialog implements View.OnClickList
         switch (v.getId()) {
             case R.id.btnOk:
                 sendAddress();
-               /* switch (addressType) {
-                    case 1:
-                        sendAddress();
-                        break;
-
-                    case 2:
-                        selectDropOffAddress();
-                        break;
-                }*/
                 break;
 
             case R.id.imgClose:
@@ -247,6 +238,7 @@ public class AddressDialogRevised extends BaseDialog implements View.OnClickList
     }
 
     private void setAddressPojo() {
+
         if (addressType == AppConstant.TYPE_PICK_UP) {
             finalPickupPojo = new PickupPojo();
             finalPickupPojo.PickArea = Functions.toStr(edtArea);
@@ -261,7 +253,7 @@ public class AddressDialogRevised extends BaseDialog implements View.OnClickList
             finalDropOffPojo.DropZipCode = Functions.toStr(edtZipCode);
         }
 
-        if(isSameAddress){
+        if (isSameAddress) {
             finalPickupPojo = new PickupPojo();
             finalPickupPojo.PickArea = Functions.toStr(edtArea);
             finalPickupPojo.PickAddress = Functions.toStr(edtAddress);
@@ -286,36 +278,21 @@ public class AddressDialogRevised extends BaseDialog implements View.OnClickList
     }
 
     private void setAddressDetails() {
-        if (addressType == AppConstant.TYPE_PICK_UP) {
-            edtAddress.setText(pickupPojo.PickAddress);
-            edtArea.setText(pickupPojo.PickArea);
-            edtCity.setText(pickupPojo.PickCity);
-            edtZipCode.setText(pickupPojo.PickZipCode);
 
-        } else {
-            edtAddress.setText(dropPojo.DropAddress);
-            edtArea.setText(dropPojo.DropArea);
-            edtCity.setText(dropPojo.DropCity);
-            edtZipCode.setText(dropPojo.DropZipCode);
+        if (pickupPojo != null & dropPojo != null) {
+            if (addressType == AppConstant.TYPE_PICK_UP) {
+                edtAddress.setText(pickupPojo.PickAddress);
+                edtArea.setText(pickupPojo.PickArea);
+                edtCity.setText(pickupPojo.PickCity);
+                edtZipCode.setText(pickupPojo.PickZipCode);
+
+            } else {
+                edtAddress.setText(dropPojo.DropAddress);
+                edtArea.setText(dropPojo.DropArea);
+                edtCity.setText(dropPojo.DropCity);
+                edtZipCode.setText(dropPojo.DropZipCode);
+            }
         }
-
-        /*this.bookingRequest = bookingRequest;
-        if (isPickUpAddress) {
-
-            if (!TextUtils.isEmpty(bookingRequest.PickZipCode)) {
-                edtAddress.setText(bookingRequest.PickAddress);
-                edtArea.setText(bookingRequest.PickArea);
-                edtCity.setText(bookingRequest.PickCity);
-                edtZipCode.setText(bookingRequest.PickZipCode);
-            }
-        } else {
-            if (!TextUtils.isEmpty(bookingRequest.DropZipCode)) {
-                edtAddress.setText(bookingRequest.DropAddress);
-                edtArea.setText(bookingRequest.DropArea);
-                edtCity.setText(bookingRequest.DropCity);
-                edtZipCode.setText(bookingRequest.DropZipCode);
-            }
-        }*/
     }
 
 }

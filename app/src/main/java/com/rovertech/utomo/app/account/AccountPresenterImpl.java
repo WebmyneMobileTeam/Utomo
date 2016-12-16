@@ -330,7 +330,7 @@ public class AccountPresenterImpl implements AccountPresenter {
     }
 
     private void processLogin(final Activity activity, final BasicLoginRequest loginRequest) {
-        Log.e("login_request", loginRequest.toString());
+        Log.e("login_request", Functions.jsonString(loginRequest));
 
         if (GCM_ID == null || GCM_ID == "") {
             onLogin(null, false, "", activity.getString(R.string.gcm_error));
@@ -350,7 +350,7 @@ public class AccountPresenterImpl implements AccountPresenter {
                         Functions.showToast(activity, "Error occurred.");
 
                     } else {
-                        Log.e("login_response", response.body().toString());
+                        Log.e("login_response", Functions.jsonString(response.body()));
 
                         ManiBasicLoginSignUp loginOutput = response.body();
 

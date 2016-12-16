@@ -10,5 +10,6 @@ public interface NotificationView {
     void initToolBar();
     void setUpRecyclerView(NotificationAdapter notificationAdapter);
     void onAcceptRejectCallback(String message);
-
+    void showProgress();
+    void hideProgress();
 }

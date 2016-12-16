@@ -552,8 +552,6 @@ public class ServiceCenterListActivity extends AppCompatActivity implements Serv
 
     private void doStuff() {
 
-        Log.e("current_position back", PrefUtils.getCurrentPosition(this) + "");
-
         if (PrefUtils.getRedirectLogin(this) == AppConstant.FROM_SKIP && PrefUtils.isUserLoggedIn(this)) {
             Intent intent = new Intent(this, DrawerActivityRevised.class);
             intent.putExtra(AppConstant.FRAGMENT_VALUE, AppConstant.HOME_FRAGMENT);

@@ -37,8 +37,8 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
     private View parentView;
     private AccountPresenter presenter;
     private Button btnLogin;
-    private MaterialEditText edtMobileNumber, edtName, edtEmail, edtPassword, edtReferralCode;
-    private MaterialAutoCompleteTextView edtCity;
+    private MaterialEditText edtName, edtEmail, edtPassword, edtReferralCode;
+    private MaterialAutoCompleteTextView edtCity, edtMobileNumber;
     private ProgressDialog progressDialog;
     private int cityId = 0;
 
@@ -63,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity implements AccountView, Vi
         LinearLayout cityLayout = (LinearLayout) findViewById(R.id.cityLayout);
         LinearLayout socialBar = (LinearLayout) findViewById(R.id.socialBar);
         txtForget = (TextView) findViewById(R.id.txtForget);
-        edtMobileNumber = (MaterialEditText) findViewById(R.id.edtMobileNumber);
+        edtMobileNumber = (MaterialAutoCompleteTextView) findViewById(R.id.edtMobileNumber);
         edtEmail = (MaterialEditText) findViewById(R.id.edtEmail);
         edtName = (MaterialEditText) findViewById(R.id.edtName);
         edtPassword = (MaterialEditText) findViewById(R.id.edtPassword);

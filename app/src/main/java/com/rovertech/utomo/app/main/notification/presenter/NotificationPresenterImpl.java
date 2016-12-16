@@ -57,13 +57,15 @@ public class NotificationPresenterImpl implements NotificationPresenter {
 
     @Override
     public void callNotificationApi(int userid, final int type) {
+        mNotificationView.showProgress();
+
         NotificationRequestAPI api = UtomoApplication.retrofit.create(NotificationRequestAPI.class);
         Call<NotificationResp> call = api.notificationApi(userid);
 
         call.enqueue(new Callback<NotificationResp>() {
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
-
+                mNotificationView.hideProgress();
                 try {
                     notificationItems = new ArrayList<>();
                     Log.e("onResponse", Functions.jsonString(response.body()));
@@ -80,19 +82,20 @@ public class NotificationPresenterImpl implements NotificationPresenter {
             public void onFailure(Call<NotificationResp> call, Throwable t) {
                 Log.e("error", t.toString());
                 RetrofitErrorHelper.showErrorMsg(t, c);
+                mNotificationView.hideProgress();
             }
         });
     }
 
     @Override
     public void callNotificationReadApi(Context context) {
-
         NotificationReadAPI api = UtomoApplication.retrofit.create(NotificationReadAPI.class);
         Call<NotificationResp> call = api.notificationReadApi(PrefUtils.getUserID(context));
 
         call.enqueue(new Callback<NotificationResp>() {
             @Override
             public void onResponse(Call<NotificationResp> call, Response<NotificationResp> response) {
+
                 try {
                     Log.e("onResponse", Functions.jsonString(response.body()));
                     if (response.body().FetchNotification.ResponseCode == 1) {
@@ -105,6 +108,8 @@ public class NotificationPresenterImpl implements NotificationPresenter {
 
             @Override
             public void onFailure(Call<NotificationResp> call, Throwable t) {
+
+                mNotificationView.hideProgress();
                 Log.e("error", t.toString());
                 RetrofitErrorHelper.showErrorMsg(t, c);
             }

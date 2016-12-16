@@ -17,6 +17,9 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.rovertech.utomo.app.R;
+import com.rovertech.utomo.app.UtomoApplication;
+import com.rovertech.utomo.app.gcm.model.NotificationModel;
+import com.rovertech.utomo.app.helper.AppConstant;
 import com.rovertech.utomo.app.helper.PrefUtils;
 import com.rovertech.utomo.app.main.drawer.DrawerActivityRevised;
 
@@ -81,17 +84,20 @@ public class GcmMessageHandler extends IntentService {
     // a GCM message.
     private void sendNotification(String message) {
 
-        Log.e("message", message);
+//        Log.e("message", message);
 
-        JSONObject object = null;
-        String strMsg = "";
+        NotificationModel notificationModel = UtomoApplication.getInstance().getGson().fromJson(message, NotificationModel.class);
+        Log.e("car_id_gcm", String.valueOf(notificationModel.getVehicalId()));
 
-        try {
-            object = new JSONObject(message);
-            strMsg = object.getString("Message");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        JSONObject object = null;
+//        String strMsg = "";
+//
+//        try {
+//            object = new JSONObject(message);
+//            strMsg = object.getString("Message");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
         int icon = R.mipmap.ic_launcher;
         long when = System.currentTimeMillis();
@@ -107,14 +113,18 @@ public class GcmMessageHandler extends IntentService {
                         .setSmallIcon(icon)
                         .setContentTitle(title)
                         .setAutoCancel(true)
-                        .setContentText(String.format("%s", strMsg))
+                        .setContentText(String.format("%s", notificationModel.getMessage()))
                         .setWhen(when)
                         .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(String.format("%s", strMsg)))
+                                .bigText(String.format("%s", notificationModel.getMessage())))
                         .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND);
 
         Intent resultIntent = new Intent(this, DrawerActivityRevised.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        if (notificationModel.getNotificationTypeId() == AppConstant.SERVICE_OFFER) {
+            PrefUtils.setNotificationCarId(getApplicationContext(), notificationModel.getVehicalId());
+        }
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
@@ -122,12 +132,12 @@ public class GcmMessageHandler extends IntentService {
         // TODO: 16-05-2016  If Else for Settings
 
         try {
-            if (object.getString("NotificationFor").equalsIgnoreCase("Service")) {
+            if (notificationModel.getNotificationTypeId() == AppConstant.SERVICE_OFFER) {
                 if (PrefUtils.getSettingsBooking(getApplicationContext())) {
                     notificationManager.notify(m, mBuilder.build());
                 }
 
-            } else if (object.getString("NotificationFor").equalsIgnoreCase("AdminOffer")) {
+            } else if (notificationModel.getNotificationTypeId() == AppConstant.ADMIN_OFFER) {
                 if (PrefUtils.getSettingsOffer(getApplicationContext())) {
                     notificationManager.notify(m, mBuilder.build());
                 }

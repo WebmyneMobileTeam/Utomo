@@ -113,6 +113,7 @@ public class AppConstant {
     public static int FROM_START = 1;
     public static int FROM_SKIP = 2;
     public static int FROM_NO_CAR = 3;
+    public static int FROM_PUSH_NOTIFICATION = 4;
 
     // Redirect Booking Page
     public static int FROM_LOGIN = 1;
@@ -128,5 +129,9 @@ public class AppConstant {
     // Address Type constants
     final public static int TYPE_PICK_UP = 1;
     final public static int TYPE_DROP_OFF = 2;
+
+    // Pushnotification type ID
+    public static final int ADMIN_OFFER = 1;
+    public static final int SERVICE_OFFER = 2;
 
 }

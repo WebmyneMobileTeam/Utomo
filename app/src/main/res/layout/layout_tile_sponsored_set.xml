@@ -29,7 +29,7 @@
                 android:layout_weight="1"
                 android:clickable="false"
                 android:padding="4dp"
-                android:text="Recommended Service Center"
+                android:text="Recommended Service Centre"
                 android:textColor="?android:textColorSecondary"
                 android:textSize="@dimen/N_TEXT" />
 

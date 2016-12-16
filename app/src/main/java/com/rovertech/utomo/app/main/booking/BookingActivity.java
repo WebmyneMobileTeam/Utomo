@@ -527,6 +527,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                     btnPickUpAddressAdd.setText("Add");
                     txtPickupAddress.setVisibility(View.INVISIBLE);
                 } else {
+                    txtPickupAddress.setVisibility(View.VISIBLE);
                     txtPickupAddress.setText(pickupString);
                     btnPickUpAddressAdd.setText(getString(R.string.item_booking_edit));
                 }
@@ -538,6 +539,7 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
                     txtDropoffAddress.setVisibility(View.INVISIBLE);
                 } else {
                     txtDropoffAddress.setText(dropoffString);
+                    txtDropoffAddress.setVisibility(View.VISIBLE);
                     btnDropAddressAdd.setText(getString(R.string.item_booking_edit));
                 }
             }
@@ -632,6 +634,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         bookingRequest.PickArea = "";
         bookingRequest.PickCity = "";
         bookingRequest.PickZipCode = "";
+
+        pickupPojo = new PickupPojo();
     }
 
     private void removeDropAddress() {
@@ -642,6 +646,8 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
         bookingRequest.DropArea = "";
         bookingRequest.DropCity = "";
         bookingRequest.DropZipCode = "";
+
+        dropPojo = new DropPojo();
 
     }
 
@@ -676,15 +682,19 @@ public class BookingActivity extends AppCompatActivity implements BookingView, V
 
             bookingRequest.VehicleID = carPojo.VehicleID;
 
-            bookingRequest.PickAddress = pickupPojo.PickAddress;
-            bookingRequest.PickArea = pickupPojo.PickArea;
-            bookingRequest.PickCity = pickupPojo.PickCity;
-            bookingRequest.PickZipCode = pickupPojo.PickZipCode;
+            if (pickupPojo != null) {
+                bookingRequest.PickAddress = pickupPojo.PickAddress;
+                bookingRequest.PickArea = pickupPojo.PickArea;
+                bookingRequest.PickCity = pickupPojo.PickCity;
+                bookingRequest.PickZipCode = pickupPojo.PickZipCode;
+            }
 
-            bookingRequest.DropAddress = dropPojo.DropAddress;
-            bookingRequest.DropArea = dropPojo.DropArea;
-            bookingRequest.DropCity = dropPojo.DropCity;
-            bookingRequest.DropZipCode = dropPojo.DropZipCode;
+            if (dropPojo != null) {
+                bookingRequest.DropAddress = dropPojo.DropAddress;
+                bookingRequest.DropArea = dropPojo.DropArea;
+                bookingRequest.DropCity = dropPojo.DropCity;
+                bookingRequest.DropZipCode = dropPojo.DropZipCode;
+            }
 
             if (!TextUtils.isEmpty(bookingRequest.PickAddress) && !TextUtils.isEmpty(bookingRequest.PickArea)
                     && !TextUtils.isEmpty(bookingRequest.PickCity) && !TextUtils.isEmpty(bookingRequest.PickZipCode)) {

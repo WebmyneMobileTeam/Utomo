@@ -75,7 +75,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     private int OfferSize = 0, notificationSize = 0;
 
     private UserProfileOutput profile;
-    ImageView profilePic;
+    private ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,8 +276,6 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     protected void onResume() {
         super.onResume();
 
-        Log.e("current_position resume", PrefUtils.getCurrentPosition(this) + "");
-
         profile = PrefUtils.getUserFullProfileDetails(this);
         txtName.setText(String.format("%s", profile.Name));
 
@@ -305,7 +303,6 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
             PrefUtils.setRefreshDashboard(this, false);
             presenter.openDashboard();
         }
-
     }
 
     private void callOfferApi() {
@@ -392,7 +389,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     @Override
     public void actionHome() {
         navigationView.setCheckedItem(R.id.drawer_dashboard);
-        initFragment(DashboardFragment.newInstance(), "Dashboard");
+        initFragment(DashboardFragment.newInstance(PrefUtils.getNotificationCarId(DrawerActivityRevised.this)), "Dashboard");
     }
 
     @Override
@@ -492,6 +489,7 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        PrefUtils.setNotificationCarId(this, 0);
         PrefUtils.setCurrentPosition(this, 0);
     }
 
