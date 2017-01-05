@@ -39,6 +39,7 @@ public class PrefUtils {
     public static String SETTINGS_OFFER = "SETTINGS_OFFER";
     public static String LAST_LOCATION = "LAST_LOCATION";
     public static String NOTIFICATION_CLICK = "NOTIFICATION_CLICK";
+    public static String NOTIFICATION = "NOTIFICATION";
     public static String SETTINGS_BOOKING = "SETTINGS_BOOKING";
 
     public static String WALLET_HISTORY = "WALLET_HISTORY";
@@ -297,4 +298,13 @@ public class PrefUtils {
     public static int getNotificationCarId(Context context) {
         return Prefs.with(context).getInt(NOTIFICATION_CLICK, 0);
     }
+
+    public static void setNotificationClick(Context applicationContext, boolean isTrue) {
+        Prefs.with(applicationContext).save(NOTIFICATION, isTrue);
+    }
+
+    public static boolean getNotificationClick(Context context) {
+        return Prefs.with(context).getBoolean(NOTIFICATION, false);
+    }
+
 }

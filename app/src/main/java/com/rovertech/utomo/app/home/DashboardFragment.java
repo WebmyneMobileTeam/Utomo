@@ -150,6 +150,7 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
         if (getArguments().getInt("car_id", 0) == 0) {
             viewPager.setCurrentItem(PrefUtils.getCurrentPosition(getActivity()));
+
         } else {
             for (int i = 0; i < data.size(); i++) {
                 if (getArguments().getInt("car_id", 0) == data.get(i).VehicleID) {
@@ -157,7 +158,6 @@ public class DashboardFragment extends Fragment implements DashboardView {
                     break;
                 }
             }
-
             viewPager.setCurrentItem(position);
             PrefUtils.setCurrentCarSelected(getActivity(), data.get(position));
         }
@@ -193,6 +193,8 @@ public class DashboardFragment extends Fragment implements DashboardView {
 
             }
         });
+
+        PrefUtils.setNotificationCarId(getActivity(), 0);
     }
 
     @Override

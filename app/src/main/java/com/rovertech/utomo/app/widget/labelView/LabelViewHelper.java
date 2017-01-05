@@ -102,7 +102,7 @@ public class LabelViewHelper {
 
         textPaint.setTextSize(textSize);
         textPaint.setColor(textColor);
-        textPaint.setTypeface(Typeface.createFromAsset(context.getAssets(), textFont));
+        textPaint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/" + textFont));
         textPaint.getTextBounds(text, 0, text.length(), textBound);
 
         canvas.drawTextOnPath(text, rectPath, (1.4142135f * actualDistance) / 2 - textBound.width() / 2, textBound.height() / 2, textPaint);

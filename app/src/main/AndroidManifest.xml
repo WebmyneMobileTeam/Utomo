@@ -158,7 +158,10 @@
             android:name=".main.drawer.DrawerActivityRevised"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".invoice.OrderDetailsActivity"></activity>
+        <activity
+            android:name=".invoice.OrderDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
     </application>
 
 </manifest>

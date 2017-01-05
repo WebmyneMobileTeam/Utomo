@@ -276,6 +276,13 @@ public class DrawerActivityRevised extends AppCompatActivity implements DrawerVi
     protected void onResume() {
         super.onResume();
 
+        if (PrefUtils.getNotificationClick(this)) {
+            Log.e("car_id_drawer", PrefUtils.getNotificationCarId(this) + "#");
+            PrefUtils.setNotificationClick(this, false);
+            PrefUtils.setRefreshDashboard(this, true);
+            //presenter.openDashboard();
+        }
+
         profile = PrefUtils.getUserFullProfileDetails(this);
         txtName.setText(String.format("%s", profile.Name));
 

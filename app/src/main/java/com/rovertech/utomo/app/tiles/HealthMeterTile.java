@@ -1,7 +1,6 @@
 package com.rovertech.utomo.app.tiles;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,9 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.liulishuo.magicprogresswidget.MagicProgressBar;
 import com.rovertech.utomo.app.R;
 import com.rovertech.utomo.app.helper.Functions;
+import com.rovertech.utomo.app.widget.DigitTextView;
 import com.rovertech.utomo.app.widget.progress.ProgressLayout;
 
 /**
@@ -26,7 +25,8 @@ public class HealthMeterTile extends LinearLayout {
 
     private ProgressLayout progressLayout;
     private ProgressBar progressBar;
-    private TextView txtTitle, txtPercent;
+    private TextView txtTitle;
+    private DigitTextView txtPercent;
 
     public HealthMeterTile(Context context) {
         super(context);
@@ -52,12 +52,11 @@ public class HealthMeterTile extends LinearLayout {
 
     private void setTypeface() {
         txtTitle.setTypeface(Functions.getBoldFont(context), Typeface.BOLD);
-        txtPercent.setTypeface(Typeface.createFromAsset(context.getAssets(), "digit_font.ttf"), Typeface.BOLD);
     }
 
     private void findViewById() {
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
-        txtPercent = (TextView) parentView.findViewById(R.id.txtPercent);
+        txtPercent = (DigitTextView) parentView.findViewById(R.id.txtPercent);
 
         progressBar = (ProgressBar) parentView.findViewById(R.id.pbar);
 

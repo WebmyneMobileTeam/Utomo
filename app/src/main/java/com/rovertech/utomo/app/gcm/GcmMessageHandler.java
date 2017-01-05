@@ -124,6 +124,7 @@ public class GcmMessageHandler extends IntentService {
 
         if (notificationModel.getNotificationTypeId() == AppConstant.SERVICE_OFFER) {
             PrefUtils.setNotificationCarId(getApplicationContext(), notificationModel.getVehicalId());
+            PrefUtils.setNotificationClick(getApplicationContext(), true);
         }
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

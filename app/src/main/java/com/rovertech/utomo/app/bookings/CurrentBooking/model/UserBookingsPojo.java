@@ -15,6 +15,10 @@ public class UserBookingsPojo {
 
     public String PreferendDateTime;
 
+    public boolean IsCarDelivered;
+
+    public String IsCarDeliveredDateTime;
+
     public String Description;
 
     public String SCImageName;
@@ -32,5 +36,6 @@ public class UserBookingsPojo {
         this.SCImageName = "";
         this.SCName = "";
         Status = "";
+        IsCarDeliveredDateTime = "";
     }
 }

@@ -97,17 +97,23 @@ public class CurrentServiceTile extends LinearLayout {
             txtRating.setVisibility(GONE);
             txtServiceStatus.setVisibility(VISIBLE);
             txtTitle.setVisibility(GONE);
-
+            txtCompleteDate.setVisibility(GONE);
 
         } else if (bookingViewMode == MyBookingFragment.PASTBOOKING) {
 
             //// TODO: 17-05-2016 From WS changes, review rating avg
             txtReviews.setVisibility(GONE);
             txtRating.setVisibility(GONE);
+            txtCompleteDate.setVisibility(VISIBLE);
 
             txtServiceStatus.setVisibility(VISIBLE);
             txtTitle.setText(String.format("%s", "Current Car Service"));
             txtTitle.setVisibility(GONE);
+            if (userBookingsPojo.IsCarDelivered) {
+                txtCompleteDate.setText(String.format("Car Delivered on: %s", userBookingsPojo.IsCarDeliveredDateTime));
+            } else {
+                txtCompleteDate.setVisibility(GONE);
+            }
         }
 
         bookingId = userBookingsPojo.BookingID;
@@ -115,7 +121,7 @@ public class CurrentServiceTile extends LinearLayout {
         txtCenterName.setText(userBookingsPojo.SCName);
         Functions.LoadImage(imgCenter, userBookingsPojo.SCImageName, context);
         txtBookingDate.setText(String.format("Booking on: %s", Functions.displayOnlyDate(userBookingsPojo.PreferendDateTime)));
-        txtServiceStatus.setText(String.format("Current Service Status: %s", userBookingsPojo.Status));
+        txtServiceStatus.setText(String.format("Service Status: %s", userBookingsPojo.Status));
 
     }
 
@@ -144,7 +150,7 @@ public class CurrentServiceTile extends LinearLayout {
         Functions.LoadImage(imgCenter, data.SCImageName, context);
         txtCenterName.setText(data.ServiceCentreName);
         txtBookingDate.setText(String.format("Booked on: %s", data.CreatedDate));
-        txtServiceStatus.setText(String.format("Current Service Status: %s", data.Status));
+        txtServiceStatus.setText(String.format("Service Status: %s", data.Status));
 
         if (data.ReviewCount == 0) {
             txtReviews.setText("No Reviews");
