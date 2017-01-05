@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@color/white"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:text="My Cars"
+            android:textColor="@color/white"
+            android:textSize="@dimen/M_TEXT" />
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_action_close"
+            android:tint="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:padding="16dp"
-                android:text="My Cars"
-                android:textColor="@color/black"
-                android:textSize="@dimen/M_TEXT" />
-
-            <ImageView
-                android:id="@+id/imgClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/ic_action_close"
-                android:tint="@color/black" />
-
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/txtTitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/primary"
             android:gravity="center"
-            android:padding="8dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="123"
+            android:textColor="@color/white"
             android:textSize="@dimen/M_TEXT"
             android:visibility="gone" />
 
         <ListView
             android:id="@+id/carListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="4dp" />
-
-        <TextView
-            android:id="@+id/emptyTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
 
     </LinearLayout>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/emptyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+</LinearLayout>

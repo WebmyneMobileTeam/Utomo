@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,23 +36,24 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
     private TextView txtTitle, txtTitle1, emptyTextView;
     private ImageView imgClose;
     private ListView carListView;
+    private LinearLayout llParent;
     ArrayList<OfferCategory> offerList;
 
     private onSubmitListener onSubmitListener;
-    private String type, title,desc;
+    private String type, title, desc;
     boolean adminFlag;
 
     public void setOnSubmitListener(AdminOfferInfoDialog.onSubmitListener onSubmitListener) {
         this.onSubmitListener = onSubmitListener;
     }
 
-    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, boolean adminFlag, String title,String desc) {
+    public AdminOfferInfoDialog(Context context, ArrayList<OfferCategory> offerlist, boolean adminFlag, String title, String desc) {
         super(context);
         this.offerList = offerlist;
         this.context = context;
         this.adminFlag = adminFlag;
         this.title = title;
-        this.desc=desc;
+        this.desc = desc;
     }
 
     @Override
@@ -57,6 +61,8 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         widthScale(0.85f);
         showAnim(new SlideLeftEnter());
         dismissAnim(new SlideRightExit());
+
+        setCanceledOnTouchOutside(false);
 
         parentView = View.inflate(context, R.layout.layout_car_list_dialog, null);
 
@@ -71,6 +77,7 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         txtTitle = (TextView) parentView.findViewById(R.id.txtTitle);
         txtTitle1 = (TextView) parentView.findViewById(R.id.txtTitle1);
         imgClose = (ImageView) parentView.findViewById(R.id.imgClose);
+        llParent = (LinearLayout) parentView.findViewById(R.id.llParent);
 
         txtTitle1.setVisibility(View.VISIBLE);
         txtTitle1.setText(desc);
@@ -83,8 +90,8 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         carListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (onSubmitListener != null)
-                    onSubmitListener.onSubmit(offerList.get(position));
+                /*if (onSubmitListener != null)
+                    onSubmitListener.onSubmit(offerList.get(position));*/
             }
         });
 
@@ -107,12 +114,8 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         setCancelable(false);
 
         imgClose.setOnClickListener(this);
-        parentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        llParent.setOnClickListener(this);
 
-            }
-        });
     }
 
     @Override
@@ -120,6 +123,8 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         switch (v.getId()) {
             case R.id.imgClose:
                 dismiss();
+                break;
+            case R.id.llParent:
                 break;
         }
     }
@@ -144,7 +149,7 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
         @Override
         protected ArrayList<OfferCategory> doInBackground(String... params) {
             ArrayList<OfferCategory> result = new ArrayList<OfferCategory>();
-            result=offerList;
+            result = offerList;
             return result;
         }
 
@@ -153,7 +158,7 @@ public class AdminOfferInfoDialog extends BaseDialog implements View.OnClickList
             super.onPostExecute(offerCategories);
             dialog.dismiss();
 
-            AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerCategories,adminFlag);
+            AdminOfferInfoAdapter adapter = new AdminOfferInfoAdapter(context, offerCategories, adminFlag);
             adapter.setItemList(offerCategories);
             adapter.notifyDataSetChanged();
             carListView.setAdapter(adapter);
